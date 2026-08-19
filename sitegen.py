@@ -325,12 +325,13 @@ def _cb_cols(key: str):
 
 def _cb_row(b, rank, key: str):
     """按策略返回一行 cell 列表（与 _cb_cols 对齐）"""
+    # 溢价% / 税前YTM% 表头已含单位，单元格只显示数值
     if key == "high_ytm":
         return [
             _code_with_rank(b.get("code", ""), rank), b.get("name", ""),
             _fmt(b.get("price")),
-            _fmt(b.get("premium_rate")) + "%" if b.get("premium_rate") is not None else "-",
-            _fmt(b.get("ytm_before_tax")) + "%" if b.get("ytm_before_tax") is not None else "-",
+            _fmt(b.get("premium_rate")) if b.get("premium_rate") is not None else "-",
+            _fmt(b.get("ytm_before_tax")) if b.get("ytm_before_tax") is not None else "-",
             _fmt(b.get("remaining_years")) if b.get("remaining_years") is not None else "-",
             _fmt(b.get("remaining_size")) if b.get("remaining_size") is not None else "-",
             _short_concept(b.get("concept")),
@@ -338,7 +339,7 @@ def _cb_row(b, rank, key: str):
     return [
         _code_with_rank(b.get("code", ""), rank), b.get("name", ""),
         _fmt(b.get("price")),
-        _fmt(b.get("premium_rate")) + "%" if b.get("premium_rate") is not None else "-",
+        _fmt(b.get("premium_rate")) if b.get("premium_rate") is not None else "-",
         _fmt(b.get("remaining_size")) if b.get("remaining_size") is not None else "-",
         _short_concept(b.get("concept")),
     ]

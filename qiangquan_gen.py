@@ -144,7 +144,23 @@ tr:hover td{background:#f1f5f9}
 .action-watch{background:rgba(34,197,94,.1);color:#15803d}
 .action-caution{background:#eef3ef;color:#64796e}
 .action-avoid{background:#e8ede9;color:#8a9990}
-@media(max-width:768px){th,td{padding:6px 6px;font-size:12px}.bar .search{width:110px}.c-mh{display:none!important}th{white-space:normal;word-break:break-all}}
+.detail-btn{background:var(--blue-l);color:var(--accent);border:none;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer}
+.detail-btn:active{opacity:.7}
+.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px}
+.dlg{background:#fff;border-radius:14px;max-width:560px;width:100%;max-height:86vh;overflow-y:auto;padding:18px 20px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.dlg-h{display:flex;align-items:center;justify-content:space-between;font-size:17px;font-weight:700;margin-bottom:4px}
+.dlg-h .x{background:#f1f5f9;border:1px solid var(--border);width:30px;height:30px;border-radius:8px;font-size:16px;cursor:pointer;color:var(--muted)}
+.dlg-sub{color:var(--muted);font-size:12px;margin-bottom:14px}
+.blk{margin-bottom:14px}
+.blk h4{font-size:13px;color:var(--accent);margin-bottom:8px;border-left:3px solid var(--accent);padding-left:8px}
+.dlg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.dlg-grid.d3{grid-template-columns:repeat(3,1fr)}
+.dit{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.dl{font-size:11px;color:var(--muted);margin-bottom:3px}
+.dv{font-size:14px;font-weight:700}
+.df{font-size:11px;color:var(--muted);margin-top:3px}
+.grey{color:var(--muted);font-weight:400;font-size:12px}
+@media(max-width:768px){th,td{padding:6px 6px;font-size:12px}.bar .search{width:110px}.c-mh{display:none!important}th{white-space:normal;word-break:break-all}.dlg{padding:14px}.dlg-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -188,7 +204,7 @@ function render(){
     return sortDesc?-r:r;
   });
   var h = "<table><thead><tr>";
-  var cols = [["total_score","评分",1],["stock_code","代码/名称",1],["progress","进度",1],["total_scale","规模(亿)",0],["per_share_amount","百元含权",1],["circ_mv","预估流通(亿)",0],["one_hand_shares","一手党(股)",0],["price","正股价",0],["industry","行业",0],["","评级",1],["action","操作建议",1]];
+  var cols = [["total_score","评分",1],["stock_code","代码/名称",1],["progress","进度",1],["total_scale","规模(亿)",0],["per_share_amount","百元含权",1],["circ_mv","预估流通(亿)",0],["one_hand_shares","一手党(股)",0],["price","正股价",0],["industry","行业",0],["","评级",1],["action","操作建议",1],["","明细",1]];
   for(var i=0;i<cols.length;i++){ h += "<th"+(cols[i][2]===0?" class='c-mh'":"")+" onclick=window.sortB('"+cols[i][0]+"')>"+cols[i][1]+(sortField===cols[i][0]?(sortDesc?" ↓":" ↑"):"")+"</th>"; }
   h += "</tr></thead><tbody>";
   for(var i=0;i<list.length;i++){
@@ -204,13 +220,75 @@ function render(){
       "<td class='c-mh'>"+fmt(b.price)+"</td>",
       "<td class='c-mh' style='font-size:12px'>"+(b.industry||"-")+"</td>",
       "<td><span class='rating "+ratingCls(b.rating)+"'>"+(b.rating||"-")+"</span></td>",
-      "<td><span class='actionsel "+actionCls(b.action)+"'>"+(b.action||"-")+"</span></td>"
+      "<td><span class='actionsel "+actionCls(b.action)+"'>"+(b.action||"-")+"</span></td>",
+      "<td><button class='detail-btn' onclick=window.showD('"+b.stock_code+"')>明细</button></td>"
     ];
     h += "<tr>"+cells.join("")+"</tr>";
   }
   if(!list.length) h = "<div class='empty'>暂无数据</div>"; else h += "</tbody></table>";
   document.getElementById("table-wrap").innerHTML = h;
 }
+function oneHandDetail(b){
+  var mkt = b.market || (String(b.stock_code).charAt(0)==="6"?"沪":String(b.stock_code).charAt(0)==="4"||String(b.stock_code).charAt(0)==="8"?"北":"深");
+  if(mkt==="沪" && b.one_hand_shares){
+    var minS = Number(b.one_hand_shares)||0;
+    var real = Number(b.per_hand_shares)||0;
+    var cap = Math.round(real/100)*100; cap = cap<real? cap+100: cap;
+    var line = "沪市一手党最低<b>"+minS+"</b>股 · 实际配售约<b>"+cap+"</b>股";
+    if(b.price){ line += "<br><span class='grey'>按现价 "+fmt(b.price)+" 元，约需 <b>"+Math.round(cap*b.price)+"</b> 元</span>"; }
+    return line;
+  }
+  if(b.one_hand_shares){
+    var line = "一手党<b>"+Number(b.one_hand_shares)+"</b>股";
+    if(b.price){ line += " · 按现价 "+fmt(b.price)+" 元，约需 <b>"+Math.round(Number(b.one_hand_shares)*b.price)+"</b> 元"; }
+    return line;
+  }
+  return "-";
+}
+window.showD = function(code){
+  var b = null;
+  for(var i=0;i<DATA.length;i++){ if(String(DATA[i].stock_code)===code){ b=DATA[i]; break; } }
+  if(!b) return;
+  var mkt = b.market || (String(b.stock_code).charAt(0)==="6"?"沪":String(b.stock_code).charAt(0)==="4"||String(b.stock_code).charAt(0)==="8"?"北":"深");
+  var sd = b.score_details || {};
+  var dRows = "";
+  var keys = Object.keys(sd);
+  for(var i=0;i<keys.length;i++){
+    var k=keys[i], v=sd[k]||{};
+    dRows += "<div class='dit'><div class='dl'>"+k+"</div><div class='dv'>"+(v.score>0?"+":"")+(v.score||0)+(v.max>0?"/"+v.max:"")+"</div><div class='df'>"+(v.factor||"")+"</div></div>";
+  }
+  var ov = document.createElement("div");
+  ov.className="overlay"; ov.id="dlg";
+  ov.innerHTML =
+  "<div class='dlg'>"+
+    "<div class='dlg-h'><span>"+b.stock_name+" ("+b.stock_code+")</span><button class='x' onclick='window.closeD()'>×</button></div>"+
+    "<div class='dlg-sub'>"+b.bond_name+" · "+(b.board||"-")+" · "+b.industry+" · "+b.progress+" · 评级 <span class='rating "+ratingCls(b.rating)+"'>"+(b.rating||"-")+"</span></div>"+
+    "<div class='blk'><h4>抢权核心</h4><div class='dlg-grid'>"+
+      "<div class='dit'><div class='dl'>总分</div><div class='dv' style='font-size:20px'>"+ (b.total_score||0) +"</div></div>"+
+      "<div class='dit'><div class='dl'>操作建议</div><div class='dv' style='font-size:12px'>"+actionselHtml(b.action)+"</div></div>"+
+      "<div class='dit'><div class='dl'>总发行规模</div><div class='dv'>"+fmt(b.total_scale)+" 亿</div></div>"+
+      "<div class='dit'><div class='dl'>百元含权</div><div class='dv'>"+fmt(b.per_share_amount)+"</div></div>"+
+      "<div class='dit'><div class='dl'>预估流通</div><div class='dv'>"+fmt(b.circ_mv)+" 亿</div></div>"+
+      "<div class='dit'><div class='dl'>当前价</div><div class='dv'>"+fmt(b.price)+" 元</div></div>"+
+    "</div>"+
+    "<div class='dit' style='margin-top:10px'><div class='dl'>一手党</div><div class='dv'>"+oneHandDetail(b)+"</div></div>"+
+    (b.action_reason?"<div class='dit' style='margin-top:8px'><div class='dl'>建议理由</div><div class='dv'>"+b.action_reason+"</div></div>":"")+
+    (b.action_price?"<div class='dit' style='margin-top:8px'><div class='dl'>买卖参考</div><div class='dv'>"+b.action_price+"</div></div>":"")+
+    "</div>"+
+    "<div class='blk'><h4>进度日期</h4><div class='dlg-grid'>"+
+      "<div class='dit'><div class='dl'>进度</div><div class='dv'>"+(b.progress||"-")+"</div></div>"+
+      "<div class='dit'><div class='dl'>受理日期</div><div class='dv'>"+(b.registration_date||"-")+"</div></div>"+
+      "<div class='dit'><div class='dl'>股权登记日</div><div class='dv'>"+(b.record_dt||"-")+"</div></div>"+
+      "<div class='dit'><div class='dl'>通过日期</div><div class='dv'>"+(b.approval_date||"-")+"</div></div>"+
+    "</div></div>"+
+    "<div class='blk'><h4>评分明细</h4><div class='dlg-grid'>"+dRows+"</div></div>"+
+  "</div>";
+  document.body.appendChild(ov);
+};
+var actionselHtml = function(a){
+  return "<span class='actionsel "+actionCls(a)+"'>"+(a||"-")+"</span>";
+};
+window.closeD = function(){ var e=document.getElementById("dlg"); if(e) e.remove(); };
 window.sortB = function(f){ if(sortField===f) sortDesc=!sortDesc; else { sortField=f; sortDesc=true; } render(); };
 document.addEventListener("click", function(e){
   var t = e.target.closest ? e.target.closest(".chip") : null;
