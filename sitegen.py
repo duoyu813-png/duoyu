@@ -1,13 +1,14 @@
-"""GitHub Actions 静态看板生成器（无 Flask / 无数据库）
+"""GitHub Actions 静态看板生成器（无 Flask / 无数据库）· 多页面版本
 
-流程：
-  1. 东财抓全市场可转债行情 -> 基础信息/概念/净资产 -> merge 富集
-  2. 运行全部轮动策略
-  3. 集思录抓封闭基金折价（游客 20 条内 -> 东财 LOF 兜底）
-  4. 东财抓待发可转债（抢权）
-  5. 渲染静态单页看板 index.html + 数据快照 data.json
-
-输出到 dist/ 目录，由 GitHub Actions 部署到 GitHub Pages。
+页面结构：
+  index.html               首页（三个板块入口卡片）
+  cb.html                  可转债轮动（策略按钮）
+  cb_<key>.html            单个策略详情（全部标的 + 排名）
+  issues.html              待发可转债 · 抢权（按进度分组的按钮）
+  issues_<n>.html          单个进度分组详情
+  funds.html               封闭基金折价 Top20（含"查看全部"）
+  funds_all.html           封闭基金全部
+  data.json                数据快照（供推送 / 历史）
 """
 import json
 import os
@@ -20,9 +21,78 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from scrapers.eastmoney import EastMoneyScraper
 from scrapers.jisilu import JisiluScraper
 from scrapers.data_merger import merge_cb_data
-from strategies.cb_strategies import run_all_strategies
+from strategies.cb_strategies import run_all_strategies, ALL_STRATEGIES
 
 DIST = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dist")
+
+CSS = """<style>
+  :root { --bg:#f8f9fa; --card:#fff; --text:#212529; --muted:#6c757d; --border:#dee2e6; --accent:#2563eb; --blue-l:#dbeafe; --red:#dc2626; --green:#16a34a; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .container { max-width:1080px; margin:0 auto; padding:14px 16px 48px; }
+  header { background:var(--card); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:10; }
+  header .inner { max-width:1080px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0 16px; height:52px; }
+  header .brand { font-weight:700; font-size:16px; }
+  header .ts { color:var(--muted); font-size:12px; }
+  h1 { font-size:20px; margin:16px 0 4px; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:16px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:16px; margin-bottom:16px; overflow-x:auto; }
+  .card h2 { font-size:15px; margin-bottom:12px; }
+  .badge { background:var(--blue-l); color:var(--accent); border-radius:12px; padding:2px 8px; font-size:12px; margin-left:6px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th,td { padding:7px 10px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap; }
+  th { background:var(--blue-l); color:var(--accent); font-weight:600; }
+  tr:hover { background:#f1f5f9; }
+  .red { color:var(--red); } .green { color:var(--green); }
+  .rank-tag { color:var(--red); font-weight:700; font-size:11px; vertical-align:top; margin-right:2px; }
+  .back { display:inline-block; margin:8px 0 16px; font-size:13px; color:var(--accent); text-decoration:none; font-weight:500; }
+  .back:hover { text-decoration:underline; }
+  .mtop { margin-top:16px; }
+  .empty { color:var(--muted); padding:24px; text-align:center; }
+  .filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .chip { padding:7px 16px; border-radius:20px; font-size:13px; text-decoration:none; border:1px solid var(--border); background:var(--card); color:var(--text-secondary, #495057); transition:all .15s; }
+  .chip:hover { border-color:var(--accent); color:var(--accent); }
+  .chip.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .chip .n { font-size:11px; opacity:.8; margin-left:4px; }
+  .btn { display:inline-block; padding:8px 18px; border-radius:8px; text-decoration:none; font-size:13px; font-weight:600; text-align:center; }
+  .btn-primary { background:var(--accent); color:#fff; }
+  .btn-outline { background:var(--card); color:var(--accent); border:1px solid var(--accent); }
+  .hero { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:8px; }
+  .hero-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; text-decoration:none; color:var(--text); transition:all .15s; display:block; }
+  .hero-card:hover { border-color:var(--accent); box-shadow:0 2px 10px rgba(37,99,235,.08); }
+  .hero-card h3 { font-size:16px; margin-bottom:6px; color:var(--accent); }
+  .hero-card p { font-size:13px; color:var(--muted); }
+  .hero-card .cnt { font-size:12px; color:var(--muted); margin-top:10px; }
+  nav.breadcrumb a { margin-right:12px; font-size:13px; color:var(--accent); text-decoration:none; font-weight:500; }
+  td { word-break:break-all; }
+  @media(max-width:768px) { th,td { padding:6px 7px; font-size:12px; } }
+</style>"""
+
+
+def _page(title, body, now):
+    """通用页面外壳，含顶部导航"""
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title} · 金融提醒看板</title>
+{CSS}
+</head>
+<body>
+<header>
+  <div class="inner">
+    <a href="index.html" style="text-decoration:none;color:var(--text);"><span class="brand">金融提醒看板</span></a>
+    <span class="ts">数据时间：{now}</span>
+  </div>
+</header>
+<div class="container">
+  <nav class="breadcrumb"><a href="index.html">首页</a></nav>
+{body}
+  <p class="sub" style="margin-top:24px;text-align:center">由 GitHub Actions 定时生成 · 仅供学习参考，不构成投资建议</p>
+</div>
+</body>
+</html>"""
 
 
 def _fmt(v, nd=2):
@@ -80,7 +150,6 @@ def _build_bond_dicts(merged: list[dict]) -> list[dict]:
         d["list_date"] = _to_date(b.get("list_date_str"))
         d["conversion_period_start"] = _to_date(b.get("conversion_period_start_str"))
         d["maturity_date"] = _to_date(b.get("maturity_date_str"))
-        # SQLAlchemy 布尔类字段
         d["announced_redemption"] = bool(b.get("announced_redemption"))
         d["stock_st"] = bool(b.get("stock_st"))
         d["redemption_days"] = int(b.get("redemption_days") or 0)
@@ -128,9 +197,9 @@ def _code_with_rank(code, rank):
 def fetch_funds_merged():
     """封闭基金：两源融合，返回全量列表（无需集思录 cookie）
 
-    集思录（官方封基/定开，字段全：折价年化/剩余年限/到期日/类型），游客仅前 20 条/共 31 条；
-    东财 MK0404/0405 板块（全市场场内基金 150+ 条，含现价/净值/折价/上市日，无到期日字段）。
-    以东财为全集主体，集思录覆盖富集字段；这样即使游客态也能看到完整版，真正封基字段更准确。
+    集思录（官方封基/定开，字段全：折价年化/剩余年限/到期日/类型），游客仅前 20 条；
+    东财 MK0404/0405 板块（全市场场内基金 150+ 条，含现价/净值/折价/上市日）。
+    以东财为全集主体，集思录覆盖富集字段。
     """
     jisilu = JisiluScraper.fetch_closed_funds()
     em = EastMoneyScraper.fetch_traded_funds()
@@ -144,7 +213,6 @@ def fetch_funds_merged():
     for f in base:
         code = f.get("code", "")
         j = ji_map.get(code)
-        # 名称/净值/价格缺失时用集思录补齐
         merged = {
             "code": code,
             "name": f.get("name") or (j or {}).get("name", ""),
@@ -152,7 +220,6 @@ def fetch_funds_merged():
             "change_pct": f.get("change_pct"),
             "nav": f.get("nav") if f.get("nav") is not None else (j or {}).get("nav"),
             "discount_rate": f.get("discount_rate") if f.get("discount_rate") is not None else (j or {}).get("discount_rate"),
-            # 富集字段以集思录为准（官方口径）
             "discount_annual": (j or {}).get("discount_annual"),
             "remaining_years": (j or {}).get("remaining_years"),
             "maturity_date": (j or {}).get("maturity_date") or f.get("expire_date"),
@@ -162,21 +229,39 @@ def fetch_funds_merged():
             "notes": (j or {}).get("notes", ""),
         }
         out.append(merged)
-    # 东财为主且集思录也有数据时，把集思录中不在东财里的条目也补进去（保证官方全集完整）
     ji_codes = set(ji_map.keys())
     em_codes = {f.get("code") for f in (em or [])}
     for code in ji_codes - em_codes:
         j = ji_map[code]
         out.append(dict(j))
-    # 默认按折价率升序（折价越多越靠前）
-    out.sort(key=lambda f: (f.get("discount_rate") is None, f.get("discount_rate") or 0))
+    # 折价率从高到低（折价幅度越大越靠前；折价率无值排最后）
+    out.sort(key=lambda f: (f.get("discount_rate") is None, -(f.get("discount_rate") or 0)))
     return out
+
+
+CB_HEADERS = ["排名", "代码", "名称", "价格", "溢价%", "剩余规模(亿)", "税前YTM%", "概念"]
+
+
+def _cb_rows(bonds, limit=None):
+    rows = []
+    for rank, b in enumerate(bonds, start=1):
+        if limit and rank > limit:
+            break
+        rows.append([
+            _code_with_rank(b.get("code", ""), rank), b.get("name", ""),
+            _fmt(b.get("price")),
+            _fmt(b.get("premium_rate")) + "%" if b.get("premium_rate") is not None else "-",
+            _fmt(b.get("remaining_size")) if b.get("remaining_size") is not None else "-",
+            _fmt(b.get("ytm_before_tax")) + "%" if b.get("ytm_before_tax") is not None else "-",
+            _short_concept(b.get("concept")),
+        ])
+    return rows
 
 
 def main() -> int:
     t0 = time.time()
-    print("[sitegen] 开始生成静态看板")
-    report = {"generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "sections": {}}
+    print("[sitegen] 开始生成静态看板（多页面）")
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # ---------- 1) 可转债 ----------
     live_data = EastMoneyScraper.fetch_cb_list()
@@ -188,154 +273,172 @@ def main() -> int:
         merged = merge_cb_data(live_data, fundamentals, concepts, financials)
         bonds = _build_bond_dicts(merged)
         strategies = run_all_strategies(bonds)
-        report["sections"]["cb_count"] = len(merged)
+        cb_count = len(merged)
     else:
         strategies = {}
-        report["sections"]["cb_count"] = 0
+        cb_count = 0
 
     # ---------- 2) 封闭基金 ----------
     funds = fetch_funds_merged()
-    report["sections"]["fund_count"] = len(funds)
+    fund_count = len(funds)
 
     # ---------- 3) 待发可转债（仅待发，排除已申购待上市） ----------
     all_issues = EastMoneyScraper.fetch_new_cb_issues()
     issues = [i for i in all_issues if i.get("progress_name") != "已申购待上市"]
     if len(issues) < len(all_issues):
         print(f"[sitegen] 抢权页过滤 {len(all_issues)-len(issues)} 条已申购为上市，保留 {len(issues)} 条待发")
-    report["sections"]["issue_count"] = len(issues)
-
-    # ---------- 4) 渲染 HTML ----------
-    strategy_html = ""
-    for key, data in strategies.items():
-        rows = []
-        for rank, b in enumerate(data["bonds"][:20], start=1):
-            rows.append([
-                _code_with_rank(b.get("code", ""), rank), b.get("name", ""),
-                _fmt(b.get("price")),
-                _fmt(b.get("premium_rate")) + "%" if b.get("premium_rate") is not None else "-",
-                _fmt(b.get("remaining_size")) if b.get("remaining_size") is not None else "-",
-                _fmt(b.get("ytm_before_tax")) + "%" if b.get("ytm_before_tax") is not None else "-",
-                _short_concept(b.get("concept")),
-            ])
-        if not rows:
-            continue
-        strategy_html += f"""
-        <div class="card">
-          <h2>{data['name']} <span class="badge">{len(data['bonds'])}</span></h2>
-          {_render_table(["排名","代码","名称","价格","溢价%","剩余规模(亿)","税前YTM%","概念"], rows)}
-        </div>"""
-
-    fund_html = _render_table(
-        ["代码", "名称", "现价", "涨跌%", "净值", "折价%", "折价年化%", "剩余年限", "到期日", "类型"],
-        [[
-            f.get("code", ""), f.get("name", ""),
-            _fmt(f.get("price")),
-            _fmt(f.get("change_pct")) + "%" if f.get("change_pct") is not None else "-",
-            _fmt(f.get("nav")),
-            _fmt(f.get("discount_rate")) + "%" if f.get("discount_rate") is not None else "-",
-            _fmt(f.get("discount_annual")) + "%" if f.get("discount_annual") is not None else "-",
-            _fmt(f.get("remaining_years")) if f.get("remaining_years") is not None else "-",
-            _date_str(f.get("maturity_date")),
-            f.get("fund_type", ""),
-        ] for f in funds],
-    )
-
-    issue_html = _render_table(
-        ["股票代码", "正股", "转债", "规模(亿)", "进度", "百元含权", "每股配售", "市场", "一手党股数", "获配张数", "资金(元)"],
-        [[
-            i.get("stock_code", ""), i.get("stock_name", ""), i.get("bond_name", ""),
-            _fmt(i.get("issue_size")) if i.get("issue_size") is not None else "-",
-            i.get("progress_name", ""),
-            _fmt(i.get("per100_value")) if i.get("per100_value") is not None else "-",
-            _fmt(i.get("per_share")) if i.get("per_share") is not None else "-",
-            {"sh": "沪", "sz": "深", "bj": "京"}.get(i.get("market"), i.get("market") or ""),
-            i.get("min_lot_shares", "-"),
-            i.get("min_lot_bonds", "-"),
-            f"{i.get('min_lot_capital'):.0f}" if i.get("min_lot_capital") else "-",
-        ] for i in issues],
-    )
-
-    now = report["generated_at"]
-    html = """<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>金融提醒看板</title>
-<style>
-  :root { --bg:#f8f9fa; --card:#fff; --text:#212529; --muted:#6c757d; --border:#dee2e6; --accent:#2563eb; --blue-l:#dbeafe; --red:#dc2626; --green:#16a34a; }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
-  .container { max-width:1140px; margin:0 auto; padding:16px 20px 48px; }
-  header { background:var(--card); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:10; }
-  header .inner { max-width:1140px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0 20px; height:52px; }
-  header .brand { font-weight:700; font-size:16px; }
-  header .ts { color:var(--muted); font-size:12px; }
-  h1 { font-size:20px; margin:18px 0 4px; }
-  .sub { color:var(--muted); font-size:13px; margin-bottom:18px; }
-  .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:18px; margin-bottom:18px; overflow-x:auto; }
-  .card h2 { font-size:15px; margin-bottom:12px; }
-  .badge { background:var(--blue-l); color:var(--accent); border-radius:12px; padding:2px 8px; font-size:12px; margin-left:6px; }
-  table { width:100%; border-collapse:collapse; font-size:13px; }
-  th,td { padding:8px 12px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap; }
-  th { background:var(--blue-l); color:var(--accent); font-weight:600; }
-  tr:hover { background:#f1f5f9; }
-  .red { color:var(--red); } .green { color:var(--green); }
-  .rank-tag { color:var(--red); font-weight:700; font-size:11px; vertical-align:top; margin-right:2px; }
-  nav a { margin-right:14px; font-size:13px; color:var(--accent); text-decoration:none; font-weight:500; }
-  .empty { color:var(--muted); padding:24px; text-align:center; }
-  td { word-break:break-all; }
-  @media(max-width:768px) { th,td { padding:6px 8px; font-size:12px; } }
-</style>
-</head>
-<body>
-<header>
-  <div class="inner">
-    <span class="brand">金融提醒看板</span>
-    <span class="ts">数据时间：__NOW__</span>
-  </div>
-</header>
-<div class="container">
-  <nav>
-    <a href="#cb">可转债轮动</a>
-    <a href="#funds">封闭基金</a>
-    <a href="#issues">待发可转债(抢权)</a>
-  </nav>
-
-  <section id="cb">
-    <h1>可转债轮动策略</h1>
-    <p class="sub">东财全市场行情 · 每小时自动刷新</p>
-    __STRATEGIES__
-  </section>
-
-  <section id="funds">
-    <h1>封闭基金折价</h1>
-    <p class="sub">集思录实时数据（游客仅前20条，完整需 cookie）</p>
-    <div class="card">__FUNDS__</div>
-  </section>
-
-  <section id="issues">
-    <h1>待发可转债 · 抢权</h1>
-    <p class="sub">东财数据中心</p>
-    <div class="card">__ISSUES__</div>
-  </section>
-
-  <p class="sub" style="margin-top:24px;text-align:center">由 GitHub Actions 定时生成 · 仅供学习参考，不构成投资建议</p>
-</div>
-</body>
-</html>"""
-
-    html = (html
-            .replace("__NOW__", now)
-            .replace("__STRATEGIES__", strategy_html or "<div class='empty'>暂无策略数据</div>")
-            .replace("__FUNDS__", fund_html or "<div class='empty'>暂无基金数据</div>")
-            .replace("__ISSUES__", issue_html or "<div class='empty'>暂无待发可转债</div>"))
+    issue_count = len(issues)
 
     os.makedirs(DIST, exist_ok=True)
-    with open(os.path.join(DIST, "index.html"), "w", encoding="utf-8") as f:
-        f.write(html)
 
-    # ---------- 5) 数据快照（供推送 / 历史） ----------
+    # ---------- 首页 index.html ----------
+    cb_total = sum(len(d["bonds"]) for d in strategies.values())
+    hero = f"""
+<div class="hero">
+  <a class="hero-card" href="cb.html">
+    <h3>可转债轮动</h3>
+    <p>七个策略看板：130三低 / 双低 / 高收益等</p>
+    <p class="cnt">{len(ALL_STRATEGIES)} 个策略 · 覆盖 {cb_count} 只转债</p>
+  </a>
+  <a class="hero-card" href="funds.html">
+    <h3>封闭基金折价</h3>
+    <p>集思录 + 东财融合，折价率前 20 + 查看全部</p>
+    <p class="cnt">{fund_count} 只基金</p>
+  </a>
+  <a class="hero-card" href="issues.html">
+    <h3>待发可转债(抢权)</h3>
+    <p>按"同意注册 / 待申购 / 待发行"进度分组浏览</p>
+    <p class="cnt">{issue_count} 条待发债</p>
+  </a>
+</div>"""
+    body_home = f"""
+<h1>金融提醒看板</h1>
+<p class="sub">自动抓取东财全市场行情 · 定时推送微信 · 数据每小时刷新</p>
+{hero}
+"""
+    write_page("index.html", "首页", body_home, now)
+
+    # ---------- 可转债轮动 cb.html（策略按钮） ----------
+    chips = []
+    for key in ALL_STRATEGIES:
+        d = strategies.get(key)
+        n = len(d["bonds"]) if d else 0
+        chips.append(f"<a class='chip' href='cb_{key}.html'>{ALL_STRATEGIES[key][0]}<span class='n'>{n}</span></a>")
+    body_cb = f"""
+<a class="back" href="index.html">← 返回首页</a>
+<h1>可转债轮动策略</h1>
+<p class="sub">选择策略查看完整榜单（每策略最多展示 20 只，排名 1/5/10/15/20 用红色标注）</p>
+<div class="filters">{''.join(chips)}</div>
+"""
+    write_page("cb.html", "可转债轮动", body_cb, now)
+
+    # ---------- 各策略详情 cb_<key>.html ----------
+    for key, (name, _) in ALL_STRATEGIES.items():
+        d = strategies.get(key)
+        bonds_list = d["bonds"] if d else []
+        if not bonds_list:
+            content = "<div class='empty'>暂无数据</div>"
+        else:
+            content = f"""
+<div class="card">
+  <h2>{name} <span class="badge">{len(bonds_list)}</span></h2>
+  {_render_table(CB_HEADERS, _cb_rows(bonds_list, limit=20))}
+</div>"""
+        body = f"""
+<a class="back" href="cb.html">← 返回策略列表</a>
+<h1>{name}</h1>
+<p class="sub">按评分从低到高排序 · 展示前 20 名</p>
+{content}
+"""
+        write_page(f"cb_{key}.html", name, body, now)
+
+    # ---------- 待发可转债 issues.html（按进度分组按钮） ----------
+    groups = {}
+    for i in issues:
+        p = i.get("progress_name") or "其他"
+        groups.setdefault(p, []).append(i)
+    if groups:
+        chips = []
+        for idx, (p, items) in enumerate(groups.items()):
+            chips.append(f"<a class='chip' href='issues_{idx}.html'>{p}<span class='n'>{len(items)}</span></a>")
+        filters_html = f"<div class='filters'>{''.join(chips)}</div>"
+    else:
+        filters_html = "<div class='empty'>暂无待发可转债</div>"
+    body_iss = f"""
+<a class="back" href="index.html">← 返回首页</a>
+<h1>待发可转债 · 抢权</h1>
+<p class="sub">按发行进度分组浏览，点击按钮查看该进度下的详细抢权数据</p>
+{filters_html}
+"""
+    write_page("issues.html", "待发可转债", body_iss, now)
+
+    # ---------- 各进度详情 issues_<n>.html ----------
+    for idx, (p, items) in enumerate(groups.items()):
+        items.sort(key=lambda x: -(x.get("per100_value") or 0))
+        table = _render_table(
+            ["股票代码", "正股", "转债", "规模(亿)", "进度", "百元含权", "每股配售", "市场", "一手党股数", "获配张数", "资金(元)"],
+            [[
+                i.get("stock_code", ""), i.get("stock_name", ""), i.get("bond_name", ""),
+                _fmt(i.get("issue_size")) if i.get("issue_size") is not None else "-",
+                i.get("progress_name", ""),
+                _fmt(i.get("per100_value")) if i.get("per100_value") is not None else "-",
+                _fmt(i.get("per_share")) if i.get("per_share") is not None else "-",
+                {"sh": "沪", "sz": "深", "bj": "京"}.get(i.get("market"), i.get("market") or ""),
+                i.get("min_lot_shares", "-"),
+                i.get("min_lot_bonds", "-"),
+                f"{i.get('min_lot_capital'):.0f}" if i.get("min_lot_capital") else "-",
+            ] for i in items],
+        )
+        body = f"""
+<a class="back" href="issues.html">← 返回进度列表</a>
+<h1>{p}</h1>
+<p class="sub">共 {len(items)} 条 · 按百元含权从高到低排序</p>
+<div class="card">{table}</div>
+"""
+        write_page(f"issues_{idx}.html", p, body, now)
+
+    # ---------- 封闭基金 funds.html（Top20 + 查看全部） ----------
+    fund_rows = [[
+        f.get("code", ""), f.get("name", ""),
+        _fmt(f.get("price")),
+        _fmt(f.get("change_pct")) + "%" if f.get("change_pct") is not None else "-",
+        _fmt(f.get("nav")),
+        _fmt(f.get("discount_rate")) + "%" if f.get("discount_rate") is not None else "-",
+        _fmt(f.get("discount_annual")) + "%" if f.get("discount_annual") is not None else "-",
+        _fmt(f.get("remaining_years")) if f.get("remaining_years") is not None else "-",
+        _date_str(f.get("maturity_date")),
+        f.get("fund_type", ""),
+    ] for f in funds]
+
+    if fund_rows:
+        top20 = _render_table(["代码", "名称", "现价", "涨跌%", "净值", "折价%", "折价年化%", "剩余年限", "到期日", "类型"], fund_rows[:20])
+        butt = f"<div class='filters'><a class='chip' href='funds_all.html'>查看全部 {len(fund_rows)} 只 →</a></div>"
+    else:
+        top20 = "<div class='empty'>暂无数据</div>"
+        butt = ""
+    body_fund = f"""
+<a class="back" href="index.html">← 返回首页</a>
+<h1>封闭基金折价</h1>
+<p class="sub">折价率从高到低 · 展示前 20 名（折价越深越靠前）</p>
+{butt}
+<div class="card">{top20}</div>
+"""
+    write_page("funds.html", "封闭基金", body_fund, now)
+
+    # ---------- 封闭基金全部 funds_all.html ----------
+    if fund_rows:
+        all_table = _render_table(["代码", "名称", "现价", "涨跌%", "净值", "折价%", "折价年化%", "剩余年限", "到期日", "类型"], fund_rows)
+    else:
+        all_table = "<div class='empty'>暂无数据</div>"
+    body_fund_all = f"""
+<a class="back" href="funds.html">← 返回 Top20</a>
+<h1>全部封闭基金</h1>
+<p class="sub">共 {len(fund_rows)} 只 · 折价率从高到低</p>
+<div class="card">{all_table}</div>
+"""
+    write_page("funds_all.html", "全部封闭基金", body_fund_all, now)
+
+    # ---------- 数据快照（供推送 / 历史） ----------
     snapshot = {
         "generated_at": now,
         "cb": merged if live_data else [],
@@ -353,9 +456,13 @@ def main() -> int:
         json.dump(snapshot, f, ensure_ascii=False, indent=1, default=str)
 
     print(f"[sitegen] 完成，耗时 {time.time()-t0:.0f}s，"
-          f"转债 {report['sections']['cb_count']}，基金 {report['sections']['fund_count']}，"
-          f"待发 {report['sections']['issue_count']}")
+          f"转债 {cb_count}，基金 {fund_count}，待发 {issue_count}")
     return 0
+
+
+def write_page(filename, title, body, now):
+    with open(os.path.join(DIST, filename), "w", encoding="utf-8") as f:
+        f.write(_page(title, body, now))
 
 
 if __name__ == "__main__":
