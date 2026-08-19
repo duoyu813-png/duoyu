@@ -110,6 +110,21 @@ def _render_table(headers, rows):
     return f"<table><thead><tr>{thead}</tr></thead><tbody>{''.join(tbody)}</tbody></table>"
 
 
+def _short_concept(concept, n=2):
+    """概念只保留前 n 个（逗号分隔），适配手机阅读"""
+    if not concept:
+        return ""
+    parts = [p.strip() for p in str(concept).split(",") if p.strip()]
+    return ",".join(parts[:n] or [""])
+
+
+def _code_with_rank(code, rank):
+    """排名在 1/5/10/15/20 时，代码左上角加红色数字标注"""
+    if rank in (1, 5, 10, 15, 20):
+        return f"<span class='rank-tag'>{rank}</span>{code}"
+    return str(code)
+
+
 def fetch_funds_merged():
     """封闭基金：两源融合，返回全量列表（无需集思录 cookie）
 
@@ -182,29 +197,32 @@ def main() -> int:
     funds = fetch_funds_merged()
     report["sections"]["fund_count"] = len(funds)
 
-    # ---------- 3) 待发可转债 ----------
-    issues = EastMoneyScraper.fetch_new_cb_issues()
+    # ---------- 3) 待发可转债（仅待发，排除已申购待上市） ----------
+    all_issues = EastMoneyScraper.fetch_new_cb_issues()
+    issues = [i for i in all_issues if i.get("progress_name") != "已申购待上市"]
+    if len(issues) < len(all_issues):
+        print(f"[sitegen] 抢权页过滤 {len(all_issues)-len(issues)} 条已申购为上市，保留 {len(issues)} 条待发")
     report["sections"]["issue_count"] = len(issues)
 
     # ---------- 4) 渲染 HTML ----------
     strategy_html = ""
     for key, data in strategies.items():
         rows = []
-        for b in data["bonds"][:20]:
+        for rank, b in enumerate(data["bonds"][:20], start=1):
             rows.append([
-                b.get("code", ""), b.get("name", ""),
+                _code_with_rank(b.get("code", ""), rank), b.get("name", ""),
                 _fmt(b.get("price")),
                 _fmt(b.get("premium_rate")) + "%" if b.get("premium_rate") is not None else "-",
                 _fmt(b.get("remaining_size")) if b.get("remaining_size") is not None else "-",
                 _fmt(b.get("ytm_before_tax")) + "%" if b.get("ytm_before_tax") is not None else "-",
-                str(b.get("concept", "") or ""),
+                _short_concept(b.get("concept")),
             ])
         if not rows:
             continue
         strategy_html += f"""
         <div class="card">
           <h2>{data['name']} <span class="badge">{len(data['bonds'])}</span></h2>
-          {_render_table(["代码","名称","价格","溢价%","剩余规模(亿)","税前YTM%","概念"], rows)}
+          {_render_table(["排名","代码","名称","价格","溢价%","剩余规模(亿)","税前YTM%","概念"], rows)}
         </div>"""
 
     fund_html = _render_table(
@@ -263,8 +281,10 @@ def main() -> int:
   th { background:var(--blue-l); color:var(--accent); font-weight:600; }
   tr:hover { background:#f1f5f9; }
   .red { color:var(--red); } .green { color:var(--green); }
+  .rank-tag { color:var(--red); font-weight:700; font-size:11px; vertical-align:top; margin-right:2px; }
   nav a { margin-right:14px; font-size:13px; color:var(--accent); text-decoration:none; font-weight:500; }
   .empty { color:var(--muted); padding:24px; text-align:center; }
+  td { word-break:break-all; }
   @media(max-width:768px) { th,td { padding:6px 8px; font-size:12px; } }
 </style>
 </head>
