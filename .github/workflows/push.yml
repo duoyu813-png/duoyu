@@ -1,0 +1,58 @@
+name: Scheduled Push Notifications
+
+# 定时微信推送（PushPlus）
+# UTC 时区换算（北京 = UTC+8）：
+#   每天 20:00 折价推送 -> cron '0 12 * * *'（UTC 12:00 = 北京 20:00）
+#   每周五 14:00 轮动推送 -> cron '0 6 * * 5'（UTC 周五 6:00 = 北京周五 14:00）
+on:
+  schedule:
+    - cron: '0 12 * * *'
+    - cron: '0 6 * * 5'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scheduled push
+        env:
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          JISILU_COOKIE: ${{ secrets.JISILU_COOKIE }}
+        run: |
+          # 判断本轮触发的任务（GitHub Actions 会把匹配的 cron 一起带进 GITHUB_EVENT_NAME，无法区分用哪个 cron）
+          # 用系统时间判断：UTC 12:xx 作折价推送，UTC 周五 06:xx 作轮动推送
+          HOUR=$(TZ=Asia/Shanghai date +%H)
+          DOW=$(TZ=Asia/Shanghai date +%u)
+          echo "北京时区: $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M %A')"
+          # 每周五 14:00 附近做轮动推送（含 14:00-14:10 窗口，防调度延迟）
+          if [ "$DOW" = "5" ] && [ "$HOUR" = "14" ]; then
+            python notify.py --rotation
+          else
+            python notify.py --discount
+          fi
+
+      # 轮动推送会更新 last_strategies.json / last_issues.json，回写仓库以便下次比对
+      - name: Commit state files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "无变更"
+          else
+            git commit -m "chore: update snapshot files"
+            git push
+          fi

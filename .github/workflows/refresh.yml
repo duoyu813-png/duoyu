@@ -1,0 +1,53 @@
+name: Refresh Dashboard
+
+on:
+  schedule:
+    # 交易时段每 30 分钟刷新一次（UTC：中国 08:30-14:00 对应 00:30-06:00 UTC，加上 15:00-16:00 尾盘）
+    # 覆盖全天候 + 简化：每 30 分钟刷新（免费公共仓库 Actions 无限分钟）
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 手动触发刷新
+        required: false
+        default: 'true'
+
+# 公共仓库 Pages 部署权限
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Generate static dashboard
+        env:
+          JISILU_COOKIE: ${{ secrets.JISILU_COOKIE }}
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+        run: python sitegen.py
+
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,7 @@
+# 生成的产物（每次由 Actions 重新生成）
+dist/
+__pycache__/
+*.pyc
+# 推送快照（首次轮动比对前由 Actions 生成并回写，无需手动提交）
+last_strategies.json
+last_issues.json
