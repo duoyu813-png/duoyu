@@ -81,12 +81,8 @@ def _save(path, data):
 
 
 def fetch_funds():
-    from scrapers.jisilu import JisiluScraper
-    from scrapers.eastmoney import EastMoneyScraper
-    funds = JisiluScraper.fetch_closed_funds()
-    if not funds:
-        funds = EastMoneyScraper.fetch_traded_funds()
-    return funds
+    from sitegen import fetch_funds_merged
+    return fetch_funds_merged()
 
 
 def fetch_strategies():

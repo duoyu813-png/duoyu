@@ -110,6 +110,54 @@ def _render_table(headers, rows):
     return f"<table><thead><tr>{thead}</tr></thead><tbody>{''.join(tbody)}</tbody></table>"
 
 
+def fetch_funds_merged():
+    """封闭基金：两源融合，返回全量列表（无需集思录 cookie）
+
+    集思录（官方封基/定开，字段全：折价年化/剩余年限/到期日/类型），游客仅前 20 条/共 31 条；
+    东财 MK0404/0405 板块（全市场场内基金 150+ 条，含现价/净值/折价/上市日，无到期日字段）。
+    以东财为全集主体，集思录覆盖富集字段；这样即使游客态也能看到完整版，真正封基字段更准确。
+    """
+    jisilu = JisiluScraper.fetch_closed_funds()
+    em = EastMoneyScraper.fetch_traded_funds()
+    base = em if em else jisilu
+    ji_map = {}
+    for f in jisilu:
+        code = f.get("code")
+        if code:
+            ji_map[code] = f
+    out = []
+    for f in base:
+        code = f.get("code", "")
+        j = ji_map.get(code)
+        # 名称/净值/价格缺失时用集思录补齐
+        merged = {
+            "code": code,
+            "name": f.get("name") or (j or {}).get("name", ""),
+            "price": f.get("price") if f.get("price") is not None else (j or {}).get("price"),
+            "change_pct": f.get("change_pct"),
+            "nav": f.get("nav") if f.get("nav") is not None else (j or {}).get("nav"),
+            "discount_rate": f.get("discount_rate") if f.get("discount_rate") is not None else (j or {}).get("discount_rate"),
+            # 富集字段以集思录为准（官方口径）
+            "discount_annual": (j or {}).get("discount_annual"),
+            "remaining_years": (j or {}).get("remaining_years"),
+            "maturity_date": (j or {}).get("maturity_date") or f.get("expire_date"),
+            "last_volume": (j or {}).get("last_volume") if not None else f.get("amount"),
+            "total_cap": f.get("total_cap"),
+            "fund_type": (j or {}).get("fund_type") or ("定开" if (j or {}).get("notes") else str(f.get("fund_type") or "")),
+            "notes": (j or {}).get("notes", ""),
+        }
+        out.append(merged)
+    # 东财为主且集思录也有数据时，把集思录中不在东财里的条目也补进去（保证官方全集完整）
+    ji_codes = set(ji_map.keys())
+    em_codes = {f.get("code") for f in (em or [])}
+    for code in ji_codes - em_codes:
+        j = ji_map[code]
+        out.append(dict(j))
+    # 默认按折价率升序（折价越多越靠前）
+    out.sort(key=lambda f: (f.get("discount_rate") is None, f.get("discount_rate") or 0))
+    return out
+
+
 def main() -> int:
     t0 = time.time()
     print("[sitegen] 开始生成静态看板")
@@ -131,11 +179,7 @@ def main() -> int:
         report["sections"]["cb_count"] = 0
 
     # ---------- 2) 封闭基金 ----------
-    funds = JisiluScraper.fetch_closed_funds()
-    if not funds:
-        funds = EastMoneyScraper.fetch_traded_funds()
-    # 默认按折价率升序（折价越多越靠前）
-    funds.sort(key=lambda f: (f.get("discount_rate") is None, f.get("discount_rate") or 0))
+    funds = fetch_funds_merged()
     report["sections"]["fund_count"] = len(funds)
 
     # ---------- 3) 待发可转债 ----------
