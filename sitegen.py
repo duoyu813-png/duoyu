@@ -65,12 +65,25 @@ CSS = """<style>
   .hero-card .cnt { font-size:12px; color:var(--muted); margin-top:10px; }
   nav.breadcrumb a { margin-right:12px; font-size:13px; color:var(--accent); text-decoration:none; font-weight:500; }
   td { word-break:break-all; }
+  .badge { background:var(--blue-l); color:var(--accent); border-radius:12px; padding:2px 8px; font-size:12px; margin-left:6px; }
   @media(max-width:768px) { th,td { padding:6px 7px; font-size:12px; } }
 </style>"""
 
 
-def _page(title, body, now):
-    """通用页面外壳，含顶部导航"""
+# 板块主题色（首页四卡片与各页面主色调一致）
+THEME = {
+    "cb":      {"accent": "#dc2626", "blue": "#fee2e2", "name": "可转债轮动"},        # 红
+    "funds":   {"accent": "#ea580c", "blue": "#ffedd5", "name": "封闭基金折价"},      # 橙
+    "issues":  {"accent": "#2563eb", "blue": "#dbeafe", "name": "待发可转债(抢权)"},  # 蓝
+    "qiangquan": {"accent": "#16a34a", "blue": "#dcfce7", "name": "抢权评分看板"},   # 绿
+}
+
+
+def _page(title, body, now, theme=None):
+    """通用页面外壳，含顶部导航与主题色"""
+    accent = (THEME[theme]["accent"] if theme and theme in THEME else "#2563eb")
+    blue = (THEME[theme]["blue"] if theme and theme in THEME else "#dbeafe")
+    style_ov = f"<style>:root{{--accent:{accent};--blue-l:{blue};}}</style>"
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -78,6 +91,7 @@ def _page(title, body, now):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title} · 小渔点儿</title>
 {CSS}
+{style_ov}
 </head>
 <body>
 <header>
@@ -239,7 +253,7 @@ def fetch_funds_merged():
     return out
 
 
-CB_HEADERS = ["排名", "代码", "名称", "价格", "溢价%", "剩余规模(亿)", "税前YTM%", "概念"]
+CB_HEADERS = ["代码", "名称", "价格", "溢价%", "剩余规模(亿)", "税前YTM%", "概念"]
 
 
 def _cb_rows(bonds, limit=None):
@@ -291,31 +305,35 @@ def main() -> int:
 
     os.makedirs(DIST, exist_ok=True)
 
-    # ---------- 首页 index.html ----------
+# ---------- 首页 index.html ----------
     cb_total = sum(len(d["bonds"]) for d in strategies.values())
-    hero = f"""
-<div class="hero">
-  <a class="hero-card" href="cb.html">
-    <h3>可转债轮动</h3>
-    <p>七个策略看板：130三低 / 双低 / 高收益等</p>
-    <p class="cnt">{len(ALL_STRATEGIES)} 个策略 · 覆盖 {cb_count} 只转债</p>
-  </a>
-  <a class="hero-card" href="funds.html">
-    <h3>封闭基金折价</h3>
-    <p>集思录 + 东财融合，折价率前 20 + 查看全部</p>
-    <p class="cnt">{fund_count} 只基金</p>
-  </a>
-  <a class="hero-card" href="issues.html">
-    <h3>待发可转债(抢权)</h3>
-    <p>按"同意注册 / 待申购 / 待发行"进度分组浏览</p>
-    <p class="cnt">{issue_count} 条待发债</p>
-  </a>
-  <a class="hero-card" href="qiangquan.html">
-    <h3>可转债抢权·评分看板</h3>
-    <p>全市场待发债评分体系：含权量/隐形流通/业绩/操作建议</p>
-    <p class="cnt">逐只评分 · 四版回测体系</p>
-  </a>
-</div>"""
+    hero_cards = []
+
+    def _hero(href, color, bcolor, title, desc, cnt):
+        return f"""
+  <a class="hero-card" href="{href}" style="--accent:{color};--blue-l:{bcolor};">
+    <h3>{title}</h3>
+    <p>{desc}</p>
+    <p class="cnt">{cnt}</p>
+  </a>"""
+
+    hero_cards.append(_hero(
+        "cb.html", "#dc2626", "#fee2e2",
+        "可转债轮动", "七个策略看板：130三低 / 双低 / 高收益等",
+        f"{len(ALL_STRATEGIES)} 个策略 · 覆盖 {cb_count} 只转债"))
+    hero_cards.append(_hero(
+        "funds.html", "#ea580c", "#ffedd5",
+        "封闭基金折价", "集思录 + 东财融合，折价率前 20 + 查看全部",
+        f"{fund_count} 只基金"))
+    hero_cards.append(_hero(
+        "issues.html", "#2563eb", "#dbeafe",
+        "待发可转债(抢权)", '按"同意注册 / 待申购 / 待发行"进度分组浏览',
+        f"{issue_count} 条待发债"))
+    hero_cards.append(_hero(
+        "qiangquan.html", "#16a34a", "#dcfce7",
+        "可转债抢权·评分看板", "全市场待发债评分体系：含权量/隐形流通/业绩/操作建议",
+        "逐只评分 · 四版回测体系"))
+    hero = f"<div class=\"hero\">{''.join(hero_cards)}</div>"
     body_home = f"""
 <h1>小渔点儿</h1>
 <p class="sub">自动抓取东财全市场行情 · 定时推送微信 · 数据每小时刷新</p>
@@ -323,19 +341,31 @@ def main() -> int:
 """
     write_page("index.html", "首页", body_home, now)
 
-    # ---------- 可转债轮动 cb.html（策略按钮） ----------
+    # ---------- 可转债轮动 cb.html（策略按钮 + 默认展示高到期收益率） ----------
     chips = []
     for key in ALL_STRATEGIES:
         d = strategies.get(key)
         n = len(d["bonds"]) if d else 0
-        chips.append(f"<a class='chip' href='cb_{key}.html'>{ALL_STRATEGIES[key][0]}<span class='n'>{n}</span></a>")
+        is_active = ' active' if key == "high_ytm" else ''
+        chips.append(f"<a class='chip{is_active}' href='cb_{key}.html'>{ALL_STRATEGIES[key][0]}<span class='n'>{n}</span></a>")
+    # 默认展开"高到期收益率"榜单
+    default_key = "high_ytm"
+    default_table = ""
+    if default_key in strategies and strategies[default_key]["bonds"]:
+        d = strategies[default_key]
+        default_table = f"""
+<div class="card">
+  <h2>高到期收益率 <span class="badge">{len(d['bonds'])}</span> <span style="font-size:12px;color:var(--muted)">(默认展示)</span></h2>
+  {_render_table(CB_HEADERS, _cb_rows(d["bonds"], limit=20))}
+</div>"""
     body_cb = f"""
 <a class="back" href="index.html">← 返回首页</a>
 <h1>可转债轮动策略</h1>
 <p class="sub">选择策略查看完整榜单（每策略最多展示 20 只，排名 1/5/10/15/20 用红色标注）</p>
 <div class="filters">{''.join(chips)}</div>
+{default_table}
 """
-    write_page("cb.html", "可转债轮动", body_cb, now)
+    write_page("cb.html", "可转债轮动", body_cb, now, theme="cb")
 
     # ---------- 各策略详情 cb_<key>.html ----------
     for key, (name, _) in ALL_STRATEGIES.items():
@@ -355,7 +385,7 @@ def main() -> int:
 <p class="sub">按评分从低到高排序 · 展示前 20 名</p>
 {content}
 """
-        write_page(f"cb_{key}.html", name, body, now)
+        write_page(f"cb_{key}.html", name, body, now, theme="cb")
 
     # ---------- 待发可转债 issues.html（按进度分组按钮） ----------
     groups = {}
@@ -375,7 +405,7 @@ def main() -> int:
 <p class="sub">按发行进度分组浏览，点击按钮查看该进度下的详细抢权数据</p>
 {filters_html}
 """
-    write_page("issues.html", "待发可转债", body_iss, now)
+    write_page("issues.html", "待发可转债", body_iss, now, theme="issues")
 
     # ---------- 各进度详情 issues_<n>.html ----------
     for idx, (p, items) in enumerate(groups.items()):
@@ -400,7 +430,7 @@ def main() -> int:
 <p class="sub">共 {len(items)} 条 · 按百元含权从高到低排序</p>
 <div class="card">{table}</div>
 """
-        write_page(f"issues_{idx}.html", p, body, now)
+        write_page(f"issues_{idx}.html", p, body, now, theme="issues")
 
     # ---------- 封闭基金 funds.html（Top20 + 查看全部） ----------
     fund_rows = [[
@@ -428,7 +458,7 @@ def main() -> int:
 {butt}
 <div class="card">{top20}</div>
 """
-    write_page("funds.html", "封闭基金", body_fund, now)
+    write_page("funds.html", "封闭基金", body_fund, now, theme="funds")
 
     # ---------- 封闭基金全部 funds_all.html ----------
     if fund_rows:
@@ -441,7 +471,7 @@ def main() -> int:
 <p class="sub">共 {len(fund_rows)} 只 · 折价率从高到低</p>
 <div class="card">{all_table}</div>
 """
-    write_page("funds_all.html", "全部封闭基金", body_fund_all, now)
+    write_page("funds_all.html", "全部封闭基金", body_fund_all, now, theme="funds")
 
     # ---------- 数据快照（供推送 / 历史） ----------
     snapshot = {
@@ -465,9 +495,9 @@ def main() -> int:
     return 0
 
 
-def write_page(filename, title, body, now):
+def write_page(filename, title, body, now, theme=None):
     with open(os.path.join(DIST, filename), "w", encoding="utf-8") as f:
-        f.write(_page(title, body, now))
+        f.write(_page(title, body, now, theme=theme))
 
 
 if __name__ == "__main__":
