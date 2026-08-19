@@ -26,6 +26,13 @@ DIST = os.path.join(BASE, "dist")
 FALLBACK = os.path.join(BASE, "hanquan", "last_qiangquan.json")
 TEMPLATE = os.path.join(BASE, "hanquan", "board_template.html")
 ISSUES_TEMPLATE = os.path.join(BASE, "hanquan", "issues_template.html")
+VUE_LIB = os.path.join(BASE, "hanquan", "vue.global.prod.js")
+
+CDN_BLOCK = """<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script>
+window.Vue || document.write('<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"><\\/script>');
+</script>"""
+LOCAL_VUE = """<script src="vue.global.prod.js"></script>"""
 
 # 只展示"待发行/审批中"，剔除已上市
 EXCLUDE_PROGRESS = {"已上市"}
@@ -93,21 +100,24 @@ def main() -> int:
     with open(data_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=1)
 
-    # 复制页面模板（Vue 页面 fetch 同目录 qiangquan.json）
+    # 复制页面模板（Vue 页面 fetch 同目录 qiangquan.json，Vue 用本地库避免 CDN 加载失败）
     with open(TEMPLATE, "r", encoding="utf-8") as f:
         html = f.read()
+    html = html.replace(CDN_BLOCK, LOCAL_VUE)
     html = html.replace('qiangquan.json?refresh=1', 'qiangquan.json')
     html = html.replace("./qiangquan.json", "qiangquan.json")
-    html = html.replace("qiangquan.json", "qiangquan.json").replace("qiangquan.json", "qiangquan.json")
     with open(os.path.join(DIST, "qiangquan.html"), "w", encoding="utf-8") as f:
         f.write(html)
 
     # 待发可转债(抢权)页面：按审核进度分组 + 排序 + 搜索（学习 adile.cn 交互）
     with open(ISSUES_TEMPLATE, "r", encoding="utf-8") as f:
         iss_html = f.read()
-    iss_html = iss_html.replace("qiangquan.json?t=", "qiangquan.json?t=")
+    iss_html = iss_html.replace(CDN_BLOCK, LOCAL_VUE)
     with open(os.path.join(DIST, "issues.html"), "w", encoding="utf-8") as f:
         f.write(iss_html)
+
+    # 本地 Vue 库（随页面一起部署，避免 CDN 依赖）
+    shutil.copyfile(VUE_LIB, os.path.join(DIST, "vue.global.prod.js"))
 
     # 更新仓库内置兜底快照（供下次失败时回退）
     try:
