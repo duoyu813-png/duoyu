@@ -24,6 +24,7 @@ from scrapers.data_merger import merge_cb_data
 from strategies.cb_strategies import run_all_strategies, ALL_STRATEGIES
 
 DIST = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dist")
+BASE = os.path.dirname(os.path.abspath(__file__))
 
 CSS = """<style>
   :root { --bg:#f8f9fa; --card:#fff; --text:#212529; --muted:#6c757d; --border:#dee2e6; --accent:#2563eb; --blue-l:#dbeafe; --red:#dc2626; --green:#16a34a; }
@@ -297,16 +298,19 @@ def main() -> int:
     funds = fetch_funds_merged()
     fund_count = len(funds)
 
-    # ---------- 3) 待发可转债（抢权）计数：优先取抢权看板数据，兜底用东财 ----------
+    # ---------- 3) 待发可转债（抢权）计数：优先取抢权数据，兜底用东财 ----------
     issue_count = 0
-    try:
-        qp = os.path.join(DIST, "qiangquan.json")
-        if os.path.exists(qp):
-            with open(qp, "r", encoding="utf-8") as f:
-                qdata = json.load(f)
-            issue_count = int(qdata.get("total") or 0)
-    except Exception:
-        pass
+    for cand in (os.path.join(DIST, "qiangquan.json"),
+                 os.path.join(BASE, "hanquan", "last_qiangquan.json")):
+        try:
+            if os.path.exists(cand):
+                with open(cand, "r", encoding="utf-8") as f:
+                    qdata = json.load(f)
+                issue_count = int(qdata.get("total") or 0)
+                if issue_count:
+                    break
+        except Exception:
+            continue
     if issue_count == 0:
         all_issues = EastMoneyScraper.fetch_new_cb_issues()
         issue_count = len([i for i in all_issues if i.get("progress_name") != "已申购待上市"])
