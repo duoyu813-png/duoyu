@@ -8,7 +8,12 @@ on:
   schedule:
     - cron: '0 12 * * *'
     - cron: '0 6 * * 5'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '手动触发推送类型: test/discount/rotation/issues'
+        required: false
+        default: 'test'
 
 permissions:
   contents: write
@@ -32,16 +37,22 @@ jobs:
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
           JISILU_COOKIE: ${{ secrets.JISILU_COOKIE }}
         run: |
-          # 判断本轮触发的任务（GitHub Actions 会把匹配的 cron 一起带进 GITHUB_EVENT_NAME，无法区分用哪个 cron）
-          # 用系统时间判断：UTC 12:xx 作折价推送，UTC 周五 06:xx 作轮动推送
-          HOUR=$(TZ=Asia/Shanghai date +%H)
-          DOW=$(TZ=Asia/Shanghai date +%u)
-          echo "北京时区: $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M %A')"
-          # 每周五 14:00 附近做轮动推送（含 14:00-14:10 窗口，防调度延迟）
-          if [ "$DOW" = "5" ] && [ "$HOUR" = "14" ]; then
-            python notify.py --rotation
+          MODE="${{ inputs.mode }}"
+          if [ -n "$MODE" ] && [ "$MODE" != "auto" ]; then
+            echo "手动触发推送: $MODE"
+            python notify.py --$MODE
           else
-            python notify.py --discount
+            # 判断本轮触发的任务（GitHub Actions 会把匹配的 cron 一起带进 GITHUB_EVENT_NAME，无法区分用哪个 cron）
+            # 用系统时间判断：UTC 12:xx 作折价推送，UTC 周五 06:xx 作轮动推送
+            HOUR=$(TZ=Asia/Shanghai date +%H)
+            DOW=$(TZ=Asia/Shanghai date +%u)
+            echo "北京时区: $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M %A')"
+            # 每周五 14:00 附近做轮动推送（含 14:00-14:10 窗口，防调度延迟）
+            if [ "$DOW" = "5" ] && [ "$HOUR" = "14" ]; then
+              python notify.py --rotation
+            else
+              python notify.py --discount
+            fi
           fi
 
       # 轮动推送会更新 last_strategies.json / last_issues.json，回写仓库以便下次比对
