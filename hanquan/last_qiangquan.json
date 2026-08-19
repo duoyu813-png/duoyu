@@ -1,6 +1,6 @@
 {
  "total": 80,
- "generated_at": "2026-08-19 13:28:11",
+ "generated_at": "2026-08-19 14:06:18",
  "source": "live",
  "bonds": [
   {
@@ -91,95 +91,6 @@
    "issue_amount": 4.5,
    "safety_pct": 4.6,
    "per_share_allotment": 4.8005
-  },
-  {
-   "stock_code": "603409",
-   "stock_name": "汇通控股",
-   "bond_name": "汇通控股转债",
-   "industry": "交通运输",
-   "total_scale": 5.0,
-   "per_share_amount": 15.12,
-   "progress": "交易所通过",
-   "registration_date": "",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 17.53,
-   "cb_amount": 15.12,
-   "b_shares": 0.0,
-   "price": 17.61,
-   "change_pct": -1.89,
-   "pb": 2.13,
-   "ma20_price": 17.53,
-   "circ_mv": 1.5,
-   "circ_mv_score_factor": 1.5,
-   "pe": 13.34,
-   "turnover_rate": null,
-   "amount": 5.0,
-   "q1_growth": 43.14,
-   "major_shareholder_ratio": 0.7,
-   "one_hand_shares": 200,
-   "per_hand_shares": 375.555786,
-   "market": "沪",
-   "total_score": 90,
-   "rating": "A+",
-   "action": "关注建仓",
-   "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤15.85 | 卖出≥20.25 | 安全垫8.5%",
-   "score_details": {
-    "含权量评分": {
-     "score": 20,
-     "max": 30,
-     "factor": "15.12元"
-    },
-    "隐形流通量评分": {
-     "score": 30,
-     "max": 40,
-     "factor": "1.50亿"
-    },
-    "业绩评分": {
-     "score": 30,
-     "max": 40,
-     "factor": "Q1增长43.14%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "未知"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=13.34"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "交通运输"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交5.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "交通运输"
-    }
-   },
-   "weighted_amount": 15.12,
-   "hidden_circulation": 1.5,
-   "total": 90,
-   "issue_amount": 5.0,
-   "safety_pct": 8.5,
-   "per_share_allotment": 2.6627
   },
   {
    "stock_code": "688600",
@@ -714,6 +625,95 @@
    "issue_amount": 3.06,
    "safety_pct": 2.8,
    "per_share_allotment": 1.8158
+  },
+  {
+   "stock_code": "603409",
+   "stock_name": "汇通控股",
+   "bond_name": "汇通控股转债",
+   "industry": "交通运输",
+   "total_scale": 5.0,
+   "per_share_amount": 15.12,
+   "progress": "交易所通过",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 17.53,
+   "cb_amount": 15.12,
+   "b_shares": 0.0,
+   "price": 17.61,
+   "change_pct": -1.89,
+   "pb": 2.13,
+   "ma20_price": 17.53,
+   "circ_mv": 1.5,
+   "circ_mv_score_factor": 1.5,
+   "pe": null,
+   "turnover_rate": null,
+   "amount": 5.0,
+   "q1_growth": null,
+   "major_shareholder_ratio": 0.7,
+   "one_hand_shares": 200,
+   "per_hand_shares": 375.555786,
+   "market": "沪",
+   "total_score": 75,
+   "rating": "A",
+   "action": "关注建仓",
+   "action_reason": "高分+交易所通过，等待注册后加仓",
+   "action_price": "买入≤15.85 | 卖出≥20.25 | 安全垫8.5%",
+   "score_details": {
+    "含权量评分": {
+     "score": 20,
+     "max": 30,
+     "factor": "15.12元"
+    },
+    "隐形流通量评分": {
+     "score": 30,
+     "max": 40,
+     "factor": "1.50亿"
+    },
+    "业绩评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "暂无数据"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "无"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "交通运输"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交5.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "交通运输"
+    }
+   },
+   "weighted_amount": 15.12,
+   "hidden_circulation": 1.5,
+   "total": 75,
+   "issue_amount": 5.0,
+   "safety_pct": 8.5,
+   "per_share_allotment": 2.6627
   },
   {
    "stock_code": "603339",
