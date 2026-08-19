@@ -76,13 +76,13 @@ def _page(title, body, now):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} · 金融提醒看板</title>
+<title>{title} · 小渔点儿</title>
 {CSS}
 </head>
 <body>
 <header>
   <div class="inner">
-    <a href="index.html" style="text-decoration:none;color:var(--text);"><span class="brand">金融提醒看板</span></a>
+    <a href="index.html" style="text-decoration:none;color:var(--text);"><span class="brand">小渔点儿</span></a>
     <span class="ts">数据时间：{now}</span>
   </div>
 </header>
@@ -312,7 +312,7 @@ def main() -> int:
   </a>
 </div>"""
     body_home = f"""
-<h1>金融提醒看板</h1>
+<h1>小渔点儿</h1>
 <p class="sub">自动抓取东财全市场行情 · 定时推送微信 · 数据每小时刷新</p>
 {hero}
 """
