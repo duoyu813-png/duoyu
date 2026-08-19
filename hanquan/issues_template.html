@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>待发可转债(抢权) · 小渔点儿</title>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script>
+window.Vue || document.write('<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"><\/script>');
+</script>
+<style>
+:root{--bg:#f8f9fa;--card:#fff;--text:#212529;--muted:#6c757d;--border:#dee2e6;--accent:#2563eb;--blue-l:#dbeafe;--red:#dc2626;--green:#16a34a;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1280px;margin:0 auto;padding:14px 16px 48px}
+header{background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+header .inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:52px}
+header .brand{font-weight:700;font-size:16px}
+header .ts{color:var(--muted);font-size:12px}
+.breadcrumb{margin:10px 0 6px}
+.breadcrumb a{font-size:13px;color:var(--accent);text-decoration:none;font-weight:500}
+h1{font-size:20px;margin:4px 0}
+.sub{color:var(--muted);font-size:13px;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.bar .search{margin-left:auto;padding:7px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;width:150px}
+.bar .search:focus{border-color:var(--accent)}
+.chip{padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid var(--border);background:var(--card);color:#495057;transition:all .15s;text-decoration:none}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chip .n{font-size:11px;opacity:.8;margin-left:4px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap}
+th{background:var(--blue-l);color:var(--accent);font-weight:600;cursor:pointer;user-select:none}
+th:hover{opacity:.8}
+th .ic{font-size:10px;margin-left:2px;opacity:.7}
+tr:hover td{background:#f1f5f9}
+.sorted-th{background:#bfdbfe}
+.num-pos{color:var(--green);font-weight:600}
+.num-neg{color:var(--red);font-weight:600}
+.tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600}
+.tag-blue{background:var(--blue-l);color:var(--accent)}
+.tag-green{background:rgba(22,163,74,.15);color:var(--green)}
+.tag-orange{background:#ffedd5;color:#ea580c}
+.tag-gray{background:#eef0f2;color:#6b7280}
+.rating{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700}
+.rating-A{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff}
+.rating-B{background:#5ec97f;color:#fff}
+.rating-C{background:#c3d4c9;color:#3d5c4c}
+.rating-D{background:#dbe6df;color:#5d7267}
+.score{font-weight:800;font-size:15px}
+.score-high{color:var(--green)}
+.score-mid{color:#2bc46a}
+.score-low{color:#9aa9a2}
+.empty{color:var(--muted);padding:40px;text-align:center}
+.stock-link{color:var(--accent);text-decoration:none;font-weight:600}
+.mt{color:var(--muted);font-size:11px}
+.actionsel{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600}
+.action-pos{background:rgba(22,163,74,.15);color:var(--green)}
+.action-watch{background:rgba(34,197,94,.1);color:#15803d}
+.action-caution{background:#eef3ef;color:#64796e}
+.action-avoid{background:#e8ede9;color:#8a9990}
+@media(max-width:768px){th,td{padding:6px 6px;font-size:12px}.bar .search{width:110px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <a href="index.html" style="text-decoration:none;color:var(--text);"><span class="brand">小渔点儿</span></a>
+    <span class="ts">数据时间：{{ updatedAt }}</span>
+  </div>
+</header>
+<div class="container">
+  <nav class="breadcrumb"><a href="index.html">← 返回首页</a></nav>
+  <h1>待发可转债 · 抢权</h1>
+  <p class="sub">按审核进度分组 · 点击表头排序甄别 · 数据源：集思录/东财/腾讯 · 共 {{ total }} 条</p>
+
+  <div class="bar">
+    <a class="chip" :class="{active: curProgress===''}" @click="setProgress('')">全部<span class="n">{{ total }}</span></a>
+    <a class="chip" v-for="(cnt, p) in progressCounts" :key="p" :class="{active: curProgress===p}" @click="setProgress(p)">{{ p }}<span class="n">{{ cnt }}</span></a>
+    <input class="search" v-model="search" placeholder="搜代码/名称">
+  </div>
+
+  <div class="card">
+    <div v-if="filtered.length === 0" class="empty">暂无数据</div>
+    <table v-else>
+      <thead>
+        <tr>
+          <th @click="sortBy('total_score')">评分<span class="ic" v-if="sortField==='total_score'">{{ arrow }}</span></th>
+          <th @click="sortBy('stock_code')">代码/名称<span class="ic" v-if="sortField==='stock_code'">{{ arrow }}</span></th>
+          <th @click="sortBy('progress')">进度<span class="ic" v-if="sortField==='progress'">{{ arrow }}</span></th>
+          <th @click="sortBy('total_scale')">规模(亿)<span class="ic" v-if="sortField==='total_scale'">{{ arrow }}</span></th>
+          <th @click="sortBy('per_share_amount')">百元含权<span class="ic" v-if="sortField==='per_share_amount'">{{ arrow }}</span></th>
+          <th @click="sortBy('circ_mv')">预估流通(亿)<span class="ic" v-if="sortField==='circ_mv'">{{ arrow }}</span></th>
+          <th @click="sortBy('one_hand_shares')">一手党(股)<span class="ic" v-if="sortField==='one_hand_shares'">{{ arrow }}</span></th>
+          <th @click="sortBy('price')">正股价<span class="ic" v-if="sortField==='price'">{{ arrow }}</span></th>
+          <th @click="sortBy('industry')">行业<span class="ic" v-if="sortField==='industry'">{{ arrow }}</span></th>
+          <th>评级</th>
+          <th @click="sortBy('action')">操作建议<span class="ic" v-if="sortField==='action'">{{ arrow }}</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="b in filtered" :key="b.stock_code">
+          <td><span class="score" :class="scoreCls(b.total_score)">{{ b.total_score }}</span></td>
+          <td>
+            <a class="stock-link" :href="emUrl(b.stock_code)" target="_blank">{{ b.stock_code }}</a>
+            <div style="font-size:11px;color:var(--muted)">{{ b.stock_name }}</div>
+          </td>
+          <td><span class="tag" :class="progressTag(b.progress)">{{ b.progress }}</span></td>
+          <td>{{ fmt(b.total_scale) }}</td>
+          <td><span :class="b.per_share_amount>15?'num-pos':''">{{ fmt(b.per_share_amount) }}</span></td>
+          <td><span :class="b.circ_mv<3?'num-pos':''">{{ fmt(b.circ_mv) }}</span></td>
+          <td>{{ b.one_hand_shares || '-' }}</td>
+          <td>{{ fmt(b.price) }}</td>
+          <td style="font-size:12px">{{ b.industry }}</td>
+          <td><span class="rating" :class="'rating-'+b.rating">{{ b.rating }}</span></td>
+          <td><span class="actionsel" :class="actionCls(b.action)">{{ b.action }}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="sub" style="text-align:center;margin-top:16px">仅供学习参考，不构成投资建议 · 由 GitHub Actions 定时生成</p>
+</div>
+
+<script>
+const { createApp, ref, computed } = Vue;
+
+createApp({
+  setup() {
+    const bonds = ref([]);
+    const updatedAt = ref('-');
+    const total = ref(0);
+    const curProgress = ref('');
+    const search = ref('');
+    const sortField = ref('total_score');
+    const sortDesc = ref(true);
+
+    const progressCounts = computed(() => {
+      const c = {};
+      bonds.value.forEach(b => { const p = b.progress || '其他'; c[p] = (c[p] || 0) + 1; });
+      const order = ['发行中','同意注册','上市委通过','交易所通过','交易所受理','股东大会审议','董事会预案','其他'];
+      const sorted = {};
+      order.forEach(p => { if (c[p]) sorted[p] = c[p]; });
+      return sorted;
+    });
+
+    const arrow = computed(() => sortDesc.value ? '↓' : '↑');
+
+    const filtered = computed(() => {
+      let list = bonds.value;
+      if (curProgress.value) list = list.filter(b => (b.progress||'其他') === curProgress.value);
+      if (search.value) {
+        const q = search.value.toLowerCase();
+        list = list.filter(b => (b.stock_code||'').toLowerCase().includes(q) || (b.stock_name||'').includes(q));
+      }
+      list.sort((a, b) => {
+        let va, vb;
+        if (sortField.value === 'progress') { va = PROG_ORDER[a.progress] || 99; vb = PROG_ORDER[b.progress] || 99; }
+        else if (sortField.value === 'action') { va = ACTION_ORDER[a.action] || 9; vb = ACTION_ORDER[b.action] || 9; }
+        else if (sortField.value === 'stock_code') { va = a.stock_code; vb = b.stock_code; return sortDesc.value ? vb.localeCompare(va) : va.localeCompare(vb); }
+        else { va = Number(a[sortField.value]) || 0; vb = Number(b[sortField.value]) || 0; }
+        return sortDesc.value ? vb - va : va - vb;
+      });
+      return list;
+    });
+
+    function setProgress(p) { curProgress.value = p; }
+    function sortBy(f) {
+      if (sortField.value === f) sortDesc.value = !sortDesc.value;
+      else { sortField.value = f; sortDesc.value = true; }
+    }
+    function fmt(v) { if (v == null || v === '') return '-'; const n = Number(v); return Number.isFinite(n) ? (n % 1 === 0 ? String(n) : n.toFixed(2)) : v; }
+    function emUrl(code) { return 'https://quote.eastmoney.com/' + (code.startsWith('6') ? 'sh' : 'sz') + code + '.html'; }
+    function scoreCls(s) { if (s >= 80) return 'score-high'; if (s >= 60) return 'score-mid'; return 'score-low'; }
+    function progressTag(p) {
+      if (p === '发行中' || p === '同意注册') return 'tag-green';
+      if (p === '上市委通过' || p === '交易所通过') return 'tag-blue';
+      if (p === '交易所受理') return 'tag-orange';
+      return 'tag-gray';
+    }
+    function actionCls(a) {
+      if (a && (a.includes('积极配债') || a.includes('关注建仓'))) return 'action-pos';
+      if (a && (a.includes('小仓关注') || a.includes('关注'))) return 'action-watch';
+      if (a && a.includes('观望')) return 'action-caution';
+      return 'action-avoid';
+    }
+
+    const PROG_ORDER = { '发行中':0,'同意注册':1,'上市委通过':2,'交易所通过':3,'交易所受理':4,'股东大会审议':5,'董事会预案':6 };
+    const ACTION_ORDER = { '积极配债':0,'关注建仓':1,'小仓关注':2,'关注':3,'观望':4,'回避':5 };
+
+    async function load() {
+      try {
+        const r = await fetch('qiangquan.json?t=' + Date.now());
+        const data = await r.json();
+        bonds.value = data.bonds || [];
+        total.value = data.total || 0;
+        updatedAt.value = data.generated_at || data.updated_at || '-';
+      } catch (e) {
+        updatedAt.value = '加载失败';
+      }
+    }
+    load();
+
+    return { bonds, updatedAt, total, curProgress, search, sortField, sortDesc, progressCounts, arrow, filtered, setProgress, sortBy, fmt, emUrl, scoreCls, progressTag, actionCls };
+  }
+}).mount('#app');
+</script>
+</body>
+</html>

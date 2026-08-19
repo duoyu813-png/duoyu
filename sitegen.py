@@ -276,6 +276,7 @@ def main() -> int:
     t0 = time.time()
     print("[sitegen] 开始生成静态看板（多页面）")
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    report = {"generated_at": now, "sections": {}}
 
     # ---------- 1) 可转债 ----------
     live_data = EastMoneyScraper.fetch_cb_list()
@@ -296,12 +297,20 @@ def main() -> int:
     funds = fetch_funds_merged()
     fund_count = len(funds)
 
-    # ---------- 3) 待发可转债（仅待发，排除已申购待上市） ----------
-    all_issues = EastMoneyScraper.fetch_new_cb_issues()
-    issues = [i for i in all_issues if i.get("progress_name") != "已申购待上市"]
-    if len(issues) < len(all_issues):
-        print(f"[sitegen] 抢权页过滤 {len(all_issues)-len(issues)} 条已申购为上市，保留 {len(issues)} 条待发")
-    issue_count = len(issues)
+    # ---------- 3) 待发可转债（抢权）计数：优先取抢权看板数据，兜底用东财 ----------
+    issue_count = 0
+    try:
+        qp = os.path.join(DIST, "qiangquan.json")
+        if os.path.exists(qp):
+            with open(qp, "r", encoding="utf-8") as f:
+                qdata = json.load(f)
+            issue_count = int(qdata.get("total") or 0)
+    except Exception:
+        pass
+    if issue_count == 0:
+        all_issues = EastMoneyScraper.fetch_new_cb_issues()
+        issue_count = len([i for i in all_issues if i.get("progress_name") != "已申购待上市"])
+    report["sections"]["issue_count"] = issue_count
 
     os.makedirs(DIST, exist_ok=True)
 
@@ -387,50 +396,16 @@ def main() -> int:
 """
         write_page(f"cb_{key}.html", name, body, now, theme="cb")
 
-    # ---------- 待发可转债 issues.html（按进度分组按钮） ----------
-    groups = {}
-    for i in issues:
-        p = i.get("progress_name") or "其他"
-        groups.setdefault(p, []).append(i)
-    if groups:
-        chips = []
-        for idx, (p, items) in enumerate(groups.items()):
-            chips.append(f"<a class='chip' href='issues_{idx}.html'>{p}<span class='n'>{len(items)}</span></a>")
-        filters_html = f"<div class='filters'>{''.join(chips)}</div>"
-    else:
-        filters_html = "<div class='empty'>暂无待发可转债</div>"
+    # ---------- 待发可转债 issues.html ----------
+    # 说明：完整抢权看板页面由 qiangquan_gen.py 生成（按审核进度分组 + 排序 + 搜索），
+    # 这里仅生成首页占位卡片，避免 sitegen 运行时 qiangquan 数据尚未生成导致页面为空。
+    issue_note = "抢权详情页由独立流程生成，若此处为空请稍后刷新（qiangquan 数据生成中）"
     body_iss = f"""
 <a class="back" href="index.html">← 返回首页</a>
 <h1>待发可转债 · 抢权</h1>
-<p class="sub">按发行进度分组浏览，点击按钮查看该进度下的详细抢权数据</p>
-{filters_html}
+<p class="sub">{issue_note} · 当前共 {issue_count} 条待发</p>
 """
     write_page("issues.html", "待发可转债", body_iss, now, theme="issues")
-
-    # ---------- 各进度详情 issues_<n>.html ----------
-    for idx, (p, items) in enumerate(groups.items()):
-        items.sort(key=lambda x: -(x.get("per100_value") or 0))
-        table = _render_table(
-            ["股票代码", "正股", "转债", "规模(亿)", "进度", "百元含权", "每股配售", "市场", "一手党股数", "获配张数", "资金(元)"],
-            [[
-                i.get("stock_code", ""), i.get("stock_name", ""), i.get("bond_name", ""),
-                _fmt(i.get("issue_size")) if i.get("issue_size") is not None else "-",
-                i.get("progress_name", ""),
-                _fmt(i.get("per100_value")) if i.get("per100_value") is not None else "-",
-                _fmt(i.get("per_share")) if i.get("per_share") is not None else "-",
-                {"sh": "沪", "sz": "深", "bj": "京"}.get(i.get("market"), i.get("market") or ""),
-                i.get("min_lot_shares", "-"),
-                i.get("min_lot_bonds", "-"),
-                f"{i.get('min_lot_capital'):.0f}" if i.get("min_lot_capital") else "-",
-            ] for i in items],
-        )
-        body = f"""
-<a class="back" href="issues.html">← 返回进度列表</a>
-<h1>{p}</h1>
-<p class="sub">共 {len(items)} 条 · 按百元含权从高到低排序</p>
-<div class="card">{table}</div>
-"""
-        write_page(f"issues_{idx}.html", p, body, now, theme="issues")
 
     # ---------- 封闭基金 funds.html（Top20 + 查看全部） ----------
     fund_rows = [[
@@ -481,7 +456,7 @@ def main() -> int:
             {**f, "maturity_date": _date_str(f.get("maturity_date"))}
             for f in funds
         ],
-        "issues": issues,
+        "issues": [],
         "strategies": {
             k: [b for b in v["bonds"][:20]]
             for k, v in strategies.items()

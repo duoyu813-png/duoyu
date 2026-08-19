@@ -25,6 +25,7 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(BASE, "dist")
 FALLBACK = os.path.join(BASE, "hanquan", "last_qiangquan.json")
 TEMPLATE = os.path.join(BASE, "hanquan", "board_template.html")
+ISSUES_TEMPLATE = os.path.join(BASE, "hanquan", "issues_template.html")
 
 # 只展示"待发行/审批中"，剔除已上市
 EXCLUDE_PROGRESS = {"已上市"}
@@ -100,6 +101,13 @@ def main() -> int:
     html = html.replace("qiangquan.json", "qiangquan.json").replace("qiangquan.json", "qiangquan.json")
     with open(os.path.join(DIST, "qiangquan.html"), "w", encoding="utf-8") as f:
         f.write(html)
+
+    # 待发可转债(抢权)页面：按审核进度分组 + 排序 + 搜索（学习 adile.cn 交互）
+    with open(ISSUES_TEMPLATE, "r", encoding="utf-8") as f:
+        iss_html = f.read()
+    iss_html = iss_html.replace("qiangquan.json?t=", "qiangquan.json?t=")
+    with open(os.path.join(DIST, "issues.html"), "w", encoding="utf-8") as f:
+        f.write(iss_html)
 
     # 更新仓库内置兜底快照（供下次失败时回退）
     try:
