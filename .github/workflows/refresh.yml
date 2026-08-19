@@ -43,6 +43,23 @@ jobs:
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
         run: python sitegen.py
 
+      - name: Generate qiangquan scoring board
+        env:
+          JISILU_COOKIE: ${{ secrets.JISILU_COOKIE }}
+        run: python qiangquan_gen.py || echo "qiangquan generation failed, keeping last snapshot"
+
+      - name: Commit fallback cache
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hanquan/last_qiangquan.json
+          if git diff --cached --quiet; then
+            echo "无变更"
+          else
+            git commit -m "chore: update qiangquan fallback cache"
+            git push
+          fi
+
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -310,6 +310,11 @@ def main() -> int:
     <p>按"同意注册 / 待申购 / 待发行"进度分组浏览</p>
     <p class="cnt">{issue_count} 条待发债</p>
   </a>
+  <a class="hero-card" href="qiangquan.html">
+    <h3>可转债抢权·评分看板</h3>
+    <p>全市场待发债评分体系：含权量/隐形流通/业绩/操作建议</p>
+    <p class="cnt">逐只评分 · 四版回测体系</p>
+  </a>
 </div>"""
     body_home = f"""
 <h1>小渔点儿</h1>

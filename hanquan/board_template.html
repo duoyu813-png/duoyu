@@ -1,0 +1,601 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>可转债抢权操作 · 评分看板</title>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script>
+window.Vue || document.write('<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"><\/script>');
+</script>
+<style>
+:root {
+  --bg: #ffffff; --card: #ffffff; --card2: #f6faf7;
+  --text: #22332b; --sub: #6b7f74; --line: #e3ece6;
+  --accent: #16a34a; --accent2: #15803d;
+  --green: #16a34a; --red: #94a3a0; --yellow: #3ecf6b; --orange: #c07a2a;
+  --score-high: #16a34a; --score-mid: #2bc46a; --score-low: #9aa9a2;
+  --radius: 8px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei","Helvetica Neue",system-ui,sans-serif;
+  min-height:100vh;font-size:14px;
+}
+.header{
+  background:var(--card);border-bottom:1px solid var(--line);padding:18px 28px;position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+.header h1{font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px;color:#22332b}
+.header h1 span{color:var(--accent)}
+.header .sub{font-size:12px;color:var(--sub)}
+.header .meta{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--sub)}
+.header .meta .count{color:var(--accent);font-weight:700;font-size:16px}
+.btn-refresh{
+  background:var(--accent);color:#fff;border:none;padding:8px 20px;border-radius:6px;
+  font-size:13px;font-weight:600;cursor:pointer;transition:.2s;
+}
+.btn-refresh:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(22,163,74,.3)}
+.btn-refresh:disabled{opacity:.5;cursor:not-allowed}
+.container{max-width:1600px;margin:0 auto;padding:20px 24px}
+
+/* Filter bar */
+.filter-bar{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:12px 16px;margin-bottom:18px;
+  box-shadow:0 1px 2px rgba(0,0,0,.03);
+}
+.filter-bar label{font-size:12px;color:var(--sub);font-weight:500}
+.filter-bar select,.filter-bar input{
+  background:var(--card);border:1px solid var(--line);color:var(--text);
+  padding:6px 12px;border-radius:6px;font-size:13px;outline:none;min-width:100px;
+}
+.filter-bar select:focus,.filter-bar input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(22,163,74,.1)}
+.search-input{width:180px}
+
+/* Stats row */
+.stats-row{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:12px;margin-bottom:18px;
+}
+.stat-card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 16px;text-align:center;
+  box-shadow:0 1px 2px rgba(0,0,0,.03);
+}
+.stat-card .num{font-size:24px;font-weight:800}
+.stat-card .label{font-size:11px;color:var(--sub);margin-top:4px}
+.stat-card.high .num{color:var(--score-high)}
+.stat-card.mid .num{color:var(--score-mid)}
+.stat-card.low .num{color:var(--score-low)}
+
+/* Bond table */
+.table-wrap{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  overflow-x:auto;overflow-y:auto;max-height:calc(100vh - 280px);
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+table{width:100%;border-collapse:collapse;font-size:12.5px;white-space:nowrap}
+thead{position:sticky;top:0;z-index:10}
+th{
+  background:#ffffff;padding:10px 8px;font-weight:600;font-size:11.5px;
+  text-align:center;border-bottom:2px solid var(--line);color:var(--sub);
+  cursor:pointer;user-select:none;transition:.15s;position:relative;
+}
+th:hover{color:var(--accent);background:#f2f8f4}
+th.sorted{color:var(--accent);background:#eef9f1}
+th.sort-icon{font-size:10px;margin-left:4px;color:var(--sub)}
+th.sorted .sort-icon{color:var(--accent)}
+td{padding:9px 8px;text-align:center;border-bottom:1px solid var(--line)}
+tr:hover td{background:#f7fbf8}
+tr.row-high td{border-left:3px solid var(--score-high)}
+tr.row-mid td{border-left:3px solid var(--score-mid)}
+tr.row-low td{border-left:3px solid var(--score-low)}
+
+.stock-link{color:var(--accent);text-decoration:none;font-weight:600}
+.stock-link:hover{text-decoration:underline}
+
+.market-tag{
+  position:absolute;top:2px;right:3px;z-index:2;
+  font-size:9px;line-height:1;font-weight:700;
+  padding:2px 3px;border-radius:3px;color:#fff;
+  background:#b9c4bd;pointer-events:none;
+}
+.market-tag.sh{background:#16a34a}
+.market-tag.sz{background:#9aa9a2}
+.market-tag.bj{background:#a9c3b1}
+
+.score-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:36px;height:26px;border-radius:6px;font-weight:700;font-size:13px;
+}
+.score-high{background:rgba(22,163,74,.12);color:var(--score-high)}
+.score-mid{background:rgba(43,196,106,.14);color:var(--score-mid)}
+.score-low{background:rgba(154,169,162,.15);color:var(--score-low)}
+
+.rating-badge{
+  display:inline-block;padding:2px 10px;border-radius:999px;font-weight:700;font-size:11px;
+}
+.rating-A-plus{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff}
+.rating-A{background:#22c55e;color:#fff}
+.rating-B-plus{background:#5ec97f;color:#fff}
+.rating-B{background:#93bfa4;color:#fff}
+.rating-C{background:#c3d4c9;color:#3d5c4c}
+.rating-D{background:#dbe6df;color:#5d7267}
+
+.action-tag{
+  display:inline-block;padding:3px 10px;border-radius:6px;font-weight:600;font-size:11px;
+}
+.action-positive{background:rgba(22,163,74,.15);color:#16a34a}
+.action-watch{background:rgba(34,197,94,.1);color:#15803d}
+.action-caution{background:#eef3ef;color:#64796e}
+.action-avoid{background:#e8ede9;color:#8a9990}
+
+.progress-tag{
+  display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;
+}
+.progress-reg{background:rgba(22,163,74,.15);color:#16a34a}
+.progress-csrc{background:rgba(34,197,94,.1);color:#15803d}
+.progress-exch{background:#eef3ef;color:#64796e}
+.progress-other{background:#e8ede9;color:#9aa999}
+
+.num-pos{color:var(--score-high);font-weight:600}
+.num-neg{color:var(--score-low);font-weight:600}
+.num-zero{color:var(--sub)}
+
+/* Score detail popup */
+.detail-popup{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,.4);z-index:999;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+}
+.detail-card{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  width:100%;max-width:560px;max-height:80vh;overflow-y:auto;padding:28px;
+  box-shadow:0 20px 60px rgba(0,0,0,.15);
+}
+.detail-card h2{font-size:18px;margin-bottom:4px;color:#22332b}
+.detail-card .d-sub{color:var(--sub);font-size:13px;margin-bottom:18px}
+.detail-card .close-btn{
+  float:right;background:var(--card2);border:1px solid var(--line);
+  color:var(--sub);width:32px;height:32px;border-radius:8px;
+  cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;
+}
+.detail-card .close-btn:hover{color:var(--text);background:#e6f0ea}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.detail-item{
+  background:var(--card2);border-radius:8px;padding:10px 12px;
+}
+.detail-item .d-label{font-size:11px;color:var(--sub);margin-bottom:3px}
+.detail-item .d-value{font-size:15px;font-weight:700}
+.detail-item .d-bar{
+  height:4px;border-radius:2px;margin-top:6px;background:#dfe9e2;
+  overflow:hidden;
+}
+.detail-item .d-bar-fill{height:100%;border-radius:2px;transition:width .5s}
+.detail-item .d-factor{font-size:11px;color:var(--sub);margin-top:4px}
+.detail-footer{margin-top:16px;padding:12px;border-radius:8px;font-size:13px;line-height:1.7;background:#f7fbf8}
+.detail-footer .reason{color:var(--accent);font-weight:600}
+.detail-footer .price{color:var(--score-high)}
+
+@media(max-width:768px){
+  .header{padding:14px 16px;flex-direction:column;align-items:flex-start}
+  .header .meta{flex-wrap:wrap}
+  .container{padding:12px}
+  table{font-size:11px}
+  th,td{padding:6px 4px}
+  .detail-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div id="loading-indicator" style="position:fixed;top:0;left:0;right:0;bottom:0;background:#ffffff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999">
+  <div style="width:48px;height:48px;border:4px solid #e3ece6;border-top-color:#16a34a;border-radius:50%;animation:spin 1s linear infinite"></div>
+  <div style="margin-top:16px;color:#6b7f74;font-size:14px">加载中...</div>
+  <div style="margin-top:8px;color:#9aa9a2;font-size:12px">正在初始化评分看板</div>
+  <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+</div>
+
+<div id="app">
+  <div class="header">
+    <div>
+      <h1><span>可转债抢权操作</span> · 评分看板</h1>
+      <div class="sub">基于第四版全样本回测评分体系 | 数据来源：东方财富</div>
+    </div>
+    <div class="meta">
+      <span>待发行 <span class="count">{{ bonds.length }}</span> 只</span>
+      <span>更新 {{ updatedAt }}</span>
+      <span>高分(≥80) <span class="count" style="-webkit-text-fill-color:var(--score-high);color:var(--score-high)">{{ highCount }}</span></span>
+      <span>中分(60-79) <span class="count" style="-webkit-text-fill-color:var(--score-mid);color:var(--score-mid)">{{ midCount }}</span></span>
+      <span>低分(<60) <span class="count" style="-webkit-text-fill-color:var(--score-low);color:var(--score-low)">{{ lowCount }}</span></span>
+      <button class="btn-refresh" :disabled="loading" @click="fetchData(true)">
+        {{ loading ? '加载中...' : '刷新数据' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card high">
+        <div class="num">{{ highCount }}</div>
+        <div class="label">高分标的 (≥80)</div>
+      </div>
+      <div class="stat-card mid">
+        <div class="num">{{ midCount }}</div>
+        <div class="label">中分标的 (60-79)</div>
+      </div>
+      <div class="stat-card low">
+        <div class="num">{{ lowCount }}</div>
+        <div class="label">低分标的 (&lt;60)</div>
+      </div>
+      <div class="stat-card" style="border-color:var(--accent)">
+        <div class="num" style="color:var(--accent)">{{ avgScore }}</div>
+        <div class="label">平均评分</div>
+      </div>
+      <div class="stat-card" style="border-color:var(--accent)">
+        <div class="num" style="color:var(--accent)">{{ positiveCount }}</div>
+        <div class="label">积极/适量操作建议</div>
+      </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar">
+      <label>搜索</label>
+      <input class="search-input" v-model="search" placeholder="代码/名称..." @input="applyFilter">
+      <label>评分</label>
+      <select v-model="filterScore" @change="applyFilter">
+        <option value="">全部</option>
+        <option value="high">高分 (≥80)</option>
+        <option value="mid">中分 (60-79)</option>
+        <option value="low">低分 (&lt;60)</option>
+      </select>
+      <label>操作建议</label>
+      <select v-model="filterAction" @change="applyFilter">
+        <option value="">全部</option>
+        <option value="积极配债">积极配债</option>
+        <option value="关注建仓">关注建仓</option>
+        <option value="小仓关注">小仓关注</option>
+        <option value="关注">关注</option>
+        <option value="观望">观望</option>
+        <option value="回避">回避</option>
+      </select>
+      <label>行业</label>
+      <select v-model="filterIndustry" @change="applyFilter">
+        <option value="">全部</option>
+        <option v-for="ind in industries" :key="ind" :value="ind">{{ ind }}</option>
+      </select>
+      <label>进度</label>
+      <select v-model="filterProgress" @change="applyFilter">
+        <option value="">全部</option>
+        <option value="发行中">发行中</option>
+        <option value="同意注册">同意注册</option>
+        <option value="上市委通过">上市委通过</option>
+        <option value="交易所受理">交易所受理</option>
+        <option value="股东大会审议">股东大会审议</option>
+        <option value="董事会预案">董事会预案</option>
+      </select>
+      <label>排序</label>
+      <select v-model="sortField" @change="applySort">
+        <option value="total_score">总评分</option>
+        <option value="circ_mv">流通量</option>
+        <option value="per_share_amount">含权量</option>
+        <option value="action">操作建议</option>
+      </select>
+    </div>
+
+    <div v-if="loading || bonds.length === 0" style="text-align:center;padding:60px 0;color:var(--sub)">
+      <div v-if="loading" style="font-size:14px;margin-bottom:8px">正在从东方财富获取数据...</div>
+      <div v-if="loading" style="font-size:12px;color:var(--sub)">首次加载可能需10-20秒（逐只查询行情和财务数据）</div>
+      <div v-if="!loading && bonds.length === 0 && !error" style="font-size:14px;margin-bottom:8px">暂无数据</div>
+    </div>
+
+    <div v-if="error" style="text-align:center;padding:40px;color:var(--red)">
+      <div style="font-size:16px;margin-bottom:12px">加载失败</div>
+      <div style="font-size:13px">{{ error }}</div>
+      <button class="btn-refresh" style="margin-top:16px" @click="fetchData(true)">重试</button>
+    </div>
+
+    <div class="table-wrap" v-if="!loading && !error && bonds.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th @click="sortBy('total_score')" :class="{sorted:sortField=='total_score'}">评分<span class="sort-icon" v-if="sortField=='total_score'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th @click="sortBy('rating')" :class="{sorted:sortField=='rating'}">评级<span class="sort-icon" v-if="sortField=='rating'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th>代码/名称</th>
+            <th @click="sortBy('industry')" :class="{sorted:sortField=='industry'}">行业<span class="sort-icon" v-if="sortField=='industry'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th @click="sortBy('progress')" :class="{sorted:sortField=='progress'}">进度<span class="sort-icon" v-if="sortField=='progress'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th @click="sortBy('total_scale')" :class="{sorted:sortField=='total_scale'}">发行规模<span class="sort-icon" v-if="sortField=='total_scale'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th @click="sortBy('per_share_amount')" :class="{sorted:sortField=='per_share_amount'}">百元含权<span class="sort-icon" v-if="sortField=='per_share_amount'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th @click="sortBy('circ_mv')" :class="{sorted:sortField=='circ_mv'}">隐形流通（亿）<span class="sort-icon" v-if="sortField=='circ_mv'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th @click="sortBy('one_hand_shares')" :class="{sorted:sortField=='one_hand_shares'}">一手党（股）<span class="sort-icon" v-if="sortField=='one_hand_shares'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th @click="sortBy('q1_growth')" :class="{sorted:sortField=='q1_growth'}">最近一次业绩<span class="sort-icon" v-if="sortField=='q1_growth'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th @click="sortBy('pe')" :class="{sorted:sortField=='pe'}">PE<span class="sort-icon" v-if="sortField=='pe'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th>板块</th>
+            <th @click="sortBy('action')" :class="{sorted:sortField=='action'}">操作建议<span class="sort-icon" v-if="sortField=='action'">{{ sortOrder=='desc'?'↑':'↓' }}</span></th>
+            <th>买卖参考</th>
+            <th>详情</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="b in filteredBonds" :key="b.stock_code"
+              :class="b.total_score >= 80 ? 'row-high' : b.total_score >= 60 ? 'row-mid' : 'row-low'">
+            <td><span class="score-badge" :class="scoreClass(b.total_score)">{{ b.total_score }}</span></td>
+            <td><span class="rating-badge" :class="'rating-' + b.rating.replace('+','-plus')">{{ b.rating }}</span></td>
+            <td style="position:relative">
+              <a class="stock-link" :href="'https://quote.eastmoney.com/' + (b.stock_code.startsWith('6')?'sh':'sz') + b.stock_code + '.html'"
+                 target="_blank">{{ b.stock_code }}</a>
+              <div style="font-size:11px;color:var(--sub)">{{ b.stock_name }}</div>
+              <span :class="'market-tag ' + marketCls(b.stock_code)" :title="marketLabel(b.stock_code)">{{ marketLabel(b.stock_code) }}</span>
+            </td>
+            <td style="font-size:11px">{{ b.industry }}</td>
+            <td>
+              <span class="progress-tag" :class="progressClass(b.progress)">{{ b.progress }}</span>
+            </td>
+            <td>{{ b.total_scale ? formatNum(b.total_scale) + '亿' : '-' }}</td>
+            <td><span :class="b.per_share_amount && b.per_share_amount > 15 ? 'num-pos' : ''">{{ b.per_share_amount ? b.per_share_amount.toFixed(2) : '-' }}</span></td>
+            <td><span :class="b.circ_mv && b.circ_mv < 3 ? 'num-pos' : ''">{{ b.circ_mv ? formatNum(b.circ_mv) : '-' }}</span></td>
+            <td><span :class="b.one_hand_shares && b.one_hand_shares < 500 ? 'num-pos' : ''">{{ oneHandText(b) }}</span></td>
+            <td>
+              <span v-if="b.q1_growth != null" :class="b.q1_growth >= 0 ? 'num-pos' : 'num-neg'">
+                {{ b.q1_growth > 0 ? '+' : '' }}{{ b.q1_growth }}%
+              </span>
+              <span v-else class="num-zero">-</span>
+            </td>
+            <td>{{ b.pe || '-' }}</td>
+            <td style="font-size:11px">{{ b.board || '-' }}</td>
+            <td>
+              <span class="action-tag" :class="actionClass(b.action)">{{ b.action }}</span>
+            </td>
+            <td style="font-size:11px;max-width:130px;overflow:hidden;text-overflow:ellipsis">
+              {{ b.action_price || '-' }}
+            </td>
+            <td>
+              <button @click="showDetail(b)"
+                style="background:var(--card2);border:1px solid var(--line);color:var(--accent);
+                       padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px">
+                明细
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Detail popup -->
+  <div class="detail-popup" v-if="detailBond" @click.self="detailBond=null">
+    <div class="detail-card">
+      <button class="close-btn" @click="detailBond=null">&times;</button>
+      <h2>{{ detailBond.stock_name }} ({{ detailBond.stock_code }})</h2>
+      <div class="d-sub">
+        <span class="rating-badge" :class="'rating-' + detailBond.rating.replace('+','-plus')">{{ detailBond.rating }}</span>
+        &nbsp;总分 <strong>{{ detailBond.total_score }}</strong>
+        &nbsp;|&nbsp; 行业: {{ detailBond.industry }}
+        &nbsp;|&nbsp; {{ detailBond.board }}
+        &nbsp;|&nbsp; 正股价格: <strong>{{ detailBond.price || '-' }}</strong>元
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item" v-for="(v,k) in detailBond.score_details" :key="k">
+          <div class="d-label">{{ k }}</div>
+          <div class="d-value" :style="{color: v.score >= 0 ? 'var(--accent)' : 'var(--red)'}">
+            {{ v.score > 0 ? '+' : '' }}{{ v.score }}
+            <span v-if="v.max > 0" style="font-size:11px;color:var(--sub)">/{{ v.max }}</span>
+          </div>
+          <div class="d-bar">
+            <div class="d-bar-fill" :style="{
+              width: v.max > 0 ? Math.min(100, v.score/v.max*100) + '%' : '0%',
+              background: v.score >= 0 ? 'var(--accent)' : 'var(--red)'
+            }"></div>
+          </div>
+          <div class="d-factor">{{ v.factor }}</div>
+        </div>
+      </div>
+      <div class="detail-footer" :style="detailBond.action.includes('积极')||detailBond.action.includes('适量')?'':{background:'var(--card2)', borderRadius:'8px'}">
+        <div><strong>操作建议：</strong><span class="reason">{{ detailBond.action }}</span></div>
+        <div class="reason" style="margin-top:4px">{{ detailBond.action_reason }}</div>
+        <div v-if="detailBond.action_price" class="price" style="margin-top:6px">{{ detailBond.action_price }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const { createApp, ref, computed, onMounted } = Vue;
+
+createApp({
+  setup() {
+    const bonds = ref([]);
+    const loading = ref(false);
+    const error = ref('');
+    const updatedAt = ref('-');
+    const search = ref('');
+    const filterScore = ref('');
+    const filterAction = ref('');
+    const filterIndustry = ref('');
+    const filterProgress = ref('');
+    const sortField = ref('total_score');
+    const sortOrder = ref('desc');
+    const detailBond = ref(null);
+
+    const industries = computed(() => {
+      const set = new Set();
+      bonds.value.forEach(b => { if (b.industry) set.add(b.industry); });
+      return [...set].sort();
+    });
+
+    const highCount = computed(() => bonds.value.filter(b => b.total_score >= 80).length);
+    const midCount = computed(() => bonds.value.filter(b => b.total_score >= 60 && b.total_score < 80).length);
+    const lowCount = computed(() => bonds.value.filter(b => b.total_score < 60).length);
+    const avgScore = computed(() => {
+      if (!bonds.value.length) return 0;
+      return Math.round(bonds.value.reduce((s,b) => s+b.total_score, 0) / bonds.value.length);
+    });
+    const positiveCount = computed(() => bonds.value.filter(b => b.action.includes('积极配债') || b.action.includes('关注建仓')).length);
+
+    const filteredBonds = computed(() => {
+      let list = [...bonds.value];
+
+      if (search.value) {
+        const q = search.value.toLowerCase();
+        list = list.filter(b => b.stock_code.toLowerCase().includes(q) || b.stock_name.includes(q));
+      }
+      if (filterScore.value === 'high') list = list.filter(b => b.total_score >= 80);
+      else if (filterScore.value === 'mid') list = list.filter(b => b.total_score >= 60 && b.total_score < 80);
+      else if (filterScore.value === 'low') list = list.filter(b => b.total_score < 60);
+
+      if (filterAction.value) list = list.filter(b => b.action.includes(filterAction.value));
+      if (filterIndustry.value) list = list.filter(b => b.industry === filterIndustry.value);
+      if (filterProgress.value) list = list.filter(b => b.progress === filterProgress.value);
+
+      list.sort((a, b) => {
+        if (sortField.value === 'progress') {
+          const va = PROGRESS_ORDER_FRONT[a.progress] || 7;
+          const vb = PROGRESS_ORDER_FRONT[b.progress] || 7;
+          return sortOrder.value === 'desc' ? vb - va : va - vb;
+        }
+        if (sortField.value === 'action') {
+          const va = ACTION_ORDER_FRONT[a.action] || 6;
+          const vb = ACTION_ORDER_FRONT[b.action] || 6;
+          return sortOrder.value === 'desc' ? vb - va : va - vb;
+        }
+        let va = a[sortField.value], vb = b[sortField.value];
+        if (va == null) va = 0;
+        if (vb == null) vb = 0;
+        const result = vb - va;
+        return sortOrder.value === 'desc' ? result : -result;
+      });
+
+      return list;
+    });
+
+    function applyFilter() {}
+    function applySort() {}
+
+    function sortBy(field) {
+      if (sortField.value === field) {
+        sortOrder.value = sortOrder.value === 'desc' ? 'asc' : 'desc';
+      } else {
+        sortField.value = field;
+        sortOrder.value = 'desc';
+      }
+    }
+
+    function showDetail(b) {
+      detailBond.value = b;
+    }
+
+    function formatNum(n) {
+      if (n == null) return '-';
+      if (n >= 100) return n.toFixed(0);
+      return n.toFixed(1);
+    }
+
+    function marketInfo(code) {
+      if (code && code.startsWith('6')) return { label: '沪', cls: 'sh' };
+      if (code && (code.startsWith('4') || code.startsWith('8'))) return { label: '北', cls: 'bj' };
+      return { label: '深', cls: 'sz' };
+    }
+    function marketLabel(code) { return marketInfo(code).label; }
+    function marketCls(code) { return marketInfo(code).cls; }
+
+    function oneHandText(b) {
+      const n = b.one_hand_shares;
+      if (!n) return '-';
+      const mkt = (b.market || marketInfo(b.stock_code).label);
+      if (mkt === '沪' && b.per_hand_shares != null) {
+        const x = b.per_hand_shares;
+        const s = Number.isInteger(x) ? String(x) : x.toFixed(1);
+        return n + '(' + s + '股)';
+      }
+      return String(n);
+    }
+
+    function scoreClass(s) {
+      if (s >= 80) return 'score-high';
+      if (s >= 60) return 'score-mid';
+      return 'score-low';
+    }
+
+    const PROGRESS_ORDER_FRONT = {
+      "发行中": 0,
+      "同意注册": 1,
+      "上市委通过": 2,
+      "交易所受理": 3,
+      "股东大会审议": 4,
+      "股东大会通过": 4,
+      "董事会预案": 5,
+      "已上市": 6,
+      "其他": 7,
+    };
+
+    const ACTION_ORDER_FRONT = {
+      "积极配债": 0,
+      "关注建仓": 1,
+      "小仓关注": 2,
+      "关注": 3,
+      "观望": 4,
+      "回避": 5,
+    };
+
+    function progressClass(p) {
+      if (p === '发行中') return 'progress-reg';
+      if (p === '同意注册') return 'progress-reg';
+      if (p === '上市委通过') return 'progress-csrc';
+      if (p === '交易所受理') return 'progress-exch';
+      if (p === '股东大会审议') return 'progress-other';
+      if (p === '董事会预案') return 'progress-other';
+      if (p.includes('注册')) return 'progress-reg';
+      if (p.includes('证监') || p.includes('批')) return 'progress-csrc';
+      if (p.includes('交易') || p.includes('通过')) return 'progress-exch';
+      return 'progress-other';
+    }
+
+    function actionClass(a) {
+      if (a.includes('积极配债') || a.includes('关注建仓')) return 'action-positive';
+      if (a.includes('小仓关注') || a.includes('关注')) return 'action-watch';
+      if (a.includes('观望')) return 'action-caution';
+      return 'action-avoid';
+    }
+
+    async function fetchData(forceRefresh = false) {
+      loading.value = true;
+      error.value = '';
+      try {
+        const url = 'qiangquan.json?t=' + Date.now();
+        const r = await fetch(url);
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const data = await r.json();
+        bonds.value = data.bonds || [];
+        updatedAt.value = data.generated_at || data.updated_at || new Date().toLocaleString();
+      } catch (e) {
+        error.value = '数据加载失败: ' + e.message;
+      } finally {
+        loading.value = false;
+      }
+    }
+
+    onMounted(() => fetchData());
+
+    return {
+      bonds, loading, error, updatedAt,
+      search, filterScore, filterAction, filterIndustry, filterProgress,
+      sortField, sortOrder, detailBond,
+      industries, highCount, midCount, lowCount, avgScore, positiveCount,
+      filteredBonds,
+      applyFilter, applySort, sortBy, showDetail,
+      formatNum, scoreClass, progressClass, actionClass, fetchData,
+      marketLabel, marketCls, oneHandText,
+    };
+  }
+}).mount('#app');
+document.getElementById('loading-indicator').style.display = 'none';
+</script>
+</body>
+</html>
