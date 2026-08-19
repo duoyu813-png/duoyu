@@ -1,6 +1,6 @@
 {
- "total": 81,
- "generated_at": "2026-08-19 12:22:07",
+ "total": 80,
+ "generated_at": "2026-08-19 13:02:04",
  "source": "live",
  "bonds": [
   {
@@ -4185,95 +4185,6 @@
    "issue_amount": 6.97,
    "safety_pct": 3.4,
    "per_share_allotment": 2.5119
-  },
-  {
-   "stock_code": "301565",
-   "stock_name": "中仑新材",
-   "bond_name": "中仑转债",
-   "industry": "其他",
-   "total_scale": 10.68,
-   "per_share_amount": 13.8,
-   "progress": "发行中",
-   "registration_date": "2025-10-30",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "AA-",
-   "record_dt": "2026-08-05",
-   "convert_price": 20.28,
-   "cb_amount": 12.78,
-   "b_shares": 0.0,
-   "price": 19.35,
-   "change_pct": -4.3,
-   "pb": 3.17,
-   "ma20_price": 19.77,
-   "circ_mv": 3.42,
-   "circ_mv_score_factor": 3.42,
-   "pe": 60.47,
-   "turnover_rate": null,
-   "amount": 10.68,
-   "q1_growth": 5.1,
-   "major_shareholder_ratio": 0.68,
-   "one_hand_shares": 375,
-   "per_hand_shares": 374.54119850187266,
-   "market": "深",
-   "total_score": 52,
-   "rating": "B",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤17.8 | 卖出≥21.29 | 安全垫4.1%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "13.80元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "3.42亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长5.1%"
-    },
-    "潜伏期扣分": {
-     "score": -15,
-     "max": 0,
-     "factor": "2025-10"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=60.47"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交10.7亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 13.8,
-   "hidden_circulation": 3.42,
-   "total": 52,
-   "issue_amount": 10.68,
-   "safety_pct": 4.1,
-   "per_share_allotment": 2.6699
   },
   {
    "stock_code": "688510",
