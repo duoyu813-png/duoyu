@@ -144,7 +144,7 @@ tr:hover td{background:#f1f5f9}
 .action-watch{background:rgba(34,197,94,.1);color:#15803d}
 .action-caution{background:#eef3ef;color:#64796e}
 .action-avoid{background:#e8ede9;color:#8a9990}
-@media(max-width:768px){th,td{padding:6px 6px;font-size:12px}.bar .search{width:110px}}
+@media(max-width:768px){th,td{padding:6px 6px;font-size:12px}.bar .search{width:110px}.c-mh{display:none!important}th{white-space:normal;word-break:break-all}}
 </style>
 </head>
 <body>
@@ -188,17 +188,25 @@ function render(){
     return sortDesc?-r:r;
   });
   var h = "<table><thead><tr>";
-  var cols = [["total_score","评分"],["stock_code","代码/名称"],["progress","进度"],["total_scale","规模(亿)"],["per_share_amount","百元含权"],["circ_mv","预估流通(亿)"],["one_hand_shares","一手党(股)"],["price","正股价"],["industry","行业"],["","评级"],["action","操作建议"]];
-  for(var i=0;i<cols.length;i++){ h += "<th onclick=window.sortB('"+cols[i][0]+"')>"+cols[i][1]+(sortField===cols[i][0]?(sortDesc?" ↓":" ↑"):"")+"</th>"; }
+  var cols = [["total_score","评分",1],["stock_code","代码/名称",1],["progress","进度",1],["total_scale","规模(亿)",0],["per_share_amount","百元含权",1],["circ_mv","预估流通(亿)",0],["one_hand_shares","一手党(股)",0],["price","正股价",0],["industry","行业",0],["","评级",1],["action","操作建议",1]];
+  for(var i=0;i<cols.length;i++){ h += "<th"+(cols[i][2]===0?" class='c-mh'":"")+" onclick=window.sortB('"+cols[i][0]+"')>"+cols[i][1]+(sortField===cols[i][0]?(sortDesc?" ↓":" ↑"):"")+"</th>"; }
   h += "</tr></thead><tbody>";
   for(var i=0;i<list.length;i++){
     var b=list[i];
-    h += "<tr><td><span class='score "+scoreCls(b.total_score)+"'>"+(b.total_score||0)+"</span></td>";
-    h += "<td><a class='stock-link' target='_blank' href='"+emUrl(b.stock_code)+"'>"+b.stock_code+"</a><div style='font-size:11px;color:var(--muted)'>"+b.stock_name+"</div></td>";
-    h += "<td><span class='tag "+progressCls(b.progress)+"'>"+(b.progress||"-")+"</span></td>";
-    h += "<td>"+fmt(b.total_scale)+"</td><td>"+fmt(b.per_share_amount)+"</td><td>"+fmt(b.circ_mv)+"</td><td>"+(b.one_hand_shares||"-")+"</td><td>"+fmt(b.price)+"</td>";
-    h += "<td style='font-size:12px'>"+(b.industry||"-")+"</td><td><span class='rating "+ratingCls(b.rating)+"'>"+(b.rating||"-")+"</span></td>";
-    h += "<td><span class='actionsel "+actionCls(b.action)+"'>"+(b.action||"-")+"</span></td></tr>";
+    var cells = [
+      "<td><span class='score "+scoreCls(b.total_score)+"'>"+(b.total_score||0)+"</span></td>",
+      "<td><a class='stock-link' target='_blank' href='"+emUrl(b.stock_code)+"'>"+b.stock_code+"</a><div style='font-size:11px;color:var(--muted)'>"+b.stock_name+"</div></td>",
+      "<td><span class='tag "+progressCls(b.progress)+"'>"+(b.progress||"-")+"</span></td>",
+      "<td class='c-mh'>"+fmt(b.total_scale)+"</td>",
+      "<td>"+fmt(b.per_share_amount)+"</td>",
+      "<td class='c-mh'>"+fmt(b.circ_mv)+"</td>",
+      "<td class='c-mh'>"+(b.one_hand_shares||"-")+"</td>",
+      "<td class='c-mh'>"+fmt(b.price)+"</td>",
+      "<td class='c-mh' style='font-size:12px'>"+(b.industry||"-")+"</td>",
+      "<td><span class='rating "+ratingCls(b.rating)+"'>"+(b.rating||"-")+"</span></td>",
+      "<td><span class='actionsel "+actionCls(b.action)+"'>"+(b.action||"-")+"</span></td>"
+    ];
+    h += "<tr>"+cells.join("")+"</tr>";
   }
   if(!list.length) h = "<div class='empty'>暂无数据</div>"; else h += "</tbody></table>";
   document.getElementById("table-wrap").innerHTML = h;

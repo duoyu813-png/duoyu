@@ -67,7 +67,12 @@ CSS = """<style>
   nav.breadcrumb a { margin-right:12px; font-size:13px; color:var(--accent); text-decoration:none; font-weight:500; }
   td { word-break:break-all; }
   .badge { background:var(--blue-l); color:var(--accent); border-radius:12px; padding:2px 8px; font-size:12px; margin-left:6px; }
-  @media(max-width:768px) { th,td { padding:6px 7px; font-size:12px; } }
+  /* 手机端：隐藏不需要的列（.c-mh），表头超过2字自动换行 */
+  @media(max-width:768px) {
+    .c-mh{display:none!important}
+    th{white-space:normal;word-break:break-all}
+    th,td { padding:6px 7px; font-size:12px; }
+  }
 </style>"""
 
 
@@ -172,13 +177,22 @@ def _build_bond_dicts(merged: list[dict]) -> list[dict]:
     return out
 
 
-def _render_table(headers, rows):
-    thead = "".join(f"<th>{h}</th>" for h in headers)
+def _render_table(cols, rows):
+    """渲染表格。
+
+    cols: list[(表头, 手机端是否显示)]，mobile=False 的列在手机端隐藏。
+    rows: 每行 cell 列表（与 cols 等长）。
+    """
+    thead = "".join(
+        f"<th class='{' c-mh' if not mob else ''}'>{h}</th>"
+        for h, mob in cols
+    )
     tbody = []
     for r in rows:
         tds = []
-        for cell in r:
+        for idx, cell in enumerate(r):
             cls = ""
+            mob = cols[idx][1] if idx < len(cols) else True
             s = str(cell)
             if "%" in s:
                 try:
@@ -189,6 +203,9 @@ def _render_table(headers, rows):
                         cls = " class='red'"
                 except ValueError:
                     pass
+            else:
+                if not mob:
+                    cls = " class='c-mh'"
             tds.append(f"<td{cls}>{s}</td>")
         tbody.append("<tr>" + "".join(tds) + "</tr>")
     return f"<table><thead><tr>{thead}</tr></thead><tbody>{''.join(tbody)}</tbody></table>"
@@ -254,23 +271,95 @@ def fetch_funds_merged():
     return out
 
 
-CB_HEADERS = ["代码", "名称", "价格", "溢价%", "剩余规模(亿)", "税前YTM%", "概念"]
+# ============ 策略元数据：筛选条件说明 + 各策略列定义（(表头, 手机端是否显示)） ============
+
+STRATEGY_INFO = {
+    "130_sandi": {
+        "name": "130三低",
+        "desc": "价格100~130 · 溢价率<60% · 剩余规模<5亿 · 按【价格+溢价率+剩余规模×10】升序",
+    },
+    "150_sandi": {
+        "name": "150三低",
+        "desc": "价格100~150 · 溢价率<60% · 剩余规模<5亿 · 按【价格+溢价率+剩余规模×10】升序",
+    },
+    "double_low": {
+        "name": "双低",
+        "desc": "价格≥100 · 溢价率<60% · 剩余规模<5亿 · 按【价格+溢价率】升序（经典双低值）",
+    },
+    "low_price": {
+        "name": "低价格",
+        "desc": "单纯按价格升序（债性强优先）",
+    },
+    "low_premium": {
+        "name": "低溢价",
+        "desc": "价格≥100 · 按溢价率升序（跟正股更紧优先）",
+    },
+    "high_ytm": {
+        "name": "高到期收益率",
+        "desc": "税前到期收益率从高到低 · 剩余年限≥0.5年 · 仅排除强赎/未上市",
+    },
+    "cixin_sandi": {
+        "name": "次新三低",
+        "desc": "价格<150 · 溢价率<60% · 流通规模<3亿 · 未到转股期次新转债",
+    },
+}
+
+_COMMON_DESC = "通用过滤：排除公告强赎/已上市前/评级≤A-下/正股ST/正股<2元/净资产为负"
 
 
-def _cb_rows(bonds, limit=None):
+def _cb_cols(key: str):
+    """返回 (列定义list[(表头, 手机显示)], 行构建函数已由 _cb_row 处理)"""
+    if key == "high_ytm":
+        cols = [
+            ("代码", True), ("名称", True), ("价格", True),
+            ("溢价%", True), ("税前YTM%", True), ("剩余年限", True),
+            ("剩余规模(亿)", False), ("概念", False),
+        ]
+    else:
+        cols = [
+            ("代码", True), ("名称", True), ("价格", True),
+            ("溢价%", True), ("剩余规模(亿)", True), ("概念", False),
+        ]
+    return cols
+
+
+def _cb_row(b, rank, key: str):
+    """按策略返回一行 cell 列表（与 _cb_cols 对齐）"""
+    if key == "high_ytm":
+        return [
+            _code_with_rank(b.get("code", ""), rank), b.get("name", ""),
+            _fmt(b.get("price")),
+            _fmt(b.get("premium_rate")) + "%" if b.get("premium_rate") is not None else "-",
+            _fmt(b.get("ytm_before_tax")) + "%" if b.get("ytm_before_tax") is not None else "-",
+            _fmt(b.get("remaining_years")) if b.get("remaining_years") is not None else "-",
+            _fmt(b.get("remaining_size")) if b.get("remaining_size") is not None else "-",
+            _short_concept(b.get("concept")),
+        ]
+    return [
+        _code_with_rank(b.get("code", ""), rank), b.get("name", ""),
+        _fmt(b.get("price")),
+        _fmt(b.get("premium_rate")) + "%" if b.get("premium_rate") is not None else "-",
+        _fmt(b.get("remaining_size")) if b.get("remaining_size") is not None else "-",
+        _short_concept(b.get("concept")),
+    ]
+
+
+def _cb_table(key: str, bonds, limit=None):
+    """渲染某策略表格，返回 (cols, table_html)"""
+    cols = _cb_cols(key)
     rows = []
     for rank, b in enumerate(bonds, start=1):
         if limit and rank > limit:
             break
-        rows.append([
-            _code_with_rank(b.get("code", ""), rank), b.get("name", ""),
-            _fmt(b.get("price")),
-            _fmt(b.get("premium_rate")) + "%" if b.get("premium_rate") is not None else "-",
-            _fmt(b.get("remaining_size")) if b.get("remaining_size") is not None else "-",
-            _fmt(b.get("ytm_before_tax")) + "%" if b.get("ytm_before_tax") is not None else "-",
-            _short_concept(b.get("concept")),
-        ])
-    return rows
+        rows.append(_cb_row(b, rank, key))
+    return cols, _render_table(cols, rows)
+
+
+def _cb_desc_html(key: str) -> str:
+    info = STRATEGY_INFO.get(key, {})
+    name = info.get("name", key)
+    desc = info.get("desc", "")
+    return f"<p class='sub'>{name}策略筛选条件：{desc}</p>"
 
 
 def main() -> int:
@@ -366,15 +455,17 @@ def main() -> int:
     default_table = ""
     if default_key in strategies and strategies[default_key]["bonds"]:
         d = strategies[default_key]
+        _, tbl = _cb_table(default_key, d["bonds"], limit=20)
         default_table = f"""
 <div class="card">
-  <h2>高到期收益率 <span class="badge">{len(d['bonds'])}</span> <span style="font-size:12px;color:var(--muted)">(默认展示)</span></h2>
-  {_render_table(CB_HEADERS, _cb_rows(d["bonds"], limit=20))}
+  <h2>{STRATEGY_INFO[default_key]['name']} <span class="badge">{len(d['bonds'])}</span> <span style="font-size:12px;color:var(--muted)">(默认展示)</span></h2>
+  {_cb_desc_html(default_key)}
+  {tbl}
 </div>"""
     body_cb = f"""
 <a class="back" href="index.html">← 返回首页</a>
 <h1>可转债轮动策略</h1>
-<p class="sub">选择策略查看完整榜单（每策略最多展示 20 只，排名 1/5/10/15/20 用红色标注）</p>
+<p class="sub">选择策略查看完整榜单（每策略最多展示 20 只，排名 1/5/10/15/20 用红色标注 · {_COMMON_DESC}）</p>
 <div class="filters">{''.join(chips)}</div>
 {default_table}
 """
@@ -387,15 +478,17 @@ def main() -> int:
         if not bonds_list:
             content = "<div class='empty'>暂无数据</div>"
         else:
+            _, tbl = _cb_table(key, bonds_list, limit=20)
             content = f"""
 <div class="card">
   <h2>{name} <span class="badge">{len(bonds_list)}</span></h2>
-  {_render_table(CB_HEADERS, _cb_rows(bonds_list, limit=20))}
+  {tbl}
 </div>"""
         body = f"""
 <a class="back" href="cb.html">← 返回策略列表</a>
 <h1>{name}</h1>
-<p class="sub">按评分从低到高排序 · 展示前 20 名</p>
+{_cb_desc_html(key)}
+<p class="sub">{_COMMON_DESC} · 按评分从低到高排序 · 展示前 20 名</p>
 {content}
 """
         write_page(f"cb_{key}.html", name, body, now, theme="cb")
@@ -412,6 +505,11 @@ def main() -> int:
     write_page("issues.html", "待发可转债", body_iss, now, theme="issues")
 
     # ---------- 封闭基金 funds.html（Top20 + 查看全部） ----------
+    FUND_COLS = [
+        ("代码", True), ("名称", True), ("现价", False), ("涨跌%", False),
+        ("净值", False), ("折价%", True), ("折价年化%", True),
+        ("剩余年限", True), ("到期日", True), ("类型", False),
+    ]
     fund_rows = [[
         f.get("code", ""), f.get("name", ""),
         _fmt(f.get("price")),
@@ -425,7 +523,7 @@ def main() -> int:
     ] for f in funds]
 
     if fund_rows:
-        top20 = _render_table(["代码", "名称", "现价", "涨跌%", "净值", "折价%", "折价年化%", "剩余年限", "到期日", "类型"], fund_rows[:20])
+        top20 = _render_table(FUND_COLS, fund_rows[:20])
         butt = f"<div class='filters'><a class='chip' href='funds_all.html'>查看全部 {len(fund_rows)} 只 →</a></div>"
     else:
         top20 = "<div class='empty'>暂无数据</div>"
@@ -441,7 +539,7 @@ def main() -> int:
 
     # ---------- 封闭基金全部 funds_all.html ----------
     if fund_rows:
-        all_table = _render_table(["代码", "名称", "现价", "涨跌%", "净值", "折价%", "折价年化%", "剩余年限", "到期日", "类型"], fund_rows)
+        all_table = _render_table(FUND_COLS, fund_rows)
     else:
         all_table = "<div class='empty'>暂无数据</div>"
     body_fund_all = f"""
