@@ -204,7 +204,8 @@ function render(){
     return sortDesc?-r:r;
   });
   var h = "<table><thead><tr>";
-  var cols = [["total_score","评分",1],["stock_code","代码/名称",1],["progress","进度",1],["total_scale","规模(亿)",0],["per_share_amount","百元含权",1],["circ_mv","预估流通(亿)",0],["one_hand_shares","一手党(股)",0],["price","正股价",0],["industry","行业",0],["","评级",1],["action","操作建议",1],["","明细",1]];
+  // [字段, 表头, 手机端是否显示]  次要字段(预估流通/正股价/行业)移入明细弹窗，表格更简洁
+  var cols = [["total_score","评分",1],["stock_code","代码/名称",1],["progress","进度",1],["total_scale","规模(亿)",0],["per_share_amount","百元含权",1],["one_hand_shares","一手党(股)",0],["","评级",1],["action","操作建议",1],["","明细",1]];
   for(var i=0;i<cols.length;i++){ h += "<th"+(cols[i][2]===0?" class='c-mh'":"")+" onclick=window.sortB('"+cols[i][0]+"')>"+cols[i][1]+(sortField===cols[i][0]?(sortDesc?" ↓":" ↑"):"")+"</th>"; }
   h += "</tr></thead><tbody>";
   for(var i=0;i<list.length;i++){
@@ -215,10 +216,7 @@ function render(){
       "<td><span class='tag "+progressCls(b.progress)+"'>"+(b.progress||"-")+"</span></td>",
       "<td class='c-mh'>"+fmt(b.total_scale)+"</td>",
       "<td>"+fmt(b.per_share_amount)+"</td>",
-      "<td class='c-mh'>"+fmt(b.circ_mv)+"</td>",
       "<td class='c-mh'>"+(b.one_hand_shares||"-")+"</td>",
-      "<td class='c-mh'>"+fmt(b.price)+"</td>",
-      "<td class='c-mh' style='font-size:12px'>"+(b.industry||"-")+"</td>",
       "<td><span class='rating "+ratingCls(b.rating)+"'>"+(b.rating||"-")+"</span></td>",
       "<td><span class='actionsel "+actionCls(b.action)+"'>"+(b.action||"-")+"</span></td>",
       "<td><button class='detail-btn' onclick=window.showD('"+b.stock_code+"')>明细</button></td>"
@@ -250,19 +248,12 @@ window.showD = function(code){
   for(var i=0;i<DATA.length;i++){ if(String(DATA[i].stock_code)===code){ b=DATA[i]; break; } }
   if(!b) return;
   var mkt = b.market || (String(b.stock_code).charAt(0)==="6"?"沪":String(b.stock_code).charAt(0)==="4"||String(b.stock_code).charAt(0)==="8"?"北":"深");
-  var sd = b.score_details || {};
-  var dRows = "";
-  var keys = Object.keys(sd);
-  for(var i=0;i<keys.length;i++){
-    var k=keys[i], v=sd[k]||{};
-    dRows += "<div class='dit'><div class='dl'>"+k+"</div><div class='dv'>"+(v.score>0?"+":"")+(v.score||0)+(v.max>0?"/"+v.max:"")+"</div><div class='df'>"+(v.factor||"")+"</div></div>";
-  }
   var ov = document.createElement("div");
   ov.className="overlay"; ov.id="dlg";
   ov.innerHTML =
   "<div class='dlg'>"+
     "<div class='dlg-h'><span>"+b.stock_name+" ("+b.stock_code+")</span><button class='x' onclick='window.closeD()'>×</button></div>"+
-    "<div class='dlg-sub'>"+b.bond_name+" · "+(b.board||"-")+" · "+b.industry+" · "+b.progress+" · 评级 <span class='rating "+ratingCls(b.rating)+"'>"+(b.rating||"-")+"</span></div>"+
+    "<div class='dlg-sub'>"+b.bond_name+" · "+(b.board||"-")+" · "+b.industry+" · 评级 <span class='rating "+ratingCls(b.rating)+"'>"+(b.rating||"-")+"</span></div>"+
     "<div class='blk'><h4>抢权核心</h4><div class='dlg-grid'>"+
       "<div class='dit'><div class='dl'>总分</div><div class='dv' style='font-size:20px'>"+ (b.total_score||0) +"</div></div>"+
       "<div class='dit'><div class='dl'>操作建议</div><div class='dv' style='font-size:12px'>"+actionselHtml(b.action)+"</div></div>"+
@@ -275,13 +266,10 @@ window.showD = function(code){
     (b.action_reason?"<div class='dit' style='margin-top:8px'><div class='dl'>建议理由</div><div class='dv'>"+b.action_reason+"</div></div>":"")+
     (b.action_price?"<div class='dit' style='margin-top:8px'><div class='dl'>买卖参考</div><div class='dv'>"+b.action_price+"</div></div>":"")+
     "</div>"+
-    "<div class='blk'><h4>进度日期</h4><div class='dlg-grid'>"+
+    "<div class='blk'><h4>当前进度</h4><div class='dlg-grid'>"+
       "<div class='dit'><div class='dl'>进度</div><div class='dv'>"+(b.progress||"-")+"</div></div>"+
-      "<div class='dit'><div class='dl'>受理日期</div><div class='dv'>"+(b.registration_date||"-")+"</div></div>"+
-      "<div class='dit'><div class='dl'>股权登记日</div><div class='dv'>"+(b.record_dt||"-")+"</div></div>"+
-      "<div class='dit'><div class='dl'>通过日期</div><div class='dv'>"+(b.approval_date||"-")+"</div></div>"+
+      "<div class='dit'><div class='dl'>日期</div><div class='dv'>"+(b.registration_date||"-")+"</div></div>"+
     "</div></div>"+
-    "<div class='blk'><h4>评分明细</h4><div class='dlg-grid'>"+dRows+"</div></div>"+
   "</div>";
   document.body.appendChild(ov);
 };

@@ -514,13 +514,15 @@ def main() -> int:
     fund_rows = [[
         f.get("code", ""), f.get("name", ""),
         _fmt(f.get("price")),
-        _fmt(f.get("change_pct")) + "%" if f.get("change_pct") is not None else "-",
+        _fmt(f.get("change_pct")) if f.get("change_pct") is not None else "-",
         _fmt(f.get("nav")),
-        _fmt(f.get("discount_rate")) + "%" if f.get("discount_rate") is not None else "-",
-        _fmt(f.get("discount_annual")) + "%" if f.get("discount_annual") is not None else "-",
+        _fmt(f.get("discount_rate")) if f.get("discount_rate") is not None else "-",
+        # 折价年化仅在剩余年限有效时显示，避免异常放大
+        _fmt(f.get("discount_annual")) if (f.get("discount_annual") is not None and f.get("remaining_years") is not None) else "-",
         _fmt(f.get("remaining_years")) if f.get("remaining_years") is not None else "-",
-        _date_str(f.get("maturity_date")),
-        f.get("fund_type", ""),
+        # 无封闭期（剩余年限为空）的普通 LOF/场内基金不显示"到期日"（避免上市日冒充到期日）
+        _date_str(f.get("maturity_date")) if f.get("remaining_years") is not None else "",
+        f.get("fund_type", "") if f.get("fund_type") not in ("", "-") else "LOF",
     ] for f in funds]
 
     if fund_rows:
