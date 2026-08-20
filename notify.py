@@ -283,11 +283,13 @@ def push_cb_alert():
     lines = ["## 可转债 低价/低溢价 提醒\n",
              f"共 {len(new_hits)} 只（价格<110 或 转股溢价率<10%）\n"]
     for h in new_hits[:25]:
-        reasons = "/".join(h["reasons"])
-        lines.append(
-            f"- **{h.get('name', '-')}** ({h.get('code', '-')}) | "
-            f"{_fmt(h.get('price'))}元 | 溢价{_fmt(h.get('premium_rate'))}% | {reasons}"
-        )
+        parts = [f"**{h.get('name', '-')}** ({h.get('code', '-')})"]
+        if h.get("price") is not None:
+            parts.append(f"{_fmt(h.get('price'))}元")
+        if h.get("premium_rate") is not None:
+            parts.append(f"溢价{_fmt(h.get('premium_rate'))}%")
+        parts.append("/".join(h["reasons"]))
+        lines.append("- " + " | ".join(parts))
     return _send("可转债低价/低溢价提醒", "\n".join(lines))
 
 
