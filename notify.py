@@ -237,9 +237,12 @@ def push_cb_alert():
     hits = []
     for b in live:
         price = _to_num(b.get("price"))
+        if price is None:
+            # 无成交价（当日停牌/未成交/未上市）：价格是 "-"，溢价为推算值不可靠，跳过
+            continue
         prem = _to_num(b.get("premium_rate"))
         reasons = []
-        if price is not None and price < 110:
+        if price < 110:
             reasons.append("价格<110")
         if prem is not None and prem < 10:
             reasons.append("溢价<10%")
