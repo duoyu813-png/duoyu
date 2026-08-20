@@ -66,12 +66,22 @@ CSS = """<style>
   .hero-card .cnt { font-size:12px; color:var(--muted); margin-top:10px; }
   nav.breadcrumb a { margin-right:12px; font-size:13px; color:var(--accent); text-decoration:none; font-weight:500; }
   td { word-break:break-all; }
+  td:nth-child(2){ word-break:keep-all; }
   .badge { background:var(--blue-l); color:var(--accent); border-radius:12px; padding:2px 8px; font-size:12px; margin-left:6px; }
-  /* 手机端：隐藏不需要的列（.c-mh），表头超过2字自动换行 */
+  /* 表头点击排序（funds_all 等） */
+  th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
+  th.sortable:hover{color:var(--accent)}
+  th.sortable.sorted{color:var(--accent);background:#eaf2ff}
+  th.sortable .sa{display:inline-block;margin-left:4px;font-size:10px;color:var(--accent)}
+  /* 手机端：隐藏不需要的列（.c-mh），表头保持整词不逐字断行，整体缩小字体适配屏幕 */
   @media(max-width:768px) {
     .c-mh{display:none!important}
-    th{white-space:normal;word-break:break-all}
-    th,td { padding:6px 7px; font-size:12px; }
+    th{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    td{word-break:keep-all}
+    th,td { padding:4px 4px; font-size:11px; }
+    td:nth-child(2){max-width:78px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .card{padding:8px}
+    .chip{padding:5px 10px;font-size:12px}
   }
 </style>"""
 
@@ -209,6 +219,92 @@ def _render_table(cols, rows):
             tds.append(f"<td{cls}>{s}</td>")
         tbody.append("<tr>" + "".join(tds) + "</tr>")
     return f"<table><thead><tr>{thead}</tr></thead><tbody>{''.join(tbody)}</tbody></table>"
+
+
+# 封闭基金表格列 key 与排序类型（num 数值 / date 日期 / str 文本）
+FUND_KEYS = ["code", "name", "price", "chg", "nav", "discount", "dannual", "years", "maturity", "ftype"]
+FUND_TYPES = {"code": "num", "name": "str", "price": "num", "chg": "num", "nav": "num",
+              "discount": "num", "dannual": "num", "years": "num", "maturity": "date", "ftype": "str"}
+
+FUND_SORT_JS = """<script>
+(function(){
+  function init(){
+    var tbl=document.getElementById('ft'); if(!tbl) return;
+    var tbody=tbl.querySelector('tbody'), ths=tbl.querySelectorAll('th[data-s]');
+    var dirs={};
+    ths.forEach(function(th,i){
+      var k=th.getAttribute('data-s'), t=th.getAttribute('data-t');
+      var icon=th.querySelector('.sa');
+      th.addEventListener('click',function(){
+        var d = dirs[k]==='desc' ? 'asc' : 'desc';
+        dirs={}; dirs[k]=d;
+        ths.forEach(function(x){ x.classList.remove('sorted'); var ic=x.querySelector('.sa'); if(ic) ic.textContent=''; });
+        th.classList.add('sorted');
+        icon.textContent = d==='asc' ? '↑' : '↓';
+        var rows=Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+        rows.sort(function(a,b){
+          var va=a.children[i] ? a.children[i].getAttribute('data-v') : '';
+          var vb=b.children[i] ? b.children[i].getAttribute('data-v') : '';
+          va=(va||'').trim(); vb=(vb||'').trim();
+          if(va===''||va==='-') va=null; if(vb===''||vb==='-') vb=null;
+          var r;
+          if(va===null&&vb===null) r=0;
+          else if(va===null) r=1;
+          else if(vb===null) r=-1;
+          else if(t==='num'){
+            var na=parseFloat(va), nb=parseFloat(vb);
+            r=(isNaN(na)||isNaN(nb))?String(va).localeCompare(String(vb),'zh'):na-nb;
+          }
+          else r=String(va).localeCompare(String(vb),'zh');
+          return d==='desc'?-r:r;
+        });
+        rows.forEach(function(r){ tbody.appendChild(r); });
+      });
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>"""
+
+
+def _render_fund_table(cols, rows, sortable=False):
+    """封闭基金表格。sortable=True 时表头可点击排序（折价/折价年化/剩余年限/到期日等）。"""
+    thead_items = []
+    for i, (h, mob) in enumerate(cols):
+        cls = "sortable" if sortable else ""
+        if not mob:
+            cls = (cls + " c-mh").strip()
+        key = FUND_KEYS[i] if i < len(FUND_KEYS) else ""
+        tmp = f"<th class='{cls}'"
+        if sortable and key:
+            tmp += f" data-s='{key}' data-t='{FUND_TYPES.get(key, 'str')}'"
+        tmp += f">{h}<span class='sa'></span></th>"
+        thead_items.append(tmp)
+    thead = "".join(thead_items)
+    tbody = []
+    for r in rows:
+        tds = []
+        for idx, cell in enumerate(r):
+            cls = ""
+            mob = cols[idx][1] if idx < len(cols) else True
+            s = str(cell)
+            if "%" in s:
+                try:
+                    v = float(s.rstrip("%"))
+                    if v > 0:
+                        cls = "green"
+                    elif v < 0:
+                        cls = "red"
+                except ValueError:
+                    pass
+            elif not mob:
+                cls = "c-mh"
+            td_attrs = f" class='{cls}'" if cls else ""
+            if sortable:
+                td_attrs += f" data-v='{s}'"
+            tds.append(f"<td{td_attrs}>{s}</td>")
+        tbody.append("<tr>" + "".join(tds) + "</tr>")
+    return f"<table id='ft' class='fund-sort'><thead><tr>{thead}</tr></thead><tbody>{''.join(tbody)}</tbody></table>"
 
 
 def _short_concept(concept, n=2):
@@ -526,7 +622,7 @@ def main() -> int:
     ] for f in funds]
 
     if fund_rows:
-        top20 = _render_table(FUND_COLS, fund_rows[:20])
+        top20 = _render_fund_table(FUND_COLS, fund_rows[:20], sortable=True)
         butt = f"<div class='filters'><a class='chip' href='funds_all.html'>查看全部 {len(fund_rows)} 只 →</a></div>"
     else:
         top20 = "<div class='empty'>暂无数据</div>"
@@ -534,22 +630,24 @@ def main() -> int:
     body_fund = f"""
 <a class="back" href="index.html">← 返回首页</a>
 <h1>封闭基金折价</h1>
-<p class="sub">折价率从高到低 · 展示前 20 名（折价越深越靠前）</p>
+<p class="sub">折价率从高到低 · 展示前 20 名（折价越深越靠前）· 点击表头可排序</p>
 {butt}
 <div class="card">{top20}</div>
+{FUND_SORT_JS}
 """
     write_page("funds.html", "封闭基金", body_fund, now, theme="funds")
 
     # ---------- 封闭基金全部 funds_all.html ----------
     if fund_rows:
-        all_table = _render_table(FUND_COLS, fund_rows)
+        all_table = _render_fund_table(FUND_COLS, fund_rows, sortable=True)
     else:
         all_table = "<div class='empty'>暂无数据</div>"
     body_fund_all = f"""
 <a class="back" href="funds.html">← 返回 Top20</a>
 <h1>全部封闭基金</h1>
-<p class="sub">共 {len(fund_rows)} 只 · 折价率从高到低</p>
+<p class="sub">共 {len(fund_rows)} 只 · 点击表头排序（折价 / 折价年化 / 剩余年限 / 到期日）</p>
 <div class="card">{all_table}</div>
+{FUND_SORT_JS}
 """
     write_page("funds_all.html", "全部封闭基金", body_fund_all, now, theme="funds")
 

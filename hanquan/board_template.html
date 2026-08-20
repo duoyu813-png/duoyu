@@ -50,6 +50,7 @@ body{
 }
 .filter-bar label{font-size:12px;color:var(--sub);font-weight:500;margin-right:4px;white-space:nowrap}
 .filter-bar .fgroup{display:flex;align-items:center;gap:6px}
+.filter-bar .fgroup .fsep{margin-left:14px}
 .filter-bar select,.filter-bar input{
   background:var(--card);border:1px solid var(--line);color:var(--text);
   padding:6px 10px;border-radius:6px;font-size:13px;outline:none;min-width:96px;height:32px;
@@ -187,6 +188,9 @@ tr.row-low td{border-left:3px solid var(--score-low)}
   .header{padding:14px 16px;flex-direction:column;align-items:flex-start}
   .header .meta{flex-wrap:wrap}
   .container{padding:12px}
+  .filter-bar{padding:10px 12px;gap:8px 10px}
+  .filter-bar select,.filter-bar input{min-width:80px;padding:5px 8px;font-size:12px}
+  .search-input{width:104px}
   table{font-size:11px}
   th,td{padding:6px 4px}
   .detail-grid{grid-template-columns:1fr}
@@ -248,15 +252,17 @@ tr.row-low td{border-left:3px solid var(--score-low)}
 
     <!-- Filter -->
     <div class="filter-bar">
-      <div class="fgroup"><label>搜索</label>
-      <input class="search-input" v-model="search" placeholder="代码/名称..." @input="applyFilter"></div>
-      <div class="fgroup"><label>评分</label>
-      <select v-model="filterScore" @change="applyFilter">
-        <option value="">全部</option>
-        <option value="high">高分 (≥80)</option>
-        <option value="mid">中分 (60-79)</option>
-        <option value="low">低分 (&lt;60)</option>
-      </select></div>
+      <div class="fgroup">
+        <label>搜索</label>
+        <input class="search-input" v-model="search" placeholder="代码/名称..." @input="applyFilter">
+        <label class="fsep">评分</label>
+        <select v-model="filterScore" @change="applyFilter">
+          <option value="">全部</option>
+          <option value="high">高分 (≥80)</option>
+          <option value="mid">中分 (60-79)</option>
+          <option value="low">低分 (&lt;60)</option>
+        </select>
+      </div>
       <div class="fgroup"><label>操作建议</label>
       <select v-model="filterAction" @change="applyFilter">
         <option value="">全部</option>

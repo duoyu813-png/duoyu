@@ -15,7 +15,7 @@ import json
 import os
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,6 +26,16 @@ API_BASE = "http://www.pushplus.plus"
 BASE = os.path.dirname(os.path.abspath(__file__))
 LAST_STRATEGIES = os.path.join(BASE, "last_strategies.json")
 LAST_ISSUES = os.path.join(BASE, "last_issues.json")
+LAST_CB_ALERTS = os.path.join(BASE, "last_cb_alerts.json")
+
+
+def _to_num(v):
+    if v is None or v == "-" or v == "":
+        return None
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
 
 
 def _fmt(v, nd=2):
@@ -106,12 +116,16 @@ def push_discount():
     if not funds:
         print("[notify] 无基金数据，跳过折价推送")
         return False
-    funds.sort(key=lambda f: (f.get("discount_rate") is None, f.get("discount_rate") or 0))
-    top = [f for f in funds if f.get("discount_rate") is not None][:10]
-    lines = ["## 封闭基金折价（Top10）\n"]
+    # 仅保留有折价（折价率>0）的基金，并按折价从高到低排列（折价幅度越大越靠前）；
+    # 原实现按升序会把溢价(负值)/折价小的排在前面，导致推送内容看起来像"溢价"。
+    dis = [f for f in funds if f.get("discount_rate") is not None and f.get("discount_rate") > 0]
+    dis.sort(key=lambda f: f.get("discount_rate") or 0, reverse=True)
+    top = dis[:10]
+    lines = ["## 封闭基金折价（Top10）\n",
+             "按折价从高到低（折价率>0 为折价）\n"]
     for f in top:
         lines.append(
-            f"- **{f.get('name','-')}** | 折价:{_fmt(f.get('discount_rate'))}%"
+            f"- **{f.get('name','-')}** ({f.get('code','-')}) | 折价:{_fmt(f.get('discount_rate'))}%"
             f" | 现价:{_fmt(f.get('price'))} | 净值:{_fmt(f.get('nav'))}"
             f" | 到期:{f.get('maturity_date') or '-'}"
         )
@@ -197,6 +211,86 @@ def push_issues():
     return _send("可转债发行变动", "\n".join(lines))
 
 
+def _is_trading_window():
+    """A股交易时段（北京周一~周五 09:30-15:10），可转债低价/低溢价推送仅在此时节流触发"""
+    now = datetime.utcnow() + timedelta(hours=8)  # 北京墙钟
+    if now.weekday() >= 5:
+        return False
+    hm = now.hour * 100 + now.minute
+    return 930 <= hm <= 1510
+
+
+def push_cb_alert():
+    """价格<110 或 转股溢价率<10% 的可转债推送（每只债每天至多提醒一次）"""
+    from scrapers.eastmoney import EastMoneyScraper
+
+    force = os.environ.get("CB_ALERT_FORCE", "").lower() in ("1", "true", "yes", "y", "on")
+    if not _is_trading_window() and not force:
+        print("[notify] 非交易时段，跳过低价/低溢价推送（如需手动测试请设置 CB_ALERT_FORCE=1）")
+        return False
+
+    live = EastMoneyScraper.fetch_cb_list()
+    if not live:
+        print("[notify] 无可转债数据，跳过低价/低溢价推送")
+        return False
+
+    hits = []
+    for b in live:
+        price = _to_num(b.get("price"))
+        prem = _to_num(b.get("premium_rate"))
+        reasons = []
+        if price is not None and price < 110:
+            reasons.append("价格<110")
+        if prem is not None and prem < 10:
+            reasons.append("溢价<10%")
+        if not reasons:
+            continue
+        hits.append({
+            "code": b.get("code", ""),
+            "name": b.get("name", ""),
+            "price": price,
+            "premium_rate": prem,
+            "reasons": reasons,
+        })
+    if not hits:
+        print("[notify] 无低价/低溢价可转债")
+        return False
+
+    today = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d")
+    last = {}
+    if os.path.exists(LAST_CB_ALERTS):
+        try:
+            with open(LAST_CB_ALERTS, "r", encoding="utf-8") as f:
+                last = json.load(f)
+        except Exception:
+            last = {}
+
+    new_hits = []
+    state = dict(last)
+    for h in hits:
+        code = h.get("code")
+        if last.get(code) == today:
+            continue
+        state[code] = today
+        new_hits.append(h)
+    _save(LAST_CB_ALERTS, state)
+
+    if not new_hits:
+        print("[notify] 今日已推送过，无新增")
+        return False
+
+    new_hits.sort(key=lambda h: (h.get("premium_rate") is None, h.get("premium_rate") or 0))
+    lines = ["## 可转债 低价/低溢价 提醒\n",
+             f"共 {len(new_hits)} 只（价格<110 或 转股溢价率<10%）\n"]
+    for h in new_hits[:25]:
+        reasons = "/".join(h["reasons"])
+        lines.append(
+            f"- **{h.get('name', '-')}** ({h.get('code', '-')}) | "
+            f"{_fmt(h.get('price'))}元 | 溢价{_fmt(h.get('premium_rate'))}% | {reasons}"
+        )
+    return _send("可转债低价/低溢价提醒", "\n".join(lines))
+
+
 if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else "--test"
     t0 = time.time()
@@ -207,6 +301,8 @@ if __name__ == "__main__":
         ok = push_rotation()
     elif mode == "--issues":
         ok = push_issues()
+    elif mode == "--cb-alert":
+        ok = push_cb_alert()
     else:
         ok = _send("金融提醒工具测试",
                    f"## 测试消息\n\n如果收到说明推送正常\n时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")

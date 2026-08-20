@@ -85,11 +85,12 @@ def _build_issues_static(bonds: list[dict]) -> str:
         ])
     import json as _json
     data_json = _json.dumps(bonds, ensure_ascii=False, default=str)
-    chips = ["<button class='chip active' data-progress=''>全部<span class='n'>" + str(len(bonds)) + "</span></button>"]
+    all_chip = "<button class='chip active' data-progress=''>全部<span class='n'>" + str(len(bonds)) + "</span></button>"
+    prog_chips = []
     for p in PROG_ORDER:
         n = progress_counts.get(p, 0)
         if n > 0:
-            chips.append(f"<button class='chip' data-progress='{_esc(p)}'>{p}<span class='n'>{n}</span></button>")
+            prog_chips.append(f"<button class='chip' data-progress='{_esc(p)}'>{p}<span class='n'>{n}</span></button>")
     html = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -110,9 +111,11 @@ header .ts{color:var(--muted);font-size:12px}
 h1{font-size:20px;margin:4px 0}
 .sub{color:var(--muted);font-size:13px;margin-bottom:14px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
-.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
-.bar .search{margin-left:auto;padding:7px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;width:150px}
-.bar .search:focus{border-color:var(--accent)}
+.bar{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.bar-row1{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
+.bar-row1 .search{flex:1;min-width:0;padding:7px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;width:150px}
+.bar-row1 .search:focus{border-color:var(--accent)}
+.bar-row2{display:flex;flex-wrap:wrap;gap:8px}
 .chip{padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid var(--border);background:var(--card);color:#495057;transition:all .15s}
 .chip:hover{border-color:var(--accent);color:var(--accent)}
 .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
@@ -160,7 +163,7 @@ tr:hover td{background:#f1f5f9}
 .dv{font-size:14px;font-weight:700}
 .df{font-size:11px;color:var(--muted);margin-top:3px}
 .grey{color:var(--muted);font-weight:400;font-size:12px}
-@media(max-width:768px){th,td{padding:6px 6px;font-size:12px}.bar .search{width:110px}.c-mh{display:none!important}th{white-space:normal;word-break:break-all}.dlg{padding:14px}.dlg-grid{grid-template-columns:1fr}}
+@media(max-width:768px){th,td{padding:5px 3px;font-size:11px}.bar-row2{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.bar-row2 .chip{width:100%;text-align:center;padding:6px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bar-row1{width:100%}.c-mh{display:none!important}th{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}td{word-break:keep-all}.card{padding:8px}.detail-btn{padding:3px 8px;font-size:11px}.dlg{padding:14px}.dlg-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -172,8 +175,13 @@ tr:hover td{background:#f1f5f9}
   <h1>待发可转债 · 抢权</h1>
   <p class="sub">按审核进度分组 · 点击表头排序 · 数据源：集思录/东财/腾讯 · 共 __TOTAL__ 条</p>
   <div class="bar">
-    __CHIPS__
-    <input class="search" id="q" placeholder="搜代码/名称">
+    <div class="bar-row1">
+      __ALLCHIP__
+      <input class="search" id="q" placeholder="搜代码/名称">
+    </div>
+    <div class="bar-row2">
+      __PROGCHIPS__
+    </div>
   </div>
   <div class="card"><div id="table-wrap"></div></div>
   <p class="sub" style="text-align:center;margin-top:16px">仅供学习参考，不构成投资建议</p>
@@ -204,8 +212,8 @@ function render(){
     return sortDesc?-r:r;
   });
   var h = "<table><thead><tr>";
-  // [字段, 表头, 手机端是否显示]  次要字段(预估流通/正股价/行业)移入明细弹窗，表格更简洁
-  var cols = [["total_score","评分",1],["stock_code","代码/名称",1],["progress","进度",1],["total_scale","规模(亿)",0],["per_share_amount","百元含权",1],["one_hand_shares","一手党(股)",0],["","评级",1],["action","操作建议",1],["","明细",1]];
+  // [字段, 表头, 手机端是否显示]  评级移入明细弹窗，次要字段(预估流通/正股价/行业)移入明细弹窗，表格更简洁
+  var cols = [["total_score","评分",1],["stock_code","代码/名称",1],["progress","进度",1],["total_scale","规模(亿)",0],["per_share_amount","百元含权",1],["one_hand_shares","一手党(股)",0],["action","操作建议",1],["","明细",1]];
   for(var i=0;i<cols.length;i++){ h += "<th"+(cols[i][2]===0?" class='c-mh'":"")+" onclick=window.sortB('"+cols[i][0]+"')>"+cols[i][1]+(sortField===cols[i][0]?(sortDesc?" ↓":" ↑"):"")+"</th>"; }
   h += "</tr></thead><tbody>";
   for(var i=0;i<list.length;i++){
@@ -217,7 +225,6 @@ function render(){
       "<td class='c-mh'>"+fmt(b.total_scale)+"</td>",
       "<td>"+fmt(b.per_share_amount)+"</td>",
       "<td class='c-mh'>"+(b.one_hand_shares||"-")+"</td>",
-      "<td><span class='rating "+ratingCls(b.rating)+"'>"+(b.rating||"-")+"</span></td>",
       "<td><span class='actionsel "+actionCls(b.action)+"'>"+(b.action||"-")+"</span></td>",
       "<td><button class='detail-btn' onclick=window.showD('"+b.stock_code+"')>明细</button></td>"
     ];
@@ -294,7 +301,8 @@ render();
 </body>
 </html>"""
     return (html
-            .replace("__CHIPS__", "".join(chips))
+            .replace("__ALLCHIP__", all_chip)
+            .replace("__PROGCHIPS__", "".join(prog_chips))
             .replace("__TOTAL__", str(len(bonds)))
             .replace("__TIME__", time.strftime("%Y-%m-%d %H:%M:%S"))
             .replace("__DATA__", data_json))

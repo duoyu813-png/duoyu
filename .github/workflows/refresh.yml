@@ -11,6 +11,10 @@ on:
         description: 手动触发刷新
         required: false
         default: 'true'
+      cb_alert_force:
+        description: '强制发送可转债低价/低溢价推送(忽略交易时段), 填 true'
+        required: false
+        default: 'false'
 
 # 公共仓库 Pages 部署权限
 permissions:
@@ -48,11 +52,17 @@ jobs:
           JISILU_COOKIE: ${{ secrets.JISILU_COOKIE }}
         run: python qiangquan_gen.py || echo "qiangquan generation failed, keeping last snapshot"
 
+      - name: Send CB low price/premium alert
+        env:
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          CB_ALERT_FORCE: ${{ inputs.cb_alert_force }}
+        run: python notify.py --cb-alert || echo "cb-alert skipped (non-trading window / no data)"
+
       - name: Commit fallback cache
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add hanquan/last_qiangquan.json
+          git add hanquan/last_qiangquan.json last_cb_alerts.json
           if git diff --cached --quiet; then
             echo "无变更"
           else
