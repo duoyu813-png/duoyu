@@ -1,6 +1,6 @@
 {
  "total": 80,
- "generated_at": "2026-08-19 23:45:38",
+ "generated_at": "2026-08-20 00:31:20",
  "source": "live",
  "bonds": [
   {
@@ -211,7 +211,7 @@
    "one_hand_shares": 300,
    "per_hand_shares": 424.9479179810725,
    "market": "沪",
-   "total_score": 87,
+   "total_score": 84,
    "rating": "A+",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
@@ -233,7 +233,7 @@
      "factor": "Q1增长324.98%"
     },
     "潜伏期扣分": {
-     "score": -3,
+     "score": -6,
      "max": 0,
      "factor": "2026-06"
     },
@@ -265,7 +265,7 @@
    },
    "weighted_amount": 8.82,
    "hidden_circulation": 2.22,
-   "total": 87,
+   "total": 84,
    "issue_amount": 3.17,
    "safety_pct": 3.7,
    "per_share_allotment": 2.3532
@@ -2763,95 +2763,6 @@
    "per_share_allotment": 1.5688
   },
   {
-   "stock_code": "605016",
-   "stock_name": "百龙创园",
-   "bond_name": "百龙创园转债",
-   "industry": "其他",
-   "total_scale": 7.48,
-   "per_share_amount": 9.03,
-   "progress": "交易所受理",
-   "registration_date": "2026-05-06",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 21.05,
-   "cb_amount": 9.03,
-   "b_shares": 0.0,
-   "price": 19.73,
-   "change_pct": -3.47,
-   "pb": 3.98,
-   "ma20_price": 21.05,
-   "circ_mv": 5.24,
-   "circ_mv_score_factor": 5.24,
-   "pe": 17.01,
-   "turnover_rate": null,
-   "amount": 7.48,
-   "q1_growth": 48.1,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 300,
-   "per_hand_shares": 561.5137967914438,
-   "market": "沪",
-   "total_score": 59,
-   "rating": "B",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤18.15 | 卖出≥21.7 | 安全垫5.1%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "9.03元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "5.24亿"
-    },
-    "业绩评分": {
-     "score": 30,
-     "max": 40,
-     "factor": "Q1增长48.1%"
-    },
-    "潜伏期扣分": {
-     "score": -6,
-     "max": 0,
-     "factor": "2026-05"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=17.01"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交7.5亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 9.03,
-   "hidden_circulation": 5.24,
-   "total": 59,
-   "issue_amount": 7.48,
-   "safety_pct": 5.1,
-   "per_share_allotment": 1.7809
-  },
-  {
    "stock_code": "301149",
    "stock_name": "隆华新材",
    "bond_name": "隆华新材转债",
@@ -3562,6 +3473,95 @@
    "issue_amount": 15.8,
    "safety_pct": 3.9,
    "per_share_allotment": 13.0394
+  },
+  {
+   "stock_code": "605016",
+   "stock_name": "百龙创园",
+   "bond_name": "百龙创园转债",
+   "industry": "其他",
+   "total_scale": 7.48,
+   "per_share_amount": 9.03,
+   "progress": "交易所受理",
+   "registration_date": "2026-05-06",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 21.05,
+   "cb_amount": 9.03,
+   "b_shares": 0.0,
+   "price": 19.73,
+   "change_pct": -3.47,
+   "pb": 3.98,
+   "ma20_price": 21.05,
+   "circ_mv": 5.24,
+   "circ_mv_score_factor": 5.24,
+   "pe": 17.01,
+   "turnover_rate": null,
+   "amount": 7.48,
+   "q1_growth": 48.1,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 300,
+   "per_hand_shares": 561.5137967914438,
+   "market": "沪",
+   "total_score": 56,
+   "rating": "B",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤18.15 | 卖出≥21.7 | 安全垫5.1%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "9.03元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.24亿"
+    },
+    "业绩评分": {
+     "score": 30,
+     "max": 40,
+     "factor": "Q1增长48.1%"
+    },
+    "潜伏期扣分": {
+     "score": -9,
+     "max": 0,
+     "factor": "2026-05"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=17.01"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交7.5亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 9.03,
+   "hidden_circulation": 5.24,
+   "total": 56,
+   "issue_amount": 7.48,
+   "safety_pct": 5.1,
+   "per_share_allotment": 1.7809
   },
   {
    "stock_code": "301132",
