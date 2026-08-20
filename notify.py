@@ -5,6 +5,7 @@
   python notify.py --discount       每天 20:00(北京) 封闭基金折价推送
   python notify.py --rotation       每周五 14:00(北京) 可转债轮动推送
   python notify.py --issues         待发可转债状态变动推送
+  python notify.py --cb-alert       低价/低溢价「变动」推送（当天新进入价格<110 或 溢价<10% 的转债）
 
 说明：
   - 云端无数据库/无关注列表，折价推送改为推送「折价最深的 Top10」（游客 20 条内）；
@@ -221,7 +222,12 @@ def _is_trading_window():
 
 
 def push_cb_alert():
-    """价格<110 或 转股溢价率<10% 的可转债推送（每只债每天至多提醒一次）"""
+    """推送「当天新进入」低价/低溢价条件的可转债变动提醒（价格<110 或 转股溢价率<10%）。
+
+    与上一次检查的命中集合比对，仅推送本次「新增命中」的转债；
+    同一只债当天只提醒一次；不再是完整版列表。
+    状态文件 last_cb_alerts.json：{"set": [命中代码...], "pushed": {code: 日期}}
+    """
     from scrapers.eastmoney import EastMoneyScraper
 
     force = os.environ.get("CB_ALERT_FORCE", "").lower() in ("1", "true", "yes", "y", "on")
@@ -234,7 +240,9 @@ def push_cb_alert():
         print("[notify] 无可转债数据，跳过低价/低溢价推送")
         return False
 
-    hits = []
+    today = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d")
+    # 当前命中集合（需有真实成交价）
+    current = {}
     for b in live:
         price = _to_num(b.get("price"))
         if price is None:
@@ -248,52 +256,57 @@ def push_cb_alert():
             reasons.append("溢价<10%")
         if not reasons:
             continue
-        hits.append({
-            "code": b.get("code", ""),
-            "name": b.get("name", ""),
-            "price": price,
-            "premium_rate": prem,
-            "reasons": reasons,
-        })
-    if not hits:
-        print("[notify] 无低价/低溢价可转债")
-        return False
+        code = b.get("code", "")
+        current[code] = {
+            "code": code, "name": b.get("name", ""),
+            "price": price, "premium_rate": prem, "reasons": reasons,
+        }
 
-    today = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d")
-    last = {}
+    state = {"set": [], "pushed": {}}
     if os.path.exists(LAST_CB_ALERTS):
         try:
             with open(LAST_CB_ALERTS, "r", encoding="utf-8") as f:
-                last = json.load(f)
+                state = json.load(f)
         except Exception:
-            last = {}
+            state = {"set": [], "pushed": {}}
+    if not isinstance(state, dict) or "set" not in state:
+        # 兼容旧格式 {code: date}：视为“上次已命中且当日已推送”
+        old = state if isinstance(state, dict) else {}
+        state = {"set": sorted(str(k) for k in old.keys()),
+                 "pushed": {str(k): str(v) for k, v in old.items()}}
+    prev_set = set(state.get("set") or [])
+    pushed = state.get("pushed") or {}
 
+    # 仅推送“新增命中 + 当天未推送过”
     new_hits = []
-    state = dict(last)
-    for h in hits:
-        code = h.get("code")
-        if last.get(code) == today:
+    for code, info in current.items():
+        if pushed.get(code) == today:
             continue
-        state[code] = today
-        new_hits.append(h)
+        if code not in prev_set:
+            new_hits.append(info)
+
+    if new_hits:
+        new_hits.sort(key=lambda h: (h["premium_rate"] is None, h["premium_rate"] or 0))
+        lines = ["## 可转债低价/低溢价变动\n",
+                 f"今日新增 {len(new_hits)} 只（价格<110 或 转股溢价率<10%）\n"]
+        for h in new_hits[:25]:
+            parts = [f"**{h['name']}** ({h['code']})"]
+            if h["price"] is not None:
+                parts.append(f"{_fmt(h['price'])}元")
+            if h["premium_rate"] is not None:
+                parts.append(f"溢价{_fmt(h['premium_rate'])}%")
+            parts.append("/".join(h["reasons"]))
+            lines.append("- " + " | ".join(parts))
+        _send("可转债低价/低溢价变动提醒", "\n".join(lines))
+
+    # 更新状态：命中集合 + 当日处理记录（同一只债当天不再重复提醒）
+    for code in current:
+        pushed[code] = today
+    state["set"] = sorted(current.keys())
+    state["pushed"] = pushed
     _save(LAST_CB_ALERTS, state)
 
-    if not new_hits:
-        print("[notify] 今日已推送过，无新增")
-        return False
-
-    new_hits.sort(key=lambda h: (h.get("premium_rate") is None, h.get("premium_rate") or 0))
-    lines = ["## 可转债 低价/低溢价 提醒\n",
-             f"共 {len(new_hits)} 只（价格<110 或 转股溢价率<10%）\n"]
-    for h in new_hits[:25]:
-        parts = [f"**{h.get('name', '-')}** ({h.get('code', '-')})"]
-        if h.get("price") is not None:
-            parts.append(f"{_fmt(h.get('price'))}元")
-        if h.get("premium_rate") is not None:
-            parts.append(f"溢价{_fmt(h.get('premium_rate'))}%")
-        parts.append("/".join(h["reasons"]))
-        lines.append("- " + " | ".join(parts))
-    return _send("可转债低价/低溢价提醒", "\n".join(lines))
+    return bool(new_hits)
 
 
 if __name__ == "__main__":
