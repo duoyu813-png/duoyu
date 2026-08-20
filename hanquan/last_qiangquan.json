@@ -1,6 +1,6 @@
 {
- "total": 80,
- "generated_at": "2026-08-20 13:27:20",
+ "total": 79,
+ "generated_at": "2026-08-20 14:07:43",
  "source": "live",
  "bonds": [
   {
@@ -3384,95 +3384,6 @@
    "issue_amount": 18.8,
    "safety_pct": 2.3,
    "per_share_allotment": 7.7195
-  },
-  {
-   "stock_code": "605123",
-   "stock_name": "派克新材",
-   "bond_name": "派克转债",
-   "industry": "其他",
-   "total_scale": 15.8,
-   "per_share_amount": 17.37,
-   "progress": "发行中",
-   "registration_date": "2026-04-29",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "AA",
-   "record_dt": "2026-08-05",
-   "convert_price": 81.8,
-   "cb_amount": 15.67,
-   "b_shares": 0.0,
-   "price": 75.08,
-   "change_pct": -3.52,
-   "pb": 1.95,
-   "ma20_price": 78.38,
-   "circ_mv": 11.06,
-   "circ_mv_score_factor": 11.06,
-   "pe": 26.55,
-   "turnover_rate": null,
-   "amount": 15.8,
-   "q1_growth": 11.82,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 100,
-   "per_hand_shares": 76.69043797468353,
-   "market": "沪",
-   "total_score": 56,
-   "rating": "B",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤69.07 | 卖出≥82.59 | 安全垫4.0%",
-   "score_details": {
-    "含权量评分": {
-     "score": 20,
-     "max": 30,
-     "factor": "17.37元"
-    },
-    "隐形流通量评分": {
-     "score": 10,
-     "max": 40,
-     "factor": "11.06亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长11.82%"
-    },
-    "潜伏期扣分": {
-     "score": -9,
-     "max": 0,
-     "factor": "2026-04"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=26.55"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交15.8亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 17.37,
-   "hidden_circulation": 11.06,
-   "total": 56,
-   "issue_amount": 15.8,
-   "safety_pct": 4.0,
-   "per_share_allotment": 13.0394
   },
   {
    "stock_code": "605016",
