@@ -1,6 +1,6 @@
 {
- "total": 80,
- "generated_at": "2026-08-22 00:31:21",
+ "total": 79,
+ "generated_at": "2026-08-22 02:00:01",
  "source": "live",
  "bonds": [
   {
@@ -6588,95 +6588,6 @@
    "issue_amount": 14.36,
    "safety_pct": 4.0,
    "per_share_allotment": 11.7086
-  },
-  {
-   "stock_code": "688605",
-   "stock_name": "先锋精科",
-   "bond_name": "先锋转债",
-   "industry": "其他",
-   "total_scale": 7.5,
-   "per_share_amount": 5.18,
-   "progress": "发行中",
-   "registration_date": "2026-05-01",
-   "approval_date": "",
-   "board": "科创板",
-   "rating_cd": "AA",
-   "record_dt": "2026-08-05",
-   "convert_price": 86.4,
-   "cb_amount": 5.12,
-   "b_shares": 0.0,
-   "price": 71.6,
-   "change_pct": -1.51,
-   "pb": 8.68,
-   "ma20_price": 72.24,
-   "circ_mv": 4.02,
-   "circ_mv_score_factor": 4.02,
-   "pe": 149.17,
-   "turnover_rate": null,
-   "amount": 7.5,
-   "q1_growth": -41.0,
-   "major_shareholder_ratio": 0.4646,
-   "one_hand_shares": 200,
-   "per_hand_shares": 269.839808,
-   "market": "沪",
-   "total_score": 26,
-   "rating": "D",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤65.87 | 卖出≥78.76 | 安全垫2.1%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "5.18元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.02亿"
-    },
-    "业绩评分": {
-     "score": 10,
-     "max": 40,
-     "factor": "Q1增长-41.0%"
-    },
-    "潜伏期扣分": {
-     "score": -9,
-     "max": 0,
-     "factor": "2026-05"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "科创板"
-    },
-    "PE扣分": {
-     "score": -5,
-     "max": 0,
-     "factor": "PE=149.17"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交7.5亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 5.18,
-   "hidden_circulation": 4.02,
-   "total": 26,
-   "issue_amount": 7.5,
-   "safety_pct": 2.1,
-   "per_share_allotment": 3.7059
   },
   {
    "stock_code": "002913",
