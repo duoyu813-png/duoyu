@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-08-22 23:44:09",
+ "generated_at": "2026-08-23 00:34:11",
  "source": "live",
  "bonds": [
   {
@@ -2140,95 +2140,6 @@
    "per_share_allotment": 1.8638
   },
   {
-   "stock_code": "001221",
-   "stock_name": "悍高集团",
-   "bond_name": "悍高集团转债",
-   "industry": "其他",
-   "total_scale": 12.0,
-   "per_share_amount": 7.23,
-   "progress": "交易所受理",
-   "registration_date": "2026-06-08",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 40.68,
-   "cb_amount": 7.23,
-   "b_shares": 0.0,
-   "price": 41.52,
-   "change_pct": -4.75,
-   "pb": 5.46,
-   "ma20_price": 40.68,
-   "circ_mv": 3.6,
-   "circ_mv_score_factor": 3.6,
-   "pe": 32.44,
-   "turnover_rate": null,
-   "amount": 12.0,
-   "q1_growth": 11.19,
-   "major_shareholder_ratio": 0.7,
-   "one_hand_shares": 334,
-   "per_hand_shares": 333.34166666666664,
-   "market": "深",
-   "total_score": 62,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤37.37 | 卖出≥47.75 | 安全垫2.2%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "7.23元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "3.60亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长11.19%"
-    },
-    "潜伏期扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=32.44"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交12.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 7.23,
-   "hidden_circulation": 3.6,
-   "total": 62,
-   "issue_amount": 12.0,
-   "safety_pct": 2.2,
-   "per_share_allotment": 2.9999
-  },
-  {
    "stock_code": "603093",
    "stock_name": "南华期货",
    "bond_name": "南华期货转债",
@@ -2761,6 +2672,95 @@
    "issue_amount": 8.01,
    "safety_pct": 2.5,
    "per_share_allotment": 1.5688
+  },
+  {
+   "stock_code": "001221",
+   "stock_name": "悍高集团",
+   "bond_name": "悍高集团转债",
+   "industry": "其他",
+   "total_scale": 12.0,
+   "per_share_amount": 7.23,
+   "progress": "交易所受理",
+   "registration_date": "2026-06-08",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 40.68,
+   "cb_amount": 7.23,
+   "b_shares": 0.0,
+   "price": 41.52,
+   "change_pct": -4.75,
+   "pb": 5.46,
+   "ma20_price": 40.68,
+   "circ_mv": 3.6,
+   "circ_mv_score_factor": 3.6,
+   "pe": 32.44,
+   "turnover_rate": null,
+   "amount": 12.0,
+   "q1_growth": 11.19,
+   "major_shareholder_ratio": 0.7,
+   "one_hand_shares": 334,
+   "per_hand_shares": 333.34166666666664,
+   "market": "深",
+   "total_score": 59,
+   "rating": "B",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤38.2 | 卖出≥45.67 | 安全垫2.2%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "7.23元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "3.60亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长11.19%"
+    },
+    "潜伏期扣分": {
+     "score": -6,
+     "max": 0,
+     "factor": "2026-06"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=32.44"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交12.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 7.23,
+   "hidden_circulation": 3.6,
+   "total": 59,
+   "issue_amount": 12.0,
+   "safety_pct": 2.2,
+   "per_share_allotment": 2.9999
   },
   {
    "stock_code": "301149",
