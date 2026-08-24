@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-08-24 11:29:39",
+ "generated_at": "2026-08-24 11:53:47",
  "source": "live",
  "bonds": [
   {
@@ -1517,95 +1517,6 @@
    "per_share_allotment": 1.1095
   },
   {
-   "stock_code": "300389",
-   "stock_name": "艾比森",
-   "bond_name": "艾比森转债",
-   "industry": "其他",
-   "total_scale": 8.1,
-   "per_share_amount": 18.11,
-   "progress": "交易所通过",
-   "registration_date": "",
-   "approval_date": "",
-   "board": "创业板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 12.3,
-   "cb_amount": 18.11,
-   "b_shares": 0.0,
-   "price": 12.12,
-   "change_pct": -2.02,
-   "pb": 2.66,
-   "ma20_price": 12.3,
-   "circ_mv": 4.82,
-   "circ_mv_score_factor": 4.82,
-   "pe": 28.48,
-   "turnover_rate": null,
-   "amount": 8.1,
-   "q1_growth": 7.87,
-   "major_shareholder_ratio": 0.4055,
-   "one_hand_shares": 456,
-   "per_hand_shares": 455.67940370370377,
-   "market": "深",
-   "total_score": 67,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤10.91 | 卖出≥13.94 | 安全垫5.4%",
-   "score_details": {
-    "含权量评分": {
-     "score": 20,
-     "max": 30,
-     "factor": "18.11元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.82亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长7.87%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "未知"
-    },
-    "300/688折扣": {
-     "score": -8,
-     "max": 0,
-     "factor": "创业板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=28.48"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交8.1亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 18.11,
-   "hidden_circulation": 4.82,
-   "total": 67,
-   "issue_amount": 8.1,
-   "safety_pct": 5.4,
-   "per_share_allotment": 2.1945
-  },
-  {
    "stock_code": "001316",
    "stock_name": "润贝航科",
    "bond_name": "润贝航科转债",
@@ -2672,6 +2583,95 @@
    "issue_amount": 8.01,
    "safety_pct": 2.6,
    "per_share_allotment": 1.5688
+  },
+  {
+   "stock_code": "300389",
+   "stock_name": "艾比森",
+   "bond_name": "艾比森转债",
+   "industry": "其他",
+   "total_scale": 8.1,
+   "per_share_amount": 18.11,
+   "progress": "交易所通过",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "创业板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 12.3,
+   "cb_amount": 18.11,
+   "b_shares": 0.0,
+   "price": 12.12,
+   "change_pct": -2.02,
+   "pb": 2.66,
+   "ma20_price": 12.3,
+   "circ_mv": 5.67,
+   "circ_mv_score_factor": 5.67,
+   "pe": 28.48,
+   "turnover_rate": null,
+   "amount": 8.1,
+   "q1_growth": 7.87,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 456,
+   "per_hand_shares": 455.67940370370377,
+   "market": "深",
+   "total_score": 60,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤10.91 | 卖出≥13.94 | 安全垫5.4%",
+   "score_details": {
+    "含权量评分": {
+     "score": 20,
+     "max": 30,
+     "factor": "18.11元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.67亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长7.87%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": -10,
+     "max": 0,
+     "factor": "创业板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=28.48"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交8.1亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 18.11,
+   "hidden_circulation": 5.67,
+   "total": 60,
+   "issue_amount": 8.1,
+   "safety_pct": 5.4,
+   "per_share_allotment": 2.1945
   },
   {
    "stock_code": "001221",
