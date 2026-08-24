@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-08-23 23:43:35",
+ "generated_at": "2026-08-24 00:32:56",
  "source": "live",
  "bonds": [
   {
@@ -4009,95 +4009,6 @@
    "per_share_allotment": 5.2967
   },
   {
-   "stock_code": "301379",
-   "stock_name": "天山电子",
-   "bond_name": "天山电子转债",
-   "industry": "AI/科技",
-   "total_scale": 6.97,
-   "per_share_amount": 11.4,
-   "progress": "交易所受理",
-   "registration_date": "2026-03-11",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 21.6,
-   "cb_amount": 11.4,
-   "b_shares": 0.0,
-   "price": 22.04,
-   "change_pct": 1.24,
-   "pb": 4.18,
-   "ma20_price": 21.6,
-   "circ_mv": 4.88,
-   "circ_mv_score_factor": 4.88,
-   "pe": 54.72,
-   "turnover_rate": null,
-   "amount": 6.97,
-   "q1_growth": -45.01,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 399,
-   "per_hand_shares": 398.10863414634144,
-   "market": "深",
-   "total_score": 53,
-   "rating": "B",
-   "action": "小仓关注",
-   "action_reason": "低分但属AI板块，小仓参与",
-   "action_price": "买入≤20.28 | 卖出≥24.24 | 安全垫3.4%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "11.40元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.88亿"
-    },
-    "业绩评分": {
-     "score": 10,
-     "max": 40,
-     "factor": "Q1增长-45.01%"
-    },
-    "潜伏期扣分": {
-     "score": -12,
-     "max": 0,
-     "factor": "2026-03"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=54.72"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交7.0亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 11.4,
-   "hidden_circulation": 4.88,
-   "total": 53,
-   "issue_amount": 6.97,
-   "safety_pct": 3.4,
-   "per_share_allotment": 2.5119
-  },
-  {
    "stock_code": "688510",
    "stock_name": "航亚科技",
    "bond_name": "航亚科技转债",
@@ -4541,6 +4452,95 @@
    "issue_amount": 5.14,
    "safety_pct": 2.2,
    "per_share_allotment": 4.1912
+  },
+  {
+   "stock_code": "301379",
+   "stock_name": "天山电子",
+   "bond_name": "天山电子转债",
+   "industry": "AI/科技",
+   "total_scale": 6.97,
+   "per_share_amount": 11.4,
+   "progress": "交易所受理",
+   "registration_date": "2026-03-11",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 21.6,
+   "cb_amount": 11.4,
+   "b_shares": 0.0,
+   "price": 22.04,
+   "change_pct": 1.24,
+   "pb": 4.18,
+   "ma20_price": 21.6,
+   "circ_mv": 4.88,
+   "circ_mv_score_factor": 4.88,
+   "pe": 54.72,
+   "turnover_rate": null,
+   "amount": 6.97,
+   "q1_growth": -45.01,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 399,
+   "per_hand_shares": 398.10863414634144,
+   "market": "深",
+   "total_score": 50,
+   "rating": "B",
+   "action": "小仓关注",
+   "action_reason": "低分但属AI板块，小仓参与",
+   "action_price": "买入≤20.28 | 卖出≥24.24 | 安全垫3.4%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "11.40元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.88亿"
+    },
+    "业绩评分": {
+     "score": 10,
+     "max": 40,
+     "factor": "Q1增长-45.01%"
+    },
+    "潜伏期扣分": {
+     "score": -15,
+     "max": 0,
+     "factor": "2026-03"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "PE=54.72"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交7.0亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 11.4,
+   "hidden_circulation": 4.88,
+   "total": 50,
+   "issue_amount": 6.97,
+   "safety_pct": 3.4,
+   "per_share_allotment": 2.5119
   },
   {
    "stock_code": "301141",
@@ -5617,7 +5617,7 @@
    "industry": "医药",
    "total_scale": 13.71,
    "per_share_amount": 13.81,
-   "progress": "交易所受理",
+   "progress": "上市委通过",
    "registration_date": "2026-02-27",
    "approval_date": "",
    "board": "创业板",
@@ -6857,95 +6857,6 @@
    "per_share_allotment": 2.2124
   },
   {
-   "stock_code": "301018",
-   "stock_name": "申菱环境",
-   "bond_name": "申菱环境转债",
-   "industry": "环保",
-   "total_scale": 10.0,
-   "per_share_amount": 2.98,
-   "progress": "上市委通过",
-   "registration_date": "2026-04-10",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 85.34,
-   "cb_amount": 2.98,
-   "b_shares": 0.0,
-   "price": 89.6,
-   "change_pct": 3.58,
-   "pb": 12.15,
-   "ma20_price": 85.34,
-   "circ_mv": 7.0,
-   "circ_mv_score_factor": 7.0,
-   "pe": 203.64,
-   "turnover_rate": null,
-   "amount": 10.0,
-   "q1_growth": -47.71,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 375,
-   "per_hand_shares": 374.281339,
-   "market": "深",
-   "total_score": 21,
-   "rating": "D",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤82.43 | 卖出≥98.56 | 安全垫0.9%",
-   "score_details": {
-    "含权量评分": {
-     "score": 5,
-     "max": 30,
-     "factor": "2.98元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "7.00亿"
-    },
-    "业绩评分": {
-     "score": 10,
-     "max": 40,
-     "factor": "Q1增长-47.71%"
-    },
-    "潜伏期扣分": {
-     "score": -9,
-     "max": 0,
-     "factor": "2026-04"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": -10,
-     "max": 0,
-     "factor": "PE=203.64"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "环保"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交10.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "环保"
-    }
-   },
-   "weighted_amount": 2.98,
-   "hidden_circulation": 7.0,
-   "total": 21,
-   "issue_amount": 10.0,
-   "safety_pct": 0.9,
-   "per_share_allotment": 2.6718
-  },
-  {
    "stock_code": "300634",
    "stock_name": "彩讯股份",
    "bond_name": "彩讯股份转债",
@@ -7033,6 +6944,95 @@
    "issue_amount": 12.7,
    "safety_pct": 4.3,
    "per_share_allotment": 2.8146
+  },
+  {
+   "stock_code": "301018",
+   "stock_name": "申菱环境",
+   "bond_name": "申菱环境转债",
+   "industry": "环保",
+   "total_scale": 10.0,
+   "per_share_amount": 2.98,
+   "progress": "上市委通过",
+   "registration_date": "2026-04-10",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 85.34,
+   "cb_amount": 2.98,
+   "b_shares": 0.0,
+   "price": 89.6,
+   "change_pct": 3.58,
+   "pb": 12.15,
+   "ma20_price": 85.34,
+   "circ_mv": 7.0,
+   "circ_mv_score_factor": 7.0,
+   "pe": 203.64,
+   "turnover_rate": null,
+   "amount": 10.0,
+   "q1_growth": -47.71,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 375,
+   "per_hand_shares": 374.281339,
+   "market": "深",
+   "total_score": 18,
+   "rating": "D",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤82.43 | 卖出≥98.56 | 安全垫0.9%",
+   "score_details": {
+    "含权量评分": {
+     "score": 5,
+     "max": 30,
+     "factor": "2.98元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "7.00亿"
+    },
+    "业绩评分": {
+     "score": 10,
+     "max": 40,
+     "factor": "Q1增长-47.71%"
+    },
+    "潜伏期扣分": {
+     "score": -12,
+     "max": 0,
+     "factor": "2026-04"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": -10,
+     "max": 0,
+     "factor": "PE=203.64"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "环保"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交10.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "环保"
+    }
+   },
+   "weighted_amount": 2.98,
+   "hidden_circulation": 7.0,
+   "total": 18,
+   "issue_amount": 10.0,
+   "safety_pct": 0.9,
+   "per_share_allotment": 2.6718
   }
  ]
 }
