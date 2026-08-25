@@ -1,6 +1,6 @@
 {
  "total": 80,
- "generated_at": "2026-08-25 23:17:14",
+ "generated_at": "2026-08-25 23:47:15",
  "source": "live",
  "bonds": [
   {
@@ -1428,6 +1428,95 @@
    "per_share_allotment": 1.8
   },
   {
+   "stock_code": "603499",
+   "stock_name": "翔港科技",
+   "bond_name": "翔港科技转债",
+   "industry": "AI/科技",
+   "total_scale": 4.7,
+   "per_share_amount": 9.37,
+   "progress": "交易所受理",
+   "registration_date": "2026-08-26",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 11.96,
+   "cb_amount": 9.37,
+   "b_shares": 0.0,
+   "price": 11.84,
+   "change_pct": 1.02,
+   "pb": 5.26,
+   "ma20_price": 11.96,
+   "circ_mv": 3.29,
+   "circ_mv_score_factor": 3.29,
+   "pe": 29.25,
+   "turnover_rate": null,
+   "amount": 4.7,
+   "q1_growth": -25.66,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 500,
+   "per_hand_shares": 901.3449914893617,
+   "market": "沪",
+   "total_score": 68,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤10.66 | 卖出≥13.62 | 安全垫5.1%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "9.37元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "3.29亿"
+    },
+    "业绩评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "Q1增长-25.66%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "2026-08"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=29.25"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交4.7亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 9.37,
+   "hidden_circulation": 3.29,
+   "total": 68,
+   "issue_amount": 4.7,
+   "safety_pct": 5.1,
+   "per_share_allotment": 1.1095
+  },
+  {
    "stock_code": "603043",
    "stock_name": "广州酒家",
    "bond_name": "广州酒家转债",
@@ -1517,70 +1606,70 @@
    "per_share_allotment": 1.7679
   },
   {
-   "stock_code": "603499",
-   "stock_name": "翔港科技",
-   "bond_name": "翔港科技转债",
+   "stock_code": "688372",
+   "stock_name": "伟测科技",
+   "bond_name": "伟测科技转债",
    "industry": "AI/科技",
-   "total_scale": 4.7,
-   "per_share_amount": 9.37,
-   "progress": "交易所通过",
-   "registration_date": "",
+   "total_scale": 20.0,
+   "per_share_amount": 9.73,
+   "progress": "交易所受理",
+   "registration_date": "2026-08-26",
    "approval_date": "",
-   "board": "主板",
+   "board": "科创板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 11.96,
-   "cb_amount": 9.37,
+   "convert_price": 120.73,
+   "cb_amount": 9.73,
    "b_shares": 0.0,
-   "price": 11.84,
-   "change_pct": 1.02,
-   "pb": 5.26,
-   "ma20_price": 11.96,
-   "circ_mv": 3.29,
-   "circ_mv_score_factor": 3.29,
-   "pe": 29.25,
+   "price": 121.66,
+   "change_pct": -0.46,
+   "pb": 4.92,
+   "ma20_price": 120.73,
+   "circ_mv": 14.0,
+   "circ_mv_score_factor": 14.0,
+   "pe": 63.98,
    "turnover_rate": null,
-   "amount": 4.7,
-   "q1_growth": -25.66,
+   "amount": 20.0,
+   "q1_growth": 173.39,
    "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 500,
-   "per_hand_shares": 901.3449914893617,
+   "one_hand_shares": 100,
+   "per_hand_shares": 84.49826499999999,
    "market": "沪",
-   "total_score": 68,
+   "total_score": 66,
    "rating": "B+",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤10.66 | 卖出≥13.62 | 安全垫5.1%",
+   "action_price": "买入≤109.49 | 卖出≥139.91 | 安全垫2.5%",
    "score_details": {
     "含权量评分": {
      "score": 10,
      "max": 30,
-     "factor": "9.37元"
+     "factor": "9.73元"
     },
     "隐形流通量评分": {
-     "score": 20,
+     "score": 8,
      "max": 40,
-     "factor": "3.29亿"
+     "factor": "14.00亿"
     },
     "业绩评分": {
-     "score": 15,
+     "score": 40,
      "max": 40,
-     "factor": "Q1增长-25.66%"
+     "factor": "Q1增长173.39%"
     },
     "潜伏期扣分": {
      "score": 0,
      "max": 0,
-     "factor": "未知"
+     "factor": "2026-08"
     },
     "300/688折扣": {
-     "score": 0,
+     "score": -15,
      "max": 0,
-     "factor": "主板"
+     "factor": "科创板"
     },
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=29.25"
+     "factor": "PE=63.98"
     },
     "行业加减分": {
      "score": 8,
@@ -1590,7 +1679,7 @@
     "市场热度": {
      "score": 10,
      "max": 10,
-     "factor": "成交4.7亿"
+     "factor": "成交20.0亿"
     },
     "行业热度": {
      "score": 5,
@@ -1598,12 +1687,12 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 9.37,
-   "hidden_circulation": 3.29,
-   "total": 68,
-   "issue_amount": 4.7,
-   "safety_pct": 5.1,
-   "per_share_allotment": 1.1095
+   "weighted_amount": 9.73,
+   "hidden_circulation": 14.0,
+   "total": 66,
+   "issue_amount": 20.0,
+   "safety_pct": 2.5,
+   "per_share_allotment": 11.8346
   },
   {
    "stock_code": "001316",
@@ -1693,95 +1782,6 @@
    "issue_amount": 4.3,
    "safety_pct": 3.0,
    "per_share_allotment": 2.6681
-  },
-  {
-   "stock_code": "688372",
-   "stock_name": "伟测科技",
-   "bond_name": "伟测科技转债",
-   "industry": "AI/科技",
-   "total_scale": 20.0,
-   "per_share_amount": 9.73,
-   "progress": "交易所通过",
-   "registration_date": "",
-   "approval_date": "",
-   "board": "科创板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 120.73,
-   "cb_amount": 9.73,
-   "b_shares": 0.0,
-   "price": 121.66,
-   "change_pct": -0.46,
-   "pb": 4.92,
-   "ma20_price": 120.73,
-   "circ_mv": 14.0,
-   "circ_mv_score_factor": 14.0,
-   "pe": 63.98,
-   "turnover_rate": null,
-   "amount": 20.0,
-   "q1_growth": 173.39,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 100,
-   "per_hand_shares": 84.49826499999999,
-   "market": "沪",
-   "total_score": 66,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤109.49 | 卖出≥139.91 | 安全垫2.5%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "9.73元"
-    },
-    "隐形流通量评分": {
-     "score": 8,
-     "max": 40,
-     "factor": "14.00亿"
-    },
-    "业绩评分": {
-     "score": 40,
-     "max": 40,
-     "factor": "Q1增长173.39%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "未知"
-    },
-    "300/688折扣": {
-     "score": -15,
-     "max": 0,
-     "factor": "科创板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=63.98"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交20.0亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 9.73,
-   "hidden_circulation": 14.0,
-   "total": 66,
-   "issue_amount": 20.0,
-   "safety_pct": 2.5,
-   "per_share_allotment": 11.8346
   },
   {
    "stock_code": "603166",
