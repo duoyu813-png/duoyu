@@ -1,6 +1,6 @@
 {
  "total": 80,
- "generated_at": "2026-08-25 23:47:15",
+ "generated_at": "2026-08-26 00:33:31",
  "source": "live",
  "bonds": [
   {
@@ -360,95 +360,6 @@
    "per_share_allotment": 9.523
   },
   {
-   "stock_code": "301631",
-   "stock_name": "壹连科技",
-   "bond_name": "壹连科技转债",
-   "industry": "AI/科技",
-   "total_scale": 11.8,
-   "per_share_amount": 14.93,
-   "progress": "交易所受理",
-   "registration_date": "2026-06-11",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 63.79,
-   "cb_amount": 14.93,
-   "b_shares": 0.0,
-   "price": 61.75,
-   "change_pct": 2.71,
-   "pb": 3.04,
-   "ma20_price": 63.79,
-   "circ_mv": 4.02,
-   "circ_mv_score_factor": 4.02,
-   "pe": 20.05,
-   "turnover_rate": null,
-   "amount": 11.8,
-   "q1_growth": 17.45,
-   "major_shareholder_ratio": 0.6594,
-   "one_hand_shares": 109,
-   "per_hand_shares": 108.45797627118645,
-   "market": "深",
-   "total_score": 80,
-   "rating": "A+",
-   "action": "关注建仓",
-   "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤55.58 | 卖出≥71.01 | 安全垫4.5%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "14.93元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.02亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长17.45%"
-    },
-    "潜伏期扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=20.05"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交11.8亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 14.93,
-   "hidden_circulation": 4.02,
-   "total": 80,
-   "issue_amount": 11.8,
-   "safety_pct": 4.5,
-   "per_share_allotment": 9.2202
-  },
-  {
    "stock_code": "301305",
    "stock_name": "朗坤科技",
    "bond_name": "朗坤科技转债",
@@ -625,6 +536,95 @@
    "issue_amount": 36.0,
    "safety_pct": 1.5,
    "per_share_allotment": 7.6157
+  },
+  {
+   "stock_code": "301631",
+   "stock_name": "壹连科技",
+   "bond_name": "壹连科技转债",
+   "industry": "AI/科技",
+   "total_scale": 11.8,
+   "per_share_amount": 14.93,
+   "progress": "交易所受理",
+   "registration_date": "2026-06-11",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 63.79,
+   "cb_amount": 14.93,
+   "b_shares": 0.0,
+   "price": 61.75,
+   "change_pct": 2.71,
+   "pb": 3.04,
+   "ma20_price": 63.79,
+   "circ_mv": 4.02,
+   "circ_mv_score_factor": 4.02,
+   "pe": 20.05,
+   "turnover_rate": null,
+   "amount": 11.8,
+   "q1_growth": 17.45,
+   "major_shareholder_ratio": 0.6594,
+   "one_hand_shares": 109,
+   "per_hand_shares": 108.45797627118645,
+   "market": "深",
+   "total_score": 77,
+   "rating": "A",
+   "action": "关注建仓",
+   "action_reason": "高分+交易所通过，等待注册后加仓",
+   "action_price": "买入≤55.58 | 卖出≥71.01 | 安全垫4.5%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "14.93元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.02亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长17.45%"
+    },
+    "潜伏期扣分": {
+     "score": -6,
+     "max": 0,
+     "factor": "2026-06"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=20.05"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交11.8亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 14.93,
+   "hidden_circulation": 4.02,
+   "total": 77,
+   "issue_amount": 11.8,
+   "safety_pct": 4.5,
+   "per_share_allotment": 9.2202
   },
   {
    "stock_code": "301279",
