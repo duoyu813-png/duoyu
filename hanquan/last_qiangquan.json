@@ -1,6 +1,6 @@
 {
- "total": 82,
- "generated_at": "2026-08-29 10:36:26",
+ "total": 81,
+ "generated_at": "2026-08-29 15:25:44",
  "source": "live",
  "bonds": [
   {
@@ -3473,95 +3473,6 @@
    "issue_amount": 8.0,
    "safety_pct": 2.8,
    "per_share_allotment": 2.1513
-  },
-  {
-   "stock_code": "300953",
-   "stock_name": "震裕科技",
-   "bond_name": "震裕转02",
-   "industry": "AI/科技",
-   "total_scale": 18.8,
-   "per_share_amount": 8.34,
-   "progress": "发行中",
-   "registration_date": "2026-02-26",
-   "approval_date": "",
-   "board": "创业板",
-   "rating_cd": "AA-",
-   "record_dt": "2026-08-14",
-   "convert_price": 104.85,
-   "cb_amount": 7.33,
-   "b_shares": 0.0,
-   "price": 92.6,
-   "change_pct": -2.01,
-   "pb": 4.61,
-   "ma20_price": 100.69,
-   "circ_mv": 13.16,
-   "circ_mv_score_factor": 13.16,
-   "pe": 14.03,
-   "turnover_rate": null,
-   "amount": 18.8,
-   "q1_growth": 286.75,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 130,
-   "per_hand_shares": 129.54183404255318,
-   "market": "深",
-   "total_score": 56,
-   "rating": "B",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤85.19 | 卖出≥101.86 | 安全垫2.5%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "8.34元"
-    },
-    "隐形流通量评分": {
-     "score": 8,
-     "max": 40,
-     "factor": "13.16亿"
-    },
-    "业绩评分": {
-     "score": 40,
-     "max": 40,
-     "factor": "Q1增长286.75%"
-    },
-    "潜伏期扣分": {
-     "score": -15,
-     "max": 0,
-     "factor": "2026-02"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "创业板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=14.03"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交18.8亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 8.34,
-   "hidden_circulation": 13.16,
-   "total": 56,
-   "issue_amount": 18.8,
-   "safety_pct": 2.5,
-   "per_share_allotment": 7.7195
   },
   {
    "stock_code": "605016",
