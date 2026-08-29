@@ -1,6 +1,6 @@
 {
  "total": 82,
- "generated_at": "2026-08-28 22:56:16",
+ "generated_at": "2026-08-29 03:58:30",
  "source": "live",
  "bonds": [
   {
@@ -2407,95 +2407,6 @@
    "per_share_allotment": 5.5
   },
   {
-   "stock_code": "301175",
-   "stock_name": "中科环保",
-   "bond_name": "中科环保转债",
-   "industry": "环保",
-   "total_scale": 10.0,
-   "per_share_amount": 12.0,
-   "progress": "上市委通过",
-   "registration_date": "2026-04-15",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 5.51,
-   "cb_amount": 12.0,
-   "b_shares": 0.0,
-   "price": 5.66,
-   "change_pct": 0.35,
-   "pb": 2.19,
-   "ma20_price": 5.51,
-   "circ_mv": 4.23,
-   "circ_mv_score_factor": 4.23,
-   "pe": 24.23,
-   "turnover_rate": null,
-   "amount": 10.0,
-   "q1_growth": 10.71,
-   "major_shareholder_ratio": 0.5775,
-   "one_hand_shares": 1472,
-   "per_hand_shares": 1471.8799999999999,
-   "market": "深",
-   "total_score": 61,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤5.09 | 卖出≥6.51 | 安全垫3.6%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "12.00元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.23亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长10.71%"
-    },
-    "潜伏期扣分": {
-     "score": -9,
-     "max": 0,
-     "factor": "2026-04"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=24.23"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "环保"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交10.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "环保"
-    }
-   },
-   "weighted_amount": 12.0,
-   "hidden_circulation": 4.23,
-   "total": 61,
-   "issue_amount": 10.0,
-   "safety_pct": 3.6,
-   "per_share_allotment": 0.6794
-  },
-  {
    "stock_code": "301459",
    "stock_name": "丰茂股份",
    "bond_name": "丰茂转债",
@@ -2939,6 +2850,95 @@
    "issue_amount": 9.6,
    "safety_pct": 6.0,
    "per_share_allotment": 1.7174
+  },
+  {
+   "stock_code": "301175",
+   "stock_name": "中科环保",
+   "bond_name": "中科环保转债",
+   "industry": "环保",
+   "total_scale": 10.0,
+   "per_share_amount": 12.0,
+   "progress": "上市委通过",
+   "registration_date": "2026-04-15",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 5.51,
+   "cb_amount": 12.0,
+   "b_shares": 0.0,
+   "price": 5.66,
+   "change_pct": 0.35,
+   "pb": 2.19,
+   "ma20_price": 5.51,
+   "circ_mv": 4.23,
+   "circ_mv_score_factor": 4.23,
+   "pe": 24.23,
+   "turnover_rate": null,
+   "amount": 10.0,
+   "q1_growth": 10.71,
+   "major_shareholder_ratio": 0.5775,
+   "one_hand_shares": 1472,
+   "per_hand_shares": 1471.8799999999999,
+   "market": "深",
+   "total_score": 58,
+   "rating": "B",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤5.21 | 卖出≥6.23 | 安全垫3.6%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "12.00元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.23亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长10.71%"
+    },
+    "潜伏期扣分": {
+     "score": -12,
+     "max": 0,
+     "factor": "2026-04"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=24.23"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "环保"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交10.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "环保"
+    }
+   },
+   "weighted_amount": 12.0,
+   "hidden_circulation": 4.23,
+   "total": 58,
+   "issue_amount": 10.0,
+   "safety_pct": 3.6,
+   "per_share_allotment": 0.6794
   },
   {
    "stock_code": "001380",
