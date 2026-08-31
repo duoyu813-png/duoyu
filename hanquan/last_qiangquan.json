@@ -1,6 +1,6 @@
 {
- "total": 81,
- "generated_at": "2026-08-31 20:15:45",
+ "total": 82,
+ "generated_at": "2026-08-31 23:58:47",
  "source": "live",
  "bonds": [
   {
@@ -1159,6 +1159,95 @@
    "issue_amount": 6.3,
    "safety_pct": 3.0,
    "per_share_allotment": 5.0582
+  },
+  {
+   "stock_code": "301031",
+   "stock_name": "中熔电气",
+   "bond_name": "中熔电气转债",
+   "industry": "电力设备",
+   "total_scale": 8.0,
+   "per_share_amount": 5.64,
+   "progress": "董事会预案",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 91.45,
+   "cb_amount": 5.64,
+   "b_shares": 0.0,
+   "price": 97.1,
+   "change_pct": 3.3,
+   "pb": 8.06,
+   "ma20_price": 91.45,
+   "circ_mv": 5.6,
+   "circ_mv_score_factor": 5.6,
+   "pe": 20.96,
+   "turnover_rate": null,
+   "amount": 8.0,
+   "q1_growth": 87.43,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 183,
+   "per_hand_shares": 182.69294125,
+   "market": "深",
+   "total_score": 72,
+   "rating": "A",
+   "action": "关注",
+   "action_reason": "高分标的，等待更明确信号",
+   "action_price": "买入≤87.39 | 卖出≥111.66 | 安全垫1.7%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "5.64元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.60亿"
+    },
+    "业绩评分": {
+     "score": 35,
+     "max": 40,
+     "factor": "Q1增长87.43%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=20.96"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "电力设备"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交8.0亿"
+    },
+    "行业热度": {
+     "score": 2,
+     "max": 5,
+     "factor": "电力设备"
+    }
+   },
+   "weighted_amount": 5.64,
+   "hidden_circulation": 5.6,
+   "total": 72,
+   "issue_amount": 8.0,
+   "safety_pct": 1.7,
+   "per_share_allotment": 5.4737
   },
   {
    "stock_code": "301585",
@@ -3481,7 +3570,7 @@
    "industry": "其他",
    "total_scale": 7.48,
    "per_share_amount": 8.4,
-   "progress": "交易所受理",
+   "progress": "上市委通过",
    "registration_date": "2026-05-06",
    "approval_date": "",
    "board": "主板",
@@ -5439,7 +5528,7 @@
    "industry": "化工/材料",
    "total_scale": 3.7,
    "per_share_amount": 6.86,
-   "progress": "上市委通过",
+   "progress": "同意注册",
    "registration_date": "2026-02-09",
    "approval_date": "",
    "board": "创业板",
