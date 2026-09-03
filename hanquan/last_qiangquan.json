@@ -1,6 +1,6 @@
 {
  "total": 81,
- "generated_at": "2026-09-02 22:16:27",
+ "generated_at": "2026-09-03 00:25:33",
  "source": "live",
  "bonds": [
   {
@@ -5344,95 +5344,6 @@
    "per_share_allotment": 1.8946
   },
   {
-   "stock_code": "300447",
-   "stock_name": "全信股份",
-   "bond_name": "全信股份转债",
-   "industry": "其他",
-   "total_scale": 2.45,
-   "per_share_amount": 5.39,
-   "progress": "交易所受理",
-   "registration_date": "2026-04-20",
-   "approval_date": "",
-   "board": "创业板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 13.81,
-   "cb_amount": 5.39,
-   "b_shares": 0.0,
-   "price": 14.55,
-   "change_pct": 1.61,
-   "pb": 2.27,
-   "ma20_price": 13.81,
-   "circ_mv": 1.58,
-   "circ_mv_score_factor": 1.58,
-   "pe": 96.49,
-   "turnover_rate": null,
-   "amount": 2.45,
-   "q1_growth": -16.92,
-   "major_shareholder_ratio": 0.355,
-   "one_hand_shares": 1275,
-   "per_hand_shares": 1274.7362244897959,
-   "market": "深",
-   "total_score": 48,
-   "rating": "C",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤13.39 | 卖出≥16.01 | 安全垫1.6%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "5.39元"
-    },
-    "隐形流通量评分": {
-     "score": 30,
-     "max": 40,
-     "factor": "1.58亿"
-    },
-    "业绩评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "Q1增长-16.92%"
-    },
-    "潜伏期扣分": {
-     "score": -9,
-     "max": 0,
-     "factor": "2026-04"
-    },
-    "300/688折扣": {
-     "score": -5,
-     "max": 0,
-     "factor": "创业板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=96.49"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 5,
-     "max": 10,
-     "factor": "成交2.5亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 5.39,
-   "hidden_circulation": 1.58,
-   "total": 48,
-   "issue_amount": 2.45,
-   "safety_pct": 1.6,
-   "per_share_allotment": 0.7845
-  },
-  {
    "stock_code": "300739",
    "stock_name": "明阳电路",
    "bond_name": "明阳电路转债",
@@ -5876,6 +5787,95 @@
    "issue_amount": 13.71,
    "safety_pct": 4.3,
    "per_share_allotment": 1.9547
+  },
+  {
+   "stock_code": "300447",
+   "stock_name": "全信股份",
+   "bond_name": "全信股份转债",
+   "industry": "其他",
+   "total_scale": 2.45,
+   "per_share_amount": 5.39,
+   "progress": "交易所受理",
+   "registration_date": "2026-04-20",
+   "approval_date": "",
+   "board": "创业板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 13.81,
+   "cb_amount": 5.39,
+   "b_shares": 0.0,
+   "price": 14.55,
+   "change_pct": 1.61,
+   "pb": 2.27,
+   "ma20_price": 13.81,
+   "circ_mv": 1.58,
+   "circ_mv_score_factor": 1.58,
+   "pe": 96.49,
+   "turnover_rate": null,
+   "amount": 2.45,
+   "q1_growth": -16.92,
+   "major_shareholder_ratio": 0.355,
+   "one_hand_shares": 1275,
+   "per_hand_shares": 1274.7362244897959,
+   "market": "深",
+   "total_score": 45,
+   "rating": "C",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤13.39 | 卖出≥16.01 | 安全垫1.6%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "5.39元"
+    },
+    "隐形流通量评分": {
+     "score": 30,
+     "max": 40,
+     "factor": "1.58亿"
+    },
+    "业绩评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "Q1增长-16.92%"
+    },
+    "潜伏期扣分": {
+     "score": -12,
+     "max": 0,
+     "factor": "2026-04"
+    },
+    "300/688折扣": {
+     "score": -5,
+     "max": 0,
+     "factor": "创业板"
+    },
+    "PE扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "PE=96.49"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 5,
+     "max": 10,
+     "factor": "成交2.5亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 5.39,
+   "hidden_circulation": 1.58,
+   "total": 45,
+   "issue_amount": 2.45,
+   "safety_pct": 1.6,
+   "per_share_allotment": 0.7845
   },
   {
    "stock_code": "300727",
