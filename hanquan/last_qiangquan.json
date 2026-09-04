@@ -1,6 +1,6 @@
 {
- "total": 81,
- "generated_at": "2026-09-03 22:11:30",
+ "total": 82,
+ "generated_at": "2026-09-04 00:13:51",
  "source": "live",
  "bonds": [
   {
@@ -1962,6 +1962,95 @@
    "per_share_allotment": 11.8346
   },
   {
+   "stock_code": "301310",
+   "stock_name": "鑫宏业",
+   "bond_name": "鑫宏业转债",
+   "industry": "其他",
+   "total_scale": 11.0,
+   "per_share_amount": 10.65,
+   "progress": "董事会预案",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 52.37,
+   "cb_amount": 10.65,
+   "b_shares": 0.0,
+   "price": 54.08,
+   "change_pct": 2.08,
+   "pb": 4.39,
+   "ma20_price": 52.37,
+   "circ_mv": 5.62,
+   "circ_mv_score_factor": 5.62,
+   "pe": 49.96,
+   "turnover_rate": null,
+   "amount": 11.0,
+   "q1_growth": 7.33,
+   "major_shareholder_ratio": 0.4892,
+   "one_hand_shares": 174,
+   "per_hand_shares": 173.59892363636365,
+   "market": "深",
+   "total_score": 65,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤48.67 | 卖出≥62.19 | 安全垫3.2%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "10.65元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.62亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长7.33%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=49.96"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交11.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 10.65,
+   "hidden_circulation": 5.62,
+   "total": 65,
+   "issue_amount": 11.0,
+   "safety_pct": 3.2,
+   "per_share_allotment": 5.7604
+  },
+  {
    "stock_code": "603166",
    "stock_name": "福达股份",
    "bond_name": "福达股份转债",
@@ -2852,6 +2941,95 @@
    "per_share_allotment": 2.9999
   },
   {
+   "stock_code": "001380",
+   "stock_name": "华纬科技",
+   "bond_name": "华纬科技转债",
+   "industry": "AI/科技",
+   "total_scale": 5.75,
+   "per_share_amount": 11.83,
+   "progress": "同意注册",
+   "registration_date": "2025-12-04",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 17.05,
+   "cb_amount": 11.83,
+   "b_shares": 0.0,
+   "price": 17.95,
+   "change_pct": 0.22,
+   "pb": 2.4,
+   "ma20_price": 17.05,
+   "circ_mv": 4.02,
+   "circ_mv_score_factor": 4.02,
+   "pe": 29.92,
+   "turnover_rate": null,
+   "amount": 5.75,
+   "q1_growth": -34.68,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 472,
+   "per_hand_shares": 471.0507965217392,
+   "market": "深",
+   "total_score": 58,
+   "rating": "B",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤16.51 | 卖出≥19.75 | 安全垫3.5%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "11.83元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.02亿"
+    },
+    "业绩评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "Q1增长-34.68%"
+    },
+    "潜伏期扣分": {
+     "score": -15,
+     "max": 0,
+     "factor": "2025-12"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=29.92"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交5.8亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 11.83,
+   "hidden_circulation": 4.02,
+   "total": 58,
+   "issue_amount": 5.75,
+   "safety_pct": 3.5,
+   "per_share_allotment": 2.1229
+  },
+  {
    "stock_code": "301175",
    "stock_name": "中科环保",
    "bond_name": "中科环保转债",
@@ -2939,95 +3117,6 @@
    "issue_amount": 10.0,
    "safety_pct": 3.6,
    "per_share_allotment": 0.6794
-  },
-  {
-   "stock_code": "001380",
-   "stock_name": "华纬科技",
-   "bond_name": "华纬科技转债",
-   "industry": "AI/科技",
-   "total_scale": 5.75,
-   "per_share_amount": 11.83,
-   "progress": "上市委通过",
-   "registration_date": "2025-12-04",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 17.05,
-   "cb_amount": 11.83,
-   "b_shares": 0.0,
-   "price": 17.95,
-   "change_pct": 0.22,
-   "pb": 2.4,
-   "ma20_price": 17.05,
-   "circ_mv": 4.02,
-   "circ_mv_score_factor": 4.02,
-   "pe": 29.92,
-   "turnover_rate": null,
-   "amount": 5.75,
-   "q1_growth": -34.68,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 472,
-   "per_hand_shares": 471.0507965217392,
-   "market": "深",
-   "total_score": 58,
-   "rating": "B",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤16.51 | 卖出≥19.75 | 安全垫3.5%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "11.83元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.02亿"
-    },
-    "业绩评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "Q1增长-34.68%"
-    },
-    "潜伏期扣分": {
-     "score": -15,
-     "max": 0,
-     "factor": "2025-12"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=29.92"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交5.8亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 11.83,
-   "hidden_circulation": 4.02,
-   "total": 58,
-   "issue_amount": 5.75,
-   "safety_pct": 3.5,
-   "per_share_allotment": 2.1229
   },
   {
    "stock_code": "001282",
