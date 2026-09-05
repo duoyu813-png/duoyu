@@ -2,14 +2,13 @@
 
 用法：
   python notify.py --test           手动测试推送
-  python notify.py --discount       每天 20:00(北京) 封闭基金折价推送
   python notify.py --rotation       每周五 14:00(北京) 可转债轮动推送
-  python notify.py --issues         待发可转债状态变动推送
+  python notify.py --progress       待发可转债「进度变化」推送
   python notify.py --cb-alert       低价/低溢价「变动」推送（当天新进入价格<110 或 溢价<10% 的转债）
 
 说明：
-  - 云端无数据库/无关注列表，折价推送改为推送「折价最深的 Top10」（游客 20 条内）；
-    待发转债推送为「与上次快照相比新增/变更状态」的条目，快照存于 last_issues.json。
+  - 进度变化推送：扫描集思录待发可转债，仅当某只转债「变化为 上市委通过 / 同意注册」时
+    立即推送，快照存于 last_issues.json（随仓库维护用于前后比对）。
   - 轮动推送的 last_strategies.json 随仓库维护，用于计算轮入/轮出。
 """
 import json
@@ -172,11 +171,6 @@ def _save(path, data):
         print(f"[notify] 保存 {path} 失败: {e}")
 
 
-def fetch_funds():
-    from sitegen import fetch_funds_merged
-    return fetch_funds_merged()
-
-
 def fetch_strategies():
     from scrapers.eastmoney import EastMoneyScraper
     from scrapers.data_merger import merge_cb_data
@@ -191,27 +185,6 @@ def fetch_strategies():
     fin = EastMoneyScraper.fetch_stock_financials(codes)
     merged = merge_cb_data(live, fundamentals, concepts, fin)
     return run_all_strategies(_build_bond_dicts(merged))
-
-
-def push_discount():
-    funds = fetch_funds()
-    if not funds:
-        print("[notify] 无基金数据，跳过折价推送")
-        return False
-    # 仅保留有折价（折价率>0）的基金，并按折价从高到低排列（折价幅度越大越靠前）；
-    # 原实现按升序会把溢价(负值)/折价小的排在前面，导致推送内容看起来像"溢价"。
-    dis = [f for f in funds if f.get("discount_rate") is not None and f.get("discount_rate") > 0]
-    dis.sort(key=lambda f: f.get("discount_rate") or 0, reverse=True)
-    top = dis[:10]
-    lines = ["## 封闭基金折价（Top10）\n",
-             "按折价从高到低（折价率>0 为折价）\n"]
-    for f in top:
-        lines.append(
-            f"- **{f.get('name','-')}** ({f.get('code','-')}) | 折价:{_fmt(f.get('discount_rate'))}%"
-            f" | 现价:{_fmt(f.get('price'))} | 净值:{_fmt(f.get('nav'))}"
-            f" | 到期:{f.get('maturity_date') or '-'}"
-        )
-    return _send("封闭基金折价提醒", "\n".join(lines))
 
 
 def push_rotation():
@@ -232,12 +205,26 @@ def push_rotation():
     return _send("周五可转债轮动", "\n".join(lines))
 
 
-def push_issues():
-    from scrapers.eastmoney import EastMoneyScraper
-    issues = EastMoneyScraper.fetch_new_cb_issues()
-    if not issues:
-        print("[notify] 暂无待发可转债，跳过")
+_PROGRESS_TARGETS = ("上市委通过", "同意注册")
+
+
+def push_progress_change():
+    """扫描集思录待发可转债进度：仅当某只转债「变化为 上市委通过 / 同意注册」时推送。
+
+    快照存于 last_issues.json；首次运行只建立基线不推送，避免把存量目标阶段债券
+    当作新变化重复打扰。
+    """
+    import asyncio
+    from hanquan.fetcher import fetch_pending_cbonds
+    try:
+        bonds = asyncio.run(fetch_pending_cbonds())
+    except Exception as e:
+        print(f"[notify] 待发进度抓取失败: {e}")
         return False
+    if not bonds:
+        print("[notify] 无待发可转债数据，跳过进度推送")
+        return False
+
     last = {}
     if os.path.exists(LAST_ISSUES):
         try:
@@ -245,23 +232,33 @@ def push_issues():
                 last = json.load(f)
         except Exception:
             last = {}
-    cur = {i.get("bond_code") or i.get("bond_name"): i for i in issues}
-    changes = []
-    for code, item in cur.items():
-        old = last.get(code)
-        if old is None:
-            changes.append((item.get("bond_name","?"), "新增", item.get("progress_name","")))
-        elif str(old.get("progress_name","")) != str(item.get("progress_name","")):
-            changes.append((item.get("bond_name","?"),
-                            f"{old.get('progress_name','')}→{item.get('progress_name','')}", ""))
+
+    cur = {}
+    for b in bonds:
+        code = str(b.get("stock_code") or b.get("bond_name") or "").strip()
+        stage = str(b.get("progress") or "").strip()
+        if not code or not stage:
+            continue
+        cur[code] = {"bond_name": str(b.get("bond_name") or b.get("stock_name") or code),
+                     "stage": stage}
     _save(LAST_ISSUES, cur)
+
+    changes = []
+    for code, info in cur.items():
+        stage = info.get("stage")
+        if stage not in _PROGRESS_TARGETS:
+            continue
+        old_stage = (last.get(code) or {}).get("stage") or ""
+        if old_stage and old_stage != stage:
+            changes.append((info.get("bond_name") or code, stage))
+
     if not changes:
-        print("[notify] 待发转债无变动")
+        print("[notify] 无「上市委通过/同意注册」进度变化")
         return False
-    lines = ["## 可转债发行状态变动\n"]
-    for name, status, extra in changes[:10]:
-        lines.append(f"- **{name}** {status} {extra}")
-    return _send("可转债发行变动", "\n".join(lines))
+    lines = ["## 可转债审核进度变化\n"]
+    for name, stage in changes:
+        lines.append(f"- {name}：{stage}")
+    return _send("进度变化", "\n".join(lines))
 
 
 def _is_trading_window():
@@ -365,12 +362,10 @@ if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else "--test"
     t0 = time.time()
     ok = False
-    if mode == "--discount":
-        ok = push_discount()
-    elif mode == "--rotation":
+    if mode == "--rotation":
         ok = push_rotation()
-    elif mode == "--issues":
-        ok = push_issues()
+    elif mode == "--progress":
+        ok = push_progress_change()
     elif mode == "--cb-alert":
         ok = push_cb_alert()
     else:

@@ -1,13 +1,10 @@
 """GitHub Actions 静态看板生成器（无 Flask / 无数据库）· 多页面版本
 
 页面结构：
-  index.html               首页（三个板块入口卡片）
+  index.html               首页（板块入口卡片）
   cb.html                  可转债轮动（策略按钮）
   cb_<key>.html            单个策略详情（全部标的 + 排名）
   issues.html              待发可转债 · 抢权（按进度分组的按钮）
-  issues_<n>.html          单个进度分组详情
-  funds.html               封闭基金折价 Top20（含"查看全部"）
-  funds_all.html           封闭基金全部
   data.json                数据快照（供推送 / 历史）
 """
 import json
@@ -89,7 +86,6 @@ CSS = """<style>
 # 板块主题色（首页四卡片与各页面主色调一致）
 THEME = {
     "cb":      {"accent": "#dc2626", "blue": "#fee2e2", "name": "可转债轮动"},        # 红
-    "funds":   {"accent": "#ea580c", "blue": "#ffedd5", "name": "封闭基金折价"},      # 橙
     "issues":  {"accent": "#2563eb", "blue": "#dbeafe", "name": "待发可转债(抢权)"},  # 蓝
     "qiangquan": {"accent": "#16a34a", "blue": "#dcfce7", "name": "抢权评分看板"},   # 绿
 }
@@ -480,11 +476,7 @@ def main() -> int:
         strategies = {}
         cb_count = 0
 
-    # ---------- 2) 封闭基金 ----------
-    funds = fetch_funds_merged()
-    fund_count = len(funds)
-
-    # ---------- 3) 待发可转债（抢权）计数：优先取抢权数据，兜底用东财 ----------
+    # ---------- 2) 待发可转债（抢权）计数：优先取抢权数据，兜底用东财 ----------
     issue_count = 0
     for cand in (os.path.join(DIST, "qiangquan.json"),
                  os.path.join(BASE, "hanquan", "last_qiangquan.json")):
@@ -520,10 +512,6 @@ def main() -> int:
         "cb.html", "#dc2626", "#fee2e2",
         "可转债轮动", "七个策略看板：130三低 / 双低 / 高收益等",
         f"{len(ALL_STRATEGIES)} 个策略 · 覆盖 {cb_count} 只转债"))
-    hero_cards.append(_hero(
-        "funds.html", "#ea580c", "#ffedd5",
-        "封闭基金折价", "集思录 + 东财融合，折价率前 20 + 查看全部",
-        f"{fund_count} 只基金"))
     hero_cards.append(_hero(
         "issues.html", "#2563eb", "#dbeafe",
         "待发可转债(抢权)", '按"同意注册 / 待申购 / 待发行"进度分组浏览',
@@ -601,64 +589,10 @@ def main() -> int:
 """
     write_page("issues.html", "待发可转债", body_iss, now, theme="issues")
 
-    # ---------- 封闭基金 funds.html（Top20 + 查看全部） ----------
-    FUND_COLS = [
-        ("代码", True), ("名称", True), ("现价", False), ("涨跌%", False),
-        ("净值", False), ("折价%", True), ("折价年化%", True),
-        ("剩余年限", True), ("到期日", True), ("类型", False),
-    ]
-    fund_rows = [[
-        f.get("code", ""), f.get("name", ""),
-        _fmt(f.get("price")),
-        _fmt(f.get("change_pct")) if f.get("change_pct") is not None else "-",
-        _fmt(f.get("nav")),
-        _fmt(f.get("discount_rate")) if f.get("discount_rate") is not None else "-",
-        # 折价年化仅在剩余年限有效时显示，避免异常放大
-        _fmt(f.get("discount_annual")) if (f.get("discount_annual") is not None and f.get("remaining_years") is not None) else "-",
-        _fmt(f.get("remaining_years")) if f.get("remaining_years") is not None else "-",
-        # 无封闭期（剩余年限为空）的普通 LOF/场内基金不显示"到期日"（避免上市日冒充到期日）
-        _date_str(f.get("maturity_date")) if f.get("remaining_years") is not None else "",
-        f.get("fund_type", "") if f.get("fund_type") not in ("", "-") else "LOF",
-    ] for f in funds]
-
-    if fund_rows:
-        top20 = _render_fund_table(FUND_COLS, fund_rows[:20], sortable=True)
-        butt = f"<div class='filters'><a class='chip' href='funds_all.html'>查看全部 {len(fund_rows)} 只 →</a></div>"
-    else:
-        top20 = "<div class='empty'>暂无数据</div>"
-        butt = ""
-    body_fund = f"""
-<a class="back" href="index.html">← 返回首页</a>
-<h1>封闭基金折价</h1>
-<p class="sub">折价率从高到低 · 展示前 20 名（折价越深越靠前）· 点击表头可排序</p>
-{butt}
-<div class="card">{top20}</div>
-{FUND_SORT_JS}
-"""
-    write_page("funds.html", "封闭基金", body_fund, now, theme="funds")
-
-    # ---------- 封闭基金全部 funds_all.html ----------
-    if fund_rows:
-        all_table = _render_fund_table(FUND_COLS, fund_rows, sortable=True)
-    else:
-        all_table = "<div class='empty'>暂无数据</div>"
-    body_fund_all = f"""
-<a class="back" href="funds.html">← 返回 Top20</a>
-<h1>全部封闭基金</h1>
-<p class="sub">共 {len(fund_rows)} 只 · 点击表头排序（折价 / 折价年化 / 剩余年限 / 到期日）</p>
-<div class="card">{all_table}</div>
-{FUND_SORT_JS}
-"""
-    write_page("funds_all.html", "全部封闭基金", body_fund_all, now, theme="funds")
-
     # ---------- 数据快照（供推送 / 历史） ----------
     snapshot = {
         "generated_at": now,
         "cb": merged if live_data else [],
-        "funds": [
-            {**f, "maturity_date": _date_str(f.get("maturity_date"))}
-            for f in funds
-        ],
         "issues": [],
         "strategies": {
             k: [b for b in v["bonds"][:20]]
@@ -669,7 +603,7 @@ def main() -> int:
         json.dump(snapshot, f, ensure_ascii=False, indent=1, default=str)
 
     print(f"[sitegen] 完成，耗时 {time.time()-t0:.0f}s，"
-          f"转债 {cb_count}，基金 {fund_count}，待发 {issue_count}")
+          f"转债 {cb_count}，待发 {issue_count}")
     return 0
 
 

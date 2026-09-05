@@ -82,6 +82,7 @@ def _parse_jisilu_item(cell: dict) -> dict:
         "total_scale": total_scale,
         "per_share_amount": ration,
         "progress": progress,
+        "progress_date": (progress_dt or reg_date or ""),
         "registration_date": reg_date,
         "approval_date": "",
         "board": board,
@@ -102,50 +103,48 @@ PROGRESS_ORDER = {
     "同意注册": 1,
     "上市委通过": 2,
     "交易所受理": 3,
-    "股东大会审议": 4,
     "股东大会通过": 4,
     "董事会预案": 5,
     "已上市": 6,
     "其他": 7,
 }
 
+
 def _parse_progress(progress_full: str, progress_nm: str, progress_dt: str) -> str:
-    if progress_nm:
-        if "申购" in progress_nm or "配售" in progress_nm:
-            return "发行中"
-        if "上市" in progress_nm and "上市委" not in progress_nm:
-            return "已上市"
-        if "同意注册" in progress_nm:
-            return "同意注册"
-        if "上市委通过" in progress_nm:
-            return "上市委通过"
-        if "通过" in progress_nm:
-            return "交易所通过"
-        if "受理" in progress_nm:
-            return "交易所受理"
-        if "股东" in progress_nm:
-            return "股东大会审议"
-        if "董事" in progress_nm or "预案" in progress_nm:
-            return "董事会预案"
-    
-    if "同意注册" in progress_full:
+    """规范化审核阶段（以集思录 progress_nm「当前阶段」为准，缺失时回退到时间线的最后一行）。
+
+    合法流转：董事会预案 → 股东大会通过 → 交易所受理 → 上市委通过 → 同意注册 → 发行中
+    """
+    text = (progress_nm or "").strip()
+    if not text and (progress_full or "").strip():
+        # progress_full 形如 "2026-01-23 交易所受理\n..."，取最后一行（最新阶段）
+        lines = [ln for ln in (progress_full or "").splitlines() if ln.strip()]
+        text = lines[-1] if lines else ""
+        # 去掉行首日期前缀 "YYYY-MM-DD "
+        parts = text.split(" ", 1)
+        if len(parts) == 2 and parts[0][:4].isdigit():
+            text = parts[1]
+
+    if not text:
+        return "其他"
+
+    if "申购" in text or "配售" in text:
+        return "发行中"
+    if "上市" in text and "上市委" not in text:
+        return "已上市"
+    if "同意注册" in text or "注册生效" in text:
         return "同意注册"
-    if "上市委通过" in progress_full:
+    if "上市委" in text and "通过" in text:
         return "上市委通过"
-    if "注册生效" in progress_full:
+    if "证监会" in text and ("批" in text or "核准" in text):
         return "同意注册"
-    if "证监会" in progress_full and ("批" in progress_full or "核准" in progress_full):
-        return "证监会批准"
-    if "交易所" in progress_full and "通过" in progress_full:
-        return "交易所通过"
-    if "股东大会" in progress_full:
-        return "股东大会审议"
-    if "董事会" in progress_full or "预案" in progress_full:
-        return "董事会预案"
-    if "受理" in progress_full:
+    if "受理" in text:
         return "交易所受理"
-    
-    return progress_nm or "其他"
+    if "股东大会" in text or "股东会" in text:
+        return "股东大会通过"
+    if "董事会" in text or "预案" in text:
+        return "董事会预案"
+    return text
 
 
 def _float(v: Any) -> Optional[float]:

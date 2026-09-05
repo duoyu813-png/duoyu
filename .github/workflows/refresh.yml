@@ -58,11 +58,16 @@ jobs:
           CB_ALERT_FORCE: ${{ inputs.cb_alert_force }}
         run: python notify.py --cb-alert || echo "cb-alert skipped (non-trading window / no data)"
 
+      - name: Send CB issue progress change alert
+        env:
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+        run: python notify.py --progress || echo "progress skipped (no change / no data)"
+
       - name: Commit fallback cache
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add hanquan/last_qiangquan.json last_cb_alerts.json
+          git add -f hanquan/last_qiangquan.json last_cb_alerts.json last_issues.json
           if git diff --cached --quiet; then
             echo "无变更"
           else

@@ -63,7 +63,7 @@ def _esc(v):
 
 
 # 进度展示顺序（含"全部"）
-PROG_ORDER = ["发行中", "同意注册", "上市委通过", "交易所通过", "交易所受理", "股东大会审议", "董事会预案"]
+PROG_ORDER = ["发行中", "同意注册", "上市委通过", "交易所受理", "股东大会通过", "董事会预案"]
 
 
 def _build_issues_static(bonds: list[dict]) -> str:
@@ -188,7 +188,7 @@ tr:hover td{background:#f1f5f9}
 </div>
 <script>
 var DATA = __DATA__;
-var PROG_ORDER = ["发行中","同意注册","上市委通过","交易所通过","交易所受理","股东大会审议","董事会预案","其他"];
+var PROG_ORDER = ["发行中","同意注册","上市委通过","交易所受理","股东大会通过","董事会预案"];
 var ACTION_ORDER = {"积极配债":0,"关注建仓":1,"小仓关注":2,"关注":3,"观望":4,"回避":5};
 var cur = "";
 var sortField = "total_score";
@@ -196,7 +196,7 @@ var sortDesc = true;
 function fmt(v){ if(v===null||v==="")return "-"; var n=Number(v); if(isNaN(n))return v; return n%1===0?String(n):n.toFixed(2); }
 function ratingCls(r){ return "rating-" + String(r||"D").replace("+","-plus").replace("A","A"); }
 function actionCls(a){ if(a&&(a.indexOf("积极配债")>=0||a.indexOf("关注建仓")>=0))return "action-pos"; if(a&&(a.indexOf("小仓关注")>=0||a.indexOf("关注")>=0))return "action-watch"; if(a&&a.indexOf("观望")>=0)return "action-caution"; return "action-avoid"; }
-function progressCls(p){ if(p==="发行中"||p==="同意注册")return "tag-green"; if(p==="上市委通过"||p==="交易所通过")return "tag-blue"; if(p==="交易所受理")return "tag-orange"; return "tag-gray"; }
+function progressCls(p){ if(p==="发行中"||p==="同意注册")return "tag-green"; if(p==="上市委通过")return "tag-blue"; if(p==="交易所受理")return "tag-orange"; return "tag-gray"; }
 function scoreCls(s){ s=Number(s)||0; if(s>=80)return "score-high"; if(s>=60)return "score-mid"; return "score-low"; }
 function emUrl(c){ return "https://quote.eastmoney.com/" + (String(c).charAt(0)==="6"?"sh":"sz") + c + ".html"; }
 function render(){
@@ -275,7 +275,7 @@ window.showD = function(code){
     "</div>"+
     "<div class='blk'><h4>当前进度</h4><div class='dlg-grid'>"+
       "<div class='dit'><div class='dl'>进度</div><div class='dv'>"+(b.progress||"-")+"</div></div>"+
-      "<div class='dit'><div class='dl'>日期</div><div class='dv'>"+(b.registration_date||"-")+"</div></div>"+
+      "<div class='dit'><div class='dl'>进度时间</div><div class='dv'>"+((b.progress_date||b.registration_date||"-"))+"</div></div>"+
     "</div></div>"+
   "</div>";
   document.body.appendChild(ov);
