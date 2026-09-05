@@ -51,24 +51,19 @@ def _fmt(v, nd=2):
 _ROTATION_TOP_N = 20
 
 
-def _md_rows(rows):
-    """rows: [{name, code, price, premium_rate}] -> 每条一行（PushPlus markdown 不渲染表格，逐行展示）"""
-    if not rows:
-        return ["（无）"]
-    out = []
-    for r in rows:
-        name = str(r.get("name") or "-")
-        code = str(r.get("code") or "-")
-        price = str(r.get("price") or "-")
-        prem = str(r.get("premium_rate") or "-")
-        out.append(f"{name}（{code}）｜现价 {price} 元｜溢价率 {prem}%")
-    return out
+def _bond_line(r):
+    """单只可转债一行：名称（代码）｜现价 ｜溢价率"""
+    name = str(r.get("name") or "-")
+    code = str(r.get("code") or "-")
+    price = str(r.get("price") or "-")
+    prem = str(r.get("premium_rate") or "-")
+    return f"{name}（{code}）｜现价 {price} 元｜溢价率 {prem}%"
 
 
 def _build_rotation_message(results, last):
     """按每个策略前 N(=20, 不足按实际)只作为轮动池，
-    对比上次快照生成消息：每个策略都固定展示，同时给出 轮入 与 轮出。
-    无变动的策略用一行简洁表示；有变动的逐行列出债券。
+    对比上次快照生成消息：每个策略固定展示池内全部债券（带排名序号，逐行），
+    并单独标出 轮入 / 轮出 变动。无变动时提示一行。
     返回 (message_lines, 最新快照)。"""
     top_n = _ROTATION_TOP_N
     lines = ["## 周五可转债轮动",
@@ -115,14 +110,21 @@ def _build_rotation_message(results, last):
             out_rows.append({"code": c, "name": src.get("name"),
                              "price": src.get("price"), "premium_rate": src.get("premium_rate")})
 
+        rank_of = {r["code"]: i for i, r in enumerate(cur_rows, 1)}
         lines.append(f"\n### {name}（池 {len(base)} 只）")
-        if in_rows or out_rows:
-            lines.append("\n🟢 轮入")
-            lines += _md_rows(in_rows)
-            lines.append("\n🔴 轮出")
-            lines += _md_rows(out_rows)
-        else:
-            lines.append("🟢 轮入：无　🔴 轮出：无")
+        for i, r in enumerate(cur_rows, 1):
+            lines.append(f"{i}. {_bond_line(r)}")
+
+        if in_rows:
+            lines.append("\n🟢 轮入（上周不在池，本周新进）")
+            for r in in_rows:
+                lines.append(f"  新进第{rank_of.get(r['code'], '?')}名：{_bond_line(r)}")
+        if out_rows:
+            lines.append("\n🔴 轮出（上周在池，本周掉出）")
+            for r in out_rows:
+                lines.append(f"  {_bond_line(r)}")
+        if not in_rows and not out_rows:
+            lines.append("\n（本周无轮动变动）")
 
     return lines, current
 
