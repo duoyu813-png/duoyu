@@ -48,6 +48,87 @@ def _fmt(v, nd=2):
         return str(v)
 
 
+_ROTATION_TOP_N = 20
+
+
+def _md_table(rows):
+    """rows: [{name, code, price, premium_rate}] -> markdown 表格（PushPlus markdown 渲染）"""
+    if not rows:
+        return ["（无）"]
+    out = ["| 名称 | 现价 | 溢价率 |", "| --- | ---: | ---: |"]
+    for r in rows:
+        name = str(r.get("name") or "-")
+        code = str(r.get("code") or "-")
+        price = str(r.get("price") or "-")
+        prem = str(r.get("premium_rate") or "-")
+        out.append(f"| {name}（{code}） | {price}元 | {prem}% |")
+    return out
+
+
+def _build_rotation_message(results, last):
+    """按每个策略前 N(=20, 不足按实际)只作为轮动池，
+    对比上次快照生成 markdown：每个策略同时给出 轮入 与 轮出 表格。
+    返回 (message_lines, 最新快照)。"""
+    top_n = _ROTATION_TOP_N
+    lines = ["## 周五可转债轮动",
+             f"轮动池：每个策略排名前 {top_n} 只（不足按实际只数）\n"]
+    current = {}
+    changed_any = False
+    for key, data in (results or {}).items():
+        name = data.get("name") or key
+        bonds = data.get("bonds") or []
+        if not bonds:
+            continue
+        base = bonds[:top_n]
+
+        prev = last.get(key) or []
+        prev_map = {str(b.get("code")): b for b in prev if b.get("code")}
+
+        cur_rows = []
+        for b in base:
+            cur_rows.append({
+                "code": str(b.get("code") or ""),
+                "name": b.get("name"),
+                "price": _fmt(b.get("price")),
+                "premium_rate": _fmt(b.get("premium_rate")),
+            })
+        current[key] = cur_rows
+
+        cur_codes = {r["code"] for r in cur_rows if r["code"]}
+        prev_codes = set(prev_map.keys())
+        in_codes = [c for c in cur_codes if c not in prev_codes]
+        out_codes = [c for c in prev_codes if c not in cur_codes]
+
+        # 全量索引：轮出债通常仍存在（排名跌出前20），用其最新价格展示
+        all_map = {}
+        for b in bonds:
+            code = str(b.get("code") or "")
+            if code:
+                all_map[code] = {"name": b.get("name"),
+                                 "price": _fmt(b.get("price")),
+                                 "premium_rate": _fmt(b.get("premium_rate"))}
+
+        in_rows = [r for r in cur_rows if r["code"] in in_codes]
+        out_rows = []
+        for c in out_codes:
+            src = all_map.get(c) or prev_map.get(c) or {}
+            out_rows.append({"code": c, "name": src.get("name"),
+                             "price": src.get("price"), "premium_rate": src.get("premium_rate")})
+
+        if not in_rows and not out_rows:
+            continue
+        changed_any = True
+        lines.append(f"\n### {name}（池 {len(base)} 只）")
+        lines.append("\n🟢 **轮入**")
+        lines += _md_table(in_rows)
+        lines.append("\n🔴 **轮出**")
+        lines += _md_table(out_rows)
+
+    if not changed_any:
+        lines.append("\n本期各策略轮动池均无变动。")
+    return lines, current
+
+
 def _send(title, content):
     token = Config.PUSHPLUS_TOKEN
     if not token:
@@ -146,37 +227,8 @@ def push_rotation():
         except Exception:
             last = {}
 
-    lines = ["## 周五可转债轮动提醒\n"]
-    current = {}
-    has_change = False
-    for key, data in results.items():
-        name = data["name"]
-        bonds = data["bonds"][:10]
-        current[key] = [
-            {"code": b.get("code"), "name": b.get("name"),
-             "price": _fmt(b.get("price")), "premium_rate": _fmt(b.get("premium_rate"))}
-            for b in bonds
-        ]
-        last_bonds = last.get(key, [])
-        last_map = {b.get("code"): b for b in last_bonds}
-        cur_map = {b.get("code"): b for b in current[key]}
-        new_in = [b for b in current[key] if b.get("code") and b["code"] not in last_map]
-        old_out = [b for c, b in last_map.items() if c not in cur_map]
-        if not new_in and not old_out:
-            continue
-        has_change = True
-        lines.append(f"\n### {name}")
-        if new_in:
-            lines.append("🟢 轮入:")
-            for b in new_in:
-                lines.append(f"  {b.get('name','')} | {b.get('price','-')}元 | 溢价{b.get('premium_rate','-')}%")
-        if old_out:
-            lines.append("🔴 轮出:")
-            for b in old_out[:5]:
-                lines.append(f"  {b.get('name','')} | {b.get('price','-')}元")
+    lines, current = _build_rotation_message(results, last)
     _save(LAST_STRATEGIES, current)
-    if not has_change:
-        lines.append("\n本期各策略无变动")
     return _send("周五可转债轮动", "\n".join(lines))
 
 
