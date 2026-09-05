@@ -51,29 +51,29 @@ def _fmt(v, nd=2):
 _ROTATION_TOP_N = 20
 
 
-def _md_table(rows):
-    """rows: [{name, code, price, premium_rate}] -> markdown 表格（PushPlus markdown 渲染）"""
+def _md_rows(rows):
+    """rows: [{name, code, price, premium_rate}] -> 每条一行（PushPlus markdown 不渲染表格，逐行展示）"""
     if not rows:
         return ["（无）"]
-    out = ["| 名称 | 现价 | 溢价率 |", "| --- | ---: | ---: |"]
+    out = []
     for r in rows:
         name = str(r.get("name") or "-")
         code = str(r.get("code") or "-")
         price = str(r.get("price") or "-")
         prem = str(r.get("premium_rate") or "-")
-        out.append(f"| {name}（{code}） | {price}元 | {prem}% |")
+        out.append(f"{name}（{code}）｜现价 {price} 元｜溢价率 {prem}%")
     return out
 
 
 def _build_rotation_message(results, last):
     """按每个策略前 N(=20, 不足按实际)只作为轮动池，
-    对比上次快照生成 markdown：每个策略同时给出 轮入 与 轮出 表格。
+    对比上次快照生成消息：每个策略都固定展示，同时给出 轮入 与 轮出。
+    无变动的策略用一行简洁表示；有变动的逐行列出债券。
     返回 (message_lines, 最新快照)。"""
     top_n = _ROTATION_TOP_N
     lines = ["## 周五可转债轮动",
              f"轮动池：每个策略排名前 {top_n} 只（不足按实际只数）\n"]
     current = {}
-    changed_any = False
     for key, data in (results or {}).items():
         name = data.get("name") or key
         bonds = data.get("bonds") or []
@@ -115,17 +115,15 @@ def _build_rotation_message(results, last):
             out_rows.append({"code": c, "name": src.get("name"),
                              "price": src.get("price"), "premium_rate": src.get("premium_rate")})
 
-        if not in_rows and not out_rows:
-            continue
-        changed_any = True
         lines.append(f"\n### {name}（池 {len(base)} 只）")
-        lines.append("\n🟢 **轮入**")
-        lines += _md_table(in_rows)
-        lines.append("\n🔴 **轮出**")
-        lines += _md_table(out_rows)
+        if in_rows or out_rows:
+            lines.append("\n🟢 轮入")
+            lines += _md_rows(in_rows)
+            lines.append("\n🔴 轮出")
+            lines += _md_rows(out_rows)
+        else:
+            lines.append("🟢 轮入：无　🔴 轮出：无")
 
-    if not changed_any:
-        lines.append("\n本期各策略轮动池均无变动。")
     return lines, current
 
 
@@ -136,7 +134,7 @@ def _send(title, content):
         return False
     payload = {
         "token": token,
-        "title": title or "消息提醒",
+        "title": f"多鱼推送—{title or '消息提醒'}",
         "content": content,
         "template": "markdown",
         "channel": "wechat",
