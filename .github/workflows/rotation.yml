@@ -1,0 +1,46 @@
+name: 周五可转债轮动推送
+
+# 每周五 14:00（北京时间）可转债轮动推送，UTC 周五 06:00 = 北京 14:00
+# 独立于 push.yml 的每日折价推送。
+# 目的：不再用「运行时刻是否为周五 14 点整」猜测任务类型——
+# GitHub Actions 对定时任务的排期可能延迟数小时，
+# 独立 workflow 即使晚到，也会固定推送正确的轮动内容。
+on:
+  schedule:
+    - cron: '0 6 * * 5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rotation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Friday rotation push
+        env:
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+        run: python notify.py --rotation
+
+      # 轮动推送会更新 last_strategies.json，回写仓库以便下次轮入/轮出比对
+      - name: Commit state files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add last_strategies.json
+          if git diff --cached --quiet; then
+            echo "无变更"
+          else
+            git commit -m "chore: update rotation snapshot"
+            git push
+          fi
