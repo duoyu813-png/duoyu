@@ -1,6 +1,6 @@
 {
- "total": 80,
- "generated_at": "2026-09-06 12:40:40",
+ "total": 79,
+ "generated_at": "2026-09-06 15:54:56",
  "source": "live",
  "bonds": [
   {
@@ -2522,96 +2522,6 @@
    "issue_amount": 5.5,
    "safety_pct": 3.9,
    "per_share_allotment": 5.5
-  },
-  {
-   "stock_code": "301459",
-   "stock_name": "丰茂股份",
-   "bond_name": "丰茂转债",
-   "industry": "其他",
-   "total_scale": 6.075,
-   "per_share_amount": 18.31,
-   "progress": "发行中",
-   "progress_date": "2026-08-18",
-   "registration_date": "2026-01-05",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "AA-",
-   "record_dt": "2026-08-17",
-   "convert_price": 35.59,
-   "cb_amount": 14.74,
-   "b_shares": 0.0,
-   "price": 31.86,
-   "change_pct": -1.18,
-   "pb": 2.6,
-   "ma20_price": 34.63,
-   "circ_mv": 1.82,
-   "circ_mv_score_factor": 1.82,
-   "pe": 38.24,
-   "turnover_rate": null,
-   "amount": 6.075,
-   "q1_growth": -24.48,
-   "major_shareholder_ratio": 0.7,
-   "one_hand_shares": 172,
-   "per_hand_shares": 171.3939423868313,
-   "market": "深",
-   "total_score": 60,
-   "rating": "B+",
-   "action": "关注",
-   "action_reason": "中高分+小流通盘，等待注册",
-   "action_price": "买入≤28.67 | 卖出≥36.64 | 安全垫5.5%",
-   "score_details": {
-    "含权量评分": {
-     "score": 20,
-     "max": 30,
-     "factor": "18.31元"
-    },
-    "隐形流通量评分": {
-     "score": 30,
-     "max": 40,
-     "factor": "1.82亿"
-    },
-    "业绩评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "Q1增长-24.48%"
-    },
-    "潜伏期扣分": {
-     "score": -15,
-     "max": 0,
-     "factor": "2026-01"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=38.24"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交6.1亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 18.31,
-   "hidden_circulation": 1.82,
-   "total": 60,
-   "issue_amount": 6.08,
-   "safety_pct": 5.5,
-   "per_share_allotment": 5.8345
   },
   {
    "stock_code": "600368",
