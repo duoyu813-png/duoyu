@@ -43,8 +43,10 @@ TITLE_KEYS = [
 OLD_STOP = 5
 # 单次常规扫描页数上限（page_size=50），防异常失控
 SCAN_PAGE_LIMIT = 300
-# 首次无游标/回扫时最多扫描页数（尽力覆盖列表接口可达窗口）
-INITIAL_PAGE_LIMIT = 300
+# 首次无游标/回扫时最多扫描页数（尽力覆盖列表接口可达窗口，约一个月）
+INITIAL_PAGE_LIMIT = 800
+# 拉页并发数（列表接口轻量，6 路并发即可显著提速，又不会触发限流）
+FEED_CONCURRENCY = 6
 
 
 # ---------------- 文本/日期工具 ----------------
@@ -249,6 +251,7 @@ async def scan_feed(cursor: dict | None, page_limit: int = SCAN_PAGE_LIMIT,
 
     游标：{"last_date": 上次已完整扫到的公告日(YYYY-MM-DD)}。
     停止：连续 OLD_STOP 条公告的 notice_date < last_date，即回到旧区域。
+    抓取：以 FEED_CONCURRENCY 并发拉页，按页序处理，兼顾速度与限流。
     """
     last_date = (cursor or {}).get("last_date") or ""
     matched: list[dict] = []
@@ -260,30 +263,36 @@ async def scan_feed(cursor: dict | None, page_limit: int = SCAN_PAGE_LIMIT,
     async with httpx.AsyncClient(timeout=25, headers=HEADERS,
                                  follow_redirects=True) as client:
         while page <= page_limit:
-            items = await _fetch_page(client, page)
-            if not items:
-                break
+            hi = min(page + FEED_CONCURRENCY - 1, page_limit)
+            pages = await asyncio.gather(*[_fetch_page(client, p)
+                                          for p in range(page, hi + 1)])
             stopped = False
-            for it in items:
-                date = (it.get("notice_date") or "")[:10]
-                art = it.get("art_code") or ""
-                title = it.get("title_ch") or it.get("title") or ""
-                if date > max_date:
-                    max_date = date
-                if date and last_date and date < last_date:
-                    old_run += 1
-                    if old_run >= OLD_STOP:
-                        stopped = True
-                        break
-                else:
-                    old_run = 0
-                if art and _match_candidate(title) and art not in seen:
-                    seen.add(art)
-                    if collect_all_matches:
-                        matched.append(_feed_item(it))
-            page += 1
-            if page % 40 == 0:
-                print(f"[huikui] 已扫 {page} 页，当前日期 {max_date or '-'}", flush=True)
+            for items in pages:
+                if not items:
+                    stopped = True  # 数据到底，不再有更早的公告
+                    break
+                for it in items:
+                    date = (it.get("notice_date") or "")[:10]
+                    art = it.get("art_code") or ""
+                    title = it.get("title_ch") or it.get("title") or ""
+                    if date > max_date:
+                        max_date = date
+                    if date and last_date and date < last_date:
+                        old_run += 1
+                        if old_run >= OLD_STOP:
+                            stopped = True
+                            break
+                    else:
+                        old_run = 0
+                    if art and _match_candidate(title) and art not in seen:
+                        seen.add(art)
+                        if collect_all_matches:
+                            matched.append(_feed_item(it))
+                if stopped:
+                    break
+            page = hi + 1
+            if page % 60 == 0:
+                print(f"[huikui] 已扫 {page - 1} 页，当前日期 {max_date or '-'}", flush=True)
             if stopped:
                 break
 
