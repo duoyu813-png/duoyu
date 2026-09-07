@@ -110,14 +110,14 @@ def cmd_scan(backfill: bool = False) -> int:
     if not isinstance(seeds, dict) or "events" not in seeds:
         seeds = {"events": []}
 
-    cursor = store.get("scan") or {}
-    if not cursor.get("last_date") or backfill:
-        page_limit = scanner.INITIAL_PAGE_LIMIT if backfill else scanner.SCAN_PAGE_LIMIT
-    else:
-        page_limit = scanner.SCAN_PAGE_LIMIT
+    cursor = {} if backfill else (store.get("scan") or {})
+    page_limit = (scanner.INITIAL_PAGE_LIMIT if backfill
+                  else (scanner.SCAN_PAGE_LIMIT if cursor.get("last_date")
+                        else scanner.INITIAL_PAGE_LIMIT))
 
+    mode = "回扫(补历史)" if backfill else "增量扫描"
     matched, new_cursor = asyncio.run(scanner.scan_feed(cursor, page_limit=page_limit))
-    print(f"[huikui] 扫描完成：本次命中标题关键词 {len(matched)} 条，游标 last_date={new_cursor.get('last_date') or '-'}")
+    print(f"[huikui] {mode}完成：标题候选 {len(matched)} 条，游标 last_date={new_cursor.get('last_date') or '-'}")
 
     known = {str(e.get("id")) for e in (store.get("events") or [])}
     new_events = []
@@ -129,7 +129,7 @@ def cmd_scan(backfill: bool = False) -> int:
         except Exception as e:
             print(f"[huikui] 解析失败 {m['art_code']}: {e}")
             continue
-        if ev.get("id") in known:
+        if ev is None or ev.get("id") in known:
             continue
         new_events.append(ev)
         known.add(ev["id"])

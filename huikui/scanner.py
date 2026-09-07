@@ -32,21 +32,28 @@ HEADERS = {
     "Accept": "application/json",
 }
 
-# 标题命中关键词（尽量含“股东”，降低与减持/股份变动等公告误伤）
-TITLE_KEYS = [
-    "股东回馈", "回馈股东", "股东福利", "股东专享", "股东专属",
-    "感恩股东", "答谢股东", "股东答谢", "股东礼", "股东活动",
-    "股东权益活动", "股东优惠", "股东特惠", "股东特供",
+# 标题候选：标题需同时含「股东」与下列任一活动词（词序不限，
+# 兼容 “股东回馈 / 回馈股东 / 股东感恩回馈 / 感恩股东” 等常见措辞）
+_TITLE_ACT = [
+    "回馈", "馈", "福利", "专享", "专属", "感恩", "答谢", "礼遇",
+    "优惠", "特惠", "特供", "内购", "赠送", "品鉴", "伴手礼", "礼盒", "礼包",
 ]
+
+# 正文确认关键词：能代表“真的是股东福利/回馈活动”的强词 + 资格词
+_BODY_STRONG = ["回馈", "馈", "福利", "专享", "专属", "感恩", "答谢",
+                "礼盒", "礼包", "礼品", "内购", "特惠", "赠送", "礼遇"]
+_BODY_ELIG = ["股东", "持股", "登记在册", "股权登记日", "收盘后", "在册股东"]
 
 # 连续遇到多少条 notice_date < last_date 的公告后即认为已回到旧区域
 OLD_STOP = 5
 # 单次常规扫描页数上限（page_size=50），防异常失控
 SCAN_PAGE_LIMIT = 300
 # 首次无游标/回扫时最多扫描页数（尽力覆盖列表接口可达窗口，约一个月）
-INITIAL_PAGE_LIMIT = 800
+INITIAL_PAGE_LIMIT = 1000
 # 拉页并发数（列表接口轻量，6 路并发即可显著提速，又不会触发限流）
 FEED_CONCURRENCY = 6
+# 连续空页数达到该值才认为数据到底（容忍单页偶发失败）
+EMPTY_STOP = 3
 
 
 # ---------------- 文本/日期工具 ----------------
@@ -213,7 +220,22 @@ def parse_fields(title: str, body: str) -> dict:
 # ---------------- 东财公告抓取 ----------------
 
 def _match_candidate(title: str) -> bool:
-    return any(k in title for k in TITLE_KEYS)
+    """标题候选判断：标题同时含「股东」与任一活动词（宽召回，正文再二次确认）。"""
+    if "股东" not in title:
+        return False
+    return any(k in title for k in _TITLE_ACT)
+
+
+def _confirm_body(body: str) -> bool:
+    """正文二次确认：必须有强福利词 + 资格词，排除投资活动/减持/股东会等误报。
+
+    正文拉取失败时由调用方自行决定（此处默认不通过，避免误收）。
+    """
+    if not body:
+        return False
+    if not any(k in body for k in _BODY_STRONG):
+        return False
+    return any(k in body for k in _BODY_ELIG)
 
 
 def _feed_item(it: dict) -> dict:
@@ -258,6 +280,7 @@ async def scan_feed(cursor: dict | None, page_limit: int = SCAN_PAGE_LIMIT,
     seen: set[str] = set()
     max_date = last_date
     old_run = 0
+    empty_run = 0
     page = 1
 
     async with httpx.AsyncClient(timeout=25, headers=HEADERS,
@@ -269,8 +292,13 @@ async def scan_feed(cursor: dict | None, page_limit: int = SCAN_PAGE_LIMIT,
             stopped = False
             for items in pages:
                 if not items:
-                    stopped = True  # 数据到底，不再有更早的公告
-                    break
+                    # 容忍单页偶发失败：连续 EMPTY_STOP 页为空才认为数据到底
+                    empty_run += 1
+                    if empty_run >= EMPTY_STOP:
+                        stopped = True
+                        break
+                    continue
+                empty_run = 0
                 for it in items:
                     date = (it.get("notice_date") or "")[:10]
                     art = it.get("art_code") or ""
@@ -291,11 +319,13 @@ async def scan_feed(cursor: dict | None, page_limit: int = SCAN_PAGE_LIMIT,
                 if stopped:
                     break
             page = hi + 1
-            if page % 60 == 0:
+            if page % 100 == 0:
                 print(f"[huikui] 已扫 {page - 1} 页，当前日期 {max_date or '-'}", flush=True)
             if stopped:
+                print(f"[huikui] 扫描停止于第 {page - 1} 页（回到旧区域/数据到底）", flush=True)
                 break
 
+    print(f"[huikui] 扫描结束：实际处理 {page - 1} 页，命中标题候选 {len(matched)} 条", flush=True)
     return matched, {"last_date": max_date}
 
 
@@ -319,10 +349,17 @@ def fetch_detail(art_code: str) -> dict:
         return {}
 
 
-def build_event(item: dict) -> dict:
-    """把一条命中公告变成结构化事件记录（含正文解析结果）。"""
+def build_event(item: dict) -> dict | None:
+    """把一条命中公告变成结构化事件记录（含正文解析结果）。
+
+    若成功拉到正文但正文确认不是股东福利/回馈类（投资活动/股东会等误报），
+    返回 None 交由调用方丢弃；正文拉取失败时保守保留（避免漏收）。
+    """
     detail = fetch_detail(item["art_code"])
     body = detail.get("body") or ""
+    if body and not _confirm_body(body):
+        print(f"[huikui] 正文未确认是股东福利活动，跳过：{item.get('title', '')[:40]}")
+        return None
     fields = parse_fields(item["title"], body) if body else {}
     return {
         "id": item["art_code"],
