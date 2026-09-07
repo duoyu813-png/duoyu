@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-09-06 23:20:26",
+ "generated_at": "2026-09-07 01:10:35",
  "source": "live",
  "bonds": [
   {
@@ -2260,9 +2260,9 @@
    "industry": "其他",
    "total_scale": 6.17,
    "per_share_amount": 10.64,
-   "progress": "股东大会通过",
-   "progress_date": "2026-05-19",
-   "registration_date": "",
+   "progress": "交易所受理",
+   "progress_date": "2026-09-04",
+   "registration_date": "2026-09-04",
    "approval_date": "",
    "board": "主板",
    "rating_cd": "",
@@ -2308,7 +2308,7 @@
     "潜伏期扣分": {
      "score": 0,
      "max": 0,
-     "factor": "未知"
+     "factor": "2026-09"
     },
     "300/688折扣": {
      "score": 0,
@@ -2884,6 +2884,96 @@
    "per_share_allotment": 2.9999
   },
   {
+   "stock_code": "301175",
+   "stock_name": "中科环保",
+   "bond_name": "中科环保转债",
+   "industry": "环保",
+   "total_scale": 10.0,
+   "per_share_amount": 12.13,
+   "progress": "同意注册",
+   "progress_date": "2026-09-07",
+   "registration_date": "2026-04-15",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 5.56,
+   "cb_amount": 12.13,
+   "b_shares": 0.0,
+   "price": 5.6,
+   "change_pct": -1.41,
+   "pb": 2.17,
+   "ma20_price": 5.56,
+   "circ_mv": 4.23,
+   "circ_mv_score_factor": 4.23,
+   "pe": 23.97,
+   "turnover_rate": null,
+   "amount": 10.0,
+   "q1_growth": 10.71,
+   "major_shareholder_ratio": 0.5775,
+   "one_hand_shares": 1472,
+   "per_hand_shares": 1471.8799999999999,
+   "market": "深",
+   "total_score": 58,
+   "rating": "B",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤5.15 | 卖出≥6.16 | 安全垫3.6%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "12.13元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.23亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长10.71%"
+    },
+    "潜伏期扣分": {
+     "score": -12,
+     "max": 0,
+     "factor": "2026-04"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=23.97"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "环保"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交10.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "环保"
+    }
+   },
+   "weighted_amount": 12.13,
+   "hidden_circulation": 4.23,
+   "total": 58,
+   "issue_amount": 10.0,
+   "safety_pct": 3.6,
+   "per_share_allotment": 0.6794
+  },
+  {
    "stock_code": "001380",
    "stock_name": "华纬科技",
    "bond_name": "华纬科技转债",
@@ -3062,96 +3152,6 @@
    "issue_amount": 9.6,
    "safety_pct": 6.0,
    "per_share_allotment": 1.7174
-  },
-  {
-   "stock_code": "301175",
-   "stock_name": "中科环保",
-   "bond_name": "中科环保转债",
-   "industry": "环保",
-   "total_scale": 10.0,
-   "per_share_amount": 12.13,
-   "progress": "上市委通过",
-   "progress_date": "2026-07-24",
-   "registration_date": "2026-04-15",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 5.56,
-   "cb_amount": 12.13,
-   "b_shares": 0.0,
-   "price": 5.6,
-   "change_pct": -1.41,
-   "pb": 2.17,
-   "ma20_price": 5.56,
-   "circ_mv": 4.23,
-   "circ_mv_score_factor": 4.23,
-   "pe": 23.97,
-   "turnover_rate": null,
-   "amount": 10.0,
-   "q1_growth": 10.71,
-   "major_shareholder_ratio": 0.5775,
-   "one_hand_shares": 1472,
-   "per_hand_shares": 1471.8799999999999,
-   "market": "深",
-   "total_score": 58,
-   "rating": "B",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤5.15 | 卖出≥6.16 | 安全垫3.6%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "12.13元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.23亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长10.71%"
-    },
-    "潜伏期扣分": {
-     "score": -12,
-     "max": 0,
-     "factor": "2026-04"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=23.97"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "环保"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交10.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "环保"
-    }
-   },
-   "weighted_amount": 12.13,
-   "hidden_circulation": 4.23,
-   "total": 58,
-   "issue_amount": 10.0,
-   "safety_pct": 3.6,
-   "per_share_allotment": 0.6794
   },
   {
    "stock_code": "001282",
@@ -4594,96 +4594,6 @@
    "per_share_allotment": 2.5119
   },
   {
-   "stock_code": "688510",
-   "stock_name": "航亚科技",
-   "bond_name": "航亚科技转债",
-   "industry": "AI/科技",
-   "total_scale": 6.0,
-   "per_share_amount": 8.82,
-   "progress": "上市委通过",
-   "progress_date": "2026-08-12",
-   "registration_date": "2026-06-23",
-   "approval_date": "",
-   "board": "科创板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 23.94,
-   "cb_amount": 8.82,
-   "b_shares": 0.0,
-   "price": 26.16,
-   "change_pct": 3.73,
-   "pb": 5.59,
-   "ma20_price": 23.94,
-   "circ_mv": 4.2,
-   "circ_mv_score_factor": 4.2,
-   "pe": 81.75,
-   "turnover_rate": null,
-   "amount": 6.0,
-   "q1_growth": -34.68,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 300,
-   "per_hand_shares": 433.2043466666667,
-   "market": "沪",
-   "total_score": 52,
-   "rating": "B",
-   "action": "小仓关注",
-   "action_reason": "低分但属AI板块，小仓参与",
-   "action_price": "买入≤24.07 | 卖出≥28.78 | 安全垫3.8%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "8.82元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.20亿"
-    },
-    "业绩评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "Q1增长-34.68%"
-    },
-    "潜伏期扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "科创板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=81.75"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交6.0亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 8.82,
-   "hidden_circulation": 4.2,
-   "total": 52,
-   "issue_amount": 6.0,
-   "safety_pct": 3.8,
-   "per_share_allotment": 2.3084
-  },
-  {
    "stock_code": "603693",
    "stock_name": "江苏新能",
    "bond_name": "江苏新能转债",
@@ -5042,6 +4952,96 @@
    "issue_amount": 11.0,
    "safety_pct": 2.1,
    "per_share_allotment": 2.7468
+  },
+  {
+   "stock_code": "688510",
+   "stock_name": "航亚科技",
+   "bond_name": "航亚科技转债",
+   "industry": "AI/科技",
+   "total_scale": 6.0,
+   "per_share_amount": 8.82,
+   "progress": "上市委通过",
+   "progress_date": "2026-08-12",
+   "registration_date": "2026-06-23",
+   "approval_date": "",
+   "board": "科创板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 23.94,
+   "cb_amount": 8.82,
+   "b_shares": 0.0,
+   "price": 26.16,
+   "change_pct": 3.73,
+   "pb": 5.59,
+   "ma20_price": 23.94,
+   "circ_mv": 4.2,
+   "circ_mv_score_factor": 4.2,
+   "pe": 81.75,
+   "turnover_rate": null,
+   "amount": 6.0,
+   "q1_growth": -34.68,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 300,
+   "per_hand_shares": 433.2043466666667,
+   "market": "沪",
+   "total_score": 49,
+   "rating": "C",
+   "action": "小仓关注",
+   "action_reason": "低分但属AI板块，小仓参与",
+   "action_price": "买入≤24.07 | 卖出≥28.78 | 安全垫3.8%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "8.82元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.20亿"
+    },
+    "业绩评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "Q1增长-34.68%"
+    },
+    "潜伏期扣分": {
+     "score": -6,
+     "max": 0,
+     "factor": "2026-06"
+    },
+    "300/688折扣": {
+     "score": -10,
+     "max": 0,
+     "factor": "科创板"
+    },
+    "PE扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "PE=81.75"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交6.0亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 8.82,
+   "hidden_circulation": 4.2,
+   "total": 49,
+   "issue_amount": 6.0,
+   "safety_pct": 3.8,
+   "per_share_allotment": 2.3084
   },
   {
    "stock_code": "601528",
@@ -6220,8 +6220,8 @@
    "industry": "AI/科技",
    "total_scale": 5.25,
    "per_share_amount": 3.54,
-   "progress": "上市委通过",
-   "progress_date": "2026-07-29",
+   "progress": "同意注册",
+   "progress_date": "2026-09-05",
    "registration_date": "2026-04-25",
    "approval_date": "",
    "board": "科创板",
