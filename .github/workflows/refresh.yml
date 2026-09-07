@@ -15,6 +15,10 @@ on:
         description: '强制发送可转债低价/低溢价推送(忽略交易时段), 填 true'
         required: false
         default: 'false'
+      huikui_backfill:
+        description: '股东回馈活动：是否补扫历史公告(加大页数), 填 true'
+        required: false
+        default: 'false'
 
 # 公共仓库 Pages 部署权限
 permissions:
@@ -40,6 +44,17 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+
+      # 先跑股东回馈活动扫描/推送/生成（更新快照，供 sitegen 首页计数），失败不阻断
+      - name: Scan & push shareholder reward activities
+        env:
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+        run: |
+          if [ "${{ inputs.huikui_backfill }}" == "true" ]; then
+            python huikui.py backfill || echo "huikui backfill failed, keeping last snapshot"
+          else
+            python huikui.py scan || echo "huikui scan failed, keeping last snapshot"
+          fi
 
       - name: Generate static dashboard
         env:
@@ -67,11 +82,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f hanquan/last_qiangquan.json last_cb_alerts.json last_issues.json
+          git add -f hanquan/last_qiangquan.json last_cb_alerts.json last_issues.json huikui/last_events.json
           if git diff --cached --quiet; then
             echo "无变更"
           else
-            git commit -m "chore: update qiangquan fallback cache"
+            git commit -m "chore: update fallback cache"
             git push
           fi
 

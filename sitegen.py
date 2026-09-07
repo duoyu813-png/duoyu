@@ -22,6 +22,7 @@ from strategies.cb_strategies import run_all_strategies, ALL_STRATEGIES
 
 DIST = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dist")
 BASE = os.path.dirname(os.path.abspath(__file__))
+HUIKUI_SNAPSHOT = os.path.join(BASE, "huikui", "last_events.json")
 
 CSS = """<style>
   :root { --bg:#f8f9fa; --card:#fff; --text:#212529; --muted:#6c757d; --border:#dee2e6; --accent:#2563eb; --blue-l:#dbeafe; --red:#dc2626; --green:#16a34a; }
@@ -88,6 +89,7 @@ THEME = {
     "cb":      {"accent": "#dc2626", "blue": "#fee2e2", "name": "可转债轮动"},        # 红
     "issues":  {"accent": "#2563eb", "blue": "#dbeafe", "name": "待发可转债(抢权)"},  # 蓝
     "qiangquan": {"accent": "#16a34a", "blue": "#dcfce7", "name": "抢权评分看板"},   # 绿
+    "huikui":  {"accent": "#9333ea", "blue": "#f3e8ff", "name": "股东回馈活动"},      # 紫
 }
 
 
@@ -494,6 +496,19 @@ def main() -> int:
         issue_count = len([i for i in all_issues if i.get("progress_name") != "已申购待上市"])
     report["sections"]["issue_count"] = issue_count
 
+    # ---------- 股东回馈活动计数（读取仓库内快照，独立流程 huikui.py 维护） ----------
+    huikui_count = 0
+    try:
+        if os.path.exists(HUIKUI_SNAPSHOT):
+            with open(HUIKUI_SNAPSHOT, "r", encoding="utf-8") as f:
+                hk_data = json.load(f)
+            this_year = date.today().year
+            huikui_count = len([e for e in (hk_data.get("events") or [])
+                                if (str(e.get("notice_date") or "")[:4]) == str(this_year)])
+    except Exception:
+        huikui_count = 0
+    report["sections"]["huikui_count"] = huikui_count
+
     os.makedirs(DIST, exist_ok=True)
 
 # ---------- 首页 index.html ----------
@@ -520,6 +535,10 @@ def main() -> int:
         "qiangquan.html", "#16a34a", "#dcfce7",
         "可转债抢权·评分看板", "全市场待发债评分体系：含权量/隐形流通/业绩/操作建议",
         "逐只评分 · 四版回测体系"))
+    hero_cards.append(_hero(
+        "huikui.html", "#9333ea", "#f3e8ff",
+        "股东回馈活动", "自动扫描全市场公告 · 微信推送 · 全年回馈活动表格汇总",
+        f"{huikui_count} 条活动（{date.today().year}年）"))
     hero = f"<div class=\"hero\">{''.join(hero_cards)}</div>"
     body_home = f"""
 <h1>小渔点儿</h1>
