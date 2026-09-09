@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-09-09 21:49:30",
+ "generated_at": "2026-09-09 23:37:52",
  "source": "live",
  "bonds": [
   {
@@ -1804,96 +1804,6 @@
    "per_share_allotment": 1.1095
   },
   {
-   "stock_code": "603043",
-   "stock_name": "广州酒家",
-   "bond_name": "广州酒家转债",
-   "industry": "消费",
-   "total_scale": 10.0,
-   "per_share_amount": 12.64,
-   "progress": "交易所受理",
-   "progress_date": "2026-08-01",
-   "registration_date": "2026-08-01",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 13.82,
-   "cb_amount": 12.64,
-   "b_shares": 0.0,
-   "price": 13.99,
-   "change_pct": -0.57,
-   "pb": 2.11,
-   "ma20_price": 13.82,
-   "circ_mv": 7.0,
-   "circ_mv_score_factor": 7.0,
-   "pe": 37.69,
-   "turnover_rate": null,
-   "amount": 10.0,
-   "q1_growth": 3.42,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 300,
-   "per_hand_shares": 565.63837,
-   "market": "沪",
-   "total_score": 68,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤12.59 | 卖出≥16.09 | 安全垫7.1%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "12.64元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "7.00亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长3.42%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "2026-08"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=37.69"
-    },
-    "行业加减分": {
-     "score": 3,
-     "max": 10,
-     "factor": "消费"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交10.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "消费"
-    }
-   },
-   "weighted_amount": 12.64,
-   "hidden_circulation": 7.0,
-   "total": 68,
-   "issue_amount": 10.0,
-   "safety_pct": 7.1,
-   "per_share_allotment": 1.7679
-  },
-  {
    "stock_code": "301479",
    "stock_name": "弘景光电",
    "bond_name": "弘景光电转债",
@@ -2252,6 +2162,96 @@
    "issue_amount": 22.0,
    "safety_pct": 4.6,
    "per_share_allotment": 4.3068
+  },
+  {
+   "stock_code": "603043",
+   "stock_name": "广州酒家",
+   "bond_name": "广州酒家转债",
+   "industry": "消费",
+   "total_scale": 7.74,
+   "per_share_amount": 9.78,
+   "progress": "交易所受理",
+   "progress_date": "2026-08-01",
+   "registration_date": "2026-08-01",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 13.82,
+   "cb_amount": 9.78,
+   "b_shares": 0.0,
+   "price": 13.99,
+   "change_pct": -0.57,
+   "pb": 2.11,
+   "ma20_price": 13.82,
+   "circ_mv": 5.42,
+   "circ_mv_score_factor": 5.42,
+   "pe": 37.69,
+   "turnover_rate": null,
+   "amount": 7.74,
+   "q1_growth": 3.42,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 400,
+   "per_hand_shares": 730.7989276485788,
+   "market": "沪",
+   "total_score": 63,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤12.59 | 卖出≥16.09 | 安全垫5.4%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "9.78元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.42亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长3.42%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "2026-08"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=37.69"
+    },
+    "行业加减分": {
+     "score": 3,
+     "max": 10,
+     "factor": "消费"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交7.7亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "消费"
+    }
+   },
+   "weighted_amount": 9.78,
+   "hidden_circulation": 5.42,
+   "total": 63,
+   "issue_amount": 7.74,
+   "safety_pct": 5.4,
+   "per_share_allotment": 1.3684
   },
   {
    "stock_code": "301092",
