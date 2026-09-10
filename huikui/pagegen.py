@@ -8,6 +8,8 @@ import json
 import os
 import time
 
+from .scanner import MIN_NOTICE_DATE
+
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(BASE, "dist")
 
@@ -75,8 +77,8 @@ def build_page(events: list[dict], now: str, year: str, total_all: int) -> str:
     data_json = json.dumps(events, ensure_ascii=False, default=str)
     data_json = data_json.replace("</", "<\\/")
     n = len(events)
-    sub = (f"共 {n} 条 · 数据源：东方财富公告 · 巨潮资讯 · 微信公众号（尽力检索） · "
-           f"字段为自动解析（尽力而为，仅供参考，不构成投资建议）")
+    sub = (f"{MIN_NOTICE_DATE[:4]} 年起共 {n} 条 · 数据源：东方财富公告 · 巨潮资讯 · "
+           f"微信公众号（尽力检索） · 字段为自动解析（仅供参考，不构成投资建议）")
     ts = now
     html = """<!DOCTYPE html>
 <html lang="zh-CN">
@@ -204,7 +206,7 @@ def render(events_all: list[dict], now: str = "") -> None:
     seen_keys = set()
     for e in events_all:
         date = (e.get("notice_date") or "")[:10]
-        if not date:
+        if not date or date < MIN_NOTICE_DATE:
             continue
         key = e.get("id") or (e.get("code") + "|" + date)
         if not key or key in seen:
