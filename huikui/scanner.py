@@ -1,6 +1,12 @@
 """股东回馈活动 · 公告扫描与字段解析
 
-数据源：东方财富全市场公告列表（东财 np-anotice-stock 接口）。
+数据源：
+  1) 东方财富全市场公告列表（东财 np-anotice-stock 接口）—— 结构化正文，主源。
+  2) 巨潮资讯全文检索（cninfo fulltextSearch）—— 覆盖更全、可回补历史，
+     但只给标题 + PDF，正文由 pypdf 尽力解析。
+  3) 微信公众号文章检索（搜狗微信 weixin.sogou.com）—— 尽力而为的兜底源，
+     专门找“只在公众号/官网发布、未走正式公告”的活动；反爬强、可能随时失效，
+     失败时静默跳过，不影响主流程。
 
 设计说明：
   - 东财公告检索接口的 keyword 参数实测不可用（返回未过滤的全市场最新公告），
@@ -14,7 +20,11 @@
     尽力而为抽取：股数门槛 / 股东要求 / 回馈内容；抽不出的留空，页面显示 "-"。
 """
 import asyncio
+import hashlib
+import html
+import io
 import re
+import time
 from datetime import datetime
 
 import httpx
@@ -363,7 +373,7 @@ def build_event(item: dict) -> dict | None:
     fields = parse_fields(item["title"], body) if body else {}
     return {
         "id": item["art_code"],
-        "source": "auto",
+        "source": "eastmoney",
         "code": item["code"],
         "name": item["name"],
         "title": item["title"],
@@ -374,5 +384,330 @@ def build_event(item: dict) -> dict | None:
         "link": (f"https://data.eastmoney.com/notices/detail/"
                  f"{item['code']}/{item['art_code']}.html"),
         "pdf": detail.get("pdf", ""),
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    }
+
+
+# ---------------- 巨潮资讯（cninfo）全文检索源 ----------------
+# 说明：fulltextSearch 接口的 seDate/pageNum 实测有效，但 seDate 不过滤（始终返回
+# 全量相关结果，按相关度排序），因此这里「按关键词翻完所有页 + 本地去重」，
+# 首次即可回补到历史（远早于东财列表约 1 个月的窗口）。
+# 检索结果只有标题 + PDF，没有纯文本正文，故正文用 pypdf 解析 PDF（尽力而为）。
+
+CNINFO_URL = "http://www.cninfo.com.cn/new/fulltextSearch/full"
+CNINFO_DETAIL = ("http://www.cninfo.com.cn/new/disclosure/detail"
+                 "?stockCode={code}&announcementId={aid}"
+                 "&orgId={org}&announcementTime={date}")
+CNINFO_PDF = "http://static.cninfo.com.cn/{path}"
+
+CNINFO_HEADERS = {
+    "User-Agent": HEADERS["User-Agent"],
+    "Referer": "http://www.cninfo.com.cn/new/commonUrl?url=disclosure/list/notice",
+    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    "X-Requested-With": "XMLHttpRequest",
+    "Accept": "application/json, text/javascript, */*; q=0.01",
+}
+
+# 全文检索关键词：接口在「标题 + 正文」上做匹配，可捞到标题不含「股东」的活动
+CNINFO_KEYWORDS = ["股东回馈", "回馈股东", "股东福利", "股东专享",
+                   "股东感恩回馈", "股东答谢", "股东礼遇", "持股有礼"]
+CNINFO_PAGE_SIZE = 30
+# 单关键词最多翻页数（防异常失控；实测全量约 5 页）
+CNINFO_PAGE_LIMIT = 20
+# PDF 正文本地解析页数上限（活动公告通常 1~3 页）
+PDF_MAX_PAGES = 15
+
+
+def _strip_tags(s: str) -> str:
+    """去掉 cninfo 标题里的 <em> 高亮标签与 HTML 实体。"""
+    s = re.sub(r"<[^>]+>", "", s or "")
+    return html.unescape(s).strip()
+
+
+def _cninfo_item(it: dict) -> dict | None:
+    aid = str(it.get("announcementId") or "")
+    title = _strip_tags(it.get("announcementTitle") or "")
+    if not aid or not title:
+        return None
+    ts = it.get("announcementTime")
+    try:
+        date = datetime.fromtimestamp(int(ts) / 1000).strftime("%Y-%m-%d")
+    except Exception:
+        date = ""
+    path = (it.get("adjunctUrl") or "").strip()
+    code = str(it.get("secCode") or "")
+    org = str(it.get("orgId") or "")
+    return {
+        "announcementId": aid,
+        "code": code,
+        "name": _strip_tags(it.get("secName") or ""),
+        "title": title,
+        "notice_date": date,
+        "pdf": CNINFO_PDF.format(path=path) if path else "",
+        "link": CNINFO_DETAIL.format(code=code, aid=aid, org=org, date=date),
+    }
+
+
+async def _cninfo_search(client: httpx.AsyncClient, keyword: str,
+                         page: int) -> tuple[list[dict], int]:
+    data = {
+        "pageNum": str(page), "pageSize": str(CNINFO_PAGE_SIZE),
+        "column": "szse", "tabName": "fulltext", "plate": "", "stock": "",
+        "searchkey": keyword, "secid": "", "category": "", "trade": "",
+        "seDate": "", "sortName": "", "sortType": "", "isHLtitle": "true",
+    }
+    for _ in range(4):
+        try:
+            r = await client.post(CNINFO_URL, data=data)
+            if r.status_code == 200:
+                r.encoding = "utf-8"
+                j = r.json()
+                return (j.get("announcements") or [],
+                        int(j.get("totalRecordNum") or 0))
+        except Exception:
+            pass
+        await asyncio.sleep(1.2)
+    return [], 0
+
+
+async def scan_cninfo(keywords: list[str] | None = None,
+                      page_limit: int = CNINFO_PAGE_LIMIT) -> list[dict]:
+    """按关键词全文检索巨潮资讯，返回去重后的候选（含 PDF 链接，尚未解析正文）。"""
+    keywords = keywords or CNINFO_KEYWORDS
+    out: dict[str, dict] = {}
+    async with httpx.AsyncClient(timeout=30, headers=CNINFO_HEADERS,
+                                 follow_redirects=True) as client:
+        for kw in keywords:
+            page = 1
+            total = 0
+            while page <= page_limit:
+                items, tot = await _cninfo_search(client, kw, page)
+                if not items:
+                    break
+                total = tot or total
+                for it in items:
+                    norm = _cninfo_item(it)
+                    if norm:
+                        out.setdefault(norm["announcementId"], norm)
+                if total and page * CNINFO_PAGE_SIZE >= total:
+                    break
+                page += 1
+                await asyncio.sleep(0.3)
+    print(f"[huikui] 巨潮全文检索：{len(out)} 条候选（{len(keywords)} 个关键词）",
+          flush=True)
+    return list(out.values())
+
+
+def fetch_pdf_text(url: str, max_pages: int = PDF_MAX_PAGES) -> str:
+    """下载巨潮 PDF 并抽取纯文本（pypdf 缺失/解析失败时返回空串）。"""
+    if not url:
+        return ""
+    try:
+        from pypdf import PdfReader
+    except Exception:
+        return ""
+    try:
+        r = httpx.get(url, headers=HEADERS, timeout=45, follow_redirects=True)
+        if r.status_code != 200:
+            return ""
+        reader = PdfReader(io.BytesIO(r.content))
+        chunks = []
+        for i, page in enumerate(reader.pages):
+            if i >= max_pages:
+                break
+            chunks.append(page.extract_text() or "")
+        return _clean("\n".join(chunks))
+    except Exception as e:
+        print(f"[huikui] PDF 解析失败 {url}: {e}")
+        return ""
+
+
+def build_cninfo_event(item: dict) -> dict | None:
+    """巨潮候选 -> 结构化事件；正文由 PDF 解析，解析失败时退回标题判断。"""
+    body = fetch_pdf_text(item.get("pdf") or "")
+    if body:
+        if not _confirm_body(body):
+            print(f"[huikui] 巨潮正文未确认是股东福利活动，跳过："
+                  f"{item.get('title', '')[:40]}")
+            return None
+    elif not _match_candidate(item.get("title") or ""):
+        return None
+    fields = parse_fields(item["title"], body) if body else {}
+    return {
+        "id": "cninfo:" + item["announcementId"],
+        "source": "cninfo",
+        "code": item["code"],
+        "name": item["name"],
+        "title": item["title"],
+        "notice_date": item["notice_date"],
+        "shares": fields.get("shares", ""),
+        "reward": fields.get("reward", ""),
+        "requirement": fields.get("requirement", ""),
+        "link": item["link"],
+        "pdf": item.get("pdf", ""),
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    }
+
+
+def build_cninfo_events(items: list[dict], workers: int = 6) -> list[dict]:
+    """并发解析多条巨潮候选（主要是 PDF 下载+抽取耗时）。"""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    out: list[dict] = []
+    if not items:
+        return out
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futs = [ex.submit(build_cninfo_event, it) for it in items]
+        for f in as_completed(futs):
+            try:
+                ev = f.result()
+            except Exception as e:
+                print(f"[huikui] 巨潮解析失败: {e}")
+                continue
+            if ev:
+                out.append(ev)
+    out.sort(key=lambda e: e.get("notice_date") or "", reverse=True)
+    return out
+
+
+# ---------------- 微信公众号（搜狗微信）兜底源 ----------------
+# 说明：微信没有公开搜索 API，搜狗微信（weixin.sogou.com）是唯一半开放的入口，
+# 反爬强、随时可能返回验证码。此处按关键词检索并解析标题/摘要/账号/时间，
+# 定位为「尽力而为」：拿到即入库，拿不到就静默跳过，绝不影响主流程。
+
+SOGOU_URL = "https://weixin.sogou.com/weixin"
+SOGOU_HEADERS = {
+    "User-Agent": HEADERS["User-Agent"],
+    "Referer": "https://weixin.sogou.com/",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "zh-CN,zh;q=0.9",
+}
+WECHAT_KEYWORDS = ["股东回馈活动", "股东专享福利", "股东感恩回馈", "回馈股东"]
+WECHAT_PAGES = 2
+
+
+def _sogou_fetch(keyword: str, page: int) -> str:
+    params = {"type": "2", "query": keyword, "ie": "utf8", "page": str(page)}
+    try:
+        r = httpx.get(SOGOU_URL, params=params, headers=SOGOU_HEADERS,
+                      timeout=30, follow_redirects=True)
+        if r.status_code != 200:
+            return ""
+        r.encoding = "utf-8"
+        return r.text
+    except Exception as e:
+        print(f"[huikui] 搜狗微信请求失败「{keyword}」: {e}")
+        return ""
+
+
+def _parse_sogou(html_text: str) -> list[dict]:
+    out: list[dict] = []
+    for m in re.finditer(r'<li id="sogou_vr_11002601_box_\d+".*?</li>',
+                         html_text, re.S):
+        b = m.group(0)
+        hm = re.search(r'<h3>.*?<a[^>]*href="([^"]+)"[^>]*>(.*?)</a>', b, re.S)
+        if not hm:
+            continue
+        link = html.unescape(hm.group(1))
+        if link.startswith("/"):
+            link = "https://weixin.sogou.com" + link
+        title = _strip_tags(hm.group(2))
+        am = (re.search(r'<span class="all-time-y2">(.*?)</span>', b, re.S)
+              or re.search(r'<a[^>]*class="account"[^>]*>(.*?)</a>', b, re.S))
+        account = _strip_tags(am.group(1)) if am else ""
+        sm = re.search(r'class="txt-info"[^>]*>(.*?)</p>', b, re.S)
+        snippet = _strip_tags(sm.group(1)) if sm else ""
+        dm = re.search(r"timeConvert\('(\d+)'\)", b)
+        date = ""
+        if dm:
+            try:
+                date = datetime.fromtimestamp(int(dm.group(1))).strftime("%Y-%m-%d")
+            except Exception:
+                pass
+        if not title:
+            continue
+        out.append({"title": title, "account": account, "snippet": snippet,
+                    "notice_date": date, "link": link})
+    return out
+
+
+def scan_wechat(keywords: list[str] | None = None,
+                pages: int = WECHAT_PAGES) -> list[dict]:
+    """搜狗微信关键词检索，返回去重后的文章候选（反爬失效时返回空列表）。"""
+    keywords = keywords or WECHAT_KEYWORDS
+    seen: set[tuple] = set()
+    out: list[dict] = []
+    for kw in keywords:
+        for page in range(1, pages + 1):
+            txt = _sogou_fetch(kw, page)
+            if not txt or "antispider" in txt or "请输入验证码" in txt \
+                    or "用户您好，您的访问过于频繁" in txt:
+                break
+            items = _parse_sogou(txt)
+            if not items:
+                break
+            for it in items:
+                key = (it["title"], it["account"])
+                if key in seen:
+                    continue
+                seen.add(key)
+                out.append(it)
+            time.sleep(1.5)
+        time.sleep(1.0)
+    print(f"[huikui] 搜狗微信检索：{len(out)} 条候选", flush=True)
+    return out
+
+
+_NAME_NOISE = {"股票代码", "证券代码", "代码", "简称", "证券简称",
+               "公司简介", "公告", "披露", "关于", "股东回馈"}
+_NOISE_SUFFIX = ("活动", "公告", "代码", "简称")
+
+
+def _wechat_code_name(title: str, snippet: str, account: str) -> tuple[str, str]:
+    """尽力从标题/摘要里抽出股票代码与公司名，失败退回公众号名。"""
+    text = f"{title} {snippet}"
+    m = re.search(r"(?<!\d)(\d{6})(?:\.(?:SH|SZ|BJ|sh|sz|bj))?(?!\d)", text)
+    code = m.group(1) if m else ""
+    name = ""
+    if code:
+        pm = re.search(r"([\u4e00-\u9fa5A-Za-z]{2,10})\s*[（(]?\s*"
+                       r"(?:[Ss][Hh]|[Ss][Zz]|[Bb][Jj])?[：:]?\s*" + code, text)
+        if pm:
+            cand = pm.group(1)
+            if cand not in _NAME_NOISE and not cand.endswith(_NOISE_SUFFIX):
+                name = cand
+    if not name:
+        tm = re.match(r"([\u4e00-\u9fa5A-Za-z0-9]{2,6})[：:]\s*\S", title)
+        if tm and tm.group(1) not in _NAME_NOISE \
+                and not tm.group(1).endswith(_NOISE_SUFFIX):
+            name = tm.group(1)
+    if not name:
+        name = account
+    return code, name
+
+
+def build_wechat_event(item: dict) -> dict | None:
+    """公众号文章候选 -> 结构化事件；摘要作为「回馈内容」的兜底。"""
+    title = item.get("title") or ""
+    snippet = item.get("snippet") or ""
+    body = f"{title} {snippet}"
+    if "股东" not in body or not any(k in body for k in _TITLE_ACT):
+        return None
+    date = item.get("notice_date") or datetime.now().strftime("%Y-%m-%d")
+    code, name = _wechat_code_name(title, snippet, item.get("account") or "")
+    fields = parse_fields(title, snippet)
+    reward = fields.get("reward") or _clean(snippet)[:240]
+    h = hashlib.md5((title + "|" + (item.get("account") or "")).encode("utf-8"))
+    return {
+        "id": "wx:" + h.hexdigest()[:16],
+        "source": "wechat",
+        "code": code,
+        "name": name,
+        "title": title,
+        "notice_date": date,
+        "shares": fields.get("shares", ""),
+        "reward": reward,
+        "requirement": fields.get("requirement", ""),
+        "link": item.get("link", ""),
+        "pdf": "",
         "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     }

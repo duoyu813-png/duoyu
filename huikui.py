@@ -1,8 +1,9 @@
 """股东回馈活动 · 命令行入口
 
 用法：
-  python huikui.py scan        增量扫描公告 -> 新命中自动解析 -> 微信推送 -> 重新生成页面
-  python huikui.py backfill    加大扫描页数补历史（仅覆盖东财列表接口可达的近月窗口）
+  python huikui.py scan        多源扫描 -> 新命中自动解析 -> 微信推送 -> 重新生成页面
+                               数据源：东方财富公告 + 巨潮资讯全文检索 + 搜狗微信关键词检索
+  python huikui.py backfill    加大扫描页数补历史（东财列表接口可达的近月窗口）
   python huikui.py gen         仅用本地快照+种子数据重新生成页面（无网络）
   python huikui.py test <art_code> [code] [title]
                                用指定公告 art_code 实测解析效果（本地验证用）
@@ -75,6 +76,15 @@ def _all_events(store: dict, seeds: dict) -> list[dict]:
     return events
 
 
+def _pair_key(e: dict) -> tuple | None:
+    """跨源去重键：同一公司同一天的公告/文章视为同一条活动。"""
+    code = str(e.get("code") or "")
+    date = (e.get("notice_date") or "")[:10]
+    if code and date:
+        return (code, date)
+    return None
+
+
 def _push_event(ev: dict) -> bool:
     """PushPlus 推送一条股东回馈活动（标题固定为「多鱼推送—股东回馈活动」）。"""
     try:
@@ -119,20 +129,66 @@ def cmd_scan(backfill: bool = False) -> int:
     matched, new_cursor = asyncio.run(scanner.scan_feed(cursor, page_limit=page_limit))
     print(f"[huikui] {mode}完成：标题候选 {len(matched)} 条，游标 last_date={new_cursor.get('last_date') or '-'}")
 
-    known = {str(e.get("id")) for e in (store.get("events") or [])}
-    new_events = []
+    known_ids = {str(e.get("id")) for e in (store.get("events") or [])}
+    for s in (seeds.get("events") or []):
+        known_ids.add(_norm_seed(s)["id"])
+    known_keys = {k for k in (_pair_key(e) for e in (store.get("events") or [])) if k}
+    new_events: list[dict] = []
+
+    def try_add(ev: dict | None) -> None:
+        if not ev or not ev.get("id"):
+            return
+        eid = str(ev["id"])
+        if eid in known_ids:
+            return
+        pk = _pair_key(ev)
+        if pk and pk in known_keys:
+            return
+        known_ids.add(eid)
+        if pk:
+            known_keys.add(pk)
+        new_events.append(ev)
+
+    # 1) 东方财富全市场公告（主源，正文最全）
     for m in matched:
-        if m["art_code"] in known:
+        if m["art_code"] in known_ids:
             continue
         try:
-            ev = scanner.build_event(m)
+            try_add(scanner.build_event(m))
         except Exception as e:
             print(f"[huikui] 解析失败 {m['art_code']}: {e}")
+
+    # 2) 巨潮资讯全文检索（覆盖更全、可回补历史；正文由 PDF 解析）
+    try:
+        cn_candidates = asyncio.run(scanner.scan_cninfo())
+    except Exception as e:
+        print(f"[huikui] 巨潮扫描失败，跳过: {e}")
+        cn_candidates = []
+    to_build = []
+    for it in cn_candidates:
+        if ("cninfo:" + it["announcementId"]) in known_ids:
             continue
-        if ev is None or ev.get("id") in known:
+        pk = (str(it.get("code") or ""), (it.get("notice_date") or "")[:10])
+        if pk[0] and pk[1] and pk in known_keys:
             continue
-        new_events.append(ev)
-        known.add(ev["id"])
+        to_build.append(it)
+    for ev in scanner.build_cninfo_events(to_build):
+        try_add(ev)
+
+    # 3) 微信公众号（搜狗微信，尽力而为的兜底源）
+    try:
+        wx_items = scanner.scan_wechat()
+    except Exception as e:
+        print(f"[huikui] 微信扫描失败，跳过: {e}")
+        wx_items = []
+    for it in wx_items:
+        try:
+            try_add(scanner.build_wechat_event(it))
+        except Exception as e:
+            print(f"[huikui] 微信解析失败: {e}")
+
+    # 新的在前，推送优先推最近的活动
+    new_events.sort(key=lambda e: e.get("notice_date") or "", reverse=True)
 
     if new_events:
         print(f"[huikui] 新收录 {len(new_events)} 条")

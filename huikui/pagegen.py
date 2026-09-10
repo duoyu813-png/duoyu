@@ -40,6 +40,7 @@ th .ic{font-size:10px;margin-left:2px}
 tr:hover td{background:#faf5ff}
 .td-l{text-align:left}
 .seq{display:inline-block;min-width:22px;padding:1px 7px;border-radius:999px;background:var(--blue-l);color:var(--accent);font-weight:700;font-size:12px}
+.src{display:inline-block;padding:1px 8px;border-radius:999px;background:#f1f5f9;color:#475569;font-size:11px;white-space:nowrap}
 .name{font-weight:600}
 .code{color:var(--muted);font-size:11px;font-weight:400}
 .act-title{font-size:11px;color:var(--muted);max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -56,6 +57,7 @@ def _clean_event(e: dict) -> dict:
     """选取/规范一条记录：输出纯 JSON（转义统一放前端 esc() 处理）。"""
     return {
         "id": str(e.get("id") or ""),
+        "source": str(e.get("source") or "eastmoney"),
         "code": str(e.get("code") or ""),
         "name": str(e.get("name") or ""),
         "title": str(e.get("title") or ""),
@@ -73,9 +75,7 @@ def build_page(events: list[dict], now: str, year: str, total_all: int) -> str:
     data_json = json.dumps(events, ensure_ascii=False, default=str)
     data_json = data_json.replace("</", "<\\/")
     n = len(events)
-    sub = (f"全市场公告自动扫描 · 命中即收录 · 当前 {year} 年共 {n} 条"
-           f"（含手动补充 {max(0, n - (n - (len([e for e in events if e['source'] == 'auto'])))) if False else ''}".strip())
-    sub = (f"当前展示：{year} 年 · 共 {n} 条 · 数据源：东方财富全市场公告 · "
+    sub = (f"共 {n} 条 · 数据源：东方财富公告 · 巨潮资讯 · 微信公众号（尽力检索） · "
            f"字段为自动解析（尽力而为，仅供参考，不构成投资建议）")
     ts = now
     html = """<!DOCTYPE html>
@@ -99,7 +99,7 @@ __CSS__
     <input class="search" id="q" placeholder="搜公司/代码/标题">
   </div>
   <div class="card"><div id="wrap"></div></div>
-  <p class="sub" style="text-align:center;margin-top:14px">发现方式：自动扫描东方财富全市场公告，标题含 股东回馈/回馈股东/股东福利/股东专享/感恩股东 等关键词即收录并推送微信「股东回馈活动」</p>
+  <p class="sub" style="text-align:center;margin-top:14px">发现方式：自动扫描东方财富全市场公告 + 巨潮资讯全文检索 + 搜狗微信关键词检索，命中「股东回馈/回馈股东/股东福利/股东专享/感恩回馈」等关键词即收录并推送微信「股东回馈活动」</p>
 </div>
 <script>
 var DATA = __DATA__;
@@ -133,8 +133,9 @@ function view(){
     else r=String(a[sortField]||"").localeCompare(String(b[sortField]||""),"zh");
     return sortDesc?-r:r;
   });
-  if(!list.length){ document.getElementById("wrap").innerHTML="<div class='empty'>今年暂无股东回馈活动</div>"; return; }
-  var cols = [["seq","排序"],["name","公司（代码）"],["notice_date","发布公告时间"],["shares","股数要求"],["reward","回馈内容"],["requirement","股东要求"],["","公告链接"]];
+  if(!list.length){ document.getElementById("wrap").innerHTML="<div class='empty'>该年份暂无股东回馈活动</div>"; return; }
+  var SRC = {eastmoney:"东财公告", auto:"东财公告", cninfo:"巨潮资讯", wechat:"公众号", seed:"手动补充"};
+  var cols = [["seq","排序"],["name","公司（代码）"],["notice_date","发布公告时间"],["source","来源"],["shares","股数要求"],["reward","回馈内容"],["requirement","股东要求"],["","公告链接"]];
   var h = "<table><thead><tr>";
   cols.forEach(function(c){
     var k=c[0], l=c[1], arrow = k===sortField?("<span class='ic'>"+(sortDesc?"↓":"↑")+"</span>"):"";
@@ -148,6 +149,7 @@ function view(){
       "<td class='td-l'><div class='name'>"+esc(e.name)+"</div><div class='code'>"+esc(e.code)+"</div>"+
         "<div class='act-title' title='"+esc(e.title)+"'>"+esc(e.title)+"</div></td>"+
       "<td>"+fmt(esc(e.notice_date))+"</td>"+
+      "<td><span class='src'>"+(SRC[e.source]||esc(e.source||""))+"</span></td>"+
       "<td title='"+esc(e.shares)+"'><span class='cell td-l' style='max-width:140px'>"+fmt(esc(e.shares))+"</span></td>"+
       "<td title='"+esc(e.reward)+"'><span class='cell td-l'>"+fmt(esc(e.reward))+"</span></td>"+
       "<td title='"+esc(e.requirement)+"'><span class='cell td-l'>"+fmt(esc(e.requirement))+"</span></td>"+
@@ -190,25 +192,30 @@ def _esc_attr(v):
 
 
 def render(events_all: list[dict], now: str = "") -> None:
-    """只挑当年活动、去重、按时间编号后生成页面写盘。
+    """去重、编号后生成页面写盘（收录全部年份，前端按年份分档筛选）。
 
-    兼容：入参每条可含 source 字段（auto/seed），不传亦可。
+    兼容：入参每条可含 source 字段（eastmoney/cninfo/wechat/seed），不传亦可。
+    去重：先按 id，再按「代码 + 日期」跨源去重，避免同一活动多源重复展示。
     """
     now = now or time.strftime("%Y-%m-%d %H:%M:%S")
     this_year = now[:4]
     rows = []
     seen = set()
+    seen_keys = set()
     for e in events_all:
         date = (e.get("notice_date") or "")[:10]
-        if date[:4] != this_year:
+        if not date:
             continue
         key = e.get("id") or (e.get("code") + "|" + date)
         if not key or key in seen:
             continue
+        pk = (str(e.get("code") or ""), date)
+        if pk[0] and pk in seen_keys:
+            continue
         seen.add(key)
-        row = _clean_event(e)
-        row["source"] = str(e.get("source") or "auto")
-        rows.append(row)
+        if pk[0]:
+            seen_keys.add(pk)
+        rows.append(_clean_event(e))
     rows.sort(key=lambda x: (x["notice_date"], x["id"]))
     for i, r in enumerate(rows, 1):
         r["seq"] = i
@@ -216,4 +223,4 @@ def render(events_all: list[dict], now: str = "") -> None:
     html = build_page(rows, now, this_year, len(events_all))
     with open(os.path.join(DIST, "huikui.html"), "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"[huikui] 已生成 {os.path.join(DIST, 'huikui.html')}（{this_year} 年 {len(rows)} 条）")
+    print(f"[huikui] 已生成 {os.path.join(DIST, 'huikui.html')}（全部年份共 {len(rows)} 条）")
