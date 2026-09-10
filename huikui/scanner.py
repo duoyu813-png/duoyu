@@ -25,9 +25,20 @@ import html
 import io
 import re
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 import httpx
+
+# 巨潮/搜狗返回的是 epoch（秒/毫秒），须按北京时间换算日期，
+# 否则在 UTC 的 Actions 环境会整体早一天（公告时间多为北京时间零点）。
+_CST = timezone(timedelta(hours=8))
+
+
+def _epoch_to_cn_date(sec: float) -> str:
+    try:
+        return datetime.fromtimestamp(sec, tz=_CST).strftime("%Y-%m-%d")
+    except Exception:
+        return ""
 
 FEED_URL = ("https://np-anotice-stock.eastmoney.com/api/security/ann"
             "?sr=-1&page_size=50&page_index={page}&ann_type=A"
@@ -431,7 +442,7 @@ def _cninfo_item(it: dict) -> dict | None:
         return None
     ts = it.get("announcementTime")
     try:
-        date = datetime.fromtimestamp(int(ts) / 1000).strftime("%Y-%m-%d")
+        date = _epoch_to_cn_date(int(ts) / 1000)
     except Exception:
         date = ""
     path = (it.get("adjunctUrl") or "").strip()
@@ -620,7 +631,7 @@ def _parse_sogou(html_text: str) -> list[dict]:
         date = ""
         if dm:
             try:
-                date = datetime.fromtimestamp(int(dm.group(1))).strftime("%Y-%m-%d")
+                date = _epoch_to_cn_date(int(dm.group(1)))
             except Exception:
                 pass
         if not title:
