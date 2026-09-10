@@ -190,19 +190,12 @@ def cmd_scan(backfill: bool = False) -> int:
     # 新的在前，推送优先推最近的活动
     new_events.sort(key=lambda e: e.get("notice_date") or "", reverse=True)
 
-    # 只保留 2026 年起：顺带把历史快照裁剪掉（旧版本可能存了更早的）
-    kept = [e for e in (store.get("events") or [])
-            if (e.get("notice_date") or "")[:10] >= scanner.MIN_NOTICE_DATE]
-    if len(kept) != len(store.get("events") or []):
-        print(f"[huikui] 裁剪掉 {len(store.get('events') or []) - len(kept)} 条 2026 年前的历史记录")
-    store["events"] = kept
     store["scan"] = new_cursor
-
     if new_events:
         print(f"[huikui] 新收录 {len(new_events)} 条")
         for ev in new_events:
             print(f"   - {ev['notice_date']} {ev['name']}({ev['code']}) {ev['title'][:50]}")
-        store["events"] = store["events"] + new_events
+        store["events"] = (store.get("events") or []) + new_events
         for i, ev in enumerate(new_events[:MAX_PUSH_PER_RUN], 1):
             ok = _push_event(ev)
             print(f"[huikui] 推送 {i}/{min(len(new_events), MAX_PUSH_PER_RUN)} -> {'成功' if ok else '跳过'}")

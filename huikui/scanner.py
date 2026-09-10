@@ -29,9 +29,6 @@ from datetime import datetime
 
 import httpx
 
-# 只收录该日期（含）之后的活动：扫描、推送与页面均以此为下限
-MIN_NOTICE_DATE = "2026-01-01"
-
 FEED_URL = ("https://np-anotice-stock.eastmoney.com/api/security/ann"
             "?sr=-1&page_size=50&page_index={page}&ann_type=A"
             "&client_source=web&stock_list=&f_node=0&s_node=0")
@@ -490,8 +487,7 @@ async def scan_cninfo(keywords: list[str] | None = None,
                 total = tot or total
                 for it in items:
                     norm = _cninfo_item(it)
-                    # 只保留 2026 年起的活动，避免为历史公告下载 PDF
-                    if norm and norm["notice_date"] >= MIN_NOTICE_DATE:
+                    if norm:
                         out.setdefault(norm["announcementId"], norm)
                 if total and page * CNINFO_PAGE_SIZE >= total:
                     break
@@ -697,8 +693,6 @@ def build_wechat_event(item: dict) -> dict | None:
     if "股东" not in body or not any(k in body for k in _TITLE_ACT):
         return None
     date = item.get("notice_date") or datetime.now().strftime("%Y-%m-%d")
-    if date < MIN_NOTICE_DATE:
-        return None
     code, name = _wechat_code_name(title, snippet, item.get("account") or "")
     fields = parse_fields(title, snippet)
     reward = fields.get("reward") or _clean(snippet)[:240]

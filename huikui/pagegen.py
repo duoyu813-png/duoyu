@@ -8,8 +8,6 @@ import json
 import os
 import time
 
-from .scanner import MIN_NOTICE_DATE
-
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(BASE, "dist")
 
@@ -77,8 +75,17 @@ def build_page(events: list[dict], now: str, year: str, total_all: int) -> str:
     data_json = json.dumps(events, ensure_ascii=False, default=str)
     data_json = data_json.replace("</", "<\\/")
     n = len(events)
-    sub = (f"{MIN_NOTICE_DATE[:4]} 年起共 {n} 条 · 数据源：东方财富公告 · 巨潮资讯 · "
-           f"微信公众号（尽力检索） · 字段为自动解析（仅供参考，不构成投资建议）")
+    years = sorted({(e.get("notice_date") or "")[:4] for e in events
+                    if (e.get("notice_date") or "")})
+    if len(years) > 1:
+        span = f"{years[0]}–{years[-1]} 年"
+    elif years:
+        span = f"{years[0]} 年"
+    else:
+        span = "暂无数据"
+    sub = (f"共 {n} 条 · 覆盖 {span} · 点击上方年份查看当年活动 · "
+           f"数据源：东方财富公告 · 巨潮资讯 · 微信公众号（尽力检索） · "
+           f"字段为自动解析（仅供参考，不构成投资建议）")
     ts = now
     html = """<!DOCTYPE html>
 <html lang="zh-CN">
@@ -193,36 +200,78 @@ def _esc_attr(v):
     return _esc_html(v)
 
 
+# 来源优先级：数值越小越权威，同一天同一公司优先保留公告类
+_SRC_RANK = {"eastmoney": 0, "auto": 0, "cninfo": 1, "seed": 2, "wechat": 3}
+
+
+def _company_name(e: dict) -> str:
+    return (e.get("name") or "").strip()
+
+
+def _dedup_by_company(rows: list[dict]) -> list[dict]:
+    """同一公司每年只保留第一条（按日期升序；同日优先公告源）。
+
+    公众号若未抽到股票代码，则用标题/摘要去匹配公告源里出现过的公司名，
+    命中后按该公司归并，避免官方公众号与公告重复展示。
+    """
+    canonical = sorted({_company_name(e) for e in rows
+                        if e.get("source") != "wechat" and _company_name(e)},
+                       key=len, reverse=True)
+    ordered = sorted(rows, key=lambda e: (
+        e.get("notice_date") or "",
+        _SRC_RANK.get(e.get("source") or "", 5),
+        e.get("id") or "",
+    ))
+    seen_codes = set()
+    seen_names = set()
+    kept = []
+    for e in ordered:
+        year = (e.get("notice_date") or "")[:4]
+        code = str(e.get("code") or "")
+        name = _company_name(e)
+        if not code and e.get("source") == "wechat":
+            text = f"{e.get('title') or ''} {e.get('reward') or ''}"
+            for cn in canonical:
+                if cn and cn in text:
+                    name = cn
+                    break
+        if code and (year, code) in seen_codes:
+            continue
+        if name and (year, name) in seen_names:
+            continue
+        kept.append(e)
+        if code:
+            seen_codes.add((year, code))
+        if name:
+            seen_names.add((year, name))
+    return kept
+
+
 def render(events_all: list[dict], now: str = "") -> None:
     """去重、编号后生成页面写盘（收录全部年份，前端按年份分档筛选）。
 
     兼容：入参每条可含 source 字段（eastmoney/cninfo/wechat/seed），不传亦可。
-    去重：先按 id，再按「代码 + 日期」跨源去重，避免同一活动多源重复展示。
+    去重：先按 id 去重，再按「公司 + 年份」去重（同一公司每年只展示一条）。
     """
     now = now or time.strftime("%Y-%m-%d %H:%M:%S")
     this_year = now[:4]
     rows = []
     seen = set()
-    seen_keys = set()
     for e in events_all:
         date = (e.get("notice_date") or "")[:10]
-        if not date or date < MIN_NOTICE_DATE:
+        if not date:
             continue
-        key = e.get("id") or (e.get("code") + "|" + date)
+        key = e.get("id") or (str(e.get("code") or "") + "|" + date)
         if not key or key in seen:
             continue
-        pk = (str(e.get("code") or ""), date)
-        if pk[0] and pk in seen_keys:
-            continue
         seen.add(key)
-        if pk[0]:
-            seen_keys.add(pk)
         rows.append(_clean_event(e))
+    rows = _dedup_by_company(rows)
     rows.sort(key=lambda x: (x["notice_date"], x["id"]))
     for i, r in enumerate(rows, 1):
         r["seq"] = i
     os.makedirs(DIST, exist_ok=True)
-    html = build_page(rows, now, this_year, len(events_all))
+    html = build_page(rows, now, this_year, len(rows))
     with open(os.path.join(DIST, "huikui.html"), "w", encoding="utf-8") as f:
         f.write(html)
     print(f"[huikui] 已生成 {os.path.join(DIST, 'huikui.html')}（全部年份共 {len(rows)} 条）")
