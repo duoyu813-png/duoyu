@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-09-10 23:19:02",
+ "generated_at": "2026-09-11 00:20:42",
  "source": "live",
  "bonds": [
   {
@@ -5045,9 +5045,9 @@
   },
   {
    "stock_code": "601528",
-   "stock_name": "XD瑞丰银",
-   "bond_name": "XD瑞丰银转债",
-   "industry": "其他",
+   "stock_name": "瑞丰银行",
+   "bond_name": "瑞丰银行转债",
+   "industry": "金融",
    "total_scale": 50.0,
    "per_share_amount": 49.0,
    "progress": "交易所受理",
@@ -5113,7 +5113,7 @@
     "行业加减分": {
      "score": 0,
      "max": 10,
-     "factor": "其他"
+     "factor": "金融"
     },
     "市场热度": {
      "score": 10,
@@ -5123,7 +5123,7 @@
     "行业热度": {
      "score": 0,
      "max": 5,
-     "factor": "其他"
+     "factor": "金融"
     }
    },
    "weighted_amount": 49.0,
