@@ -209,8 +209,11 @@ def _company_name(e: dict) -> str:
 
 
 def _dedup_by_company(rows: list[dict]) -> list[dict]:
-    """同一公司每年只保留第一条（按日期升序；同日优先公告源）。
+    """同一公司每年只保留第一条，且优先保留官方公告源（东财/巨潮 > 公众号）。
 
+    排序：官方公告源在前、公众号在后（公众号整体靠后处理，确保同公司
+    即便公众号日期更早，也被官方公告覆盖）；同为公告源再按日期升序、
+    同日按来源权威度排序。
     公众号若未抽到股票代码，则用标题/摘要去匹配公告源里出现过的公司名，
     命中后按该公司归并，避免官方公众号与公告重复展示。
     """
@@ -218,6 +221,7 @@ def _dedup_by_company(rows: list[dict]) -> list[dict]:
                         if e.get("source") != "wechat" and _company_name(e)},
                        key=len, reverse=True)
     ordered = sorted(rows, key=lambda e: (
+        1 if (e.get("source") or "") == "wechat" else 0,
         e.get("notice_date") or "",
         _SRC_RANK.get(e.get("source") or "", 5),
         e.get("id") or "",
@@ -268,8 +272,11 @@ def render(events_all: list[dict], now: str = "") -> None:
         rows.append(_clean_event(e))
     rows = _dedup_by_company(rows)
     rows.sort(key=lambda x: (x["notice_date"], x["id"]))
-    for i, r in enumerate(rows, 1):
-        r["seq"] = i
+    year_seq: dict[str, int] = {}
+    for r in rows:
+        year = (r["notice_date"] or "")[:4]
+        year_seq[year] = year_seq.get(year, 0) + 1
+        r["seq"] = year_seq[year]
     os.makedirs(DIST, exist_ok=True)
     html = build_page(rows, now, this_year, len(rows))
     with open(os.path.join(DIST, "huikui.html"), "w", encoding="utf-8") as f:
