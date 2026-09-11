@@ -190,7 +190,15 @@ def cmd_scan(backfill: bool = False) -> int:
     # 新的在前，推送优先推最近的活动
     new_events.sort(key=lambda e: e.get("notice_date") or "", reverse=True)
 
+    # 只保留 MIN_NOTICE_DATE（含）起的活动，顺带裁剪旧快照
+    prev_events = store.get("events") or []
+    kept = [e for e in prev_events
+            if (e.get("notice_date") or "")[:10] >= scanner.MIN_NOTICE_DATE]
+    if len(kept) != len(prev_events):
+        print(f"[huikui] 裁剪掉 {len(prev_events) - len(kept)} 条 {scanner.MIN_NOTICE_DATE[:4]} 年前的历史记录")
+    store["events"] = kept
     store["scan"] = new_cursor
+
     if new_events:
         print(f"[huikui] 新收录 {len(new_events)} 条")
         for ev in new_events:

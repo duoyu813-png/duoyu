@@ -29,6 +29,9 @@ from datetime import datetime, timedelta, timezone
 
 import httpx
 
+# 只收录该日期（含）之后的活动：扫描/推送/快照/页面统一以此为下限
+MIN_NOTICE_DATE = "2025-01-01"
+
 # 巨潮/搜狗返回的是 epoch（秒/毫秒），须按北京时间换算日期，
 # 否则在 UTC 的 Actions 环境会整体早一天（公告时间多为北京时间零点）。
 _CST = timezone(timedelta(hours=8))
@@ -335,7 +338,7 @@ async def scan_feed(cursor: dict | None, page_limit: int = SCAN_PAGE_LIMIT,
                         old_run = 0
                     if art and _match_candidate(title) and art not in seen:
                         seen.add(art)
-                        if collect_all_matches:
+                        if collect_all_matches and date and date >= MIN_NOTICE_DATE:
                             matched.append(_feed_item(it))
                 if stopped:
                     break
@@ -498,7 +501,8 @@ async def scan_cninfo(keywords: list[str] | None = None,
                 total = tot or total
                 for it in items:
                     norm = _cninfo_item(it)
-                    if norm:
+                    # 只保留截止日之后的活动，避免为历史公告下载 PDF
+                    if norm and norm["notice_date"] >= MIN_NOTICE_DATE:
                         out.setdefault(norm["announcementId"], norm)
                 if total and page * CNINFO_PAGE_SIZE >= total:
                     break
@@ -704,6 +708,8 @@ def build_wechat_event(item: dict) -> dict | None:
     if "股东" not in body or not any(k in body for k in _TITLE_ACT):
         return None
     date = item.get("notice_date") or datetime.now().strftime("%Y-%m-%d")
+    if date < MIN_NOTICE_DATE:
+        return None
     code, name = _wechat_code_name(title, snippet, item.get("account") or "")
     fields = parse_fields(title, snippet)
     reward = fields.get("reward") or _clean(snippet)[:240]

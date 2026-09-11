@@ -8,6 +8,8 @@ import json
 import os
 import time
 
+from .scanner import MIN_NOTICE_DATE
+
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(BASE, "dist")
 
@@ -263,7 +265,7 @@ def render(events_all: list[dict], now: str = "") -> None:
     seen = set()
     for e in events_all:
         date = (e.get("notice_date") or "")[:10]
-        if not date:
+        if not date or date < MIN_NOTICE_DATE:
             continue
         key = e.get("id") or (str(e.get("code") or "") + "|" + date)
         if not key or key in seen:
