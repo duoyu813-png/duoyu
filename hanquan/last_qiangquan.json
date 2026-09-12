@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-09-11 23:26:42",
+ "generated_at": "2026-09-12 01:19:42",
  "source": "live",
  "bonds": [
   {
@@ -2434,96 +2434,6 @@
    "per_share_allotment": 4.5862
   },
   {
-   "stock_code": "603163",
-   "stock_name": "圣晖集成",
-   "bond_name": "圣晖集成转债",
-   "industry": "其他",
-   "total_scale": 5.5,
-   "per_share_amount": 6.9,
-   "progress": "同意注册",
-   "progress_date": "2026-08-12",
-   "registration_date": "2026-04-29",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 83.09,
-   "cb_amount": 6.9,
-   "b_shares": 0.0,
-   "price": 79.76,
-   "change_pct": -4.15,
-   "pb": 6.82,
-   "ma20_price": 83.09,
-   "circ_mv": 3.85,
-   "circ_mv_score_factor": 3.85,
-   "pe": 51.13,
-   "turnover_rate": null,
-   "amount": 5.5,
-   "q1_growth": 33.66,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 100,
-   "per_hand_shares": 181.8181818181818,
-   "market": "沪",
-   "total_score": 61,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤71.78 | 卖出≥91.72 | 安全垫3.8%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "6.90元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "3.85亿"
-    },
-    "业绩评分": {
-     "score": 30,
-     "max": 40,
-     "factor": "Q1增长33.66%"
-    },
-    "潜伏期扣分": {
-     "score": -9,
-     "max": 0,
-     "factor": "2026-04"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=51.13"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交5.5亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 6.9,
-   "hidden_circulation": 3.85,
-   "total": 61,
-   "issue_amount": 5.5,
-   "safety_pct": 3.8,
-   "per_share_allotment": 5.5
-  },
-  {
    "stock_code": "600368",
    "stock_name": "五洲交通",
    "bond_name": "五洲交通转债",
@@ -3152,6 +3062,96 @@
    "issue_amount": 5.75,
    "safety_pct": 3.5,
    "per_share_allotment": 2.1229
+  },
+  {
+   "stock_code": "603163",
+   "stock_name": "圣晖集成",
+   "bond_name": "圣晖集成转债",
+   "industry": "其他",
+   "total_scale": 5.5,
+   "per_share_amount": 6.9,
+   "progress": "同意注册",
+   "progress_date": "2026-08-12",
+   "registration_date": "2026-04-29",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 83.09,
+   "cb_amount": 6.9,
+   "b_shares": 0.0,
+   "price": 79.76,
+   "change_pct": -4.15,
+   "pb": 6.82,
+   "ma20_price": 83.09,
+   "circ_mv": 3.85,
+   "circ_mv_score_factor": 3.85,
+   "pe": 51.13,
+   "turnover_rate": null,
+   "amount": 5.5,
+   "q1_growth": 33.66,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 100,
+   "per_hand_shares": 181.8181818181818,
+   "market": "沪",
+   "total_score": 58,
+   "rating": "B",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤73.38 | 卖出≥87.74 | 安全垫3.8%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "6.90元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "3.85亿"
+    },
+    "业绩评分": {
+     "score": 30,
+     "max": 40,
+     "factor": "Q1增长33.66%"
+    },
+    "潜伏期扣分": {
+     "score": -12,
+     "max": 0,
+     "factor": "2026-04"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=51.13"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交5.5亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 6.9,
+   "hidden_circulation": 3.85,
+   "total": 58,
+   "issue_amount": 5.5,
+   "safety_pct": 3.8,
+   "per_share_allotment": 5.5
   },
   {
    "stock_code": "001282",
@@ -6844,96 +6844,6 @@
    "per_share_allotment": 7.0527
   },
   {
-   "stock_code": "300634",
-   "stock_name": "彩讯股份",
-   "bond_name": "彩讯股份转债",
-   "industry": "其他",
-   "total_scale": 12.7,
-   "per_share_amount": 14.83,
-   "progress": "交易所受理",
-   "progress_date": "2026-04-29",
-   "registration_date": "2026-04-29",
-   "approval_date": "",
-   "board": "创业板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 20.11,
-   "cb_amount": 14.83,
-   "b_shares": 0.0,
-   "price": 18.98,
-   "change_pct": -1.04,
-   "pb": 2.82,
-   "ma20_price": 20.11,
-   "circ_mv": 8.89,
-   "circ_mv_score_factor": 8.89,
-   "pe": 79.08,
-   "turnover_rate": null,
-   "amount": 12.7,
-   "q1_growth": -65.56,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 356,
-   "per_hand_shares": 355.2841732283465,
-   "market": "深",
-   "total_score": 20,
-   "rating": "D",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤17.46 | 卖出≥20.88 | 安全垫4.4%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "14.83元"
-    },
-    "隐形流通量评分": {
-     "score": 12,
-     "max": 40,
-     "factor": "8.89亿"
-    },
-    "业绩评分": {
-     "score": 5,
-     "max": 40,
-     "factor": "Q1增长-65.56%"
-    },
-    "潜伏期扣分": {
-     "score": -9,
-     "max": 0,
-     "factor": "2026-04"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "创业板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=79.08"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交12.7亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 14.83,
-   "hidden_circulation": 8.89,
-   "total": 20,
-   "issue_amount": 12.7,
-   "safety_pct": 4.4,
-   "per_share_allotment": 2.8146
-  },
-  {
    "stock_code": "002913",
    "stock_name": "奥士康",
    "bond_name": "奥士康转债",
@@ -7112,6 +7022,96 @@
    "issue_amount": 10.0,
    "safety_pct": 0.8,
    "per_share_allotment": 2.6718
+  },
+  {
+   "stock_code": "300634",
+   "stock_name": "彩讯股份",
+   "bond_name": "彩讯股份转债",
+   "industry": "其他",
+   "total_scale": 12.7,
+   "per_share_amount": 14.83,
+   "progress": "交易所受理",
+   "progress_date": "2026-04-29",
+   "registration_date": "2026-04-29",
+   "approval_date": "",
+   "board": "创业板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 20.11,
+   "cb_amount": 14.83,
+   "b_shares": 0.0,
+   "price": 18.98,
+   "change_pct": -1.04,
+   "pb": 2.82,
+   "ma20_price": 20.11,
+   "circ_mv": 8.89,
+   "circ_mv_score_factor": 8.89,
+   "pe": 79.08,
+   "turnover_rate": null,
+   "amount": 12.7,
+   "q1_growth": -65.56,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 356,
+   "per_hand_shares": 355.2841732283465,
+   "market": "深",
+   "total_score": 17,
+   "rating": "D",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤17.46 | 卖出≥20.88 | 安全垫4.4%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "14.83元"
+    },
+    "隐形流通量评分": {
+     "score": 12,
+     "max": 40,
+     "factor": "8.89亿"
+    },
+    "业绩评分": {
+     "score": 5,
+     "max": 40,
+     "factor": "Q1增长-65.56%"
+    },
+    "潜伏期扣分": {
+     "score": -12,
+     "max": 0,
+     "factor": "2026-04"
+    },
+    "300/688折扣": {
+     "score": -10,
+     "max": 0,
+     "factor": "创业板"
+    },
+    "PE扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "PE=79.08"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交12.7亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 14.83,
+   "hidden_circulation": 8.89,
+   "total": 17,
+   "issue_amount": 12.7,
+   "safety_pct": 4.4,
+   "per_share_allotment": 2.8146
   }
  ]
 }
