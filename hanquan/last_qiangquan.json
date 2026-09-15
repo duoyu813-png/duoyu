@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-09-14 22:13:16",
+ "generated_at": "2026-09-15 00:46:41",
  "source": "live",
  "bonds": [
   {
@@ -1444,96 +1444,6 @@
    "per_share_allotment": 11.8346
   },
   {
-   "stock_code": "603061",
-   "stock_name": "金海通",
-   "bond_name": "金海通转债",
-   "industry": "交通运输",
-   "total_scale": 8.5,
-   "per_share_amount": 3.23,
-   "progress": "交易所受理",
-   "progress_date": "2026-07-31",
-   "registration_date": "2026-07-31",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 335.59,
-   "cb_amount": 3.23,
-   "b_shares": 0.0,
-   "price": 302.92,
-   "change_pct": -0.26,
-   "pb": 13.89,
-   "ma20_price": 335.59,
-   "circ_mv": 5.95,
-   "circ_mv_score_factor": 5.95,
-   "pe": 53.33,
-   "turnover_rate": null,
-   "amount": 8.5,
-   "q1_growth": 221.54,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 100,
-   "per_hand_shares": 102.3529411764706,
-   "market": "沪",
-   "total_score": 70,
-   "rating": "A",
-   "action": "关注建仓",
-   "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤272.63 | 卖出≥348.36 | 安全垫1.0%",
-   "score_details": {
-    "含权量评分": {
-     "score": 5,
-     "max": 30,
-     "factor": "3.23元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "5.95亿"
-    },
-    "业绩评分": {
-     "score": 40,
-     "max": 40,
-     "factor": "Q1增长221.54%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "2026-07"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=53.33"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "交通运输"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交8.5亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "交通运输"
-    }
-   },
-   "weighted_amount": 3.23,
-   "hidden_circulation": 5.95,
-   "total": 70,
-   "issue_amount": 8.5,
-   "safety_pct": 1.0,
-   "per_share_allotment": 9.7701
-  },
-  {
    "stock_code": "301252",
    "stock_name": "同星科技",
    "bond_name": "同星科技转债",
@@ -1982,6 +1892,96 @@
    "issue_amount": 7.74,
    "safety_pct": 5.6,
    "per_share_allotment": 1.3684
+  },
+  {
+   "stock_code": "603061",
+   "stock_name": "金海通",
+   "bond_name": "金海通转债",
+   "industry": "交通运输",
+   "total_scale": 8.5,
+   "per_share_amount": 3.23,
+   "progress": "交易所受理",
+   "progress_date": "2026-07-31",
+   "registration_date": "2026-07-31",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 335.59,
+   "cb_amount": 3.23,
+   "b_shares": 0.0,
+   "price": 302.92,
+   "change_pct": -0.26,
+   "pb": 13.89,
+   "ma20_price": 335.59,
+   "circ_mv": 5.95,
+   "circ_mv_score_factor": 5.95,
+   "pe": 53.33,
+   "turnover_rate": null,
+   "amount": 8.5,
+   "q1_growth": 221.54,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 100,
+   "per_hand_shares": 102.3529411764706,
+   "market": "沪",
+   "total_score": 67,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤272.63 | 卖出≥348.36 | 安全垫1.0%",
+   "score_details": {
+    "含权量评分": {
+     "score": 5,
+     "max": 30,
+     "factor": "3.23元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.95亿"
+    },
+    "业绩评分": {
+     "score": 40,
+     "max": 40,
+     "factor": "Q1增长221.54%"
+    },
+    "潜伏期扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "2026-07"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=53.33"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "交通运输"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交8.5亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "交通运输"
+    }
+   },
+   "weighted_amount": 3.23,
+   "hidden_circulation": 5.95,
+   "total": 67,
+   "issue_amount": 8.5,
+   "safety_pct": 1.0,
+   "per_share_allotment": 9.7701
   },
   {
    "stock_code": "603166",
@@ -3154,96 +3154,6 @@
    "per_share_allotment": 5.5
   },
   {
-   "stock_code": "001282",
-   "stock_name": "三联锻造",
-   "bond_name": "三联锻造转债",
-   "industry": "其他",
-   "total_scale": 6.2,
-   "per_share_amount": 18.18,
-   "progress": "交易所受理",
-   "progress_date": "2026-04-02",
-   "registration_date": "2026-04-02",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 15.91,
-   "cb_amount": 18.18,
-   "b_shares": 0.0,
-   "price": 15.35,
-   "change_pct": -0.71,
-   "pb": 2.07,
-   "ma20_price": 15.91,
-   "circ_mv": 4.26,
-   "circ_mv_score_factor": 4.26,
-   "pe": 31.98,
-   "turnover_rate": null,
-   "amount": 6.2,
-   "q1_growth": -8.7,
-   "major_shareholder_ratio": 0.3126,
-   "one_hand_shares": 359,
-   "per_hand_shares": 358.3638709677419,
-   "market": "深",
-   "total_score": 58,
-   "rating": "B",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤14.12 | 卖出≥16.89 | 安全垫5.4%",
-   "score_details": {
-    "含权量评分": {
-     "score": 20,
-     "max": 30,
-     "factor": "18.18元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.26亿"
-    },
-    "业绩评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "Q1增长-8.7%"
-    },
-    "潜伏期扣分": {
-     "score": -12,
-     "max": 0,
-     "factor": "2026-04"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=31.98"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交6.2亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 18.18,
-   "hidden_circulation": 4.26,
-   "total": 58,
-   "issue_amount": 6.2,
-   "safety_pct": 5.4,
-   "per_share_allotment": 2.7905
-  },
-  {
    "stock_code": "300909",
    "stock_name": "汇创达",
    "bond_name": "汇创达转债",
@@ -3782,6 +3692,96 @@
    "issue_amount": 8.49,
    "safety_pct": 2.0,
    "per_share_allotment": 4.7318
+  },
+  {
+   "stock_code": "001282",
+   "stock_name": "三联锻造",
+   "bond_name": "三联锻造转债",
+   "industry": "其他",
+   "total_scale": 6.2,
+   "per_share_amount": 18.18,
+   "progress": "交易所受理",
+   "progress_date": "2026-04-02",
+   "registration_date": "2026-04-02",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 15.91,
+   "cb_amount": 18.18,
+   "b_shares": 0.0,
+   "price": 15.35,
+   "change_pct": -0.71,
+   "pb": 2.07,
+   "ma20_price": 15.91,
+   "circ_mv": 4.26,
+   "circ_mv_score_factor": 4.26,
+   "pe": 31.98,
+   "turnover_rate": null,
+   "amount": 6.2,
+   "q1_growth": -8.7,
+   "major_shareholder_ratio": 0.3126,
+   "one_hand_shares": 359,
+   "per_hand_shares": 358.3638709677419,
+   "market": "深",
+   "total_score": 55,
+   "rating": "B",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤14.12 | 卖出≥16.89 | 安全垫5.4%",
+   "score_details": {
+    "含权量评分": {
+     "score": 20,
+     "max": 30,
+     "factor": "18.18元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.26亿"
+    },
+    "业绩评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "Q1增长-8.7%"
+    },
+    "潜伏期扣分": {
+     "score": -15,
+     "max": 0,
+     "factor": "2026-04"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=31.98"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交6.2亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 18.18,
+   "hidden_circulation": 4.26,
+   "total": 55,
+   "issue_amount": 6.2,
+   "safety_pct": 5.4,
+   "per_share_allotment": 2.7905
   },
   {
    "stock_code": "301141",
