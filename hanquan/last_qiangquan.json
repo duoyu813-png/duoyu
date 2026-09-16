@@ -1,6 +1,6 @@
 {
- "total": 79,
- "generated_at": "2026-09-16 21:52:17",
+ "total": 82,
+ "generated_at": "2026-09-16 23:59:05",
  "source": "live",
  "bonds": [
   {
@@ -632,6 +632,96 @@
    "issue_amount": 5.9,
    "safety_pct": 3.0,
    "per_share_allotment": 2.4384
+  },
+  {
+   "stock_code": "301261",
+   "stock_name": "恒工精密",
+   "bond_name": "恒工精密转债",
+   "industry": "化工/材料",
+   "total_scale": 8.1,
+   "per_share_amount": 14.24,
+   "progress": "董事会预案",
+   "progress_date": "2026-09-17",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 56.77,
+   "cb_amount": 14.24,
+   "b_shares": 0.0,
+   "price": 53.94,
+   "change_pct": 1.58,
+   "pb": 3.48,
+   "ma20_price": 56.77,
+   "circ_mv": 5.67,
+   "circ_mv_score_factor": 5.67,
+   "pe": 19.26,
+   "turnover_rate": null,
+   "amount": 8.1,
+   "q1_growth": 210.56,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 131,
+   "per_hand_shares": 130.2076975308642,
+   "market": "深",
+   "total_score": 77,
+   "rating": "A",
+   "action": "关注",
+   "action_reason": "高分标的，等待更明确信号",
+   "action_price": "买入≤48.55 | 卖出≥62.03 | 安全垫4.2%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "14.24元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.67亿"
+    },
+    "业绩评分": {
+     "score": 40,
+     "max": 40,
+     "factor": "Q1增长210.56%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=19.26"
+    },
+    "行业加减分": {
+     "score": -3,
+     "max": 10,
+     "factor": "化工/材料"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交8.1亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "化工/材料"
+    }
+   },
+   "weighted_amount": 14.24,
+   "hidden_circulation": 5.67,
+   "total": 77,
+   "issue_amount": 8.1,
+   "safety_pct": 4.2,
+   "per_share_allotment": 7.68
   },
   {
    "stock_code": "301279",
@@ -5224,6 +5314,96 @@
    "per_share_allotment": 1.8946
   },
   {
+   "stock_code": "603298",
+   "stock_name": "杭叉集团",
+   "bond_name": "杭叉集团转债",
+   "industry": "其他",
+   "total_scale": 22.59,
+   "per_share_amount": 7.33,
+   "progress": "董事会预案",
+   "progress_date": "2026-09-16",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 25.48,
+   "cb_amount": 7.33,
+   "b_shares": 0.0,
+   "price": 23.53,
+   "change_pct": -3.49,
+   "pb": 2.53,
+   "ma20_price": 25.48,
+   "circ_mv": 15.81,
+   "circ_mv_score_factor": 15.81,
+   "pe": 16.34,
+   "turnover_rate": null,
+   "amount": 22.59,
+   "q1_growth": 9.17,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 300,
+   "per_hand_shares": 579.8194108012394,
+   "market": "沪",
+   "total_score": 49,
+   "rating": "C",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤21.65 | 卖出≥25.88 | 安全垫4.2%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "7.33元"
+    },
+    "隐形流通量评分": {
+     "score": 4,
+     "max": 40,
+     "factor": "15.81亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长9.17%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=16.34"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交22.6亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 7.33,
+   "hidden_circulation": 15.81,
+   "total": 49,
+   "issue_amount": 22.59,
+   "safety_pct": 4.2,
+   "per_share_allotment": 1.7247
+  },
+  {
    "stock_code": "301132",
    "stock_name": "满坤科技",
    "bond_name": "满坤科技转债",
@@ -5852,6 +6032,96 @@
    "issue_amount": 13.71,
    "safety_pct": 4.4,
    "per_share_allotment": 1.9547
+  },
+  {
+   "stock_code": "002941",
+   "stock_name": "新疆交建",
+   "bond_name": "新疆交建转债",
+   "industry": "交通运输",
+   "total_scale": 15.0,
+   "per_share_amount": 19.45,
+   "progress": "董事会预案",
+   "progress_date": "2026-09-16",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 10.89,
+   "cb_amount": 19.45,
+   "b_shares": 0.0,
+   "price": 10.57,
+   "change_pct": 1.44,
+   "pb": 1.58,
+   "ma20_price": 10.89,
+   "circ_mv": 10.5,
+   "circ_mv_score_factor": 10.5,
+   "pe": null,
+   "turnover_rate": null,
+   "amount": 15.0,
+   "q1_growth": -114.55,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 487,
+   "per_hand_shares": 486.5007813333333,
+   "market": "深",
+   "total_score": 45,
+   "rating": "C",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤9.72 | 卖出≥11.63 | 安全垫5.8%",
+   "score_details": {
+    "含权量评分": {
+     "score": 20,
+     "max": 30,
+     "factor": "19.45元"
+    },
+    "隐形流通量评分": {
+     "score": 10,
+     "max": 40,
+     "factor": "10.50亿"
+    },
+    "业绩评分": {
+     "score": 5,
+     "max": 40,
+     "factor": "Q1增长-114.55%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "无"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "交通运输"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交15.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "交通运输"
+    }
+   },
+   "weighted_amount": 19.45,
+   "hidden_circulation": 10.5,
+   "total": 45,
+   "issue_amount": 15.0,
+   "safety_pct": 5.8,
+   "per_share_allotment": 2.0555
   },
   {
    "stock_code": "300727",
