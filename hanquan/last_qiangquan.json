@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-09-15 22:24:24",
+ "generated_at": "2026-09-16 00:36:11",
  "source": "live",
  "bonds": [
   {
@@ -664,7 +664,7 @@
    "one_hand_shares": 551,
    "per_hand_shares": 550.7344379084967,
    "market": "深",
-   "total_score": 77,
+   "total_score": 74,
    "rating": "A",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
@@ -686,7 +686,7 @@
      "factor": "Q1增长4.12%"
     },
     "潜伏期扣分": {
-     "score": -6,
+     "score": -9,
      "max": 0,
      "factor": "2026-06"
     },
@@ -718,7 +718,7 @@
    },
    "weighted_amount": 8.07,
    "hidden_circulation": 2.14,
-   "total": 77,
+   "total": 74,
    "issue_amount": 3.06,
    "safety_pct": 2.4,
    "per_share_allotment": 1.8158
@@ -1894,96 +1894,6 @@
    "per_share_allotment": 1.1095
   },
   {
-   "stock_code": "603043",
-   "stock_name": "广州酒家",
-   "bond_name": "广州酒家转债",
-   "industry": "消费",
-   "total_scale": 7.74,
-   "per_share_amount": 10.45,
-   "progress": "交易所受理",
-   "progress_date": "2026-08-01",
-   "registration_date": "2026-08-01",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 13.77,
-   "cb_amount": 10.45,
-   "b_shares": 0.0,
-   "price": 13.09,
-   "change_pct": -2.46,
-   "pb": 1.98,
-   "ma20_price": 13.77,
-   "circ_mv": 5.42,
-   "circ_mv_score_factor": 5.42,
-   "pe": 35.26,
-   "turnover_rate": null,
-   "amount": 7.74,
-   "q1_growth": 3.42,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 400,
-   "per_hand_shares": 730.7989276485788,
-   "market": "沪",
-   "total_score": 68,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤11.78 | 卖出≥15.05 | 安全垫5.7%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "10.45元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "5.42亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长3.42%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "2026-08"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=35.26"
-    },
-    "行业加减分": {
-     "score": 3,
-     "max": 10,
-     "factor": "消费"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交7.7亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "消费"
-    }
-   },
-   "weighted_amount": 10.45,
-   "hidden_circulation": 5.42,
-   "total": 68,
-   "issue_amount": 7.74,
-   "safety_pct": 5.7,
-   "per_share_allotment": 1.3684
-  },
-  {
    "stock_code": "603061",
    "stock_name": "金海通",
    "bond_name": "金海通转债",
@@ -2072,6 +1982,96 @@
    "issue_amount": 8.5,
    "safety_pct": 1.0,
    "per_share_allotment": 9.7701
+  },
+  {
+   "stock_code": "603043",
+   "stock_name": "广州酒家",
+   "bond_name": "广州酒家转债",
+   "industry": "消费",
+   "total_scale": 7.74,
+   "per_share_amount": 10.45,
+   "progress": "交易所受理",
+   "progress_date": "2026-08-01",
+   "registration_date": "2026-08-01",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 13.77,
+   "cb_amount": 10.45,
+   "b_shares": 0.0,
+   "price": 13.09,
+   "change_pct": -2.46,
+   "pb": 1.98,
+   "ma20_price": 13.77,
+   "circ_mv": 5.42,
+   "circ_mv_score_factor": 5.42,
+   "pe": 35.26,
+   "turnover_rate": null,
+   "amount": 7.74,
+   "q1_growth": 3.42,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 400,
+   "per_hand_shares": 730.7989276485788,
+   "market": "沪",
+   "total_score": 65,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤11.78 | 卖出≥15.05 | 安全垫5.7%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "10.45元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.42亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长3.42%"
+    },
+    "潜伏期扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "2026-08"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=35.26"
+    },
+    "行业加减分": {
+     "score": 3,
+     "max": 10,
+     "factor": "消费"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交7.7亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "消费"
+    }
+   },
+   "weighted_amount": 10.45,
+   "hidden_circulation": 5.42,
+   "total": 65,
+   "issue_amount": 7.74,
+   "safety_pct": 5.7,
+   "per_share_allotment": 1.3684
   },
   {
    "stock_code": "603166",
