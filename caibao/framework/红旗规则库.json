@@ -1,9 +1,8 @@
 {
-  "version": "1.0",
+  "version": 1.1,
   "source": "蒸馏自邹佩轩《穿透财报》《穿透估值》《穿透叙事》",
   "updated": "2026-09-18",
-  "_说明": "metric 为引擎计算出的归一化指标名；expr 为伪代码判定式（JS/Python 双端实现）；level: red=红旗 / yellow=关注 / info=提示；module: C=舞弊识别 / D=合法调节",
-
+  "_说明": "metric 为引擎计算出的归一化指标名；expr 为伪代码判定式（JS/Python 双端实现）；level: red=红旗 / yellow=关注 / info=提示；module: C=舞弊识别 / D=合法调节 cross_checks 为三表勾稽校验：hard=会计恒等式(不平即报表有错)，soft=含估算假设(仅提示)。字段名对应东财 F10 接口字段，实现在 scripts/caibao.py run_checks()。",
   "metrics": {
     "revenue": "营业收入 OPERATE_INCOME",
     "cogs": "营业成本 OPERATE_COST",
@@ -53,7 +52,6 @@
     "dtl_delta_ratio": "Δ递延所得税负债/营业收入",
     "net_ibd": "净有息负债 = 有息负债 - 货币资金"
   },
-
   "rules": [
     {
       "id": "C-01",
@@ -164,7 +162,6 @@
       "why": "**重视审计报告，警惕非标准事项段。** 非标意见是舞弊的一票否决项。",
       "source": "穿透财报 3.4"
     },
-
     {
       "id": "D-01",
       "name": "递延所得税资产二阶导为正（压利润）",
@@ -173,7 +170,11 @@
       "expr": "dta_delta_ratio 连续2期上升 且 增幅 > 0.5pct",
       "why": "税务局筛出了所有「只有会计报表认可、税务报表不认可」的调节。递延所得税资产加速增加＝超额计提费用压利润——**公司压利润的时候，行业格局往往较好**。",
       "source": "穿透财报 4.8",
-      "exclude": ["未弥补亏损", "会计直线/税务加速折旧", "未实现内部交易损益"]
+      "exclude": [
+        "未弥补亏损",
+        "会计直线/税务加速折旧",
+        "未实现内部交易损益"
+      ]
     },
     {
       "id": "D-02",
@@ -257,7 +258,149 @@
       "source": "穿透财报 4.4"
     }
   ],
-
+  "cross_checks": {
+    "_说明": "顺序执行：先跑 hard，任一项超容差则停止分析（先确认数据源）；全部通过再跑 soft，soft 超容差按行业口径解释，解释不通才升级为疑点；同一项连续2期以上超容差则提级（单期波动多为口径噪音）。",
+    "hard": [
+      {
+        "id": "CK-01",
+        "name": "资产总计 = 负债合计 + 所有者权益合计",
+        "tolerance": 0.01,
+        "fields": [
+          "TOTAL_ASSETS",
+          "TOTAL_LIABILITIES",
+          "TOTAL_EQUITY"
+        ],
+        "expr": "total_assets == total_liab + total_equity",
+        "why": "会计恒等式。不平说明报表本身编错，后续任何比率分析都建在错误地基上。"
+      },
+      {
+        "id": "CK-02",
+        "name": "所有者权益 = 归母权益 + 少数股东权益",
+        "tolerance": 0.01,
+        "fields": [
+          "TOTAL_EQUITY",
+          "TOTAL_PARENT_EQUITY",
+          "MINORITY_EQUITY"
+        ],
+        "expr": "total_equity == parent_equity + minority_equity",
+        "why": "权益内部拆分。"
+      },
+      {
+        "id": "CK-03",
+        "name": "期末现金 = 期初现金 + 现金净增加额",
+        "tolerance": 0.01,
+        "fields": [
+          "END_CCE",
+          "BEGIN_CCE",
+          "CCE_ADD"
+        ],
+        "expr": "end_cce == begin_cce + cce_add",
+        "why": "现金链条第一环。"
+      },
+      {
+        "id": "CK-04",
+        "name": "现金净增加额 = 经营 + 投资 + 筹资 + 汇率影响",
+        "tolerance": 0.01,
+        "fields": [
+          "CCE_ADD",
+          "NETCASH_OPERATE",
+          "NETCASH_INVEST",
+          "NETCASH_FINANCE",
+          "RATE_CHANGE_EFFECT"
+        ],
+        "expr": "cce_add == cfo + cfi + cff + fx_effect",
+        "why": "现金链条第二环。"
+      },
+      {
+        "id": "CK-05",
+        "name": "间接法经营现金流 = 直接法经营现金流",
+        "tolerance": 0.02,
+        "fields": [
+          "NETCASH_OPERATENOTE",
+          "NETCASH_OPERATE"
+        ],
+        "expr": "cfo == cfo_indirect",
+        "why": "补充资料(间接法)是三表总枢纽。改动它需同时改动净利润/折旧/应收应付/存货十余处，牵一发动全身，因此对不上是极强的人为干预信号。"
+      },
+      {
+        "id": "CK-06",
+        "name": "利润总额 - 所得税费用 = 净利润",
+        "tolerance": 0.02,
+        "fields": [
+          "TOTAL_PROFIT",
+          "INCOME_TAX",
+          "NETPROFIT"
+        ],
+        "expr": "net_profit == total_profit - income_tax",
+        "why": "利润表内部闭合。"
+      }
+    ],
+    "soft": [
+      {
+        "id": "CK-07",
+        "name": "销售收现 ≈ 营收×(1+税率) - 应收增加 + 合同负债增加",
+        "tolerance": 0.2,
+        "fields": [
+          "SALES_SERVICES",
+          "OPERATE_INCOME",
+          "NOTE_ACCOUNTS_RECE",
+          "CONTRACT_LIAB"
+        ],
+        "expr": "sales_cash ~= revenue*(1+vat) - d_ar + d_contract_liab",
+        "why": "税率必须按行业设：制造/消费13%、交通(国际航线)/部分公用事业0%、建筑9%、服务6%。对比去年同期避开季节性。超20%才进入收入虚增/跨期调节的怀疑区间。",
+        "vat_by_industry": {
+          "制造业": 0.13,
+          "消费品": 0.13,
+          "国际航运": 0.0,
+          "建筑": 0.09,
+          "现代服务": 0.06
+        },
+        "case": "某公司营收10亿(13%)、应收+2亿、预收+0.5亿，理论收现9.8亿，实际6.2亿，缺口3.6亿 → 证实虚增3.2亿"
+      },
+      {
+        "id": "CK-08",
+        "name": "(支付税费 - 收到退税) ≈ 所得税费用 + 税金及附加",
+        "tolerance": 0.8,
+        "fields": [
+          "PAY_ALL_TAX",
+          "RECEIVE_TAX_REFUND",
+          "INCOME_TAX",
+          "OPERATE_TAX_ADD"
+        ],
+        "expr": "(pay_tax - tax_refund) ~= income_tax + tax_surcharge",
+        "why": "容差放到80%是因为所得税费用是权责发生制(含递延税)，支付税费是收付实现制，叠加留抵退税与汇算清缴时差，天然偏离30~60%属正常。真正的用法是看两个独立比率：有效税率(正常5%~40%)、应交税费余额是否持续攀升而支付极少。"
+      },
+      {
+        "id": "CK-09",
+        "name": "购建长期资产现金 ≈ 资产增加 + 折旧摊销",
+        "tolerance": 0.5,
+        "fields": [
+          "CONSTRUCT_LONG_ASSET",
+          "FIXED_ASSET",
+          "CIP",
+          "INTANGIBLE_ASSET",
+          "FA_IR_DEPR",
+          "IR_DEPR",
+          "IA_AMORTIZE",
+          "USERIGHT_ASSET_AMORTIZE"
+        ],
+        "expr": "capex ~= d(fixed_asset+cip+intangible) + depr",
+        "why": "处置、外币折算、合并范围变动、预付工程款未转固都会造成偏离，重资产公司误差天然大。更好的替代读法：capex/折旧摊销。比值<1吃老本、1~2维持性、>3激进扩张。"
+      },
+      {
+        "id": "CK-10",
+        "name": "归母权益变动 ≈ 净利润 - 分红",
+        "tolerance": 0.3,
+        "fields": [
+          "TOTAL_PARENT_EQUITY",
+          "PARENT_NETPROFIT",
+          "ASSIGN_DIVIDEND_PORFIT"
+        ],
+        "expr": "parent_equity ~= parent_equity_prev + parent_np - div_paid",
+        "why": "其他综合收益(外币折算/公允价值)、股权激励、可转债转股都不在式子里，跨国经营公司必然对不上。它的作用是提醒你去翻所有者权益变动表，不是判据。"
+      }
+    ]
+  },
   "scoring": {
     "舞弊评级(C)": {
       "A": "红旗(red) 0 条 且 审计标准无保留",
@@ -272,30 +415,80 @@
       "D": "yellow ≥5 条 → 报表被重度修饰，虽合法但不可信"
     },
     "叙事匹配度": {
-      "叙事清晰度": 0.20,
+      "叙事清晰度": 0.2,
       "财报兑现度": 0.25,
-      "财务可信度": 0.30,
+      "财务可信度": 0.3,
       "估值安全边际": 0.15,
-      "叙事可持续性": 0.10
+      "叙事可持续性": 0.1
     },
     "结论映射": [
-      {"range": "80~100", "结论": "叙事成立且被财报兑现，可跟踪"},
-      {"range": "60~79", "结论": "叙事成立但有瑕疵，需盯开放项"},
-      {"range": "40~59", "结论": "叙事与财报背离，谨慎"},
-      {"range": "<40 或 C/D 任一为 D 级", "结论": "叙事已被证伪或财报不可信 → 远离"}
+      {
+        "range": "80~100",
+        "结论": "叙事成立且被财报兑现，可跟踪"
+      },
+      {
+        "range": "60~79",
+        "结论": "叙事成立但有瑕疵，需盯开放项"
+      },
+      {
+        "range": "40~59",
+        "结论": "叙事与财报背离，谨慎"
+      },
+      {
+        "range": "<40 或 C/D 任一为 D 级",
+        "结论": "叙事已被证伪或财报不可信 → 远离"
+      }
     ]
   },
-
   "valuation": {
-    "折现率r": {"A股": 0.10, "美股": 0.08, "说明": "权益口径，长期均值回归，不受无风险利率影响"},
+    "折现率r": {
+      "A股": 0.1,
+      "美股": 0.08,
+      "说明": "权益口径，长期均值回归，不受无风险利率影响"
+    },
     "PE反查隐含天花板(r=10%, n=10年)": [
-      {"PE": 15.3, "m": 2}, {"PE": 20, "m": 3}, {"PE": 28.8, "m": 5},
-      {"PE": 48.6, "m": 10}, {"PE": 66.3, "m": "10倍+2%永续"}
+      {
+        "PE": 15.3,
+        "m": 2
+      },
+      {
+        "PE": 20,
+        "m": 3
+      },
+      {
+        "PE": 28.8,
+        "m": 5
+      },
+      {
+        "PE": 48.6,
+        "m": 10
+      },
+      {
+        "PE": 66.3,
+        "m": "10倍+2%永续"
+      }
     ],
-    "市值速算倍数(无业绩公司, r=10%)": {"5年到达": 8.3, "10年到达": 6.8},
+    "市值速算倍数(无业绩公司, r=10%)": {
+      "5年到达": 8.3,
+      "10年到达": 6.8
+    },
     "周期股PE反查(盈利高点, r=10%)": [
-      {"PE": 32, "隐含": "天花板打6折"}, {"PE": 10, "隐含": "天花板持平"},
-      {"PE": 7, "隐含": "天花板打5折"}, {"PE": 5, "隐含": "天花板打3折"}
+      {
+        "PE": 32,
+        "隐含": "天花板打6折"
+      },
+      {
+        "PE": 10,
+        "隐含": "天花板持平"
+      },
+      {
+        "PE": 7,
+        "隐含": "天花板打5折"
+      },
+      {
+        "PE": 5,
+        "隐含": "天花板打3折"
+      }
     ],
     "估值体系跃迁": "初创看PS → 成长看PE → 周期亏损看PB/盈利看PE → 稳定看PB-ROE"
   }

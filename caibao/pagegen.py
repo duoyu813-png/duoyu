@@ -63,6 +63,9 @@ input#kw:focus{border-color:var(--accent);}
 button{padding:10px 20px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer;}
 .bt-main{background:var(--accent);color:#fff;}
 .bt-main:disabled{opacity:.55;cursor:not-allowed;}
+.v-red{color:var(--red);font-weight:600;}
+.v-yel{color:var(--yel);font-weight:600;}
+select{padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;font-family:inherit;}
 .bt-ghost{background:var(--card);color:var(--accent);border:1px solid var(--accent);}
 .chips{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;}
 .chip{padding:5px 12px;border-radius:16px;font-size:12px;border:1px solid var(--border);background:var(--bg);color:#495057;cursor:pointer;}
@@ -97,7 +100,9 @@ JS_UI = """
         var gC=CaiBao.grade(flags,'C'), gD=CaiBao.grade(flags,'D');
         var A=CaiBao.engineA(series[series.length-1],quote,hs);
         var sc=CaiBao.score(series[series.length-1],flags,gC,gD,A);
-        state={nc:nc,quote:quote,series:series,flags:flags,gC:gC,gD:gD,A:A,score:sc};
+        var vatSel=$('vat');var vat=vatSel?parseFloat(vatSel.value):0.13;
+        var checks=CaiBao.runChecks(series,vat);
+        state={nc:nc,quote:quote,series:series,flags:flags,gC:gC,gD:gD,A:A,score:sc,checks:checks,vat:vat};
         $('out').innerHTML=CaiBao.render(state);
         $('copybar').classList.remove('hidden');
         setStatus('完成：'+quote.name+' · 最新报告期 '+series[series.length-1].label+' · 数据来自东财 F10');
@@ -182,6 +187,12 @@ def _page(now: str) -> str:
   <div class="search">
     <div class="row">
       <input id="kw" placeholder="输入 6 位代码，如 600026 / 300750 / 000001" autocomplete="off">
+      <select id="vat" title="增值税率假设，用于销售收现勾稽（CK-07）。免税行业请选 0%">
+        <option value="0.13" selected>增值税 13%</option>
+        <option value="0.09">增值税 9%</option>
+        <option value="0.06">增值税 6%</option>
+        <option value="0">免税 0%</option>
+      </select>
       <button class="bt-main" id="btn">生成分析</button>
     </div>
     <div class="chips">{chips}</div>

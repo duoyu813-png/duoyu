@@ -213,6 +213,15 @@
         cff: num(f.NETCASH_FINANCE),
         sales_cash: num(f.SALES_SERVICES),
         capex: num(f.CONSTRUCT_LONG_ASSET),
+        // 勾稽校验所需字段
+        cce_add: num(f.CCE_ADD), begin_cce: num(f.BEGIN_CCE), end_cce: num(f.END_CCE),
+        fx_effect: num(f.RATE_CHANGE_EFFECT),
+        pay_tax: num(f.PAY_ALL_TAX), tax_refund: num(f.RECEIVE_TAX_REFUND),
+        tax_surcharge: num(c.OPERATE_TAX_ADD), income_tax: num(c.INCOME_TAX),
+        cfo_indirect: num(f.NETCASH_OPERATENOTE),
+        cf_depr: num(f.FA_IR_DEPR) + num(f.IR_DEPR) + num(f.IA_AMORTIZE) + num(f.USERIGHT_ASSET_AMORTIZE),
+        div_paid: num(f.ASSIGN_DIVIDEND_PORFIT),
+        ar_tr: num(b.ACCOUNTS_RECE) + num(b.NOTE_RECE),
         // 主要指标
         roe: num(mi.ROEJQ),
         roe_kf: num(mi.ROEKCJQ),
@@ -268,6 +277,65 @@
       out.push(m);
     }
     return out;
+  }
+
+  /* ---------- 勾稽校验（先于一切比率分析） ---------- */
+  // 硬勾稽 = 会计恒等式，不平说明报表本身有错；软勾稽 = 含估算假设，仅作提示。
+  var CHECKS = [
+    { id: 'CK-01', name: '资产 = 负债 + 所有者权益', kind: 'hard', tol: 0.01 },
+    { id: 'CK-02', name: '所有者权益 = 归母权益 + 少数股东权益', kind: 'hard', tol: 0.01 },
+    { id: 'CK-03', name: '期末现金 = 期初现金 + 现金净增加额', kind: 'hard', tol: 0.01 },
+    { id: 'CK-04', name: '现金净增加额 = 经营 + 投资 + 筹资 + 汇率影响', kind: 'hard', tol: 0.01 },
+    { id: 'CK-05', name: '间接法经营现金流 = 直接法经营现金流', kind: 'hard', tol: 0.02 },
+    { id: 'CK-06', name: '利润总额 - 所得税费用 = 净利润', kind: 'hard', tol: 0.02 },
+    { id: 'CK-07', name: '销售收现 ≈ 营收×(1+税率) - 应收增加 + 合同负债增加', kind: 'soft', tol: 0.20 },
+    { id: 'CK-08', name: '支付税费(净退税后) ≈ 所得税费用 + 税金及附加', kind: 'soft', tol: 0.80 },
+    { id: 'CK-09', name: '购建长期资产现金 ≈ 资产增加 + 折旧摊销', kind: 'soft', tol: 0.50 },
+    { id: 'CK-10', name: '归母权益变动 ≈ 净利润 - 分红', kind: 'soft', tol: 0.30 }
+  ];
+
+  function gapOf(actual, expected) {
+    if (!isFinite(actual) || !isFinite(expected) || Math.abs(expected) < 1e-6) return null;
+    return Math.abs(actual - expected) / Math.abs(expected);
+  }
+
+  function runChecks(s, vat) {
+    vat = (vat == null) ? 0.13 : vat;
+    var out = [], hist = {};
+    for (var i = 0; i < s.length; i++) {
+      var m = s[i], p = null;
+      // 优先用去年同期（避开季节性），否则用上一期
+      for (var j = i - 1; j >= 0; j--) {
+        if (mdOf(s[j].date) === mdOf(m.date) && yrOf(s[j].date) === yrOf(m.date) - 1) { p = s[j]; break; }
+      }
+      if (!p && i > 0) p = s[i - 1];
+      var g = {};
+      g['CK-01'] = gapOf(m.total_assets, m.total_liab + m.total_equity);
+      g['CK-02'] = gapOf(m.total_equity, m.parent_equity + m.minority_equity);
+      g['CK-03'] = gapOf(m.end_cce, m.begin_cce + m.cce_add);
+      g['CK-04'] = gapOf(m.cce_add, m.cfo + m.cfi + m.cff + m.fx_effect);
+      g['CK-05'] = m.cfo_indirect ? gapOf(m.cfo, m.cfo_indirect) : null;
+      g['CK-06'] = gapOf(m.netprofit, m.total_profit - m.income_tax);
+      if (p && p.date) {
+        var dAr = m.ar_tr - p.ar_tr, dCl = m.contract_liab - p.contract_liab;
+        g['CK-07'] = gapOf(m.sales_cash, m.revenue * (1 + vat) - dAr + dCl);
+        g['CK-08'] = gapOf(m.pay_tax - m.tax_refund, m.income_tax + m.tax_surcharge);
+        var exp9 = ((m.fixed + m.cip + m.intang) - (p.fixed + p.cip + p.intang)) + m.cf_depr;
+        g['CK-09'] = Math.abs(exp9) > 1e7 ? gapOf(m.capex, exp9) : null;
+        g['CK-10'] = gapOf(m.parent_equity, p.parent_equity + m.parent_np - m.div_paid);
+      }
+      var warn = [], hard = [];
+      for (var k = 0; k < CHECKS.length; k++) {
+        var v = g[CHECKS[k].id];
+        if (v == null) continue;
+        if (v > CHECKS[k].tol) { warn.push(CHECKS[k].id); if (CHECKS[k].kind === 'hard') hard.push(CHECKS[k].id); }
+      }
+      for (var h = 0; h < hard.length; h++) hist[hard[h]] = (hist[hard[h]] || 0) + 1;
+      out.push({ date: m.date, label: m.label, gaps: g, warn: warn, hardFail: hard });
+    }
+    var chronic = [];
+    Object.keys(hist).forEach(function (id) { if (hist[id] >= 2) chronic.push(id); });
+    return { rows: out, chronic: chronic, vat: vat };
   }
 
   /* ---------- 规则库 ---------- */
@@ -528,6 +596,39 @@
       '</div>';
     html += sec('第 0 步 · 基础事实卡', h0);
 
+    /* 第 0.5 步 · 勾稽校验 */
+    var CK = ctx.checks || runChecks(s, ctx.vat);
+    var Lc = CK.rows[CK.rows.length - 1] || { gaps: {}, warn: [], hardFail: [] };
+    var hc = '<p class="tip">这一步不需要判断，只需要计算。<b>三张表之间对不上，后面的比率分析就是空中楼阁。</b>' +
+      '硬勾稽 = 会计恒等式（不平说明报表本身编错，别往下算）；软勾稽 = 含税率/口径/汇率的估算假设（仅作提示，需按行业解释）。</p>';
+    hc += tbl(['代码', '校验项', '类型', '容忍', '本期缺口', '判定'], CHECKS.map(function (c) {
+      var v = Lc.gaps[c.id], sTxt = '', cls = '';
+      if (v == null) { sTxt = '数据不足'; }
+      else if (v <= c.tol) { sTxt = '✅ 通过'; }
+      else if (c.kind === 'hard') { sTxt = '🔴 不平'; cls = 't-red'; }
+      else { sTxt = '⚠️ 超容忍'; cls = 't-yel'; }
+      return [c.id, c.name, c.kind === 'hard' ? '硬' : '软', pct(c.tol * 100, 0),
+        v == null ? '—' : pct(v * 100),
+        cls ? '<span class="tag ' + cls + '">' + sTxt + '</span>' : sTxt];
+    }));
+    var hardN = (Lc.hardFail || []).length;
+    var softN = (Lc.warn || []).length - hardN;
+    if (hardN) {
+      hc += '<p class="verdict v-red">🔴 硬勾稽不平：' + Lc.hardFail.join('、') +
+        ' —— 报表内部矛盾，请先核验数据源或报表本身，再谈分析。</p>';
+    } else if (CK.chronic.length) {
+      hc += '<p class="verdict v-yel">⚠️ 以下项在历史上连续多期不平：' + CK.chronic.join('、') +
+        ' —— 单期波动多为口径噪音，连续出现才值得警惕。</p>';
+    } else {
+      hc += '<p class="tip">硬勾稽 6 项全部通过，说明这张表内部自洽。' +
+        (softN ? '另有 ' + softN + ' 项软勾稽超容忍，多由行业结算模式、免税/退税、外币折算、合并范围变动引起，需人工核对口径。' : '') +
+        '</p>';
+    }
+    hc += '<p class="tip"><b>已知边界</b>：本工具只能验证"表内自洽"，验证不了"业务真实"。' +
+      '以下必须人工翻年报附注：① 关联方交易与资金往来 ② 对外担保及未决诉讼 ③ 会计政策/估计变更（折旧年限、坏账计提、研发资本化）。' +
+      '另外「倒算存款利率」（货币资金造假最硬的证据）需要利息收入明细，东财不提供。</p>';
+    html += sec('第 0.5 步 · 勾稽校验（这张表本身可信吗）', hc);
+
     /* 第 1 步 */
     var relTxt = A.rel ? f2(A.rel) + '（个股PE / 沪深300 PE ' + f2(A.hs.pe) + '）' : '—';
     var h1 = '<p class="tip">不给财报估值，给叙事估值。财报的作用是<b>证伪或证实</b>叙事。以下按 r=10%（A股权益口径）、n=10 年反查。</p>';
@@ -659,6 +760,8 @@
     lines.push('6. 第 4 步 模块D：合法调节识别，重点用递延所得税二阶导做万能探测器。');
     lines.push('7. 第 5 步：叙事匹配度打分卡 + 开放项 + 一句话给老钱。');
     lines.push('8. 纪律：业绩的增长弥补不了估值的下跌；ROE 不影响未来股价走势（分母是沉没成本）；公司压利润时行业格局往往较好，放利润时已是强弩之末。');
+    lines.push('9. 【必须单独成节】勾稽校验：先报告硬勾稽（会计恒等式）6 项的通过情况，不平就说"报表本身有错，以下分析仅供参考"；再解释软勾稽超容忍项，按行业口径（税率、结算模式、外币折算、合并范围）逐条说明是口径问题还是真疑点。');
+    lines.push('10. 每一项风险结论都必须能回到具体科目和具体数字，禁止无出处的推论。');
     lines.push('');
     lines.push('## 公司数据（东方财富 F10，报告期 ' + L.label + '）');
     lines.push('- ' + q.name + '（' + ctx.nc.code + '.' + ctx.nc.market + '）：股价 ' + f2(q.price) + ' 元，涨跌 ' + f2(q.chg) + '%');
@@ -674,6 +777,17 @@
     lines.push('- 少数股东损益占净利 ' + pct((L.minority_np_ratio || 0) * 100) + '；永续债+优先股占权益 ' + pct((L.perpetual_ratio || 0) * 100));
     lines.push('- 审计意见：' + (L.opinion || '—'));
     lines.push('');
+    lines.push('## 三表勾稽校验结果（增值税率假设 ' + pct(((ctx.checks || runChecks(s, ctx.vat)).vat) * 100, 0) + '）');
+    var CKx = ctx.checks || runChecks(s, ctx.vat);
+    var Lcx = CKx.rows[CKx.rows.length - 1] || { gaps: {} };
+    CHECKS.forEach(function (c) {
+      var v = Lcx.gaps[c.id];
+      var verdict = v == null ? '数据不足' : (v <= c.tol ? '通过' : (c.kind === 'hard' ? '❌不平' : '⚠️超容忍'));
+      lines.push('- ' + c.id + ' [' + (c.kind === 'hard' ? '硬' : '软') + '] ' + c.name +
+        '：容忍 ' + pct(c.tol * 100, 0) + '，实测缺口 ' + (v == null ? '—' : pct(v * 100)) + ' → ' + verdict);
+    });
+    if (CKx.chronic.length) lines.push('- 注意：以下项目历史上连续多期不平 → ' + CKx.chronic.join('、'));
+    lines.push('');
     lines.push('## 已自动触发的规则');
     if (!flags.length) lines.push('-（无）');
     flags.forEach(function (x) { lines.push('- [' + x.level + '] ' + x.id + ' ' + x.title + '：' + x.detail); });
@@ -688,6 +802,7 @@
   window.CaiBao = {
     normalizeCode: normalizeCode, fetchQuote: fetchQuote, fetchHS300PE: fetchHS300PE,
     fetchAll: fetchAll, buildSeries: buildSeries, runRules: runRules, grade: grade,
+    runChecks: runChecks, CHECKS: CHECKS,
     engineA: engineA, score: score, verdict: verdict, render: render, buildPrompt: buildPrompt,
     util: { f2: f2, pct: pct, yi: yi, esc: esc }
   };
