@@ -62,6 +62,10 @@ jobs:
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
         run: python sitegen.py
 
+      # 穿透财报分析页（自包含静态页，数据由浏览器端实时拉取）
+      - name: Generate caibao analysis page
+        run: python -c "from caibao.pagegen import render; render()"
+
       - name: Generate qiangquan scoring board
         env:
           JISILU_COOKIE: ${{ secrets.JISILU_COOKIE }}

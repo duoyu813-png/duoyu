@@ -539,6 +539,10 @@ def main() -> int:
         "huikui.html", "#9333ea", "#f3e8ff",
         "股东回馈活动", "自动扫描全市场公告 · 微信推送 · 全年回馈活动表格汇总",
         f"{huikui_count} 条活动（{date.today().year}年）"))
+    hero_cards.append(_hero(
+        "caibao.html", "#7c3aed", "#ede9fe",
+        "穿透财报分析", "输入代码实时抓三张报表 · 舞弊/调节红旗扫描 · 一键复制 AI 提示词",
+        "A股全市场 · 浏览器端实时生成"))
     hero = f"<div class=\"hero\">{''.join(hero_cards)}</div>"
     body_home = f"""
 <h1>小渔点儿</h1>

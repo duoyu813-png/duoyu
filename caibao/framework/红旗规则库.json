@@ -1,0 +1,302 @@
+{
+  "version": "1.0",
+  "source": "蒸馏自邹佩轩《穿透财报》《穿透估值》《穿透叙事》",
+  "updated": "2026-09-18",
+  "_说明": "metric 为引擎计算出的归一化指标名；expr 为伪代码判定式（JS/Python 双端实现）；level: red=红旗 / yellow=关注 / info=提示；module: C=舞弊识别 / D=合法调节",
+
+  "metrics": {
+    "revenue": "营业收入 OPERATE_INCOME",
+    "cogs": "营业成本 OPERATE_COST",
+    "gross_margin": "(营业收入-营业成本)/营业收入",
+    "parent_np": "归母净利润 PARENT_NETPROFIT",
+    "deduct_np": "扣非归母 DEDUCT_PARENT_NETPROFIT",
+    "netprofit": "净利润 NETPROFIT",
+    "minority_np": "少数股东损益 MINORITY_INTEREST",
+    "cfo": "经营活动现金流净额 NETCASH_OPERATE",
+    "sales_cash": "销售商品提供劳务收到的现金 SALES_SERVICES",
+    "capex": "购建固定资产等长期资产支付的现金 CONSTRUCT_LONG_ASSET",
+    "fcf": "cfo - capex",
+    "ar": "应收账款+应收票据+合同资产",
+    "inventory": "存货 INVENTORY",
+    "prepay": "预付款项 PREPAYMENT",
+    "other_rece": "其他应收款(合计) TOTAL_OTHER_RECE",
+    "other_cur_asset": "其他流动资产 OTHER_CURRENT_ASSET",
+    "other_nc_asset": "其他非流动资产 OTHER_NONCURRENT_ASSET",
+    "cash": "货币资金 MONETARYFUNDS",
+    "fixed": "固定资产 FIXED_ASSET",
+    "cip": "在建工程 CIP",
+    "intang": "无形资产 INTANGIBLE_ASSET",
+    "goodwill": "商誉 GOODWILL",
+    "dta": "递延所得税资产 DEFER_TAX_ASSET",
+    "dtl": "递延所得税负债 DEFER_TAX_LIAB",
+    "ibd": "有息负债 = 短期借款+一年内到期非流动负债+长期借款+应付债券+租赁负债+短期应付债券",
+    "total_assets": "资产总计 TOTAL_ASSETS",
+    "total_liab": "负债合计 TOTAL_LIABILITIES",
+    "parent_equity": "归母股东权益 TOTAL_PARENT_EQUITY",
+    "minority_equity": "少数股东权益 MINORITY_EQUITY",
+    "total_equity": "所有者权益合计 TOTAL_EQUITY",
+    "perpetual": "永续债+优先股 PERPETUAL_BOND+PREFERRED_SHARES",
+    "contract_liab": "合同负债 CONTRACT_LIAB",
+    "invest_income": "投资收益 INVEST_INCOME",
+    "other_income": "其他收益 OTHER_INCOME",
+    "total_profit": "利润总额 TOTAL_PROFIT",
+    "finance_expense": "财务费用 FINANCE_EXPENSE",
+    "impair": "资产减值损失+信用减值损失",
+    "ar_turnover": "营业收入/平均应收账款（年化）",
+    "inv_turnover": "营业成本/平均存货（年化）",
+    "fixed_turnover": "营业收入/平均(固定资产+在建工程+无形资产)（年化）",
+    "cfo_to_np": "CFO/归母净利润",
+    "sales_cash_ratio": "销售收现/营业收入",
+    "ibd_to_assets": "有息负债/总资产",
+    "cash_to_ibd": "货币资金/有息负债",
+    "dta_delta_ratio": "Δ递延所得税资产/营业收入",
+    "dtl_delta_ratio": "Δ递延所得税负债/营业收入",
+    "net_ibd": "净有息负债 = 有息负债 - 货币资金"
+  },
+
+  "rules": [
+    {
+      "id": "C-01",
+      "name": "应收账款周转率断崖下降 + 毛利率上升（背离）",
+      "module": "C",
+      "level": "red",
+      "expr": "ar_turnover 同比降幅 > 30% 且 gross_margin 同比上升 > 1pct",
+      "why": "虚增收入 → 虚增应收账款 → 周转率下降；同时收入虚增摊薄成本 → 毛利率反常上升。二者同时发生是最经典的收入舞弊指纹。",
+      "source": "穿透财报 3.5（案例：周转率 14.01→3.61→1.59 对毛利率 9.16%→26.73%→32.63%）"
+    },
+    {
+      "id": "C-02",
+      "name": "存货周转率异常上升（收入暴增而存货不增）",
+      "module": "C",
+      "level": "red",
+      "expr": "revenue 同比增速 > 50% 且 inventory 同比增速 < 10% 且 inv_turnover 同比升幅 > 40%",
+      "why": "虚增收入时公司往往同步虚增成本，但**忘记虚增存货**，导致存货绝对值不增长、周转率飙升。这是收入成本等比造假最容易露馅的地方。",
+      "source": "穿透财报 3.7.2（E公司：营收增长数倍，存货绝对值基本没增长）"
+    },
+    {
+      "id": "C-03",
+      "name": "存贷双高",
+      "module": "C",
+      "level": "red",
+      "expr": "cash_to_ibd > 0.5 且 ibd_to_assets > 0.25 且 cash/total_assets > 0.20",
+      "why": "贷款利率通常大于存款利率，正常情况下公司不会一边存大额现金一边借大额有息负债。要么现金有问题，要么融资能力存在重大不确定性，**估值需要深度折价**。",
+      "source": "穿透财报 3.7.3"
+    },
+    {
+      "id": "C-04",
+      "name": "倒算存款利率异常（货币资金造假二阶验证）",
+      "module": "C",
+      "level": "red",
+      "expr": "提示项：需年报附注「利息收入」÷货币资金季度均值，长期 <1% 为红旗（地产龙头 2%~3% 属合理）",
+      "why": "货币资金必须函证，造假需内鬼配合。倒算利率是最硬的证据；母公司报表倒算更异常，且**母公司存贷比应小于合并报表**。",
+      "source": "穿透财报 3.7.3",
+      "note": "东财 F10 不提供利息收入明细，本规则输出为「需人工核对年报附注」提示。"
+    },
+    {
+      "id": "C-05",
+      "name": "商誉占比过高 / 减值节奏可疑",
+      "module": "C",
+      "level": "red",
+      "expr": "goodwill/parent_equity > 0.30 或 goodwill/近5年累计归母 > 1.0",
+      "why": "商誉在原理上并不完全符合资产定义，注水后基本无解。**没有十足把握时，谨慎处理＝直接对商誉打折估值。**",
+      "source": "穿透财报 3.8 / 3.10"
+    },
+    {
+      "id": "C-06",
+      "name": "投资收益占利润总额过高",
+      "module": "C",
+      "level": "yellow",
+      "expr": "invest_income/total_profit > 0.30",
+      "why": "股权投资和投资收益中隐藏着更大的造假黑洞（初始计量/持续计量两阶段均可造假），占比过高说明主营不实或利润来源不可持续。",
+      "source": "穿透财报 3.8.3"
+    },
+    {
+      "id": "C-07",
+      "name": "其他应收款 / 其他流动资产占比过高",
+      "module": "C",
+      "level": "yellow",
+      "expr": "(other_rece + other_cur_asset + other_nc_asset)/total_assets > 0.15",
+      "why": "造假者偏好「存量金额大、科目冷门」的藏匿点。各种「其他」资产是虚假收入的第二级落点（需现金流量表配合）。",
+      "source": "穿透财报 3.5.1"
+    },
+    {
+      "id": "C-08",
+      "name": "在建工程长期挂账不转固",
+      "module": "C",
+      "level": "yellow",
+      "expr": "cip/total_assets > 0.10 且 连续3期 cip 增长而 fixed 未同步转增",
+      "why": "在建工程说值多少钱就值多少钱，审计师难以质疑，是虚增收入/成本的高级落点；长期不转固可同时少提折旧。",
+      "source": "穿透财报 3.5.1 / 3.6"
+    },
+    {
+      "id": "C-09",
+      "name": "CFO/归母净利长期偏低",
+      "module": "C",
+      "level": "red",
+      "expr": "近3期 cfo_to_np 均值 < 0.7",
+      "why": "利润表是意见，现金流量表是证词。权责发生制下利润可以没收到钱，但长期收不到钱就是虚增。",
+      "source": "穿透财报 1.6 / 3.5"
+    },
+    {
+      "id": "C-10",
+      "name": "收现比偏低",
+      "module": "C",
+      "level": "yellow",
+      "expr": "sales_cash_ratio < 0.95（含13%增值税时理论值约1.13，低于1.0即异常）",
+      "why": "销售收现/营业收入是营收质量最直接的一票否决指标。",
+      "source": "穿透财报 1.6"
+    },
+    {
+      "id": "C-11",
+      "name": "预付款项骤增",
+      "module": "C",
+      "level": "yellow",
+      "expr": "prepay 同比增幅 > 80% 且 prepay/total_assets > 0.05",
+      "why": "大额预付要么说明公司对上游无话语权，要么是虚增收入后谎称已打款。**存货异常增加的危险度远高于应收/预付。**",
+      "source": "穿透财报 1.4"
+    },
+    {
+      "id": "C-12",
+      "name": "审计意见非标",
+      "module": "C",
+      "level": "red",
+      "expr": "OPINION_TYPE 非「标准无保留意见」",
+      "why": "**重视审计报告，警惕非标准事项段。** 非标意见是舞弊的一票否决项。",
+      "source": "穿透财报 3.4"
+    },
+
+    {
+      "id": "D-01",
+      "name": "递延所得税资产二阶导为正（压利润）",
+      "module": "D",
+      "level": "info",
+      "expr": "dta_delta_ratio 连续2期上升 且 增幅 > 0.5pct",
+      "why": "税务局筛出了所有「只有会计报表认可、税务报表不认可」的调节。递延所得税资产加速增加＝超额计提费用压利润——**公司压利润的时候，行业格局往往较好**。",
+      "source": "穿透财报 4.8",
+      "exclude": ["未弥补亏损", "会计直线/税务加速折旧", "未实现内部交易损益"]
+    },
+    {
+      "id": "D-02",
+      "name": "递延所得税负债二阶导为正（放利润）",
+      "module": "D",
+      "level": "yellow",
+      "expr": "dtl_delta_ratio 连续2期上升 且 增幅 > 0.5pct",
+      "why": "冲回费用放利润——**虽然利润增速仍在、甚至可能加速，但已是强弩之末**。",
+      "source": "穿透财报 4.8"
+    },
+    {
+      "id": "D-03",
+      "name": "扣非占比低（非经常性损益撑利润）",
+      "module": "D",
+      "level": "yellow",
+      "expr": "deduct_np/parent_np < 0.80",
+      "why": "政府补助、资产处置、公允价值变动等一次性收益撑起的利润不可持续。",
+      "source": "穿透财报 4.7"
+    },
+    {
+      "id": "D-04",
+      "name": "少数股东损益占比异常（归母失真）",
+      "module": "D",
+      "level": "yellow",
+      "expr": "minority_np/netprofit > 0.40 或 minority_equity/total_equity > 0.40",
+      "why": "少数股东分走大部分利润时，「归母」口径的估值倍数会失真，应按合并口径重新审视。",
+      "source": "穿透财报 1.5.3"
+    },
+    {
+      "id": "D-05",
+      "name": "永续债 / 优先股占权益比高（归母口径陷阱）",
+      "module": "D",
+      "level": "red",
+      "expr": "perpetual/total_equity > 0.10",
+      "why": "永续债实质是负债却计入权益，**虚增净资产、压低资产负债率、虚降PB**。计算真实归母权益与净有息负债时必须扣除。",
+      "source": "穿透财报 1.4"
+    },
+    {
+      "id": "D-06",
+      "name": "其他收益（政府补助）占利润总额高",
+      "module": "D",
+      "level": "yellow",
+      "expr": "other_income/total_profit > 0.15",
+      "why": "政府补助确认时点存在不规范空间，占比过高说明主业盈利能力存疑。",
+      "source": "穿透财报 4.7.1"
+    },
+    {
+      "id": "D-07",
+      "name": "单季巨额亏损（业绩反转前夜一把减到底）",
+      "module": "D",
+      "level": "info",
+      "expr": "任一单季归母 < 近8季均值 - 2×标准差 且 为负",
+      "why": "教科书级的调节手法：在业绩反转前夜一次性把减值、费用计提到底，留下**低折旧基数**，让后续年份利润轻松高增长。需识别后还原真实盈利中枢。",
+      "source": "穿透财报 4.8 / 3.6"
+    },
+    {
+      "id": "D-08",
+      "name": "有息负债大但财务费用低（利息资本化嫌疑）",
+      "module": "D",
+      "level": "yellow",
+      "expr": "ibd_to_assets > 0.30 且 finance_expense/ibd < 0.02",
+      "why": "利息支出资本化可以把当期费用挪到资产里，虚增当期利润并低估资产负债率。",
+      "source": "穿透财报 4.6.4"
+    },
+    {
+      "id": "D-09",
+      "name": "毛利率异常平稳",
+      "module": "D",
+      "level": "info",
+      "expr": "近5期 gross_margin 标准差 < 0.8pct 且 营收波动 > 20%",
+      "why": "真实经营的毛利率会随原料、售价、产品结构波动。异常平稳往往意味着收入成本被等比调节（E公司造假期毛利率稳定在40%左右）。",
+      "source": "穿透财报 3.7.2"
+    },
+    {
+      "id": "D-10",
+      "name": "合同负债异动（收入调节先行指标）",
+      "module": "D",
+      "level": "info",
+      "expr": "contract_liab 同比变动 > 30%（双向均提示）",
+      "why": "合同负债是收入的蓄水池。骤增＝可能存在延后确认收入；骤降＝可能在加速释放此前蓄的水。",
+      "source": "穿透财报 4.4"
+    }
+  ],
+
+  "scoring": {
+    "舞弊评级(C)": {
+      "A": "红旗(red) 0 条 且 审计标准无保留",
+      "B": "红旗 1 条，或 关注(yellow) ≤2 条",
+      "C": "红旗 2~3 条，或 关注 ≥3 条",
+      "D": "红旗 ≥4 条，或 审计非标，或 存贷双高成立 → 直接远离，不估值"
+    },
+    "调节评级(D)": {
+      "A": "无 yellow 及以上",
+      "B": "yellow ≤2 条",
+      "C": "yellow 3~4 条，或 D-05 成立",
+      "D": "yellow ≥5 条 → 报表被重度修饰，虽合法但不可信"
+    },
+    "叙事匹配度": {
+      "叙事清晰度": 0.20,
+      "财报兑现度": 0.25,
+      "财务可信度": 0.30,
+      "估值安全边际": 0.15,
+      "叙事可持续性": 0.10
+    },
+    "结论映射": [
+      {"range": "80~100", "结论": "叙事成立且被财报兑现，可跟踪"},
+      {"range": "60~79", "结论": "叙事成立但有瑕疵，需盯开放项"},
+      {"range": "40~59", "结论": "叙事与财报背离，谨慎"},
+      {"range": "<40 或 C/D 任一为 D 级", "结论": "叙事已被证伪或财报不可信 → 远离"}
+    ]
+  },
+
+  "valuation": {
+    "折现率r": {"A股": 0.10, "美股": 0.08, "说明": "权益口径，长期均值回归，不受无风险利率影响"},
+    "PE反查隐含天花板(r=10%, n=10年)": [
+      {"PE": 15.3, "m": 2}, {"PE": 20, "m": 3}, {"PE": 28.8, "m": 5},
+      {"PE": 48.6, "m": 10}, {"PE": 66.3, "m": "10倍+2%永续"}
+    ],
+    "市值速算倍数(无业绩公司, r=10%)": {"5年到达": 8.3, "10年到达": 6.8},
+    "周期股PE反查(盈利高点, r=10%)": [
+      {"PE": 32, "隐含": "天花板打6折"}, {"PE": 10, "隐含": "天花板持平"},
+      {"PE": 7, "隐含": "天花板打5折"}, {"PE": 5, "隐含": "天花板打3折"}
+    ],
+    "估值体系跃迁": "初创看PS → 成长看PE → 周期亏损看PB/盈利看PE → 稳定看PB-ROE"
+  }
+}
