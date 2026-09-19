@@ -1,6 +1,6 @@
 {
  "total": 82,
- "generated_at": "2026-09-18 23:55:11",
+ "generated_at": "2026-09-19 01:54:56",
  "source": "live",
  "bonds": [
   {
@@ -274,96 +274,6 @@
    "per_share_allotment": 2.6627
   },
   {
-   "stock_code": "688600",
-   "stock_name": "皖仪科技",
-   "bond_name": "皖仪科技转债",
-   "industry": "AI/科技",
-   "total_scale": 3.17,
-   "per_share_amount": 6.34,
-   "progress": "交易所受理",
-   "progress_date": "2026-06-05",
-   "registration_date": "2026-06-05",
-   "approval_date": "",
-   "board": "科创板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 32.31,
-   "cb_amount": 6.34,
-   "b_shares": 0.0,
-   "price": 37.1,
-   "change_pct": 8.61,
-   "pb": 6.26,
-   "ma20_price": 32.31,
-   "circ_mv": 2.22,
-   "circ_mv_score_factor": 2.22,
-   "pe": 92.75,
-   "turnover_rate": null,
-   "amount": 3.17,
-   "q1_growth": 324.98,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 300,
-   "per_hand_shares": 424.9479179810725,
-   "market": "沪",
-   "total_score": 84,
-   "rating": "A+",
-   "action": "关注建仓",
-   "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤33.39 | 卖出≥42.66 | 安全垫2.7%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "6.34元"
-    },
-    "隐形流通量评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "2.22亿"
-    },
-    "业绩评分": {
-     "score": 40,
-     "max": 40,
-     "factor": "Q1增长324.98%"
-    },
-    "潜伏期扣分": {
-     "score": -6,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": -8,
-     "max": 0,
-     "factor": "科创板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=92.75"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交3.2亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 6.34,
-   "hidden_circulation": 2.22,
-   "total": 84,
-   "issue_amount": 3.17,
-   "safety_pct": 2.7,
-   "per_share_allotment": 2.3532
-  },
-  {
    "stock_code": "301603",
    "stock_name": "乔锋智能",
    "bond_name": "乔锋智能转债",
@@ -452,6 +362,96 @@
    "issue_amount": 11.5,
    "safety_pct": 2.2,
    "per_share_allotment": 9.523
+  },
+  {
+   "stock_code": "688600",
+   "stock_name": "皖仪科技",
+   "bond_name": "皖仪科技转债",
+   "industry": "AI/科技",
+   "total_scale": 3.17,
+   "per_share_amount": 6.34,
+   "progress": "交易所受理",
+   "progress_date": "2026-06-05",
+   "registration_date": "2026-06-05",
+   "approval_date": "",
+   "board": "科创板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 32.31,
+   "cb_amount": 6.34,
+   "b_shares": 0.0,
+   "price": 37.1,
+   "change_pct": 8.61,
+   "pb": 6.26,
+   "ma20_price": 32.31,
+   "circ_mv": 2.22,
+   "circ_mv_score_factor": 2.22,
+   "pe": 92.75,
+   "turnover_rate": null,
+   "amount": 3.17,
+   "q1_growth": 324.98,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 300,
+   "per_hand_shares": 424.9479179810725,
+   "market": "沪",
+   "total_score": 81,
+   "rating": "A+",
+   "action": "关注建仓",
+   "action_reason": "高分+交易所通过，等待注册后加仓",
+   "action_price": "买入≤33.39 | 卖出≥42.66 | 安全垫2.7%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "6.34元"
+    },
+    "隐形流通量评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "2.22亿"
+    },
+    "业绩评分": {
+     "score": 40,
+     "max": 40,
+     "factor": "Q1增长324.98%"
+    },
+    "潜伏期扣分": {
+     "score": -9,
+     "max": 0,
+     "factor": "2026-06"
+    },
+    "300/688折扣": {
+     "score": -8,
+     "max": 0,
+     "factor": "科创板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=92.75"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交3.2亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 6.34,
+   "hidden_circulation": 2.22,
+   "total": 81,
+   "issue_amount": 3.17,
+   "safety_pct": 2.7,
+   "per_share_allotment": 2.3532
   },
   {
    "stock_code": "301305",
@@ -3604,96 +3604,6 @@
    "per_share_allotment": 1.6736
   },
   {
-   "stock_code": "605016",
-   "stock_name": "百龙创园",
-   "bond_name": "百龙创园转债",
-   "industry": "其他",
-   "total_scale": 7.48,
-   "per_share_amount": 8.62,
-   "progress": "上市委通过",
-   "progress_date": "2026-08-27",
-   "registration_date": "2026-05-06",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 21.3,
-   "cb_amount": 8.62,
-   "b_shares": 0.0,
-   "price": 20.65,
-   "change_pct": -0.77,
-   "pb": 4.12,
-   "ma20_price": 21.3,
-   "circ_mv": 5.24,
-   "circ_mv_score_factor": 5.24,
-   "pe": 17.8,
-   "turnover_rate": null,
-   "amount": 7.48,
-   "q1_growth": 48.1,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 300,
-   "per_hand_shares": 561.5137967914438,
-   "market": "沪",
-   "total_score": 56,
-   "rating": "B",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤19.0 | 卖出≥22.71 | 安全垫4.8%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "8.62元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "5.24亿"
-    },
-    "业绩评分": {
-     "score": 30,
-     "max": 40,
-     "factor": "Q1增长48.1%"
-    },
-    "潜伏期扣分": {
-     "score": -9,
-     "max": 0,
-     "factor": "2026-05"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=17.8"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交7.5亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 8.62,
-   "hidden_circulation": 5.24,
-   "total": 56,
-   "issue_amount": 7.48,
-   "safety_pct": 4.8,
-   "per_share_allotment": 1.7809
-  },
-  {
    "stock_code": "301571",
    "stock_name": "国科天成",
    "bond_name": "国科天成转债",
@@ -4412,6 +4322,96 @@
    "issue_amount": 48.0,
    "safety_pct": 4.1,
    "per_share_allotment": 0.8247
+  },
+  {
+   "stock_code": "605016",
+   "stock_name": "百龙创园",
+   "bond_name": "百龙创园转债",
+   "industry": "其他",
+   "total_scale": 7.48,
+   "per_share_amount": 8.62,
+   "progress": "上市委通过",
+   "progress_date": "2026-08-27",
+   "registration_date": "2026-05-06",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 21.3,
+   "cb_amount": 8.62,
+   "b_shares": 0.0,
+   "price": 20.65,
+   "change_pct": -0.77,
+   "pb": 4.12,
+   "ma20_price": 21.3,
+   "circ_mv": 5.24,
+   "circ_mv_score_factor": 5.24,
+   "pe": 17.8,
+   "turnover_rate": null,
+   "amount": 7.48,
+   "q1_growth": 48.1,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 300,
+   "per_hand_shares": 561.5137967914438,
+   "market": "沪",
+   "total_score": 53,
+   "rating": "B",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤19.0 | 卖出≥22.71 | 安全垫4.8%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "8.62元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.24亿"
+    },
+    "业绩评分": {
+     "score": 30,
+     "max": 40,
+     "factor": "Q1增长48.1%"
+    },
+    "潜伏期扣分": {
+     "score": -12,
+     "max": 0,
+     "factor": "2026-05"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=17.8"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交7.5亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 8.62,
+   "hidden_circulation": 5.24,
+   "total": 53,
+   "issue_amount": 7.48,
+   "safety_pct": 4.8,
+   "per_share_allotment": 1.7809
   },
   {
    "stock_code": "603693",
