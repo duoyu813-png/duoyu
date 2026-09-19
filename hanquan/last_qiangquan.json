@@ -1,6 +1,6 @@
 {
- "total": 82,
- "generated_at": "2026-09-19 06:50:18",
+ "total": 81,
+ "generated_at": "2026-09-19 11:43:28",
  "source": "live",
  "bonds": [
   {
@@ -812,96 +812,6 @@
    "issue_amount": 3.06,
    "safety_pct": 2.4,
    "per_share_allotment": 1.8158
-  },
-  {
-   "stock_code": "603339",
-   "stock_name": "四方科技",
-   "bond_name": "四方转债",
-   "industry": "AI/科技",
-   "total_scale": 10.234,
-   "per_share_amount": 25.74,
-   "progress": "发行中",
-   "progress_date": "2026-09-03",
-   "registration_date": "2026-01-21",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "AA",
-   "record_dt": "2026-09-02",
-   "convert_price": 14.87,
-   "cb_amount": 21.39,
-   "b_shares": 0.0,
-   "price": 12.85,
-   "change_pct": 0.78,
-   "pb": 1.43,
-   "ma20_price": 13.89,
-   "circ_mv": 4.61,
-   "circ_mv_score_factor": 4.61,
-   "pe": 22.95,
-   "turnover_rate": null,
-   "amount": 10.234,
-   "q1_growth": -13.42,
-   "major_shareholder_ratio": 0.55,
-   "one_hand_shares": 200,
-   "per_hand_shares": 302.3658149306234,
-   "market": "沪",
-   "total_score": 73,
-   "rating": "A",
-   "action": "关注",
-   "action_reason": "高分标的，等待更明确信号",
-   "action_price": "买入≤11.56 | 卖出≥14.78 | 安全垫11.7%",
-   "score_details": {
-    "含权量评分": {
-     "score": 25,
-     "max": 30,
-     "factor": "25.74元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.61亿"
-    },
-    "业绩评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "Q1增长-13.42%"
-    },
-    "潜伏期扣分": {
-     "score": -15,
-     "max": 0,
-     "factor": "2026-01"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=22.95"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交10.2亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 25.74,
-   "hidden_circulation": 4.61,
-   "total": 73,
-   "issue_amount": 10.23,
-   "safety_pct": 11.7,
-   "per_share_allotment": 3.3073
   },
   {
    "stock_code": "603125",
