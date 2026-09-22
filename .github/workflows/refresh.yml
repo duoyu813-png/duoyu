@@ -1,6 +1,8 @@
 name: Refresh Dashboard
 
 on:
+  push:
+    branches: [main]
   schedule:
     # 交易时段每 30 分钟刷新一次（UTC：中国 08:30-14:00 对应 00:30-06:00 UTC，加上 15:00-16:00 尾盘）
     # 覆盖全天候 + 简化：每 30 分钟刷新（免费公共仓库 Actions 无限分钟）
@@ -32,6 +34,8 @@ concurrency:
 
 jobs:
   build:
+    # 跳过机器人回写缓存的提交，避免 push 触发自身造成循环
+    if: ${{ !(github.event_name == 'push' && startsWith(github.event.head_commit.message, 'chore: update fallback cache')) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

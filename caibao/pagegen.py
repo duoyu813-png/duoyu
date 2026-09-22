@@ -15,7 +15,7 @@ ENGINE = os.path.join(BASE, "caibao", "engine.js")
 
 CSS = """
 :root{--bg:#f8f9fa;--card:#fff;--text:#212529;--muted:#6c757d;--border:#dee2e6;
---accent:#7c3aed;--acc-l:#ede9fe;--red:#dc2626;--red-l:#fee2e2;--yel:#d97706;--yel-l:#fef3c7;
+--accent:#0891b2;--acc-l:#cffafe;--red:#dc2626;--red-l:#fee2e2;--yel:#d97706;--yel-l:#fef3c7;
 --green:#16a34a;--grn-l:#dcfce7;--blue:#2563eb;--blue-l:#dbeafe;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',Roboto,sans-serif;
@@ -36,7 +36,7 @@ h1{font-size:20px;margin:14px 0 4px;}
 table{width:100%;border-collapse:collapse;font-size:13px;}
 th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top;}
 th{background:var(--acc-l);color:var(--accent);font-weight:600;white-space:nowrap;}
-tr:hover{background:#faf5ff;}
+tr:hover{background:#ecfeff;}
 .up{color:var(--red);}  /* A股习惯：涨=红 */
 .down{color:var(--green);}
 .kvs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;}

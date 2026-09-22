@@ -2,8 +2,7 @@
 
 页面结构：
   index.html               首页（板块入口卡片）
-  cb.html                  可转债轮动（策略按钮）
-  cb_<key>.html            单个策略详情（全部标的 + 排名）
+  cb.html                  可转债轮动（策略按钮，点击原地切换榜单）
   issues.html              待发可转债 · 抢权（按进度分组的按钮）
   data.json                数据快照（供推送 / 历史）
 """
@@ -49,7 +48,8 @@ CSS = """<style>
   .mtop { margin-top:16px; }
   .empty { color:var(--muted); padding:24px; text-align:center; }
   .filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
-  .chip { padding:7px 16px; border-radius:20px; font-size:13px; text-decoration:none; border:1px solid var(--border); background:var(--card); color:var(--text-secondary, #495057); transition:all .15s; }
+  .chip { padding:7px 16px; border-radius:20px; font-size:13px; text-decoration:none; border:1px solid var(--border); background:var(--card); color:var(--text-secondary, #495057); transition:all .15s; font-family:inherit; cursor:pointer; }
+  .chip:focus { outline:none; }
   .chip:hover { border-color:var(--accent); color:var(--accent); }
   .chip.active { background:var(--accent); color:#fff; border-color:var(--accent); }
   .chip .n { font-size:11px; opacity:.8; margin-left:4px; }
@@ -457,6 +457,27 @@ def _cb_desc_html(key: str) -> str:
     return f"<p class='sub'>{name}策略筛选条件：{desc}</p>"
 
 
+# 策略切换脚本：点击按钮仅切换下方榜单，不再新开页面
+STRATEGY_SWITCH_JS = """<script>
+(function(){
+  function show(key){
+    document.querySelectorAll('.strategy-panel').forEach(function(p){
+      p.style.display = (p.dataset.key === key) ? '' : 'none';
+    });
+    document.querySelectorAll('.chip[data-key]').forEach(function(c){
+      c.classList.toggle('active', c.dataset.key === key);
+    });
+  }
+  function init(){
+    document.querySelectorAll('.chip[data-key]').forEach(function(c){
+      c.addEventListener('click', function(){ show(c.dataset.key); });
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>"""
+
+
 def main() -> int:
     t0 = time.time()
     print("[sitegen] 开始生成静态看板（多页面）")
@@ -540,7 +561,7 @@ def main() -> int:
         "股东回馈活动", "自动扫描全市场公告 · 微信推送 · 全年回馈活动表格汇总",
         f"{huikui_count} 条活动（{date.today().year}年）"))
     hero_cards.append(_hero(
-        "caibao.html", "#7c3aed", "#ede9fe",
+        "caibao.html", "#0891b2", "#cffafe",
         "穿透财报分析", "输入代码实时抓三张报表 · 舞弊/调节红旗扫描 · 一键复制 AI 提示词",
         "A股全市场 · 浏览器端实时生成"))
     hero = f"<div class=\"hero\">{''.join(hero_cards)}</div>"
@@ -551,55 +572,39 @@ def main() -> int:
 """
     write_page("index.html", "首页", body_home, now)
 
-    # ---------- 可转债轮动 cb.html（策略按钮 + 默认展示高到期收益率） ----------
-    chips = []
-    for key in ALL_STRATEGIES:
-        d = strategies.get(key)
-        n = len(d["bonds"]) if d else 0
-        is_active = ' active' if key == "high_ytm" else ''
-        chips.append(f"<a class='chip{is_active}' href='cb_{key}.html'>{ALL_STRATEGIES[key][0]}<span class='n'>{n}</span></a>")
-    # 默认展开"高到期收益率"榜单
+    # ---------- 可转债轮动 cb.html（策略按钮 + 内嵌各策略榜单，点击原地切换） ----------
     default_key = "high_ytm"
-    default_table = ""
-    if default_key in strategies and strategies[default_key]["bonds"]:
-        d = strategies[default_key]
-        _, tbl = _cb_table(default_key, d["bonds"], limit=20)
-        default_table = f"""
-<div class="card">
-  <h2>{STRATEGY_INFO[default_key]['name']} <span class="badge">{len(d['bonds'])}</span> <span style="font-size:12px;color:var(--muted)">(默认展示)</span></h2>
-  {_cb_desc_html(default_key)}
-  {tbl}
-</div>"""
+    chips = []
+    panels = []
+    for key in ALL_STRATEGIES:
+        name = ALL_STRATEGIES[key][0]
+        d = strategies.get(key)
+        bonds_list = d["bonds"] if d else []
+        n = len(bonds_list)
+        is_active = " active" if key == default_key else ""
+        chips.append(
+            f"<button type='button' class='chip{is_active}' data-key='{key}'>"
+            f"{name}<span class='n'>{n}</span></button>"
+        )
+        if bonds_list:
+            _, tbl = _cb_table(key, bonds_list, limit=20)
+            card_inner = f"<h2>{name} <span class='badge'>{n}</span></h2>{_cb_desc_html(key)}{tbl}"
+        else:
+            card_inner = f"<h2>{name} <span class='badge'>0</span></h2>{_cb_desc_html(key)}<div class='empty'>暂无数据</div>"
+        panels.append(
+            f"<div class='strategy-panel card' data-key='{key}'"
+            f"{'' if key == default_key else ' style=\"display:none\"'}>"
+            f"{card_inner}</div>"
+        )
     body_cb = f"""
 <a class="back" href="index.html">← 返回首页</a>
 <h1>可转债轮动策略</h1>
-<p class="sub">选择策略查看完整榜单（每策略最多展示 20 只，排名 1/5/10/15/20 用红色标注 · {_COMMON_DESC}）</p>
+<p class="sub">点击上方策略按钮，榜单在下方原地切换（每策略最多展示 20 只，排名 1/5/10/15/20 用红色标注 · {_COMMON_DESC}）</p>
 <div class="filters">{''.join(chips)}</div>
-{default_table}
+{''.join(panels)}
+{STRATEGY_SWITCH_JS}
 """
     write_page("cb.html", "可转债轮动", body_cb, now, theme="cb")
-
-    # ---------- 各策略详情 cb_<key>.html ----------
-    for key, (name, _) in ALL_STRATEGIES.items():
-        d = strategies.get(key)
-        bonds_list = d["bonds"] if d else []
-        if not bonds_list:
-            content = "<div class='empty'>暂无数据</div>"
-        else:
-            _, tbl = _cb_table(key, bonds_list, limit=20)
-            content = f"""
-<div class="card">
-  <h2>{name} <span class="badge">{len(bonds_list)}</span></h2>
-  {tbl}
-</div>"""
-        body = f"""
-<a class="back" href="cb.html">← 返回策略列表</a>
-<h1>{name}</h1>
-{_cb_desc_html(key)}
-<p class="sub">{_COMMON_DESC} · 按评分从低到高排序 · 展示前 20 名</p>
-{content}
-"""
-        write_page(f"cb_{key}.html", name, body, now, theme="cb")
 
     # ---------- 待发可转债 issues.html ----------
     # 说明：完整抢权看板页面由 qiangquan_gen.py 生成（按审核进度分组 + 排序 + 搜索），
