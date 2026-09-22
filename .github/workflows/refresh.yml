@@ -34,8 +34,6 @@ concurrency:
 
 jobs:
   build:
-    # 跳过机器人回写缓存的提交，避免 push 触发自身造成循环
-    if: ${{ !(github.event_name == 'push' && startsWith(github.event.head_commit.message, 'chore: update fallback cache')) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -94,7 +92,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "无变更"
           else
-            git commit -m "chore: update fallback cache"
+            git commit -m "chore: update fallback cache [skip ci]"
             git push
           fi
 
