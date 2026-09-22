@@ -1,6 +1,6 @@
 {
- "total": 82,
- "generated_at": "2026-09-22 12:24:05",
+ "total": 81,
+ "generated_at": "2026-09-22 17:14:22",
  "source": "live",
  "bonds": [
   {
@@ -726,18 +726,18 @@
   {
    "stock_code": "603125",
    "stock_name": "常青科技",
-   "bond_name": "常青科技转债",
+   "bond_name": "常青转债",
    "industry": "AI/科技",
    "total_scale": 8.0,
    "per_share_amount": 8.31,
-   "progress": "同意注册",
-   "progress_date": "2026-09-04",
+   "progress": "发行中",
+   "progress_date": "2026-09-28",
    "registration_date": "2025-10-30",
    "approval_date": "",
    "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 23.21,
+   "rating_cd": "AA-",
+   "record_dt": "2026-09-24",
+   "convert_price": 24.01,
    "cb_amount": 8.31,
    "b_shares": 0.0,
    "price": 23.78,
@@ -756,8 +756,8 @@
    "market": "沪",
    "total_score": 73,
    "rating": "A",
-   "action": "积极配债",
-   "action_reason": "高分+注册生效，可建仓潜伏",
+   "action": "关注",
+   "action_reason": "高分标的，等待更明确信号",
    "action_price": "买入≤21.4 | 卖出≥27.35 | 安全垫4.2%",
    "score_details": {
     "含权量评分": {
@@ -5316,18 +5316,18 @@
   {
    "stock_code": "301132",
    "stock_name": "满坤科技",
-   "bond_name": "满坤科技转债",
+   "bond_name": "满坤转债",
    "industry": "AI/科技",
    "total_scale": 7.6,
    "per_share_amount": 7.51,
-   "progress": "同意注册",
-   "progress_date": "2026-07-27",
+   "progress": "发行中",
+   "progress_date": "2026-09-28",
    "registration_date": "2025-12-31",
    "approval_date": "",
    "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 53.75,
+   "rating_cd": "AA-",
+   "record_dt": "2026-09-24",
+   "convert_price": 66.97,
    "cb_amount": 7.51,
    "b_shares": 0.0,
    "price": 68.33,
@@ -5852,96 +5852,6 @@
    "issue_amount": 15.0,
    "safety_pct": 5.8,
    "per_share_allotment": 2.0555
-  },
-  {
-   "stock_code": "300727",
-   "stock_name": "润禾材料",
-   "bond_name": "润禾转02",
-   "industry": "化工/材料",
-   "total_scale": 3.7,
-   "per_share_amount": 5.9,
-   "progress": "发行中",
-   "progress_date": "2026-09-10",
-   "registration_date": "2026-02-09",
-   "approval_date": "",
-   "board": "创业板",
-   "rating_cd": "A+",
-   "record_dt": "2026-09-09",
-   "convert_price": 31.1,
-   "cb_amount": 6.5,
-   "b_shares": 0.0,
-   "price": 34.8,
-   "change_pct": -2.16,
-   "pb": 4.63,
-   "ma20_price": 31.44,
-   "circ_mv": 2.59,
-   "circ_mv_score_factor": 2.59,
-   "pe": 58.0,
-   "turnover_rate": null,
-   "amount": 3.7,
-   "q1_growth": 13.41,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 487,
-   "per_hand_shares": 486.8550054054054,
-   "market": "深",
-   "total_score": 44,
-   "rating": "C",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤32.02 | 卖出≥38.28 | 安全垫1.8%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "5.90元"
-    },
-    "隐形流通量评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "2.59亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长13.41%"
-    },
-    "潜伏期扣分": {
-     "score": -15,
-     "max": 0,
-     "factor": "2026-02"
-    },
-    "300/688折扣": {
-     "score": -5,
-     "max": 0,
-     "factor": "创业板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=58.0"
-    },
-    "行业加减分": {
-     "score": -3,
-     "max": 10,
-     "factor": "化工/材料"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交3.7亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "化工/材料"
-    }
-   },
-   "weighted_amount": 5.9,
-   "hidden_circulation": 2.59,
-   "total": 44,
-   "issue_amount": 3.7,
-   "safety_pct": 1.8,
-   "per_share_allotment": 2.054
   },
   {
    "stock_code": "002550",
