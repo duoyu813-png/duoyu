@@ -2,11 +2,13 @@
 
 用法：
   python notify.py --test           手动测试推送
-  python notify.py --rotation       每周五 14:00(北京) 可转债轮动推送
+  python notify.py --rotation       每周最后一个交易日 14:00(北京) 可转债轮动推送
   python notify.py --progress       待发可转债「进度变化」推送
   python notify.py --cb-alert       低价/低溢价「变动」推送（当天新进入价格<110 或 溢价<10% 的转债）
 
 说明：
+  - 轮动推送：工作日每天定时触发，仅当「今天是本周最后一个交易日」时推送，
+    自动避开节假日（如周五逢休市则提前到本周最后开市日）。手动触发可设 ROTATION_FORCE=1 强制推送。
   - 进度变化推送：扫描集思录待发可转债，仅当某只转债「变化为 上市委通过 / 同意注册」时
     立即推送，快照存于 last_issues.json（随仓库维护用于前后比对）。
   - 轮动推送的 last_strategies.json 随仓库维护，用于计算轮入/轮出。
@@ -65,7 +67,7 @@ def _build_rotation_message(results, last):
     并单独标出 轮入 / 轮出 变动。无变动时提示一行。
     返回 (message_lines, 最新快照)。"""
     top_n = _ROTATION_TOP_N
-    lines = ["## 周五可转债轮动",
+    lines = ["## 本周可转债轮动",
              f"轮动池：每个策略排名前 {top_n} 只（不足按实际只数）\n"]
     current = {}
     for key, data in (results or {}).items():
@@ -187,7 +189,22 @@ def fetch_strategies():
     return run_all_strategies(_build_bond_dicts(merged))
 
 
-def push_rotation():
+def push_rotation(force: bool = False):
+    """每周「最后一个交易日」轮动推送。
+
+    工作日定时任务每天都会运行（见 rotation.yml），此处仅在「今天是本周最后一个
+    交易日」时才真正推送，从而自动避开节假日：例如 9/25 周五是中秋休市，本周最后
+    交易日为 9/24 周四，则在周四推送。force=True（手动触发）时跳过日历判定。
+    """
+    from datetime import date
+    import trading_calendar
+
+    today = (datetime.utcnow() + timedelta(hours=8)).date()
+    ltd = trading_calendar.last_trading_day_of_week(today)
+    if not force and today != ltd:
+        print(f"[notify] 今天 {today} 不是本周最后一个交易日（本周最后交易日为 {ltd}），跳过轮动推送")
+        return False
+
     results = fetch_strategies()
     if not results:
         print("[notify] 无策略数据，跳过轮动推送")
@@ -202,7 +219,7 @@ def push_rotation():
 
     lines, current = _build_rotation_message(results, last)
     _save(LAST_STRATEGIES, current)
-    return _send("周五可转债轮动", "\n".join(lines))
+    return _send("每周可转债轮动", "\n".join(lines))
 
 
 _PROGRESS_TARGETS = ("上市委通过", "同意注册")
@@ -363,7 +380,8 @@ if __name__ == "__main__":
     t0 = time.time()
     ok = False
     if mode == "--rotation":
-        ok = push_rotation()
+        _force = os.environ.get("ROTATION_FORCE", "").lower() in ("1", "true", "yes", "y", "on")
+        ok = push_rotation(force=_force)
     elif mode == "--progress":
         ok = push_progress_change()
     elif mode == "--cb-alert":

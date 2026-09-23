@@ -1,14 +1,19 @@
-name: 周五可转债轮动推送
+name: 可转债每周轮动推送
 
-# 每周五 14:00（北京时间）可转债轮动推送，UTC 周五 06:00 = 北京 14:00
-# 独立于 push.yml 的每日折价推送。
-# 目的：不再用「运行时刻是否为周五 14 点整」猜测任务类型——
-# GitHub Actions 对定时任务的排期可能延迟数小时，
-# 独立 workflow 即使晚到，也会固定推送正确的轮动内容。
+# 每周「最后一个交易日」14:00（北京时间）推送轮动。
+# 工作日 周一~周五 每天触发（UTC 06:00 = 北京 14:00），由 notify.py 判定
+# 今天是否为本周最后一个交易日：若周五逢节假日休市，则提前到本周最后开市日
+# （如 9/25 周五中秋休市 -> 周四 9/24）推送，从而自动避开节假日。
+# 独立于 refresh.yml 的每日折价推送。
 on:
   schedule:
-    - cron: '0 6 * * 5'
+    - cron: '0 6 * * 1-5'
   workflow_dispatch:
+    inputs:
+      force:
+        description: '强制推送（跳过交易日判定），填 true'
+        required: false
+        default: 'false'
 
 permissions:
   contents: write
@@ -27,9 +32,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Friday rotation push
+      - name: Run weekly rotation push
         env:
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          ROTATION_FORCE: ${{ inputs.force }}
         run: python notify.py --rotation
 
       # 轮动推送会更新 last_strategies.json，需回写仓库以便下次轮入/轮出比对。
@@ -38,10 +44,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f last_strategies.json
+          git add -f last_strategies.json holiday_cache.json
           if git diff --cached --quiet; then
             echo "无变更"
           else
-            git commit -m "chore: update rotation snapshot"
+            git commit -m "chore: update rotation snapshot [skip ci]"
             git push
           fi

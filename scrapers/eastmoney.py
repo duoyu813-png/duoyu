@@ -408,7 +408,22 @@ class EastMoneyScraper:
             }
         return quotes
 
-    # ==================== 正股行业/概念（push2 stock/get 并发查询） ====================
+    # ==================== 正股行业/概念（东财 F10 核心题材 + push2 兜底） ====================
+
+    # 概念板块过滤：剔除地域/指数/风格/资金等非题材板块，仅保留真正有信息量的题材概念
+    _CONCEPT_NOISE_SUFFIX = (
+        "板块", "风格", "股", "指数", "成份", "成分", "标的", "重仓",
+        "通", "融券", "综", "R",
+    )
+    _CONCEPT_NOISE_EXACT = {
+        "转债标的", "专精特新", "融资融券", "沪股通", "深股通", "MSCI中国",
+        "富时罗素", "标准普尔", "基金重仓", "机构重仓", "社保重仓", "QFII重仓",
+        "大盘股", "中盘股", "小盘股", "微盘股", "权重股", "行业龙头", "百元股",
+        "破净股", "破发股", "破增发价股", "低价股", "高价股", "趋势股",
+        "股权激励", "预盈预增", "预亏预减", "AH股", "创业板综", "深成500",
+        "中证500", "上证180_", "上证50_", "HS300_", "创业成份", "深证100R",
+        "券商金股", "昨日涨停", "昨日连板", "昨日高振幅", "长期破净",
+    }
 
     @classmethod
     def _make_secid(cls, stock_code: str) -> str:
@@ -419,35 +434,99 @@ class EastMoneyScraper:
         return f"0.{code}"
 
     @classmethod
-    def fetch_stock_concepts(cls, stock_codes: list[str]) -> dict[str, dict]:
-        """并发查询正股的行业(f127)和概念板块(f129)，返回 {stock_code: {industry, concept}}"""
-        if not stock_codes:
-            return {}
+    def _f10_code(cls, stock_code: str) -> str:
+        """正股代码 -> 东财 F10 代码（沪 SH / 深 SZ / 北 BJ）"""
+        code = str(stock_code).strip()
+        if code.startswith("6"):
+            return "SH" + code
+        if code.startswith(("4", "8", "9")):
+            return "BJ" + code
+        return "SZ" + code
 
-        def _fetch_one(stock_code: str):
-            secid = cls._make_secid(stock_code)
-            if not secid or secid.endswith("."):
-                return stock_code, "", ""
-            url = "https://push2delay.eastmoney.com/api/qt/stock/get"
-            params = {"secid": secid, "fields": "f127,f129"}
-            # 东财对 stock/get 并发敏感，失败重试以降低限流导致的空数据
-            for attempt in range(3):
-                try:
-                    resp = requests.get(url, params=params, headers=cls.HEADERS, timeout=8)
-                    d = resp.json().get("data") or {}
-                    ind = str(d.get("f127", ""))
-                    con = str(d.get("f129", ""))
-                    if ind or con:
-                        return stock_code, ind, con
-                except Exception:
-                    pass
-                time.sleep(0.8)
+    @classmethod
+    def _is_real_concept(cls, name: str) -> bool:
+        """判断板块名是否为真正题材概念（剔除地域/指数/风格等噪音）"""
+        if not name:
+            return False
+        if name in cls._CONCEPT_NOISE_EXACT:
+            return False
+        if name.endswith(cls._CONCEPT_NOISE_SUFFIX):
+            return False
+        return True
+
+    @classmethod
+    def _fetch_one_concept(cls, stock_code: str):
+        """抓取单只正股的行业与概念。
+
+        优先东财 F10 核心题材接口（CoreConception），返回「一级行业 + 精准题材」；
+        失败时退回 push2 stock/get 的 f127(行业)/f129(概念)。
+        返回 (stock_code, industry, concept_str)。
+        """
+        code = str(stock_code).strip()
+        if not code or not code.isdigit():
             return stock_code, "", ""
 
+        # 1) 东财 F10 核心题材（数据最全，精准题材 IS_PRECISE=1）
+        f10 = cls._f10_code(code)
+        url = "https://emweb.securities.eastmoney.com/PC_HSF10/CoreConception/PageAjax"
+        headers = {**cls.HEADERS, "Referer": "https://emweb.securities.eastmoney.com/"}
+        for attempt in range(2):
+            try:
+                resp = requests.get(url, params={"code": f10}, headers=headers, timeout=10)
+                rows = (resp.json() or {}).get("ssbk") or []
+                if rows:
+                    rows_sorted = sorted(rows, key=lambda x: x.get("BOARD_RANK") or 0)
+                    industry = str(rows_sorted[0].get("BOARD_NAME") or "").strip()
+                    precise = [str(b.get("BOARD_NAME") or "").strip()
+                               for b in rows_sorted
+                               if str(b.get("IS_PRECISE")) == "1" and b.get("BOARD_NAME")]
+                    if not precise:
+                        # 无精准题材的少数个股：退回行业名（比罗列地域/子行业更干净）
+                        precise = [industry] if cls._is_real_concept(industry) else []
+                    # 去重保序
+                    seen = set()
+                    concepts = []
+                    for c in precise:
+                        if c and c not in seen:
+                            seen.add(c)
+                            concepts.append(c)
+                    return stock_code, industry, ",".join(concepts)
+            except Exception:
+                pass
+            time.sleep(0.6)
+
+        # 2) 兜底：push2 stock/get
+        secid = cls._make_secid(code)
+        if secid and not secid.endswith("."):
+            try:
+                resp = requests.get(
+                    "https://push2delay.eastmoney.com/api/qt/stock/get",
+                    params={"secid": secid, "fields": "f127,f129"},
+                    headers=cls.HEADERS, timeout=8,
+                )
+                d = resp.json().get("data") or {}
+                ind = str(d.get("f127", ""))
+                con = str(d.get("f129", ""))
+                return (stock_code,
+                        ind if ind and ind != "-" else "",
+                        con if con and con != "-" else "")
+            except Exception:
+                pass
+        return stock_code, "", ""
+
+    @classmethod
+    def fetch_stock_concepts(cls, stock_codes: list[str]) -> dict[str, dict]:
+        """并发查询正股的行业与概念板块，返回 {stock_code: {stock_industry, concept}}"""
+        if not stock_codes:
+            return {}
+        # 去重、去空
+        codes = [str(c).strip() for c in stock_codes if c and str(c).strip()]
+        codes = list(dict.fromkeys(codes))
+
         result = {}
-        # 并发降到 5，避免触发东财限流（99 只并发会被整批拦截）
-        with ThreadPoolExecutor(max_workers=5) as executor:
-            futures = {executor.submit(_fetch_one, code): code for code in stock_codes if code}
+        # 并发 6：F10 接口较友好，实测 300+ 只约 30s 完成
+        with ThreadPoolExecutor(max_workers=6) as executor:
+            futures = {executor.submit(cls._fetch_one_concept, code): code for code in codes}
             for future in as_completed(futures):
                 stock_code, industry, concept = future.result()
                 if stock_code:
