@@ -1,6 +1,6 @@
 {
  "total": 82,
- "generated_at": "2026-09-24 07:00:23",
+ "generated_at": "2026-09-24 12:33:04",
  "source": "live",
  "bonds": [
   {
@@ -17,13 +17,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 21.2,
+   "convert_price": 21.24,
    "cb_amount": 21.56,
    "b_shares": 0.0,
    "price": 22.04,
    "change_pct": 1.05,
    "pb": 1.62,
-   "ma20_price": 21.2,
+   "ma20_price": 21.24,
    "circ_mv": 3.49,
    "circ_mv_score_factor": 3.49,
    "pe": 53.7,
@@ -99,7 +99,7 @@
    "bond_name": "信凯科技转债",
    "industry": "AI/科技",
    "total_scale": 4.5,
-   "per_share_amount": 14.26,
+   "per_share_amount": 14.27,
    "progress": "董事会预案",
    "progress_date": "2026-07-08",
    "registration_date": "",
@@ -107,16 +107,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 32.44,
-   "cb_amount": 14.26,
+   "convert_price": 32.53,
+   "cb_amount": 14.27,
    "b_shares": 0.0,
-   "price": 33.67,
-   "change_pct": 0.0,
+   "price": 33.63,
+   "change_pct": -0.12,
    "pb": 3.13,
-   "ma20_price": 32.44,
+   "ma20_price": 32.53,
    "circ_mv": 1.35,
    "circ_mv_score_factor": 1.35,
-   "pe": 32.38,
+   "pe": 32.34,
    "turnover_rate": null,
    "amount": 4.5,
    "q1_growth": 3.05,
@@ -128,12 +128,12 @@
    "rating": "A+",
    "action": "关注",
    "action_reason": "高分标的，等待更明确信号",
-   "action_price": "买入≤30.3 | 卖出≥38.72 | 安全垫4.3%",
+   "action_price": "买入≤30.27 | 卖出≥38.67 | 安全垫4.3%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "14.26元"
+     "factor": "14.27元"
     },
     "隐形流通量评分": {
      "score": 30,
@@ -158,7 +158,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=32.38"
+     "factor": "PE=32.34"
     },
     "行业加减分": {
      "score": 8,
@@ -176,7 +176,7 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 14.26,
+   "weighted_amount": 14.27,
    "hidden_circulation": 1.35,
    "total": 93,
    "issue_amount": 4.5,
@@ -287,16 +287,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 126.68,
+   "convert_price": 126.45,
    "cb_amount": 7.8,
    "b_shares": 0.0,
-   "price": 122.13,
-   "change_pct": -3.34,
+   "price": 122.11,
+   "change_pct": -3.36,
    "pb": 5.55,
-   "ma20_price": 126.68,
+   "ma20_price": 126.45,
    "circ_mv": 3.59,
    "circ_mv_score_factor": 3.59,
-   "pe": 34.7,
+   "pe": 34.69,
    "turnover_rate": null,
    "amount": 11.5,
    "q1_growth": 41.98,
@@ -308,7 +308,7 @@
    "rating": "A+",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤109.92 | 卖出≥140.45 | 安全垫2.3%",
+   "action_price": "买入≤109.9 | 卖出≥140.43 | 安全垫2.3%",
    "score_details": {
     "含权量评分": {
      "score": 10,
@@ -338,7 +338,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=34.7"
+     "factor": "PE=34.69"
     },
     "行业加减分": {
      "score": 8,
@@ -369,7 +369,7 @@
    "bond_name": "皖仪科技转债",
    "industry": "AI/科技",
    "total_scale": 3.17,
-   "per_share_amount": 6.49,
+   "per_share_amount": 6.48,
    "progress": "交易所受理",
    "progress_date": "2026-06-05",
    "registration_date": "2026-06-05",
@@ -377,16 +377,16 @@
    "board": "科创板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 33.41,
-   "cb_amount": 6.49,
+   "convert_price": 33.81,
+   "cb_amount": 6.48,
    "b_shares": 0.0,
-   "price": 36.27,
-   "change_pct": -6.01,
-   "pb": 6.12,
-   "ma20_price": 33.41,
+   "price": 36.34,
+   "change_pct": -5.83,
+   "pb": 6.14,
+   "ma20_price": 33.81,
    "circ_mv": 2.22,
    "circ_mv_score_factor": 2.22,
-   "pe": 90.67,
+   "pe": 90.85,
    "turnover_rate": null,
    "amount": 3.17,
    "q1_growth": 324.98,
@@ -398,12 +398,12 @@
    "rating": "A+",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤32.64 | 卖出≥41.71 | 安全垫2.8%",
+   "action_price": "买入≤32.71 | 卖出≥41.79 | 安全垫2.8%",
    "score_details": {
     "含权量评分": {
      "score": 10,
      "max": 30,
-     "factor": "6.49元"
+     "factor": "6.48元"
     },
     "隐形流通量评分": {
      "score": 25,
@@ -428,7 +428,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=90.67"
+     "factor": "PE=90.85"
     },
     "行业加减分": {
      "score": 8,
@@ -446,7 +446,7 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 6.49,
+   "weighted_amount": 6.48,
    "hidden_circulation": 2.22,
    "total": 81,
    "issue_amount": 3.17,
@@ -459,7 +459,7 @@
    "bond_name": "朗坤科技转债",
    "industry": "AI/科技",
    "total_scale": 5.9,
-   "per_share_amount": 9.28,
+   "per_share_amount": 9.27,
    "progress": "交易所受理",
    "progress_date": "2026-08-11",
    "registration_date": "2026-08-11",
@@ -467,13 +467,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 25.85,
-   "cb_amount": 9.28,
+   "convert_price": 25.9,
+   "cb_amount": 9.27,
    "b_shares": 0.0,
-   "price": 26.29,
-   "change_pct": -3.63,
+   "price": 26.3,
+   "change_pct": -3.59,
    "pb": 1.61,
-   "ma20_price": 25.85,
+   "ma20_price": 25.9,
    "circ_mv": 3.03,
    "circ_mv_score_factor": 3.03,
    "pe": 16.99,
@@ -488,12 +488,12 @@
    "rating": "A",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤23.66 | 卖出≥30.23 | 安全垫2.8%",
+   "action_price": "买入≤23.67 | 卖出≥30.24 | 安全垫2.8%",
    "score_details": {
     "含权量评分": {
      "score": 10,
      "max": 30,
-     "factor": "9.28元"
+     "factor": "9.27元"
     },
     "隐形流通量评分": {
      "score": 20,
@@ -536,7 +536,7 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 9.28,
+   "weighted_amount": 9.27,
    "hidden_circulation": 3.03,
    "total": 78,
    "issue_amount": 5.9,
@@ -549,7 +549,7 @@
    "bond_name": "壹连科技转债",
    "industry": "AI/科技",
    "total_scale": 11.8,
-   "per_share_amount": 14.87,
+   "per_share_amount": 14.85,
    "progress": "上市委通过",
    "progress_date": "2026-09-17",
    "registration_date": "2026-06-11",
@@ -557,16 +557,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 63.05,
-   "cb_amount": 14.87,
+   "convert_price": 63.02,
+   "cb_amount": 14.85,
    "b_shares": 0.0,
-   "price": 62.02,
-   "change_pct": -3.18,
+   "price": 62.07,
+   "change_pct": -3.11,
    "pb": 3.05,
-   "ma20_price": 63.05,
+   "ma20_price": 63.02,
    "circ_mv": 4.02,
    "circ_mv_score_factor": 4.02,
-   "pe": 20.14,
+   "pe": 20.15,
    "turnover_rate": null,
    "amount": 11.8,
    "q1_growth": 17.45,
@@ -578,12 +578,12 @@
    "rating": "A",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤55.82 | 卖出≥71.32 | 安全垫4.4%",
+   "action_price": "买入≤55.86 | 卖出≥71.38 | 安全垫4.4%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "14.87元"
+     "factor": "14.85元"
     },
     "隐形流通量评分": {
      "score": 20,
@@ -608,7 +608,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=20.14"
+     "factor": "PE=20.15"
     },
     "行业加减分": {
      "score": 8,
@@ -626,7 +626,7 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 14.87,
+   "weighted_amount": 14.85,
    "hidden_circulation": 4.02,
    "total": 77,
    "issue_amount": 11.8,
@@ -639,7 +639,7 @@
    "bond_name": "恒工精密转债",
    "industry": "化工/材料",
    "total_scale": 8.1,
-   "per_share_amount": 13.97,
+   "per_share_amount": 13.95,
    "progress": "董事会预案",
    "progress_date": "2026-09-17",
    "registration_date": "",
@@ -648,15 +648,15 @@
    "rating_cd": "",
    "record_dt": "",
    "convert_price": 57.07,
-   "cb_amount": 13.97,
+   "cb_amount": 13.95,
    "b_shares": 0.0,
-   "price": 54.96,
-   "change_pct": -2.01,
-   "pb": 3.54,
+   "price": 55.05,
+   "change_pct": -1.85,
+   "pb": 3.55,
    "ma20_price": 57.07,
    "circ_mv": 5.67,
    "circ_mv_score_factor": 5.67,
-   "pe": 19.63,
+   "pe": 19.66,
    "turnover_rate": null,
    "amount": 8.1,
    "q1_growth": 210.56,
@@ -668,12 +668,12 @@
    "rating": "A",
    "action": "关注",
    "action_reason": "高分标的，等待更明确信号",
-   "action_price": "买入≤49.46 | 卖出≥63.2 | 安全垫4.2%",
+   "action_price": "买入≤49.55 | 卖出≥63.31 | 安全垫4.2%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "13.97元"
+     "factor": "13.95元"
     },
     "隐形流通量评分": {
      "score": 15,
@@ -698,7 +698,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=19.63"
+     "factor": "PE=19.66"
     },
     "行业加减分": {
      "score": -3,
@@ -716,7 +716,7 @@
      "factor": "化工/材料"
     }
    },
-   "weighted_amount": 13.97,
+   "weighted_amount": 13.95,
    "hidden_circulation": 5.67,
    "total": 77,
    "issue_amount": 8.1,
@@ -743,7 +743,7 @@
    "price": 23.44,
    "change_pct": -4.4,
    "pb": 3.69,
-   "ma20_price": 23.42,
+   "ma20_price": 23.47,
    "circ_mv": 5.6,
    "circ_mv_score_factor": 5.6,
    "pe": 29.3,
@@ -827,16 +827,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 22.32,
+   "convert_price": 22.48,
    "cb_amount": 5.59,
    "b_shares": 0.0,
-   "price": 22.84,
-   "change_pct": 0.71,
+   "price": 22.85,
+   "change_pct": 0.75,
    "pb": 2.61,
-   "ma20_price": 22.32,
+   "ma20_price": 22.48,
    "circ_mv": 2.47,
    "circ_mv_score_factor": 2.47,
-   "pe": 30.05,
+   "pe": 30.07,
    "turnover_rate": null,
    "amount": 5.14,
    "q1_growth": -32.2,
@@ -848,7 +848,7 @@
    "rating": "A",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤20.56 | 卖出≥26.27 | 安全垫1.7%",
+   "action_price": "买入≤20.57 | 卖出≥26.28 | 安全垫1.7%",
    "score_details": {
     "含权量评分": {
      "score": 10,
@@ -878,7 +878,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=30.05"
+     "factor": "PE=30.07"
     },
     "行业加减分": {
      "score": 8,
@@ -909,7 +909,7 @@
    "bond_name": "广合科技转债",
    "industry": "AI/科技",
    "total_scale": 36.0,
-   "per_share_amount": 4.19,
+   "per_share_amount": 4.2,
    "progress": "董事会预案",
    "progress_date": "2026-06-23",
    "registration_date": "",
@@ -917,16 +917,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 177.1,
-   "cb_amount": 4.64,
+   "convert_price": 178.23,
+   "cb_amount": 4.66,
    "b_shares": 0.0,
-   "price": 181.79,
-   "change_pct": -5.44,
-   "pb": 10.84,
-   "ma20_price": 177.1,
+   "price": 181.16,
+   "change_pct": -5.77,
+   "pb": 10.8,
+   "ma20_price": 178.23,
    "circ_mv": 11.6,
    "circ_mv_score_factor": 11.6,
-   "pe": 48.87,
+   "pe": 48.7,
    "turnover_rate": null,
    "amount": 36.0,
    "q1_growth": 63.31,
@@ -938,12 +938,12 @@
    "rating": "A",
    "action": "关注",
    "action_reason": "高分标的，等待更明确信号",
-   "action_price": "买入≤163.61 | 卖出≥209.06 | 安全垫1.3%",
+   "action_price": "买入≤163.04 | 卖出≥208.33 | 安全垫1.3%",
    "score_details": {
     "含权量评分": {
      "score": 5,
      "max": 30,
-     "factor": "4.19元"
+     "factor": "4.20元"
     },
     "隐形流通量评分": {
      "score": 10,
@@ -968,7 +968,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=48.87"
+     "factor": "PE=48.7"
     },
     "行业加减分": {
      "score": 8,
@@ -986,7 +986,7 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 4.19,
+   "weighted_amount": 4.2,
    "hidden_circulation": 11.6,
    "total": 73,
    "issue_amount": 36.0,
@@ -1007,16 +1007,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 95.43,
+   "convert_price": 95.36,
    "cb_amount": 5.5,
    "b_shares": 0.0,
-   "price": 99.5,
-   "change_pct": -3.19,
+   "price": 99.48,
+   "change_pct": -3.21,
    "pb": 8.26,
-   "ma20_price": 95.43,
+   "ma20_price": 95.36,
    "circ_mv": 5.6,
    "circ_mv_score_factor": 5.6,
-   "pe": 21.48,
+   "pe": 21.47,
    "turnover_rate": null,
    "amount": 8.0,
    "q1_growth": 87.43,
@@ -1028,7 +1028,7 @@
    "rating": "A",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤89.55 | 卖出≥114.42 | 安全垫1.6%",
+   "action_price": "买入≤89.53 | 卖出≥114.4 | 安全垫1.6%",
    "score_details": {
     "含权量评分": {
      "score": 10,
@@ -1058,7 +1058,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=21.48"
+     "factor": "PE=21.47"
     },
     "行业加减分": {
      "score": 0,
@@ -1089,7 +1089,7 @@
    "bond_name": "蓝宇股份转债",
    "industry": "其他",
    "total_scale": 4.73,
-   "per_share_amount": 16.03,
+   "per_share_amount": 16.04,
    "progress": "股东大会通过",
    "progress_date": "2026-05-27",
    "registration_date": "",
@@ -1097,16 +1097,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 28.08,
-   "cb_amount": 16.03,
+   "convert_price": 28.16,
+   "cb_amount": 16.04,
    "b_shares": 0.0,
-   "price": 28.38,
-   "change_pct": -0.39,
+   "price": 28.36,
+   "change_pct": -0.46,
    "pb": 2.98,
-   "ma20_price": 28.08,
+   "ma20_price": 28.16,
    "circ_mv": 3.1,
    "circ_mv_score_factor": 3.1,
-   "pe": 54.58,
+   "pe": 54.54,
    "turnover_rate": null,
    "amount": 4.73,
    "q1_growth": 2.34,
@@ -1118,12 +1118,12 @@
    "rating": "A",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤25.54 | 卖出≥32.64 | 安全垫4.8%",
+   "action_price": "买入≤25.52 | 卖出≥32.61 | 安全垫4.8%",
    "score_details": {
     "含权量评分": {
      "score": 20,
      "max": 30,
-     "factor": "16.03元"
+     "factor": "16.04元"
     },
     "隐形流通量评分": {
      "score": 20,
@@ -1148,7 +1148,7 @@
     "PE扣分": {
      "score": -3,
      "max": 0,
-     "factor": "PE=54.58"
+     "factor": "PE=54.54"
     },
     "行业加减分": {
      "score": 0,
@@ -1166,7 +1166,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 16.03,
+   "weighted_amount": 16.04,
    "hidden_circulation": 3.1,
    "total": 72,
    "issue_amount": 4.73,
@@ -1187,13 +1187,13 @@
    "board": "科创板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 118.73,
+   "convert_price": 118.24,
    "cb_amount": 10.49,
    "b_shares": 0.0,
    "price": 112.78,
    "change_pct": -3.44,
    "pb": 4.51,
-   "ma20_price": 118.73,
+   "ma20_price": 118.24,
    "circ_mv": 14.0,
    "circ_mv_score_factor": 14.0,
    "pe": 59.31,
@@ -1269,7 +1269,7 @@
    "bond_name": "金道科技转债",
    "industry": "AI/科技",
    "total_scale": 3.06,
-   "per_share_amount": 7.44,
+   "per_share_amount": 7.43,
    "progress": "交易所受理",
    "progress_date": "2026-06-02",
    "registration_date": "2026-06-02",
@@ -1277,16 +1277,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 22.81,
-   "cb_amount": 7.44,
+   "convert_price": 22.97,
+   "cb_amount": 7.43,
    "b_shares": 0.0,
-   "price": 24.41,
-   "change_pct": 1.75,
-   "pb": 3.01,
-   "ma20_price": 22.81,
+   "price": 24.45,
+   "change_pct": 1.92,
+   "pb": 3.02,
+   "ma20_price": 22.97,
    "circ_mv": 2.14,
    "circ_mv_score_factor": 2.14,
-   "pe": 50.85,
+   "pe": 50.94,
    "turnover_rate": null,
    "amount": 3.06,
    "q1_growth": 4.12,
@@ -1298,12 +1298,12 @@
    "rating": "A",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤21.97 | 卖出≥28.07 | 安全垫2.2%",
+   "action_price": "买入≤22.0 | 卖出≥28.12 | 安全垫2.2%",
    "score_details": {
     "含权量评分": {
      "score": 10,
      "max": 30,
-     "factor": "7.44元"
+     "factor": "7.43元"
     },
     "隐形流通量评分": {
      "score": 25,
@@ -1328,7 +1328,7 @@
     "PE扣分": {
      "score": -3,
      "max": 0,
-     "factor": "PE=50.85"
+     "factor": "PE=50.94"
     },
     "行业加减分": {
      "score": 8,
@@ -1346,7 +1346,7 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 7.44,
+   "weighted_amount": 7.43,
    "hidden_circulation": 2.14,
    "total": 71,
    "issue_amount": 3.06,
@@ -1359,7 +1359,7 @@
    "bond_name": "隆盛科技转债",
    "industry": "AI/科技",
    "total_scale": 7.13,
-   "per_share_amount": 11.71,
+   "per_share_amount": 11.72,
    "progress": "股东大会通过",
    "progress_date": "2026-09-14",
    "registration_date": "",
@@ -1367,16 +1367,16 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 20.07,
-   "cb_amount": 11.71,
+   "convert_price": 20.09,
+   "cb_amount": 11.72,
    "b_shares": 0.0,
-   "price": 20.7,
-   "change_pct": -1.33,
-   "pb": 3.03,
-   "ma20_price": 20.07,
+   "price": 20.68,
+   "change_pct": -1.43,
+   "pb": 3.02,
+   "ma20_price": 20.09,
    "circ_mv": 4.99,
    "circ_mv_score_factor": 4.99,
-   "pe": 20.26,
+   "pe": 20.24,
    "turnover_rate": null,
    "amount": 7.13,
    "q1_growth": -0.89,
@@ -1388,12 +1388,12 @@
    "rating": "A",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤18.63 | 卖出≥23.8 | 安全垫3.5%",
+   "action_price": "买入≤18.61 | 卖出≥23.78 | 安全垫3.5%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "11.71元"
+     "factor": "11.72元"
     },
     "隐形流通量评分": {
      "score": 20,
@@ -1418,7 +1418,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=20.26"
+     "factor": "PE=20.24"
     },
     "行业加减分": {
      "score": 8,
@@ -1436,7 +1436,7 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 11.71,
+   "weighted_amount": 11.72,
    "hidden_circulation": 4.99,
    "total": 70,
    "issue_amount": 7.13,
@@ -1547,13 +1547,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 13.52,
+   "convert_price": 13.57,
    "cb_amount": 8.42,
    "b_shares": 0.0,
    "price": 13.18,
    "change_pct": -1.27,
    "pb": 5.86,
-   "ma20_price": 13.52,
+   "ma20_price": 13.57,
    "circ_mv": 3.29,
    "circ_mv_score_factor": 3.29,
    "pe": 32.56,
@@ -1637,13 +1637,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 32.5,
+   "convert_price": 32.46,
    "cb_amount": 12.93,
    "b_shares": 0.0,
    "price": 31.04,
    "change_pct": -2.3,
    "pb": 2.63,
-   "ma20_price": 32.5,
+   "ma20_price": 32.46,
    "circ_mv": 14.35,
    "circ_mv_score_factor": 14.35,
    "pe": 22.17,
@@ -1719,7 +1719,7 @@
    "bond_name": "弘景光电转债",
    "industry": "AI/科技",
    "total_scale": 6.3,
-   "per_share_amount": 9.75,
+   "per_share_amount": 9.76,
    "progress": "股东大会通过",
    "progress_date": "2026-08-10",
    "registration_date": "",
@@ -1727,16 +1727,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 50.88,
-   "cb_amount": 9.75,
+   "convert_price": 51.01,
+   "cb_amount": 9.76,
    "b_shares": 0.0,
-   "price": 51.86,
-   "change_pct": -3.34,
-   "pb": 4.96,
-   "ma20_price": 50.88,
+   "price": 51.8,
+   "change_pct": -3.45,
+   "pb": 4.95,
+   "ma20_price": 51.01,
    "circ_mv": 3.61,
    "circ_mv_score_factor": 3.61,
-   "pe": 45.21,
+   "pe": 45.15,
    "turnover_rate": null,
    "amount": 6.3,
    "q1_growth": -26.33,
@@ -1748,12 +1748,12 @@
    "rating": "B+",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤46.67 | 卖出≥59.64 | 安全垫2.9%",
+   "action_price": "买入≤46.62 | 卖出≥59.57 | 安全垫2.9%",
    "score_details": {
     "含权量评分": {
      "score": 10,
      "max": 30,
-     "factor": "9.75元"
+     "factor": "9.76元"
     },
     "隐形流通量评分": {
      "score": 20,
@@ -1778,7 +1778,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=45.21"
+     "factor": "PE=45.15"
     },
     "行业加减分": {
      "score": 8,
@@ -1796,7 +1796,7 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 9.75,
+   "weighted_amount": 9.76,
    "hidden_circulation": 3.61,
    "total": 68,
    "issue_amount": 6.3,
@@ -1817,16 +1817,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 333.36,
+   "convert_price": 332.48,
    "cb_amount": 2.93,
    "b_shares": 0.0,
-   "price": 333.6,
-   "change_pct": -2.48,
-   "pb": 15.3,
-   "ma20_price": 333.36,
+   "price": 333.85,
+   "change_pct": -2.41,
+   "pb": 15.31,
+   "ma20_price": 332.48,
    "circ_mv": 5.95,
    "circ_mv_score_factor": 5.95,
-   "pe": 58.73,
+   "pe": 58.78,
    "turnover_rate": null,
    "amount": 8.5,
    "q1_growth": 221.54,
@@ -1838,7 +1838,7 @@
    "rating": "B+",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤300.24 | 卖出≥383.64 | 安全垫0.9%",
+   "action_price": "买入≤300.47 | 卖出≥383.93 | 安全垫0.9%",
    "score_details": {
     "含权量评分": {
      "score": 5,
@@ -1868,7 +1868,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=58.73"
+     "factor": "PE=58.78"
     },
     "行业加减分": {
      "score": 0,
@@ -1907,13 +1907,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 13.65,
+   "convert_price": 13.61,
    "cb_amount": 10.62,
    "b_shares": 0.0,
    "price": 12.88,
    "change_pct": -1.6,
    "pb": 1.95,
-   "ma20_price": 13.65,
+   "ma20_price": 13.61,
    "circ_mv": 5.42,
    "circ_mv_score_factor": 5.42,
    "pe": 34.7,
@@ -1989,7 +1989,7 @@
    "bond_name": "同星科技转债",
    "industry": "AI/科技",
    "total_scale": 6.5,
-   "per_share_amount": 9.44,
+   "per_share_amount": 9.43,
    "progress": "股东大会通过",
    "progress_date": "2026-09-10",
    "registration_date": "",
@@ -1997,16 +1997,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 37.04,
-   "cb_amount": 9.44,
+   "convert_price": 37.3,
+   "cb_amount": 9.43,
    "b_shares": 0.0,
-   "price": 40.69,
-   "change_pct": -1.64,
+   "price": 40.72,
+   "change_pct": -1.57,
    "pb": 5.06,
-   "ma20_price": 37.04,
+   "ma20_price": 37.3,
    "circ_mv": 4.55,
    "circ_mv_score_factor": 4.55,
-   "pe": 78.25,
+   "pe": 78.31,
    "turnover_rate": null,
    "amount": 6.5,
    "q1_growth": -38.55,
@@ -2018,12 +2018,12 @@
    "rating": "B+",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤36.62 | 卖出≥46.79 | 安全垫2.8%",
+   "action_price": "买入≤36.65 | 卖出≥46.83 | 安全垫2.8%",
    "score_details": {
     "含权量评分": {
      "score": 10,
      "max": 30,
-     "factor": "9.44元"
+     "factor": "9.43元"
     },
     "隐形流通量评分": {
      "score": 20,
@@ -2048,7 +2048,7 @@
     "PE扣分": {
      "score": -3,
      "max": 0,
-     "factor": "PE=78.25"
+     "factor": "PE=78.31"
     },
     "行业加减分": {
      "score": 8,
@@ -2066,7 +2066,7 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 9.44,
+   "weighted_amount": 9.43,
    "hidden_circulation": 4.55,
    "total": 65,
    "issue_amount": 6.5,
@@ -2087,13 +2087,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 11.03,
+   "convert_price": 11.04,
    "cb_amount": 14.09,
    "b_shares": 0.0,
    "price": 10.99,
    "change_pct": -0.45,
    "pb": 2.59,
-   "ma20_price": 11.03,
+   "ma20_price": 11.04,
    "circ_mv": 7.0,
    "circ_mv_score_factor": 7.0,
    "pe": 22.9,
@@ -2177,16 +2177,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 33.89,
+   "convert_price": 33.92,
    "cb_amount": 4.51,
    "b_shares": 0.0,
-   "price": 34.74,
-   "change_pct": -5.42,
+   "price": 34.7,
+   "change_pct": -5.53,
    "pb": 5.18,
-   "ma20_price": 33.89,
+   "ma20_price": 33.92,
    "circ_mv": 5.6,
    "circ_mv_score_factor": 5.6,
-   "pe": 66.81,
+   "pe": 66.73,
    "turnover_rate": null,
    "amount": 8.0,
    "q1_growth": 54.76,
@@ -2198,7 +2198,7 @@
    "rating": "B+",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤31.27 | 卖出≥39.95 | 安全垫2.2%",
+   "action_price": "买入≤31.23 | 卖出≥39.91 | 安全垫2.2%",
    "score_details": {
     "含权量评分": {
      "score": 5,
@@ -2228,7 +2228,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=66.81"
+     "factor": "PE=66.73"
     },
     "行业加减分": {
      "score": 0,
@@ -2259,7 +2259,7 @@
    "bond_name": "争光股份转债",
    "industry": "其他",
    "total_scale": 6.17,
-   "per_share_amount": 10.2,
+   "per_share_amount": 10.21,
    "progress": "交易所受理",
    "progress_date": "2026-09-04",
    "registration_date": "2026-09-04",
@@ -2267,16 +2267,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 44.36,
-   "cb_amount": 10.2,
+   "convert_price": 44.33,
+   "cb_amount": 10.21,
    "b_shares": 0.0,
-   "price": 44.98,
-   "change_pct": -3.66,
-   "pb": 3.09,
-   "ma20_price": 44.36,
+   "price": 44.9,
+   "change_pct": -3.83,
+   "pb": 3.08,
+   "ma20_price": 44.33,
    "circ_mv": 2.8,
    "circ_mv_score_factor": 2.8,
-   "pe": 86.5,
+   "pe": 86.35,
    "turnover_rate": null,
    "amount": 6.17,
    "q1_growth": -27.05,
@@ -2288,12 +2288,12 @@
    "rating": "B+",
    "action": "关注",
    "action_reason": "中高分+小流通盘，等待注册",
-   "action_price": "买入≤40.48 | 卖出≥51.73 | 安全垫3.0%",
+   "action_price": "买入≤40.41 | 卖出≥51.63 | 安全垫3.1%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "10.20元"
+     "factor": "10.21元"
     },
     "隐形流通量评分": {
      "score": 25,
@@ -2318,7 +2318,7 @@
     "PE扣分": {
      "score": -3,
      "max": 0,
-     "factor": "PE=86.5"
+     "factor": "PE=86.35"
     },
     "行业加减分": {
      "score": 0,
@@ -2336,11 +2336,11 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 10.2,
+   "weighted_amount": 10.21,
    "hidden_circulation": 2.8,
    "total": 62,
    "issue_amount": 6.17,
-   "safety_pct": 3.0,
+   "safety_pct": 3.1,
    "per_share_allotment": 4.5862
   },
   {
@@ -2349,7 +2349,7 @@
    "bond_name": "新化股份转债",
    "industry": "化工/材料",
    "total_scale": 9.0,
-   "per_share_amount": 11.84,
+   "per_share_amount": 11.83,
    "progress": "董事会预案",
    "progress_date": "2026-09-24",
    "registration_date": "",
@@ -2357,16 +2357,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 30.76,
-   "cb_amount": 11.84,
+   "convert_price": 31.17,
+   "cb_amount": 11.83,
    "b_shares": 0.0,
-   "price": 34.94,
-   "change_pct": -3.13,
+   "price": 34.97,
+   "change_pct": -3.05,
    "pb": 2.43,
-   "ma20_price": 30.76,
+   "ma20_price": 31.17,
    "circ_mv": 6.3,
    "circ_mv_score_factor": 6.3,
-   "pe": 23.61,
+   "pe": 23.63,
    "turnover_rate": null,
    "amount": 9.0,
    "q1_growth": 13.55,
@@ -2378,12 +2378,12 @@
    "rating": "B+",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤31.45 | 卖出≥40.18 | 安全垫4.3%",
+   "action_price": "买入≤31.47 | 卖出≥40.22 | 安全垫4.3%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "11.84元"
+     "factor": "11.83元"
     },
     "隐形流通量评分": {
      "score": 15,
@@ -2408,7 +2408,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=23.61"
+     "factor": "PE=23.63"
     },
     "行业加减分": {
      "score": -3,
@@ -2426,7 +2426,7 @@
      "factor": "化工/材料"
     }
    },
-   "weighted_amount": 11.84,
+   "weighted_amount": 11.83,
    "hidden_circulation": 6.3,
    "total": 62,
    "issue_amount": 9.0,
@@ -2439,7 +2439,7 @@
    "bond_name": "鑫宏业转债",
    "industry": "其他",
    "total_scale": 11.0,
-   "per_share_amount": 10.37,
+   "per_share_amount": 10.38,
    "progress": "董事会预案",
    "progress_date": "2026-09-03",
    "registration_date": "",
@@ -2447,16 +2447,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 53.83,
-   "cb_amount": 10.37,
+   "convert_price": 54.06,
+   "cb_amount": 10.38,
    "b_shares": 0.0,
-   "price": 55.56,
-   "change_pct": -4.39,
-   "pb": 4.51,
-   "ma20_price": 53.83,
+   "price": 55.47,
+   "change_pct": -4.54,
+   "pb": 4.5,
+   "ma20_price": 54.06,
    "circ_mv": 5.62,
    "circ_mv_score_factor": 5.62,
-   "pe": 51.33,
+   "pe": 51.25,
    "turnover_rate": null,
    "amount": 11.0,
    "q1_growth": 7.33,
@@ -2468,12 +2468,12 @@
    "rating": "B+",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤50.0 | 卖出≥63.89 | 安全垫3.1%",
+   "action_price": "买入≤49.92 | 卖出≥63.79 | 安全垫3.1%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "10.37元"
+     "factor": "10.38元"
     },
     "隐形流通量评分": {
      "score": 15,
@@ -2498,7 +2498,7 @@
     "PE扣分": {
      "score": -3,
      "max": 0,
-     "factor": "PE=51.33"
+     "factor": "PE=51.25"
     },
     "行业加减分": {
      "score": 0,
@@ -2516,7 +2516,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 10.37,
+   "weighted_amount": 10.38,
    "hidden_circulation": 5.62,
    "total": 62,
    "issue_amount": 11.0,
@@ -2537,13 +2537,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 4.3,
+   "convert_price": 4.29,
    "cb_amount": 44.91,
    "b_shares": 0.0,
    "price": 4.15,
    "change_pct": 0.73,
-   "pb": 0.92,
-   "ma20_price": 4.3,
+   "pb": 0.91,
+   "ma20_price": 4.29,
    "circ_mv": 21.0,
    "circ_mv_score_factor": 21.0,
    "pe": 8.47,
@@ -2627,13 +2627,13 @@
    "board": "科创板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 61.46,
+   "convert_price": 61.21,
    "cb_amount": 10.72,
    "b_shares": 0.0,
    "price": 56.8,
    "change_pct": -3.52,
    "pb": 4.51,
-   "ma20_price": 61.46,
+   "ma20_price": 61.21,
    "circ_mv": 10.36,
    "circ_mv_score_factor": 10.36,
    "pe": 34.63,
@@ -2709,7 +2709,7 @@
    "bond_name": "泰恩康转债",
    "industry": "医药",
    "total_scale": 8.01,
-   "per_share_amount": 7.96,
+   "per_share_amount": 7.92,
    "progress": "股东大会通过",
    "progress_date": "2026-05-20",
    "registration_date": "",
@@ -2717,16 +2717,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 20.12,
-   "cb_amount": 7.96,
+   "convert_price": 20.17,
+   "cb_amount": 7.92,
    "b_shares": 0.0,
-   "price": 19.71,
-   "change_pct": -9.55,
-   "pb": 6.1,
-   "ma20_price": 20.12,
+   "price": 19.81,
+   "change_pct": -9.09,
+   "pb": 6.13,
+   "ma20_price": 20.17,
    "circ_mv": 5.61,
    "circ_mv_score_factor": 5.61,
-   "pe": 70.39,
+   "pe": 70.75,
    "turnover_rate": null,
    "amount": 8.01,
    "q1_growth": -9.39,
@@ -2738,12 +2738,12 @@
    "rating": "B+",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤17.74 | 卖出≥22.67 | 安全垫2.4%",
+   "action_price": "买入≤17.83 | 卖出≥22.78 | 安全垫2.4%",
    "score_details": {
     "含权量评分": {
      "score": 10,
      "max": 30,
-     "factor": "7.96元"
+     "factor": "7.92元"
     },
     "隐形流通量评分": {
      "score": 15,
@@ -2768,7 +2768,7 @@
     "PE扣分": {
      "score": -3,
      "max": 0,
-     "factor": "PE=70.39"
+     "factor": "PE=70.75"
     },
     "行业加减分": {
      "score": 5,
@@ -2786,7 +2786,7 @@
      "factor": "医药"
     }
    },
-   "weighted_amount": 7.96,
+   "weighted_amount": 7.92,
    "hidden_circulation": 5.61,
    "total": 60,
    "issue_amount": 8.01,
@@ -2799,7 +2799,7 @@
    "bond_name": "艾比森转债",
    "industry": "其他",
    "total_scale": 8.1,
-   "per_share_amount": 16.82,
+   "per_share_amount": 16.78,
    "progress": "股东大会通过",
    "progress_date": "2026-05-15",
    "registration_date": "",
@@ -2807,16 +2807,16 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 12.87,
-   "cb_amount": 16.82,
+   "convert_price": 12.89,
+   "cb_amount": 16.78,
    "b_shares": 0.0,
-   "price": 13.05,
-   "change_pct": -1.88,
+   "price": 13.08,
+   "change_pct": -1.65,
    "pb": 2.7,
-   "ma20_price": 12.87,
+   "ma20_price": 12.89,
    "circ_mv": 5.67,
    "circ_mv_score_factor": 5.67,
-   "pe": 30.66,
+   "pe": 30.73,
    "turnover_rate": null,
    "amount": 8.1,
    "q1_growth": 7.87,
@@ -2828,12 +2828,12 @@
    "rating": "B+",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤11.75 | 卖出≥15.01 | 安全垫5.0%",
+   "action_price": "买入≤11.77 | 卖出≥15.04 | 安全垫5.0%",
    "score_details": {
     "含权量评分": {
      "score": 20,
      "max": 30,
-     "factor": "16.82元"
+     "factor": "16.78元"
     },
     "隐形流通量评分": {
      "score": 15,
@@ -2858,7 +2858,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=30.66"
+     "factor": "PE=30.73"
     },
     "行业加减分": {
      "score": 0,
@@ -2876,7 +2876,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 16.82,
+   "weighted_amount": 16.78,
    "hidden_circulation": 5.67,
    "total": 60,
    "issue_amount": 8.1,
@@ -2897,13 +2897,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 5.63,
+   "convert_price": 5.64,
    "cb_amount": 12.24,
    "b_shares": 0.0,
    "price": 5.55,
    "change_pct": -0.72,
    "pb": 2.15,
-   "ma20_price": 5.63,
+   "ma20_price": 5.64,
    "circ_mv": 4.23,
    "circ_mv_score_factor": 4.23,
    "pe": 23.76,
@@ -2987,13 +2987,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 18.1,
+   "convert_price": 18.25,
    "cb_amount": 11.1,
    "b_shares": 0.0,
    "price": 19.13,
    "change_pct": 1.65,
    "pb": 2.56,
-   "ma20_price": 18.1,
+   "ma20_price": 18.25,
    "circ_mv": 4.02,
    "circ_mv_score_factor": 4.02,
    "pe": 31.88,
@@ -3077,13 +3077,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 81.98,
+   "convert_price": 82.1,
    "cb_amount": 6.71,
    "b_shares": 0.0,
    "price": 82.0,
    "change_pct": -1.8,
    "pb": 7.01,
-   "ma20_price": 81.98,
+   "ma20_price": 82.1,
    "circ_mv": 3.85,
    "circ_mv_score_factor": 3.85,
    "pe": 52.56,
@@ -3159,7 +3159,7 @@
    "bond_name": "汇创达转债",
    "industry": "其他",
    "total_scale": 6.5,
-   "per_share_amount": 5.79,
+   "per_share_amount": 5.81,
    "progress": "同意注册",
    "progress_date": "2026-08-07",
    "registration_date": "2025-10-27",
@@ -3167,16 +3167,16 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 59.83,
-   "cb_amount": 5.79,
+   "convert_price": 60.35,
+   "cb_amount": 5.81,
    "b_shares": 0.0,
-   "price": 64.88,
-   "change_pct": 2.22,
-   "pb": 5.58,
-   "ma20_price": 59.83,
+   "price": 64.71,
+   "change_pct": 1.95,
+   "pb": 5.57,
+   "ma20_price": 60.35,
    "circ_mv": 4.55,
    "circ_mv_score_factor": 4.55,
-   "pe": 270.33,
+   "pe": 269.62,
    "turnover_rate": null,
    "amount": 6.5,
    "q1_growth": 100.28,
@@ -3188,12 +3188,12 @@
    "rating": "B",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤59.69 | 卖出≥71.37 | 安全垫1.7%",
+   "action_price": "买入≤59.53 | 卖出≥71.18 | 安全垫1.7%",
    "score_details": {
     "含权量评分": {
      "score": 10,
      "max": 30,
-     "factor": "5.79元"
+     "factor": "5.81元"
     },
     "隐形流通量评分": {
      "score": 20,
@@ -3218,7 +3218,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=270.33"
+     "factor": "PE=269.62"
     },
     "行业加减分": {
      "score": 0,
@@ -3236,7 +3236,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 5.79,
+   "weighted_amount": 5.81,
    "hidden_circulation": 4.55,
    "total": 57,
    "issue_amount": 6.5,
@@ -3257,13 +3257,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 13.18,
+   "convert_price": 13.25,
    "cb_amount": 9.62,
    "b_shares": 0.0,
    "price": 13.4,
    "change_pct": -1.47,
    "pb": 2.38,
-   "ma20_price": 13.18,
+   "ma20_price": 13.25,
    "circ_mv": 8.4,
    "circ_mv_score_factor": 8.4,
    "pe": 11.55,
@@ -3339,7 +3339,7 @@
    "bond_name": "上大股份转债",
    "industry": "其他",
    "total_scale": 8.0,
-   "per_share_amount": 9.4,
+   "per_share_amount": 9.38,
    "progress": "股东大会通过",
    "progress_date": "2026-05-20",
    "registration_date": "",
@@ -3347,16 +3347,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 23.34,
-   "cb_amount": 9.4,
+   "convert_price": 23.33,
+   "cb_amount": 9.38,
    "b_shares": 0.0,
-   "price": 22.88,
-   "change_pct": -2.01,
-   "pb": 4.36,
-   "ma20_price": 23.34,
+   "price": 22.94,
+   "change_pct": -1.76,
+   "pb": 4.37,
+   "ma20_price": 23.33,
    "circ_mv": 5.6,
    "circ_mv_score_factor": 5.6,
-   "pe": 88.27,
+   "pe": 88.5,
    "turnover_rate": null,
    "amount": 8.0,
    "q1_growth": 6.04,
@@ -3368,12 +3368,12 @@
    "rating": "B",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤21.05 | 卖出≥25.17 | 安全垫2.8%",
+   "action_price": "买入≤21.1 | 卖出≥25.23 | 安全垫2.8%",
    "score_details": {
     "含权量评分": {
      "score": 10,
      "max": 30,
-     "factor": "9.40元"
+     "factor": "9.38元"
     },
     "隐形流通量评分": {
      "score": 15,
@@ -3398,7 +3398,7 @@
     "PE扣分": {
      "score": -3,
      "max": 0,
-     "factor": "PE=88.27"
+     "factor": "PE=88.5"
     },
     "行业加减分": {
      "score": 0,
@@ -3416,7 +3416,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 9.4,
+   "weighted_amount": 9.38,
    "hidden_circulation": 5.6,
    "total": 57,
    "issue_amount": 8.0,
@@ -3429,7 +3429,7 @@
    "bond_name": "富乐德转债",
    "industry": "其他",
    "total_scale": 11.76,
-   "per_share_amount": 3.29,
+   "per_share_amount": 3.3,
    "progress": "董事会预案",
    "progress_date": "2026-08-15",
    "registration_date": "",
@@ -3437,16 +3437,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 43.64,
-   "cb_amount": 3.29,
+   "convert_price": 44.55,
+   "cb_amount": 3.3,
    "b_shares": 0.0,
-   "price": 50.8,
-   "change_pct": 2.23,
-   "pb": 6.44,
-   "ma20_price": 43.64,
+   "price": 50.72,
+   "change_pct": 2.07,
+   "pb": 6.43,
+   "ma20_price": 44.55,
    "circ_mv": 8.23,
    "circ_mv_score_factor": 8.23,
-   "pe": 97.69,
+   "pe": 97.54,
    "turnover_rate": null,
    "amount": 11.76,
    "q1_growth": 46.26,
@@ -3458,12 +3458,12 @@
    "rating": "B",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤46.74 | 卖出≥55.88 | 安全垫1.0%",
+   "action_price": "买入≤46.66 | 卖出≥55.79 | 安全垫1.0%",
    "score_details": {
     "含权量评分": {
      "score": 5,
      "max": 30,
-     "factor": "3.29元"
+     "factor": "3.30元"
     },
     "隐形流通量评分": {
      "score": 12,
@@ -3488,7 +3488,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=97.69"
+     "factor": "PE=97.54"
     },
     "行业加减分": {
      "score": 0,
@@ -3506,7 +3506,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 3.29,
+   "weighted_amount": 3.3,
    "hidden_circulation": 8.23,
    "total": 57,
    "issue_amount": 11.76,
@@ -3527,13 +3527,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 38.41,
+   "convert_price": 38.32,
    "cb_amount": 8.61,
    "b_shares": 0.0,
    "price": 34.86,
    "change_pct": -2.63,
    "pb": 4.59,
-   "ma20_price": 38.41,
+   "ma20_price": 38.32,
    "circ_mv": 3.6,
    "circ_mv_score_factor": 3.6,
    "pe": 27.23,
@@ -3620,13 +3620,13 @@
    "convert_price": 74.5,
    "cb_amount": 6.31,
    "b_shares": 0.0,
-   "price": 72.18,
-   "change_pct": -2.66,
+   "price": 72.16,
+   "change_pct": -2.68,
    "pb": 6.11,
-   "ma20_price": 70.79,
+   "ma20_price": 71.07,
    "circ_mv": 5.64,
    "circ_mv_score_factor": 5.64,
-   "pe": 128.89,
+   "pe": 128.86,
    "turnover_rate": null,
    "amount": 8.49,
    "q1_growth": 88.62,
@@ -3638,7 +3638,7 @@
    "rating": "B",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤66.41 | 卖出≥79.4 | 安全垫2.0%",
+   "action_price": "买入≤66.39 | 卖出≥79.38 | 安全垫2.0%",
    "score_details": {
     "含权量评分": {
      "score": 10,
@@ -3668,7 +3668,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=128.89"
+     "factor": "PE=128.86"
     },
     "行业加减分": {
      "score": 0,
@@ -3699,7 +3699,7 @@
    "bond_name": "三联锻造转债",
    "industry": "其他",
    "total_scale": 6.2,
-   "per_share_amount": 16.68,
+   "per_share_amount": 16.67,
    "progress": "交易所受理",
    "progress_date": "2026-04-02",
    "registration_date": "2026-04-02",
@@ -3707,16 +3707,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 16.11,
-   "cb_amount": 16.68,
+   "convert_price": 16.19,
+   "cb_amount": 16.67,
    "b_shares": 0.0,
-   "price": 16.73,
-   "change_pct": 1.27,
+   "price": 16.74,
+   "change_pct": 1.33,
    "pb": 2.26,
-   "ma20_price": 16.11,
+   "ma20_price": 16.19,
    "circ_mv": 4.26,
    "circ_mv_score_factor": 4.26,
-   "pe": 34.85,
+   "pe": 34.88,
    "turnover_rate": null,
    "amount": 6.2,
    "q1_growth": -8.7,
@@ -3728,12 +3728,12 @@
    "rating": "B",
    "action": "观望",
    "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤15.39 | 卖出≥18.4 | 安全垫5.0%",
+   "action_price": "买入≤15.4 | 卖出≥18.41 | 安全垫5.0%",
    "score_details": {
     "含权量评分": {
      "score": 20,
      "max": 30,
-     "factor": "16.68元"
+     "factor": "16.67元"
     },
     "隐形流通量评分": {
      "score": 20,
@@ -3758,7 +3758,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=34.85"
+     "factor": "PE=34.88"
     },
     "行业加减分": {
      "score": 0,
@@ -3776,7 +3776,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 16.68,
+   "weighted_amount": 16.67,
    "hidden_circulation": 4.26,
    "total": 55,
    "issue_amount": 6.2,
@@ -3789,7 +3789,7 @@
    "bond_name": "中科磁业转债",
    "industry": "其他",
    "total_scale": 6.09,
-   "per_share_amount": 12.96,
+   "per_share_amount": 12.99,
    "progress": "董事会预案",
    "progress_date": "2026-08-11",
    "registration_date": "",
@@ -3797,16 +3797,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 38.92,
-   "cb_amount": 12.96,
+   "convert_price": 38.6,
+   "cb_amount": 12.99,
    "b_shares": 0.0,
-   "price": 37.89,
-   "change_pct": -0.24,
-   "pb": 3.73,
-   "ma20_price": 38.92,
+   "price": 37.79,
+   "change_pct": -0.5,
+   "pb": 3.72,
+   "ma20_price": 38.6,
    "circ_mv": 2.19,
    "circ_mv_score_factor": 2.19,
-   "pe": 189.45,
+   "pe": 188.95,
    "turnover_rate": null,
    "amount": 6.09,
    "q1_growth": -54.04,
@@ -3818,12 +3818,12 @@
    "rating": "B",
    "action": "关注",
    "action_reason": "中高分+小流通盘，等待注册",
-   "action_price": "买入≤34.86 | 卖出≥41.68 | 安全垫3.9%",
+   "action_price": "买入≤34.77 | 卖出≥41.57 | 安全垫3.9%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "12.96元"
+     "factor": "12.99元"
     },
     "隐形流通量评分": {
      "score": 25,
@@ -3848,7 +3848,7 @@
     "PE扣分": {
      "score": -5,
      "max": 0,
-     "factor": "PE=189.45"
+     "factor": "PE=188.95"
     },
     "行业加减分": {
      "score": 0,
@@ -3866,7 +3866,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 12.96,
+   "weighted_amount": 12.99,
    "hidden_circulation": 2.19,
    "total": 55,
    "issue_amount": 6.09,
@@ -3893,7 +3893,7 @@
    "price": 26.14,
    "change_pct": -0.68,
    "pb": 2.06,
-   "ma20_price": 28.43,
+   "ma20_price": 28.39,
    "circ_mv": 4.8,
    "circ_mv_score_factor": 4.8,
    "pe": 12.81,
@@ -3969,7 +3969,7 @@
    "bond_name": "松原安全转债",
    "industry": "其他",
    "total_scale": 10.55,
-   "per_share_amount": 16.25,
+   "per_share_amount": 16.21,
    "progress": "交易所受理",
    "progress_date": "2026-06-12",
    "registration_date": "2026-06-12",
@@ -3977,16 +3977,16 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 13.98,
-   "cb_amount": 16.25,
+   "convert_price": 13.96,
+   "cb_amount": 16.21,
    "b_shares": 0.0,
-   "price": 13.7,
-   "change_pct": -3.18,
+   "price": 13.73,
+   "change_pct": -2.97,
    "pb": 3.06,
-   "ma20_price": 13.98,
+   "ma20_price": 13.96,
    "circ_mv": 5.61,
    "circ_mv_score_factor": 5.61,
-   "pe": 21.54,
+   "pe": 21.59,
    "turnover_rate": null,
    "amount": 10.55,
    "q1_growth": 2.32,
@@ -3998,12 +3998,12 @@
    "rating": "B",
    "action": "回避",
    "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤12.6 | 卖出≥15.07 | 安全垫4.9%",
+   "action_price": "买入≤12.63 | 卖出≥15.1 | 安全垫4.9%",
    "score_details": {
     "含权量评分": {
      "score": 20,
      "max": 30,
-     "factor": "16.25元"
+     "factor": "16.21元"
     },
     "隐形流通量评分": {
      "score": 15,
@@ -4028,7 +4028,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=21.54"
+     "factor": "PE=21.59"
     },
     "行业加减分": {
      "score": 0,
@@ -4046,7 +4046,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 16.25,
+   "weighted_amount": 16.21,
    "hidden_circulation": 5.61,
    "total": 54,
    "issue_amount": 10.55,
@@ -4067,13 +4067,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 25.8,
+   "convert_price": 25.75,
    "cb_amount": 21.36,
    "b_shares": 0.0,
    "price": 24.8,
    "change_pct": -1.7,
-   "pb": 1.31,
-   "ma20_price": 25.8,
+   "pb": 1.3,
+   "ma20_price": 25.75,
    "circ_mv": 17.5,
    "circ_mv_score_factor": 17.5,
    "pe": 19.09,
@@ -4157,13 +4157,13 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 14.06,
+   "convert_price": 13.93,
    "cb_amount": 5.61,
    "b_shares": 0.0,
    "price": 13.06,
    "change_pct": -1.43,
    "pb": 4.64,
-   "ma20_price": 14.06,
+   "ma20_price": 13.93,
    "circ_mv": 8.76,
    "circ_mv_score_factor": 8.76,
    "pe": 27.53,
@@ -4247,13 +4247,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 6.16,
+   "convert_price": 6.17,
    "cb_amount": 22.52,
    "b_shares": 0.0,
    "price": 6.04,
    "change_pct": 0.33,
    "pb": 0.68,
-   "ma20_price": 6.16,
+   "ma20_price": 6.17,
    "circ_mv": 29.05,
    "circ_mv_score_factor": 29.05,
    "pe": 5.81,
@@ -4337,13 +4337,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 21.45,
+   "convert_price": 21.48,
    "cb_amount": 8.3,
    "b_shares": 0.0,
    "price": 21.45,
    "change_pct": -0.46,
-   "pb": 4.29,
-   "ma20_price": 21.45,
+   "pb": 4.28,
+   "ma20_price": 21.48,
    "circ_mv": 5.24,
    "circ_mv_score_factor": 5.24,
    "pe": 18.49,
@@ -4427,13 +4427,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 12.27,
+   "convert_price": 12.28,
    "cb_amount": 12.11,
    "b_shares": 0.0,
    "price": 11.49,
    "change_pct": -1.03,
    "pb": 1.45,
-   "ma20_price": 12.27,
+   "ma20_price": 12.28,
    "circ_mv": 8.68,
    "circ_mv_score_factor": 8.68,
    "pe": 23.94,
@@ -4523,7 +4523,7 @@
    "price": 8.91,
    "change_pct": -3.68,
    "pb": 2.26,
-   "ma20_price": 8.72,
+   "ma20_price": 8.79,
    "circ_mv": 5.84,
    "circ_mv_score_factor": 5.84,
    "pe": 20.25,
@@ -4607,13 +4607,13 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 13.18,
+   "convert_price": 13.13,
    "cb_amount": 15.09,
    "b_shares": 0.0,
    "price": 12.95,
    "change_pct": -1.52,
-   "pb": 2.74,
-   "ma20_price": 13.18,
+   "pb": 2.73,
+   "ma20_price": 13.13,
    "circ_mv": 9.6,
    "circ_mv_score_factor": 9.6,
    "pe": 11.38,
@@ -4697,13 +4697,13 @@
    "board": "科创板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 63.22,
+   "convert_price": 63.28,
    "cb_amount": 6.18,
    "b_shares": 0.0,
    "price": 67.8,
    "change_pct": -3.18,
    "pb": 7.92,
-   "ma20_price": 63.22,
+   "ma20_price": 63.28,
    "circ_mv": 3.28,
    "circ_mv_score_factor": 3.28,
    "pe": 169.5,
@@ -4779,7 +4779,7 @@
    "bond_name": "天山电子转债",
    "industry": "AI/科技",
    "total_scale": 6.97,
-   "per_share_amount": 11.83,
+   "per_share_amount": 11.82,
    "progress": "交易所受理",
    "progress_date": "2026-03-11",
    "registration_date": "2026-03-11",
@@ -4787,16 +4787,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 21.25,
-   "cb_amount": 11.83,
+   "convert_price": 21.2,
+   "cb_amount": 11.82,
    "b_shares": 0.0,
-   "price": 21.23,
-   "change_pct": -2.66,
+   "price": 21.25,
+   "change_pct": -2.57,
    "pb": 4.09,
-   "ma20_price": 21.25,
+   "ma20_price": 21.2,
    "circ_mv": 4.88,
    "circ_mv_score_factor": 4.88,
-   "pe": 52.71,
+   "pe": 52.76,
    "turnover_rate": null,
    "amount": 6.97,
    "q1_growth": -45.01,
@@ -4808,12 +4808,12 @@
    "rating": "B",
    "action": "小仓关注",
    "action_reason": "低分但属AI板块，小仓参与",
-   "action_price": "买入≤19.53 | 卖出≥23.35 | 安全垫3.5%",
+   "action_price": "买入≤19.55 | 卖出≥23.38 | 安全垫3.5%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "11.83元"
+     "factor": "11.82元"
     },
     "隐形流通量评分": {
      "score": 20,
@@ -4838,7 +4838,7 @@
     "PE扣分": {
      "score": -3,
      "max": 0,
-     "factor": "PE=52.71"
+     "factor": "PE=52.76"
     },
     "行业加减分": {
      "score": 8,
@@ -4856,7 +4856,7 @@
      "factor": "AI/科技"
     }
    },
-   "weighted_amount": 11.83,
+   "weighted_amount": 11.82,
    "hidden_circulation": 4.88,
    "total": 50,
    "issue_amount": 6.97,
@@ -4877,16 +4877,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 39.07,
+   "convert_price": 39.15,
    "cb_amount": 6.92,
    "b_shares": 0.0,
-   "price": 39.68,
-   "change_pct": -1.1,
-   "pb": 3.4,
-   "ma20_price": 39.07,
+   "price": 39.67,
+   "change_pct": -1.12,
+   "pb": 3.39,
+   "ma20_price": 39.15,
    "circ_mv": 5.21,
    "circ_mv_score_factor": 5.21,
-   "pe": 32.0,
+   "pe": 31.99,
    "turnover_rate": null,
    "amount": 11.0,
    "q1_growth": -39.5,
@@ -4898,7 +4898,7 @@
    "rating": "B",
    "action": "回避",
    "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤36.51 | 卖出≥43.65 | 安全垫2.1%",
+   "action_price": "买入≤36.5 | 卖出≥43.64 | 安全垫2.1%",
    "score_details": {
     "含权量评分": {
      "score": 10,
@@ -4928,7 +4928,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=32.0"
+     "factor": "PE=31.99"
     },
     "行业加减分": {
      "score": 0,
@@ -4967,13 +4967,13 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 42.8,
+   "convert_price": 42.84,
    "cb_amount": 8.21,
    "b_shares": 0.0,
    "price": 37.74,
    "change_pct": -3.16,
    "pb": 3.17,
-   "ma20_price": 42.8,
+   "ma20_price": 42.84,
    "circ_mv": 4.05,
    "circ_mv_score_factor": 4.05,
    "pe": null,
@@ -5057,13 +5057,13 @@
    "board": "科创板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 25.41,
+   "convert_price": 25.38,
    "cb_amount": 9.63,
    "b_shares": 0.0,
    "price": 23.98,
    "change_pct": -3.96,
    "pb": 5.13,
-   "ma20_price": 25.41,
+   "ma20_price": 25.38,
    "circ_mv": 4.2,
    "circ_mv_score_factor": 4.2,
    "pe": 74.94,
@@ -5153,7 +5153,7 @@
    "price": 4.97,
    "change_pct": -0.6,
    "pb": 0.48,
-   "ma20_price": 5.06,
+   "ma20_price": 5.07,
    "circ_mv": 35.0,
    "circ_mv_score_factor": 35.0,
    "pe": 5.65,
@@ -5243,7 +5243,7 @@
    "price": 9.67,
    "change_pct": -0.21,
    "pb": 0.46,
-   "ma20_price": 9.89,
+   "ma20_price": 9.9,
    "circ_mv": 77.0,
    "circ_mv_score_factor": 77.0,
    "pe": 4.24,
@@ -5417,13 +5417,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 24.78,
+   "convert_price": 24.59,
    "cb_amount": 7.59,
    "b_shares": 0.0,
    "price": 22.72,
    "change_pct": -2.45,
    "pb": 2.44,
-   "ma20_price": 24.78,
+   "ma20_price": 24.59,
    "circ_mv": 15.81,
    "circ_mv_score_factor": 15.81,
    "pe": 15.78,
@@ -5510,13 +5510,13 @@
    "convert_price": 66.97,
    "cb_amount": 7.32,
    "b_shares": 0.0,
-   "price": 70.36,
-   "change_pct": -5.63,
+   "price": 70.37,
+   "change_pct": -5.62,
    "pb": 5.79,
-   "ma20_price": 56.06,
+   "ma20_price": 57.4,
    "circ_mv": 4.86,
    "circ_mv_score_factor": 4.86,
-   "pe": 146.58,
+   "pe": 146.6,
    "turnover_rate": null,
    "amount": 7.6,
    "q1_growth": -35.71,
@@ -5528,7 +5528,7 @@
    "rating": "C",
    "action": "小仓关注",
    "action_reason": "低分但属AI板块，小仓参与",
-   "action_price": "买入≤64.73 | 卖出≥77.4 | 安全垫2.2%",
+   "action_price": "买入≤64.74 | 卖出≥77.41 | 安全垫2.2%",
    "score_details": {
     "含权量评分": {
      "score": 10,
@@ -5558,7 +5558,7 @@
     "PE扣分": {
      "score": -5,
      "max": 0,
-     "factor": "PE=146.58"
+     "factor": "PE=146.6"
     },
     "行业加减分": {
      "score": 8,
@@ -5597,13 +5597,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 14.26,
+   "convert_price": 14.2,
    "cb_amount": 19.61,
    "b_shares": 0.0,
    "price": 13.4,
    "change_pct": -1.25,
    "pb": 1.01,
-   "ma20_price": 14.26,
+   "ma20_price": 14.2,
    "circ_mv": 28.36,
    "circ_mv_score_factor": 28.36,
    "pe": 6.56,
@@ -5679,7 +5679,7 @@
    "bond_name": "明阳电路转债",
    "industry": "其他",
    "total_scale": 12.0,
-   "per_share_amount": 10.7,
+   "per_share_amount": 10.67,
    "progress": "交易所受理",
    "progress_date": "2026-08-12",
    "registration_date": "2026-08-12",
@@ -5687,16 +5687,16 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 27.46,
-   "cb_amount": 10.7,
+   "convert_price": 27.72,
+   "cb_amount": 10.67,
    "b_shares": 0.0,
-   "price": 30.05,
-   "change_pct": -5.77,
-   "pb": 4.04,
-   "ma20_price": 27.46,
+   "price": 30.16,
+   "change_pct": -5.42,
+   "pb": 4.05,
+   "ma20_price": 27.72,
    "circ_mv": 8.4,
    "circ_mv_score_factor": 8.4,
-   "pe": 187.81,
+   "pe": 188.5,
    "turnover_rate": null,
    "amount": 12.0,
    "q1_growth": 21.73,
@@ -5708,12 +5708,12 @@
    "rating": "C",
    "action": "回避",
    "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤27.65 | 卖出≥33.06 | 安全垫3.2%",
+   "action_price": "买入≤27.75 | 卖出≥33.18 | 安全垫3.2%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "10.70元"
+     "factor": "10.67元"
     },
     "隐形流通量评分": {
      "score": 12,
@@ -5738,7 +5738,7 @@
     "PE扣分": {
      "score": -5,
      "max": 0,
-     "factor": "PE=187.81"
+     "factor": "PE=188.5"
     },
     "行业加减分": {
      "score": 0,
@@ -5756,7 +5756,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 10.7,
+   "weighted_amount": 10.67,
    "hidden_circulation": 8.4,
    "total": 47,
    "issue_amount": 12.0,
@@ -5777,13 +5777,13 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 19.9,
+   "convert_price": 19.96,
    "cb_amount": 8.88,
    "b_shares": 0.0,
    "price": 19.38,
    "change_pct": -0.67,
    "pb": 1.45,
-   "ma20_price": 19.9,
+   "ma20_price": 19.96,
    "circ_mv": 8.26,
    "circ_mv_score_factor": 8.26,
    "pe": 16.71,
@@ -5867,13 +5867,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 10.9,
+   "convert_price": 10.89,
    "cb_amount": 19.76,
    "b_shares": 0.0,
    "price": 10.4,
    "change_pct": -0.38,
    "pb": 1.56,
-   "ma20_price": 10.9,
+   "ma20_price": 10.89,
    "circ_mv": 10.5,
    "circ_mv_score_factor": 10.5,
    "pe": null,
@@ -5957,13 +5957,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 6.56,
+   "convert_price": 6.54,
    "cb_amount": 12.29,
    "b_shares": 0.0,
    "price": 6.36,
    "change_pct": -2.6,
    "pb": 2.97,
-   "ma20_price": 6.56,
+   "ma20_price": 6.54,
    "circ_mv": 7.0,
    "circ_mv_score_factor": 7.0,
    "pe": 23.45,
@@ -6039,7 +6039,7 @@
    "bond_name": "中谷物流转债",
    "industry": "交通运输",
    "total_scale": 27.3,
-   "per_share_amount": 11.15,
+   "per_share_amount": 11.12,
    "progress": "交易所受理",
    "progress_date": "2026-07-03",
    "registration_date": "2026-07-03",
@@ -6047,16 +6047,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 12.32,
-   "cb_amount": 11.15,
+   "convert_price": 12.26,
+   "cb_amount": 11.12,
    "b_shares": 0.0,
-   "price": 11.66,
-   "change_pct": -1.35,
+   "price": 11.69,
+   "change_pct": -1.1,
    "pb": 2.23,
-   "ma20_price": 12.32,
+   "ma20_price": 12.26,
    "circ_mv": 19.11,
    "circ_mv_score_factor": 19.11,
-   "pe": 11.66,
+   "pe": 11.69,
    "turnover_rate": null,
    "amount": 27.3,
    "q1_growth": -3.63,
@@ -6068,12 +6068,12 @@
    "rating": "C",
    "action": "回避",
    "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤10.73 | 卖出≥12.83 | 安全垫6.4%",
+   "action_price": "买入≤10.75 | 卖出≥12.86 | 安全垫6.4%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "11.15元"
+     "factor": "11.12元"
     },
     "隐形流通量评分": {
      "score": 4,
@@ -6098,7 +6098,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "PE=11.66"
+     "factor": "PE=11.69"
     },
     "行业加减分": {
      "score": 0,
@@ -6116,7 +6116,7 @@
      "factor": "交通运输"
     }
    },
-   "weighted_amount": 11.15,
+   "weighted_amount": 11.12,
    "hidden_circulation": 19.11,
    "total": 43,
    "issue_amount": 27.3,
@@ -6129,7 +6129,7 @@
    "bond_name": "兆丰股份转债",
    "industry": "其他",
    "total_scale": 14.0,
-   "per_share_amount": 26.79,
+   "per_share_amount": 26.78,
    "progress": "股东大会通过",
    "progress_date": "2026-07-31",
    "registration_date": "",
@@ -6137,13 +6137,13 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 50.24,
-   "cb_amount": 26.79,
+   "convert_price": 50.34,
+   "cb_amount": 26.78,
    "b_shares": 0.0,
-   "price": 51.11,
-   "change_pct": -3.71,
-   "pb": 1.8,
-   "ma20_price": 50.24,
+   "price": 51.13,
+   "change_pct": -3.67,
+   "pb": 1.81,
+   "ma20_price": 50.34,
    "circ_mv": 9.8,
    "circ_mv_score_factor": 9.8,
    "pe": null,
@@ -6158,12 +6158,12 @@
    "rating": "C",
    "action": "回避",
    "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤47.02 | 卖出≥56.22 | 安全垫7.9%",
+   "action_price": "买入≤47.04 | 卖出≥56.24 | 安全垫7.9%",
    "score_details": {
     "含权量评分": {
      "score": 25,
      "max": 30,
-     "factor": "26.79元"
+     "factor": "26.78元"
     },
     "隐形流通量评分": {
      "score": 12,
@@ -6206,7 +6206,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 26.79,
+   "weighted_amount": 26.78,
    "hidden_circulation": 9.8,
    "total": 42,
    "issue_amount": 14.0,
@@ -6227,13 +6227,13 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 11.56,
+   "convert_price": 11.57,
    "cb_amount": 14.52,
    "b_shares": 0.0,
    "price": 12.13,
    "change_pct": 0.33,
    "pb": 3.06,
-   "ma20_price": 11.56,
+   "ma20_price": 11.57,
    "circ_mv": 10.83,
    "circ_mv_score_factor": 10.83,
    "pe": 37.91,
@@ -6407,16 +6407,16 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 115.56,
+   "convert_price": 115.27,
    "cb_amount": 2.09,
    "b_shares": 0.0,
-   "price": 111.81,
-   "change_pct": -2.06,
-   "pb": 23.33,
-   "ma20_price": 115.56,
+   "price": 111.7,
+   "change_pct": -2.15,
+   "pb": 23.31,
+   "ma20_price": 115.27,
    "circ_mv": 18.2,
    "circ_mv_score_factor": 18.2,
-   "pe": 180.92,
+   "pe": 180.74,
    "turnover_rate": null,
    "amount": 26.0,
    "q1_growth": 14.59,
@@ -6428,7 +6428,7 @@
    "rating": "D",
    "action": "回避",
    "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤102.87 | 卖出≥122.99 | 安全垫0.6%",
+   "action_price": "买入≤102.76 | 卖出≥122.87 | 安全垫0.6%",
    "score_details": {
     "含权量评分": {
      "score": 5,
@@ -6458,7 +6458,7 @@
     "PE扣分": {
      "score": -5,
      "max": 0,
-     "factor": "PE=180.92"
+     "factor": "PE=180.74"
     },
     "行业加减分": {
      "score": 0,
@@ -6503,7 +6503,7 @@
    "price": 42.99,
    "change_pct": -3.8,
    "pb": 8.0,
-   "ma20_price": 41.11,
+   "ma20_price": 41.3,
    "circ_mv": 3.67,
    "circ_mv_score_factor": 3.67,
    "pe": 97.7,
@@ -6587,13 +6587,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 13.18,
+   "convert_price": 13.12,
    "cb_amount": 6.99,
    "b_shares": 0.0,
    "price": 12.75,
    "change_pct": -0.08,
    "pb": 4.47,
-   "ma20_price": 13.18,
+   "ma20_price": 13.12,
    "circ_mv": 3.5,
    "circ_mv_score_factor": 3.5,
    "pe": 1677.63,
@@ -6677,13 +6677,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 25.36,
+   "convert_price": 25.2,
    "cb_amount": 7.06,
    "b_shares": 0.0,
    "price": 23.11,
    "change_pct": -1.99,
-   "pb": 4.84,
-   "ma20_price": 25.36,
+   "pb": 4.83,
+   "ma20_price": 25.2,
    "circ_mv": 17.5,
    "circ_mv_score_factor": 17.5,
    "pe": 57.77,
@@ -6767,13 +6767,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 20.4,
+   "convert_price": 20.36,
    "cb_amount": 7.53,
    "b_shares": 0.0,
    "price": 19.38,
    "change_pct": -2.12,
-   "pb": 1.72,
-   "ma20_price": 20.4,
+   "pb": 1.73,
+   "ma20_price": 20.36,
    "circ_mv": 13.44,
    "circ_mv_score_factor": 13.44,
    "pe": 20.19,
@@ -6857,13 +6857,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 18.72,
+   "convert_price": 18.63,
    "cb_amount": 9.0,
    "b_shares": 0.0,
    "price": 17.6,
    "change_pct": -2.71,
    "pb": 1.18,
-   "ma20_price": 18.72,
+   "ma20_price": 18.63,
    "circ_mv": 56.0,
    "circ_mv_score_factor": 56.0,
    "pe": 12.17,
@@ -6947,13 +6947,13 @@
    "board": "科创板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 73.8,
+   "convert_price": 74.1,
    "cb_amount": 15.15,
    "b_shares": 0.0,
    "price": 77.3,
    "change_pct": -3.16,
    "pb": 3.13,
-   "ma20_price": 73.8,
+   "ma20_price": 74.1,
    "circ_mv": 10.05,
    "circ_mv_score_factor": 10.05,
    "pe": 386.5,
@@ -7037,13 +7037,13 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 202.62,
+   "convert_price": 201.29,
    "cb_amount": 3.63,
    "b_shares": 0.0,
    "price": 194.5,
    "change_pct": -3.38,
    "pb": 6.74,
-   "ma20_price": 202.62,
+   "ma20_price": 201.29,
    "circ_mv": 13.6,
    "circ_mv_score_factor": 13.6,
    "pe": 115.77,
@@ -7132,8 +7132,8 @@
    "b_shares": 0.0,
    "price": 86.8,
    "change_pct": -4.47,
-   "pb": 6.27,
-   "ma20_price": 74.87,
+   "pb": 6.26,
+   "ma20_price": 75.82,
    "circ_mv": 7.0,
    "circ_mv_score_factor": 7.0,
    "pe": 361.67,
@@ -7209,7 +7209,7 @@
    "bond_name": "彩讯股份转债",
    "industry": "其他",
    "total_scale": 12.7,
-   "per_share_amount": 13.26,
+   "per_share_amount": 13.28,
    "progress": "交易所受理",
    "progress_date": "2026-04-29",
    "registration_date": "2026-04-29",
@@ -7217,16 +7217,16 @@
    "board": "创业板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 20.49,
-   "cb_amount": 13.26,
+   "convert_price": 20.57,
+   "cb_amount": 13.28,
    "b_shares": 0.0,
-   "price": 21.22,
-   "change_pct": -2.88,
-   "pb": 3.16,
-   "ma20_price": 20.49,
+   "price": 21.2,
+   "change_pct": -2.97,
+   "pb": 3.15,
+   "ma20_price": 20.57,
    "circ_mv": 8.89,
    "circ_mv_score_factor": 8.89,
-   "pe": 88.42,
+   "pe": 88.33,
    "turnover_rate": null,
    "amount": 12.7,
    "q1_growth": -65.56,
@@ -7238,12 +7238,12 @@
    "rating": "D",
    "action": "回避",
    "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤19.52 | 卖出≥23.34 | 安全垫4.0%",
+   "action_price": "买入≤19.5 | 卖出≥23.32 | 安全垫4.0%",
    "score_details": {
     "含权量评分": {
      "score": 15,
      "max": 30,
-     "factor": "13.26元"
+     "factor": "13.28元"
     },
     "隐形流通量评分": {
      "score": 12,
@@ -7268,7 +7268,7 @@
     "PE扣分": {
      "score": -3,
      "max": 0,
-     "factor": "PE=88.42"
+     "factor": "PE=88.33"
     },
     "行业加减分": {
      "score": 0,
@@ -7286,7 +7286,7 @@
      "factor": "其他"
     }
    },
-   "weighted_amount": 13.26,
+   "weighted_amount": 13.28,
    "hidden_circulation": 8.89,
    "total": 17,
    "issue_amount": 12.7,
@@ -7307,13 +7307,13 @@
    "board": "主板",
    "rating_cd": "",
    "record_dt": "",
-   "convert_price": 104.31,
+   "convert_price": 104.05,
    "cb_amount": 2.74,
    "b_shares": 0.0,
    "price": 97.6,
    "change_pct": -4.13,
    "pb": 13.39,
-   "ma20_price": 104.31,
+   "ma20_price": 104.05,
    "circ_mv": 7.0,
    "circ_mv_score_factor": 7.0,
    "pe": 221.82,
