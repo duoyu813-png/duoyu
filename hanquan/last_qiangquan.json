@@ -1,6 +1,6 @@
 {
  "total": 82,
- "generated_at": "2026-09-25 21:46:18",
+ "generated_at": "2026-09-26 00:19:07",
  "source": "live",
  "bonds": [
   {
@@ -454,96 +454,6 @@
    "per_share_allotment": 2.3532
   },
   {
-   "stock_code": "301305",
-   "stock_name": "朗坤科技",
-   "bond_name": "朗坤科技转债",
-   "industry": "AI/科技",
-   "total_scale": 5.9,
-   "per_share_amount": 9.27,
-   "progress": "交易所受理",
-   "progress_date": "2026-08-11",
-   "registration_date": "2026-08-11",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 25.9,
-   "cb_amount": 9.27,
-   "b_shares": 0.0,
-   "price": 26.3,
-   "change_pct": -3.59,
-   "pb": 1.61,
-   "ma20_price": 25.9,
-   "circ_mv": 3.03,
-   "circ_mv_score_factor": 3.03,
-   "pe": 16.99,
-   "turnover_rate": null,
-   "amount": 5.9,
-   "q1_growth": 21.44,
-   "major_shareholder_ratio": 0.4861,
-   "one_hand_shares": 411,
-   "per_hand_shares": 410.10305762711863,
-   "market": "深",
-   "total_score": 78,
-   "rating": "A",
-   "action": "关注建仓",
-   "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤23.67 | 卖出≥30.24 | 安全垫2.8%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "9.27元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "3.03亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长21.44%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "2026-08"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=16.99"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交5.9亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 9.27,
-   "hidden_circulation": 3.03,
-   "total": 78,
-   "issue_amount": 5.9,
-   "safety_pct": 2.8,
-   "per_share_allotment": 2.4384
-  },
-  {
    "stock_code": "301261",
    "stock_name": "恒工精密",
    "bond_name": "恒工精密转债",
@@ -632,6 +542,96 @@
    "issue_amount": 8.1,
    "safety_pct": 4.2,
    "per_share_allotment": 7.68
+  },
+  {
+   "stock_code": "301305",
+   "stock_name": "朗坤科技",
+   "bond_name": "朗坤科技转债",
+   "industry": "AI/科技",
+   "total_scale": 5.9,
+   "per_share_amount": 9.27,
+   "progress": "交易所受理",
+   "progress_date": "2026-08-11",
+   "registration_date": "2026-08-11",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 25.9,
+   "cb_amount": 9.27,
+   "b_shares": 0.0,
+   "price": 26.3,
+   "change_pct": -3.59,
+   "pb": 1.61,
+   "ma20_price": 25.9,
+   "circ_mv": 3.03,
+   "circ_mv_score_factor": 3.03,
+   "pe": 16.99,
+   "turnover_rate": null,
+   "amount": 5.9,
+   "q1_growth": 21.44,
+   "major_shareholder_ratio": 0.4861,
+   "one_hand_shares": 411,
+   "per_hand_shares": 410.10305762711863,
+   "market": "深",
+   "total_score": 75,
+   "rating": "A",
+   "action": "关注建仓",
+   "action_reason": "高分+交易所通过，等待注册后加仓",
+   "action_price": "买入≤23.67 | 卖出≥30.24 | 安全垫2.8%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "9.27元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "3.03亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长21.44%"
+    },
+    "潜伏期扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "2026-08"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=16.99"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交5.9亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 9.27,
+   "hidden_circulation": 3.03,
+   "total": 75,
+   "issue_amount": 5.9,
+   "safety_pct": 2.8,
+   "per_share_allotment": 2.4384
   },
   {
    "stock_code": "301631",
@@ -3964,96 +3964,6 @@
    "per_share_allotment": 3.2773
   },
   {
-   "stock_code": "300893",
-   "stock_name": "松原安全",
-   "bond_name": "松原安全转债",
-   "industry": "其他",
-   "total_scale": 10.55,
-   "per_share_amount": 16.21,
-   "progress": "交易所受理",
-   "progress_date": "2026-06-12",
-   "registration_date": "2026-06-12",
-   "approval_date": "",
-   "board": "创业板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 13.96,
-   "cb_amount": 16.21,
-   "b_shares": 0.0,
-   "price": 13.73,
-   "change_pct": -2.97,
-   "pb": 3.06,
-   "ma20_price": 13.96,
-   "circ_mv": 5.61,
-   "circ_mv_score_factor": 5.61,
-   "pe": 21.59,
-   "turnover_rate": null,
-   "amount": 10.55,
-   "q1_growth": 2.32,
-   "major_shareholder_ratio": 0.4686,
-   "one_hand_shares": 450,
-   "per_hand_shares": 449.25220663507105,
-   "market": "深",
-   "total_score": 54,
-   "rating": "B",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤12.63 | 卖出≥15.1 | 安全垫4.9%",
-   "score_details": {
-    "含权量评分": {
-     "score": 20,
-     "max": 30,
-     "factor": "16.21元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "5.61亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长2.32%"
-    },
-    "潜伏期扣分": {
-     "score": -6,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "创业板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=21.59"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交10.6亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 16.21,
-   "hidden_circulation": 5.61,
-   "total": 54,
-   "issue_amount": 10.55,
-   "safety_pct": 4.9,
-   "per_share_allotment": 2.2259
-  },
-  {
    "stock_code": "002978",
    "stock_name": "安宁股份",
    "bond_name": "安宁股份转债",
@@ -4502,6 +4412,96 @@
    "issue_amount": 12.4,
    "safety_pct": 6.5,
    "per_share_allotment": 1.391
+  },
+  {
+   "stock_code": "300893",
+   "stock_name": "松原安全",
+   "bond_name": "松原安全转债",
+   "industry": "其他",
+   "total_scale": 10.55,
+   "per_share_amount": 16.21,
+   "progress": "交易所受理",
+   "progress_date": "2026-06-12",
+   "registration_date": "2026-06-12",
+   "approval_date": "",
+   "board": "创业板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 13.96,
+   "cb_amount": 16.21,
+   "b_shares": 0.0,
+   "price": 13.73,
+   "change_pct": -2.97,
+   "pb": 3.06,
+   "ma20_price": 13.96,
+   "circ_mv": 5.61,
+   "circ_mv_score_factor": 5.61,
+   "pe": 21.59,
+   "turnover_rate": null,
+   "amount": 10.55,
+   "q1_growth": 2.32,
+   "major_shareholder_ratio": 0.4686,
+   "one_hand_shares": 450,
+   "per_hand_shares": 449.25220663507105,
+   "market": "深",
+   "total_score": 51,
+   "rating": "B",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤12.63 | 卖出≥15.1 | 安全垫4.9%",
+   "score_details": {
+    "含权量评分": {
+     "score": 20,
+     "max": 30,
+     "factor": "16.21元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.61亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长2.32%"
+    },
+    "潜伏期扣分": {
+     "score": -9,
+     "max": 0,
+     "factor": "2026-06"
+    },
+    "300/688折扣": {
+     "score": -10,
+     "max": 0,
+     "factor": "创业板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=21.59"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交10.6亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 16.21,
+   "hidden_circulation": 5.61,
+   "total": 51,
+   "issue_amount": 10.55,
+   "safety_pct": 4.9,
+   "per_share_allotment": 2.2259
   },
   {
    "stock_code": "301149",
