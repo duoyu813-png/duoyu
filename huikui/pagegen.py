@@ -85,8 +85,8 @@ def build_page(events: list[dict], now: str, year: str, total_all: int) -> str:
         span = f"{years[0]} 年"
     else:
         span = "暂无数据"
-    sub = (f"共 {n} 条 · 覆盖 {span} · 点击上方年份查看当年活动 · "
-           f"数据源：东方财富公告 · 巨潮资讯 · 微信公众号（尽力检索） · "
+    sub = (f"共 {n} 条 · 覆盖 {span}（仅保留近一周新增，过期自动移除） · "
+           f"数据源：东方财富公告 · 巨潮资讯 · 上市公司官网 · "
            f"字段为自动解析（仅供参考，不构成投资建议）")
     ts = now
     html = """<!DOCTYPE html>
@@ -110,7 +110,7 @@ __CSS__
     <input class="search" id="q" placeholder="搜公司/代码/标题">
   </div>
   <div class="card"><div id="wrap"></div></div>
-  <p class="sub" style="text-align:center;margin-top:14px">发现方式：自动扫描东方财富全市场公告 + 巨潮资讯全文检索 + 搜狗微信关键词检索，命中「股东回馈/回馈股东/股东福利/股东专享/感恩回馈」等关键词即收录并推送微信「股东回馈活动」</p>
+  <p class="sub" style="text-align:center;margin-top:14px">发现方式：自动扫描东方财富全市场公告 + 巨潮资讯全文检索 + 上市公司官网关注清单，命中「股东回馈/回馈股东/股东福利/股东专享/感恩回馈」等关键词即收录并推送微信「股东回馈活动」（仅保留近一周新增）</p>
 </div>
 <script>
 var DATA = __DATA__;
@@ -145,7 +145,7 @@ function view(){
     return sortDesc?-r:r;
   });
   if(!list.length){ document.getElementById("wrap").innerHTML="<div class='empty'>该年份暂无股东回馈活动</div>"; return; }
-  var SRC = {eastmoney:"东财公告", auto:"东财公告", cninfo:"巨潮资讯", wechat:"公众号", seed:"手动补充"};
+  var SRC = {eastmoney:"东财公告", auto:"东财公告", cninfo:"巨潮资讯", website:"官网", wechat:"公众号", seed:"手动补充"};
   var cols = [["seq","排序"],["name","公司（代码）"],["notice_date","发布公告时间"],["source","来源"],["shares","股数要求"],["reward","回馈内容"],["requirement","股东要求"],["","公告链接"]];
   var h = "<table><thead><tr>";
   cols.forEach(function(c){
@@ -203,7 +203,7 @@ def _esc_attr(v):
 
 
 # 来源优先级：数值越小越权威，同一天同一公司优先保留公告类
-_SRC_RANK = {"eastmoney": 0, "auto": 0, "cninfo": 1, "seed": 2, "wechat": 3}
+_SRC_RANK = {"eastmoney": 0, "auto": 0, "cninfo": 1, "website": 1, "seed": 2, "wechat": 3}
 
 
 def _company_name(e: dict) -> str:

@@ -4,9 +4,11 @@
   1) 东方财富全市场公告列表（东财 np-anotice-stock 接口）—— 结构化正文，主源。
   2) 巨潮资讯全文检索（cninfo fulltextSearch）—— 覆盖更全、可回补历史，
      但只给标题 + PDF，正文由 pypdf 尽力解析。
-  3) 微信公众号文章检索（搜狗微信 weixin.sogou.com）—— 尽力而为的兜底源，
-     专门找“只在公众号/官网发布、未走正式公告”的活动；反爬强、可能随时失效，
-     失败时静默跳过，不影响主流程。
+  3) 上市公司官网关注清单（huikui/website_sites.json）—— 补抓只在官网/投资者
+     关系页发布、未走正式公告的活动；按清单逐家抓取，命中关键词且可定位日期才收录。
+  4) 微信公众号文章检索（搜狗微信 weixin.sogou.com）—— 已默认关闭：链接为带反爬
+     签名的临时跳转链接，点开即"已过期"；且多为聚合号而非公司官方公告。
+     官方来源覆盖不到时可在迁移到东财/巨潮后再启用。
 
 设计说明：
   - 东财公告检索接口的 keyword 参数实测不可用（返回未过滤的全市场最新公告），
@@ -23,18 +25,25 @@ import asyncio
 import hashlib
 import html
 import io
+import json
+import os
 import re
 import time
 from datetime import datetime, timedelta, timezone
+from urllib.parse import urljoin, urlparse
 
 import httpx
-
-# 只收录该日期（含）之后的活动：扫描/推送/快照/页面统一以此为下限
-MIN_NOTICE_DATE = "2025-01-01"
 
 # 巨潮/搜狗返回的是 epoch（秒/毫秒），须按北京时间换算日期，
 # 否则在 UTC 的 Actions 环境会整体早一天（公告时间多为北京时间零点）。
 _CST = timezone(timedelta(hours=8))
+
+# _CST 定义后计算（见上）：
+# 只收录最近 N 天内的活动（含当天）。过期信息对股东已无意义，
+# 因此不保留历史，扫描/推送/快照/页面统一按此滚动窗口截取，
+# 在 Actions 的 UTC 环境下也按北京时间换算，避免早/晚一天。
+LOOKBACK_DAYS = 7
+MIN_NOTICE_DATE = (datetime.now(_CST) - timedelta(days=LOOKBACK_DAYS - 1)).strftime("%Y-%m-%d")
 
 
 def _epoch_to_cn_date(sec: float) -> str:
@@ -588,6 +597,10 @@ def build_cninfo_events(items: list[dict], workers: int = 6) -> list[dict]:
 # 说明：微信没有公开搜索 API，搜狗微信（weixin.sogou.com）是唯一半开放的入口，
 # 反爬强、随时可能返回验证码。此处按关键词检索并解析标题/摘要/账号/时间，
 # 定位为「尽力而为」：拿到即入库，拿不到就静默跳过，绝不影响主流程。
+#
+# 默认关闭：搜狗返回的是带反爬签名的临时跳转链接（点开即"已过期"），
+# 且命中的多为聚合号而非公司官方公告。如需开启改回 True。
+ENABLE_WECHAT_SOURCE = False
 
 SOGOU_URL = "https://weixin.sogou.com/weixin"
 SOGOU_HEADERS = {
@@ -725,6 +738,153 @@ def build_wechat_event(item: dict) -> dict | None:
         "reward": reward,
         "requirement": fields.get("requirement", ""),
         "link": item.get("link", ""),
+        "pdf": "",
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    }
+
+
+# ---------------- 上市公司官网关注清单源 ----------------
+# 说明：正式的股东回馈活动大多走交易所公告（东财/巨潮已覆盖），但部分公司
+# 只在自家官网/投资者关系页发布活动。本源按「关注清单」逐家抓取官网新闻/公告页，
+# 命中「股东 + 活动词」关键词且能提取出窗口内发布日期的条目才收录。
+# 配置：huikui/website_sites.json（{sites:[{code,name,urls:[...]}, ...]}）
+
+WEBSITE_SITES_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                  "website_sites.json")
+
+# 是否启用官网关注清单源（默认开启；失败逐站静默跳过，不影响主流程）
+ENABLE_WEBSITE_SOURCE = True
+
+# 单站最多抓取页数（防异常失控）
+WEBSITE_PAGE_LIMIT = 5
+# 每次抓取之间的间隔（秒），兼顾礼貌与限流
+WEBSITE_SLEEP = 1.0
+
+_PAGE_DATE = re.compile(
+    r"(?:20\d{2}|19\d{2})\s*[年.\-/]\s*\d{1,2}\s*[月.\-/]\s*\d{1,2}\s*日?")
+
+
+def _load_website_sites() -> list[dict]:
+    try:
+        with open(WEBSITE_SITES_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data.get("sites") or []
+    except Exception as e:
+        print(f"[huikui] 官网清单读取失败: {e}")
+        return []
+
+
+def _html_to_text(raw: str) -> str:
+    """极简 HTML -> 纯文本（去 script/style/标签，保留换行，无第三方依赖）。"""
+    if not raw:
+        return ""
+    s = re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", raw)
+    s = re.sub(r"(?is)<!--.*?-->", " ", s)
+    s = re.sub(r"(?i)<br\s*/?>", "\n", s)
+    s = re.sub(r"</(p|div|li|tr|h[1-6])>", "\n", s)
+    s = re.sub(r"<[^>]+>", "", s)
+    s = html.unescape(s)
+    s = re.sub(r"[\u3000\ufeff]", " ", s)
+    s = re.sub(r"[ \t]{2,}", " ", s)
+    s = re.sub(r"\n\s*\n+", "\n", s)
+    return s.strip()
+
+
+def _dates_in(text: str) -> list[str]:
+    out = []
+    for m in _PAGE_DATE.finditer(text):
+        d = norm_date(m.group(0))
+        if d:
+            out.append(d)
+    return out
+
+
+def _hit_activity(text: str) -> bool:
+    return "股东" in text and any(k in text for k in _TITLE_ACT)
+
+
+def _site_candidates(title: str, raw: str) -> list[dict]:
+    """从官网页提取 (date, title) 候选：日期与本行/下一行标题命中关键词。
+
+    能够定位日期的页面才算数，避免把历史/首页旧内容当成新活动。
+    """
+    text = _html_to_text(raw)
+    if not text or not _hit_activity(text):
+        return []
+    lines = [ln.strip() for ln in text.split("\n") if ln.strip()]
+    cands: list[dict] = []
+    for i, ln in enumerate(lines):
+        date = _dates_in(ln)
+        rest = _PAGE_DATE.sub(" ", ln).strip(" \t[]()（）【】")
+        if date and (_hit_activity(rest)
+                     or (i + 1 < len(lines) and _hit_activity(lines[i + 1]))):
+            d = max(date)
+            if d >= MIN_NOTICE_DATE:
+                cands.append({"notice_date": d,
+                              "title": (rest or lines[i + 1])[:120]})
+    return cands
+
+
+async def _website_fetch(client: httpx.AsyncClient, url: str) -> str:
+    for _ in range(3):
+        try:
+            r = await client.get(url, timeout=30)
+            if r.status_code == 200:
+                r.encoding = "utf-8"
+                return r.text
+        except Exception:
+            pass
+        await asyncio.sleep(1.2)
+    return ""
+
+
+async def scan_websites(sites: list[dict] | None = None,
+                        page_limit: int = WEBSITE_PAGE_LIMIT) -> list[dict]:
+    """按关注清单扫描上市公司官网，返回去重后的候选（标题/日期/链接）。"""
+    sites = sites if sites is not None else _load_website_sites()
+    out: dict[str, dict] = {}
+    async with httpx.AsyncClient(timeout=30, headers=HEADERS,
+                                 follow_redirects=True) as client:
+        for site in sites:
+            code = str(site.get("code") or "")
+            name = (site.get("name") or "").strip()
+            for url in (site.get("urls") or []):
+                raw = await _website_fetch(client, url)
+                for c in _site_candidates(url, raw):
+                    key = (f'{code}|{c["notice_date"]}|{c["title"]}')
+                    if key in out:
+                        continue
+                    out[key] = {"code": code, "name": name,
+                                "title": c["title"],
+                                "notice_date": c["notice_date"],
+                                "link": url}
+                await asyncio.sleep(WEBSITE_SLEEP)
+    print(f"[huikui] 官网关注清单：{len(out)} 条候选（{len(sites)} 家公司）",
+          flush=True)
+    return list(out.values())
+
+
+def build_website_event(item: dict) -> dict | None:
+    """官网候选 -> 结构化事件；正文缺失时仅收录标题，字段留空由页面显示 "-"。"""
+    title = item.get("title") or ""
+    if not _hit_activity(title):
+        return None
+    date = (item.get("notice_date") or "")[:10]
+    if not date or date < MIN_NOTICE_DATE:
+        return None
+    return {
+        "id": "web:" + hashlib.md5(
+            ((item.get("code") or "") + "|" + title).encode("utf-8")
+        ).hexdigest()[:16],
+        "source": "website",
+        "code": item.get("code") or "",
+        "name": item.get("name") or "",
+        "title": title,
+        "notice_date": date,
+        "shares": "",
+        "reward": "",
+        "requirement": "",
+        "link": item.get("link") or "",
         "pdf": "",
         "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     }

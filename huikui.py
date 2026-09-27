@@ -2,7 +2,7 @@
 
 用法：
   python huikui.py scan        多源扫描 -> 新命中自动解析 -> 微信推送 -> 重新生成页面
-                               数据源：东方财富公告 + 巨潮资讯全文检索 + 搜狗微信关键词检索
+                               数据源：东方财富公告 + 巨潮资讯全文检索 + 上市公司官网关注清单
   python huikui.py backfill    加大扫描页数补历史（东财列表接口可达的近月窗口）
   python huikui.py gen         仅用本地快照+种子数据重新生成页面（无网络）
   python huikui.py test <art_code> [code] [title]
@@ -102,7 +102,7 @@ def _push_event(ev: dict) -> bool:
         f"- **回馈内容**：{ev.get('reward') or '见公告原文'}",
         f"- **公告链接**：{ev.get('link') or '-'}",
         "",
-        "> 今年全部股东回馈活动见网站「股东回馈活动」板块（自动扫描 + 自动解析，仅供参考）",
+        "> 近一周股东回馈活动见网站「股东回馈活动」板块（自动扫描 + 自动解析，仅供参考）",
     ]
     return _send("股东回馈活动", "\n".join(lines))
 
@@ -175,17 +175,34 @@ def cmd_scan(backfill: bool = False) -> int:
     for ev in scanner.build_cninfo_events(to_build):
         try_add(ev)
 
-    # 3) 微信公众号（搜狗微信，尽力而为的兜底源）
-    try:
-        wx_items = scanner.scan_wechat()
-    except Exception as e:
-        print(f"[huikui] 微信扫描失败，跳过: {e}")
-        wx_items = []
-    for it in wx_items:
+    # 3) 上市公司官网关注清单（补抓只在官网/IR 页发布的活动）
+    if getattr(scanner, "ENABLE_WEBSITE_SOURCE", True):
         try:
-            try_add(scanner.build_wechat_event(it))
+            web_items = asyncio.run(scanner.scan_websites())
         except Exception as e:
-            print(f"[huikui] 微信解析失败: {e}")
+            print(f"[huikui] 官网扫描失败，跳过: {e}")
+            web_items = []
+        for it in web_items:
+            try:
+                try_add(scanner.build_website_event(it))
+            except Exception as e:
+                print(f"[huikui] 官网解析失败: {e}")
+
+    # 4) 微信公众号（搜狗微信）—— 默认关闭：链接是临时反爬链接（点开即"已过期"），
+    #    且多为聚合号非官方公告，避免误收。开启请设置 scanner.ENABLE_WECHAT_SOURCE=True
+    if getattr(scanner, "ENABLE_WECHAT_SOURCE", False):
+        try:
+            wx_items = scanner.scan_wechat()
+        except Exception as e:
+            print(f"[huikui] 微信扫描失败，跳过: {e}")
+            wx_items = []
+        for it in wx_items:
+            try:
+                try_add(scanner.build_wechat_event(it))
+            except Exception as e:
+                print(f"[huikui] 微信解析失败: {e}")
+    else:
+        print("[huikui] 公众号源已关闭（仅使用东财/巨潮官方公告）")
 
     # 新的在前，推送优先推最近的活动
     new_events.sort(key=lambda e: e.get("notice_date") or "", reverse=True)
@@ -195,7 +212,7 @@ def cmd_scan(backfill: bool = False) -> int:
     kept = [e for e in prev_events
             if (e.get("notice_date") or "")[:10] >= scanner.MIN_NOTICE_DATE]
     if len(kept) != len(prev_events):
-        print(f"[huikui] 裁剪掉 {len(prev_events) - len(kept)} 条 {scanner.MIN_NOTICE_DATE[:4]} 年前的历史记录")
+        print(f"[huikui] 裁剪掉 {len(prev_events) - len(kept)} 条早于 {scanner.MIN_NOTICE_DATE} 的旧记录")
     store["events"] = kept
     store["scan"] = new_cursor
 

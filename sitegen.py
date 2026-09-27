@@ -10,7 +10,7 @@ import json
 import os
 import sys
 import time
-from datetime import date, datetime
+from datetime import date, datetime, timedelta, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -518,14 +518,16 @@ def main() -> int:
     report["sections"]["issue_count"] = issue_count
 
     # ---------- 股东回馈活动计数（读取仓库内快照，独立流程 huikui.py 维护） ----------
+    # 与 huikui/scanner.py 保持同一口径：近 7 天滚动窗口（北京时间）
+    _CST8 = timezone(timedelta(hours=8))
+    _cutoff = (datetime.now(_CST8) - timedelta(days=6)).strftime("%Y-%m-%d")
     huikui_count = 0
     try:
         if os.path.exists(HUIKUI_SNAPSHOT):
             with open(HUIKUI_SNAPSHOT, "r", encoding="utf-8") as f:
                 hk_data = json.load(f)
-            this_year = date.today().year
             huikui_count = len([e for e in (hk_data.get("events") or [])
-                                if (str(e.get("notice_date") or "")[:4]) == str(this_year)])
+                                if (str(e.get("notice_date") or "")[:10]) >= _cutoff])
     except Exception:
         huikui_count = 0
     report["sections"]["huikui_count"] = huikui_count
@@ -558,8 +560,8 @@ def main() -> int:
         "逐只评分 · 四版回测体系"))
     hero_cards.append(_hero(
         "huikui.html", "#9333ea", "#f3e8ff",
-        "股东回馈活动", "自动扫描全市场公告 · 微信推送 · 全年回馈活动表格汇总",
-        f"{huikui_count} 条活动（{date.today().year}年）"))
+        "股东回馈活动", "自动扫描东财/巨潮公告 + 官网关注清单 · 微信推送 · 仅保留近一周新增",
+        f"近 7 天 {huikui_count} 条活动（{date.today().year}年）"))
     hero_cards.append(_hero(
         "caibao.html", "#0891b2", "#cffafe",
         "穿透财报分析", "输入代码实时抓三张报表 · 舞弊/调节红旗扫描 · 一键复制 AI 提示词",
