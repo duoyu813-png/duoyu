@@ -1,6 +1,6 @@
 {
- "total": 83,
- "generated_at": "2026-09-29 20:15:00",
+ "total": 84,
+ "generated_at": "2026-09-29 23:58:32",
  "source": "live",
  "bonds": [
   {
@@ -1982,6 +1982,96 @@
    "issue_amount": 8.5,
    "safety_pct": 0.9,
    "per_share_allotment": 9.7701
+  },
+  {
+   "stock_code": "300932",
+   "stock_name": "三友联众",
+   "bond_name": "三友联众转债",
+   "industry": "其他",
+   "total_scale": 6.6,
+   "per_share_amount": 13.36,
+   "progress": "董事会预案",
+   "progress_date": "2026-09-30",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "创业板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 11.05,
+   "cb_amount": 13.36,
+   "b_shares": 0.0,
+   "price": 11.02,
+   "change_pct": 2.04,
+   "pb": 2.77,
+   "ma20_price": 11.05,
+   "circ_mv": 4.62,
+   "circ_mv_score_factor": 4.62,
+   "pe": 55.1,
+   "turnover_rate": null,
+   "amount": 6.6,
+   "q1_growth": 44.57,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 680,
+   "per_hand_shares": 679.0084803030303,
+   "market": "深",
+   "total_score": 67,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤9.92 | 卖出≥12.67 | 安全垫4.0%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "13.36元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.62亿"
+    },
+    "业绩评分": {
+     "score": 30,
+     "max": 40,
+     "factor": "Q1增长44.57%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": -8,
+     "max": 0,
+     "factor": "创业板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=55.1"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交6.6亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 13.36,
+   "hidden_circulation": 4.62,
+   "total": 67,
+   "issue_amount": 6.6,
+   "safety_pct": 4.0,
+   "per_share_allotment": 1.4727
   },
   {
    "stock_code": "603043",
