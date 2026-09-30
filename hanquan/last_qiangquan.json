@@ -1,6 +1,6 @@
 {
  "total": 84,
- "generated_at": "2026-09-30 10:03:24",
+ "generated_at": "2026-09-30 16:21:35",
  "source": "live",
  "bonds": [
   {
@@ -3352,7 +3352,7 @@
    "b_shares": 0.0,
    "price": 61.6,
    "change_pct": 5.21,
-   "pb": 5.0,
+   "pb": 5.02,
    "ma20_price": 55.42,
    "circ_mv": 5.64,
    "circ_mv_score_factor": 5.64,
@@ -5784,13 +5784,13 @@
    "change_pct": 19.98,
    "pb": 3.37,
    "ma20_price": 13.87,
-   "circ_mv": 5.61,
-   "circ_mv_score_factor": 5.61,
+   "circ_mv": 5.6,
+   "circ_mv_score_factor": 5.6,
    "pe": 23.79,
    "turnover_rate": null,
    "amount": 10.55,
    "q1_growth": 2.32,
-   "major_shareholder_ratio": 0.4686,
+   "major_shareholder_ratio": 0.469,
    "one_hand_shares": 450,
    "per_hand_shares": 449.25220663507105,
    "market": "深",
@@ -5808,7 +5808,7 @@
     "隐形流通量评分": {
      "score": 15,
      "max": 40,
-     "factor": "5.61亿"
+     "factor": "5.60亿"
     },
     "业绩评分": {
      "score": 25,
@@ -5847,7 +5847,7 @@
     }
    },
    "weighted_amount": 14.71,
-   "hidden_circulation": 5.61,
+   "hidden_circulation": 5.6,
    "total": 46,
    "issue_amount": 10.55,
    "safety_pct": 4.4,
