@@ -1,246 +1,650 @@
 {
- "low_price": [
+ "130_sandi": [
   {
-   "code": "127049",
-   "name": "希望转2",
-   "price": "108.41",
-   "premium_rate": "-"
+   "code": "123171",
+   "name": "共同转债",
+   "price": "128.68",
+   "premium_rate": "35.59"
   },
+  {
+   "code": "113665",
+   "name": "汇通转债",
+   "price": "124.13",
+   "premium_rate": "49.48"
+  },
+  {
+   "code": "127059",
+   "name": "永东转2",
+   "price": "125.61",
+   "premium_rate": "51.14"
+  },
+  {
+   "code": "123155",
+   "name": "中陆转债",
+   "price": "127.06",
+   "premium_rate": "55.63"
+  },
+  {
+   "code": "118039",
+   "name": "煜邦转债",
+   "price": "127.88",
+   "premium_rate": "50.56"
+  },
+  {
+   "code": "123214",
+   "name": "东宝转债",
+   "price": "128.80",
+   "premium_rate": "56.16"
+  }
+ ],
+ "150_sandi": [
+  {
+   "code": "113686",
+   "name": "泰瑞转债",
+   "price": "147.12",
+   "premium_rate": "6.61"
+  },
+  {
+   "code": "118007",
+   "name": "山石转债",
+   "price": "141.98",
+   "premium_rate": "19.59"
+  },
+  {
+   "code": "123189",
+   "name": "晓鸣转债",
+   "price": "133.38",
+   "premium_rate": "28.15"
+  },
+  {
+   "code": "111003",
+   "name": "聚合转债",
+   "price": "136.14",
+   "premium_rate": "43.09"
+  },
+  {
+   "code": "123171",
+   "name": "共同转债",
+   "price": "128.68",
+   "premium_rate": "35.59"
+  },
+  {
+   "code": "123222",
+   "name": "博俊转债",
+   "price": "139.05",
+   "premium_rate": "39.64"
+  },
+  {
+   "code": "123199",
+   "name": "山河转债",
+   "price": "138.28",
+   "premium_rate": "35.57"
+  },
+  {
+   "code": "113680",
+   "name": "丽岛转债",
+   "price": "135.54",
+   "premium_rate": "40.66"
+  },
+  {
+   "code": "118036",
+   "name": "力合转债",
+   "price": "140.71",
+   "premium_rate": "29.31"
+  },
+  {
+   "code": "113665",
+   "name": "汇通转债",
+   "price": "124.13",
+   "premium_rate": "49.48"
+  },
+  {
+   "code": "123157",
+   "name": "科蓝转债",
+   "price": "130.43",
+   "premium_rate": "56.58"
+  },
+  {
+   "code": "118016",
+   "name": "京源转债",
+   "price": "147.76",
+   "premium_rate": "30.24"
+  },
+  {
+   "code": "118035",
+   "name": "国力转债",
+   "price": "145.15",
+   "premium_rate": "19.03"
+  },
+  {
+   "code": "113695",
+   "name": "华辰转债",
+   "price": "141.53",
+   "premium_rate": "26.44"
+  },
+  {
+   "code": "127059",
+   "name": "永东转2",
+   "price": "125.61",
+   "premium_rate": "51.14"
+  },
+  {
+   "code": "123224",
+   "name": "宇邦转债",
+   "price": "134.62",
+   "premium_rate": "53.04"
+  },
+  {
+   "code": "127099",
+   "name": "盛航转债",
+   "price": "131.80",
+   "premium_rate": "39.92"
+  },
+  {
+   "code": "127109",
+   "name": "电化转债",
+   "price": "146.81",
+   "premium_rate": "23.04"
+  },
+  {
+   "code": "123155",
+   "name": "中陆转债",
+   "price": "127.06",
+   "premium_rate": "55.63"
+  },
+  {
+   "code": "123211",
+   "name": "阳谷转债",
+   "price": "146.69",
+   "premium_rate": "41.91"
+  }
+ ],
+ "double_low": [
+  {
+   "code": "113686",
+   "name": "泰瑞转债",
+   "price": "147.12",
+   "premium_rate": "6.61"
+  },
+  {
+   "code": "123189",
+   "name": "晓鸣转债",
+   "price": "133.38",
+   "premium_rate": "28.15"
+  },
+  {
+   "code": "118007",
+   "name": "山石转债",
+   "price": "141.98",
+   "premium_rate": "19.59"
+  },
+  {
+   "code": "118035",
+   "name": "国力转债",
+   "price": "145.15",
+   "premium_rate": "19.03"
+  },
+  {
+   "code": "123171",
+   "name": "共同转债",
+   "price": "128.68",
+   "premium_rate": "35.59"
+  },
+  {
+   "code": "113695",
+   "name": "华辰转债",
+   "price": "141.53",
+   "premium_rate": "26.44"
+  },
+  {
+   "code": "127109",
+   "name": "电化转债",
+   "price": "146.81",
+   "premium_rate": "23.04"
+  },
+  {
+   "code": "118036",
+   "name": "力合转债",
+   "price": "140.71",
+   "premium_rate": "29.31"
+  },
+  {
+   "code": "127078",
+   "name": "优彩转债",
+   "price": "153.61",
+   "premium_rate": "18.06"
+  },
+  {
+   "code": "127099",
+   "name": "盛航转债",
+   "price": "131.80",
+   "premium_rate": "39.92"
+  },
+  {
+   "code": "113665",
+   "name": "汇通转债",
+   "price": "124.13",
+   "premium_rate": "49.48"
+  },
+  {
+   "code": "123199",
+   "name": "山河转债",
+   "price": "138.28",
+   "premium_rate": "35.57"
+  },
+  {
+   "code": "113680",
+   "name": "丽岛转债",
+   "price": "135.54",
+   "premium_rate": "40.66"
+  },
+  {
+   "code": "127059",
+   "name": "永东转2",
+   "price": "125.61",
+   "premium_rate": "51.14"
+  },
+  {
+   "code": "118016",
+   "name": "京源转债",
+   "price": "147.76",
+   "premium_rate": "30.24"
+  },
+  {
+   "code": "118039",
+   "name": "煜邦转债",
+   "price": "127.88",
+   "premium_rate": "50.56"
+  },
+  {
+   "code": "123222",
+   "name": "博俊转债",
+   "price": "139.05",
+   "premium_rate": "39.64"
+  },
+  {
+   "code": "123160",
+   "name": "泰福转债",
+   "price": "161.00",
+   "premium_rate": "18.08"
+  },
+  {
+   "code": "111003",
+   "name": "聚合转债",
+   "price": "136.14",
+   "premium_rate": "43.09"
+  },
+  {
+   "code": "123155",
+   "name": "中陆转债",
+   "price": "127.06",
+   "premium_rate": "55.63"
+  }
+ ],
+ "low_price": [
   {
    "code": "127061",
    "name": "美锦转债",
-   "price": "108.50",
-   "premium_rate": "-"
+   "price": "108.00",
+   "premium_rate": "6.77"
+  },
+  {
+   "code": "127049",
+   "name": "希望转2",
+   "price": "108.33",
+   "premium_rate": "58.58"
   },
   {
    "code": "113633",
    "name": "科沃转债",
-   "price": "111.07",
-   "premium_rate": "-"
+   "price": "111.34",
+   "premium_rate": "286.02"
   },
   {
    "code": "110095",
    "name": "双良转债",
-   "price": "111.82",
-   "premium_rate": "-"
+   "price": "112.56",
+   "premium_rate": "72.61"
   },
   {
    "code": "110085",
    "name": "通22转债",
-   "price": "112.01",
-   "premium_rate": "-"
+   "price": "112.78",
+   "premium_rate": "238.73"
   },
   {
    "code": "113052",
    "name": "兴业转债",
-   "price": "112.23",
-   "premium_rate": "-"
+   "price": "113.18",
+   "premium_rate": "26.23"
   },
   {
    "code": "113648",
    "name": "巨星转债",
-   "price": "112.80",
-   "premium_rate": "-"
-  },
-  {
-   "code": "127089",
-   "name": "晶澳转债",
-   "price": "113.25",
-   "premium_rate": "-"
+   "price": "113.28",
+   "premium_rate": "95.69"
   },
   {
    "code": "113053",
    "name": "隆22转债",
-   "price": "113.34",
-   "premium_rate": "-"
+   "price": "113.98",
+   "premium_rate": "77.93"
+  },
+  {
+   "code": "127089",
+   "name": "晶澳转债",
+   "price": "114.19",
+   "premium_rate": "50.79"
   },
   {
    "code": "118034",
    "name": "晶能转债",
-   "price": "114.50",
-   "premium_rate": "-"
-  },
-  {
-   "code": "127068",
-   "name": "顺博转债",
-   "price": "114.50",
-   "premium_rate": "-"
-  },
-  {
-   "code": "113059",
-   "name": "福莱转债",
-   "price": "114.77",
-   "premium_rate": "-"
+   "price": "115.69",
+   "premium_rate": "31.10"
   },
   {
    "code": "113647",
    "name": "禾丰转债",
-   "price": "114.91",
-   "premium_rate": "-"
+   "price": "115.92",
+   "premium_rate": "84.48"
   },
   {
-   "code": "118022",
-   "name": "锂科转债",
-   "price": "114.99",
-   "premium_rate": "-"
+   "code": "127068",
+   "name": "顺博转债",
+   "price": "116.11",
+   "premium_rate": "95.14"
   },
   {
-   "code": "110100",
-   "name": "龙建转债",
-   "price": "115.79",
-   "premium_rate": "-"
+   "code": "113059",
+   "name": "福莱转债",
+   "price": "116.23",
+   "premium_rate": "423.91"
   },
   {
    "code": "113656",
    "name": "嘉诚转债",
-   "price": "116.06",
-   "premium_rate": "-"
+   "price": "116.42",
+   "premium_rate": "96.50"
   },
   {
-   "code": "118031",
-   "name": "天23转债",
-   "price": "116.49",
-   "premium_rate": "-"
+   "code": "110100",
+   "name": "龙建转债",
+   "price": "116.51",
+   "premium_rate": "61.08"
+  },
+  {
+   "code": "118022",
+   "name": "锂科转债",
+   "price": "116.60",
+   "premium_rate": "142.43"
   },
   {
    "code": "110093",
    "name": "神马转债",
-   "price": "116.54",
-   "premium_rate": "-"
+   "price": "116.75",
+   "premium_rate": "49.74"
   },
   {
-   "code": "110087",
-   "name": "天业转债",
-   "price": "116.66",
-   "premium_rate": "-"
+   "code": "118031",
+   "name": "天23转债",
+   "price": "117.09",
+   "premium_rate": "70.47"
   },
   {
-   "code": "113666",
-   "name": "爱玛转债",
-   "price": "116.99",
-   "premium_rate": "-"
+   "code": "123151",
+   "name": "康医转债",
+   "price": "118.17",
+   "premium_rate": "186.83"
+  },
+  {
+   "code": "113634",
+   "name": "珀莱转债",
+   "price": "118.66",
+   "premium_rate": "104.50"
+  }
+ ],
+ "low_premium": [
+  {
+   "code": "123243",
+   "name": "严牌转债",
+   "price": "251.00",
+   "premium_rate": "2.56"
+  },
+  {
+   "code": "113056",
+   "name": "重银转债",
+   "price": "125.33",
+   "premium_rate": "3.17"
+  },
+  {
+   "code": "118058",
+   "name": "微导转债",
+   "price": "319.53",
+   "premium_rate": "4.89"
+  },
+  {
+   "code": "113062",
+   "name": "常银转债",
+   "price": "126.80",
+   "premium_rate": "6.34"
+  },
+  {
+   "code": "113686",
+   "name": "泰瑞转债",
+   "price": "147.12",
+   "premium_rate": "6.61"
+  },
+  {
+   "code": "127061",
+   "name": "美锦转债",
+   "price": "108.00",
+   "premium_rate": "6.77"
+  },
+  {
+   "code": "123207",
+   "name": "冠中转债",
+   "price": "181.96",
+   "premium_rate": "6.90"
+  },
+  {
+   "code": "113681",
+   "name": "镇洋转债",
+   "price": "136.48",
+   "premium_rate": "7.75"
+  },
+  {
+   "code": "113631",
+   "name": "皖天转债",
+   "price": "131.10",
+   "premium_rate": "10.55"
+  },
+  {
+   "code": "111015",
+   "name": "东亚转债",
+   "price": "133.00",
+   "premium_rate": "11.18"
+  },
+  {
+   "code": "123245",
+   "name": "集智转债",
+   "price": "353.45",
+   "premium_rate": "13.28"
+  },
+  {
+   "code": "113058",
+   "name": "友发转债",
+   "price": "126.81",
+   "premium_rate": "13.62"
+  },
+  {
+   "code": "127080",
+   "name": "声迅转债",
+   "price": "239.72",
+   "premium_rate": "15.20"
+  },
+  {
+   "code": "127110",
+   "name": "广核转债",
+   "price": "136.53",
+   "premium_rate": "15.55"
+  },
+  {
+   "code": "127092",
+   "name": "运机转债",
+   "price": "305.33",
+   "premium_rate": "16.11"
+  },
+  {
+   "code": "127070",
+   "name": "大中转债",
+   "price": "245.00",
+   "premium_rate": "16.12"
+  },
+  {
+   "code": "113066",
+   "name": "平煤转债",
+   "price": "137.50",
+   "premium_rate": "16.30"
+  },
+  {
+   "code": "111024",
+   "name": "澳弘转债",
+   "price": "186.68",
+   "premium_rate": "16.73"
+  },
+  {
+   "code": "127053",
+   "name": "豪美转债",
+   "price": "210.37",
+   "premium_rate": "17.15"
+  },
+  {
+   "code": "123213",
+   "name": "天源转债",
+   "price": "248.00",
+   "premium_rate": "17.39"
   }
  ],
  "high_ytm": [
   {
    "code": "110092",
    "name": "三房转债",
-   "price": "73.86",
-   "premium_rate": "-"
-  },
-  {
-   "code": "118027",
-   "name": "宏图转债",
-   "price": "100.05",
-   "premium_rate": "-"
+   "price": "73.45",
+   "premium_rate": "61.91"
   },
   {
    "code": "110081",
    "name": "闻泰转债",
-   "price": "101.61",
-   "premium_rate": "-"
+   "price": "101.39",
+   "premium_rate": "13.30"
+  },
+  {
+   "code": "118027",
+   "name": "宏图转债",
+   "price": "101.55",
+   "premium_rate": "0.16"
   },
   {
    "code": "127061",
    "name": "美锦转债",
-   "price": "108.50",
-   "premium_rate": "-"
+   "price": "108.00",
+   "premium_rate": "6.77"
   },
   {
    "code": "118020",
    "name": "芳源转债",
-   "price": "117.11",
-   "premium_rate": "-"
+   "price": "116.79",
+   "premium_rate": "38.10"
   },
   {
    "code": "113625",
    "name": "江山转债",
-   "price": "115.44",
-   "premium_rate": "-"
-  },
-  {
-   "code": "113049",
-   "name": "长汽转债",
-   "price": "106.10",
-   "premium_rate": "-"
-  },
-  {
-   "code": "110095",
-   "name": "双良转债",
-   "price": "111.82",
-   "premium_rate": "-"
+   "price": "115.57",
+   "premium_rate": "99.38"
   },
   {
    "code": "123175",
    "name": "百畅转债",
-   "price": "114.19",
-   "premium_rate": "-"
+   "price": "113.02",
+   "premium_rate": "41.40"
+  },
+  {
+   "code": "113049",
+   "name": "长汽转债",
+   "price": "106.02",
+   "premium_rate": "199.14"
   },
   {
    "code": "113656",
    "name": "嘉诚转债",
-   "price": "116.06",
-   "premium_rate": "-"
+   "price": "116.42",
+   "premium_rate": "96.50"
+  },
+  {
+   "code": "110095",
+   "name": "双良转债",
+   "price": "112.56",
+   "premium_rate": "72.61"
   },
   {
    "code": "118031",
    "name": "天23转债",
-   "price": "116.49",
-   "premium_rate": "-"
+   "price": "117.09",
+   "premium_rate": "70.47"
   },
   {
    "code": "123215",
    "name": "铭利转债",
-   "price": "120.59",
-   "premium_rate": "-"
+   "price": "120.96",
+   "premium_rate": "97.05"
   },
   {
    "code": "123117",
    "name": "健帆转债",
-   "price": "109.50",
-   "premium_rate": "-"
-  },
-  {
-   "code": "123151",
-   "name": "康医转债",
-   "price": "117.14",
-   "premium_rate": "-"
-  },
-  {
-   "code": "123250",
-   "name": "嘉益转债",
-   "price": "120.13",
-   "premium_rate": "-"
-  },
-  {
-   "code": "110100",
-   "name": "龙建转债",
-   "price": "115.79",
-   "premium_rate": "-"
+   "price": "109.47",
+   "premium_rate": "173.49"
   },
   {
    "code": "113627",
    "name": "太平转债",
-   "price": "110.02",
-   "premium_rate": "-"
+   "price": "110.00",
+   "premium_rate": "90.34"
+  },
+  {
+   "code": "123250",
+   "name": "嘉益转债",
+   "price": "120.72",
+   "premium_rate": "170.98"
+  },
+  {
+   "code": "110100",
+   "name": "龙建转债",
+   "price": "116.51",
+   "premium_rate": "61.08"
+  },
+  {
+   "code": "123151",
+   "name": "康医转债",
+   "price": "118.17",
+   "premium_rate": "186.83"
   },
   {
    "code": "113633",
    "name": "科沃转债",
-   "price": "111.07",
-   "premium_rate": "-"
+   "price": "111.34",
+   "premium_rate": "286.02"
   },
   {
    "code": "127108",
    "name": "太能转债",
-   "price": "120.23",
-   "premium_rate": "-"
+   "price": "121.33",
+   "premium_rate": "61.20"
   },
   {
-   "code": "127089",
-   "name": "晶澳转债",
-   "price": "113.25",
-   "premium_rate": "-"
+   "code": "113694",
+   "name": "清源转债",
+   "price": "123.51",
+   "premium_rate": "55.59"
   }
  ]
 }
