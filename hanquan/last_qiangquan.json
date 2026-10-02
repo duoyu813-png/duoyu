@@ -1,6 +1,6 @@
 {
  "total": 84,
- "generated_at": "2026-10-01 23:26:15",
+ "generated_at": "2026-10-02 02:31:03",
  "source": "live",
  "bonds": [
   {
@@ -1804,96 +1804,6 @@
    "per_share_allotment": 1.1095
   },
   {
-   "stock_code": "605020",
-   "stock_name": "永和股份",
-   "bond_name": "永和股份转债",
-   "industry": "其他",
-   "total_scale": 20.5,
-   "per_share_amount": 13.24,
-   "progress": "交易所受理",
-   "progress_date": "2026-08-17",
-   "registration_date": "2026-08-17",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 31.72,
-   "cb_amount": 13.24,
-   "b_shares": 0.0,
-   "price": 30.3,
-   "change_pct": -0.33,
-   "pb": 2.56,
-   "ma20_price": 31.72,
-   "circ_mv": 14.35,
-   "circ_mv_score_factor": 14.35,
-   "pe": 21.64,
-   "turnover_rate": null,
-   "amount": 20.5,
-   "q1_growth": 85.11,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 200,
-   "per_hand_shares": 249.1798648780488,
-   "market": "沪",
-   "total_score": 68,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤27.27 | 卖出≥34.84 | 安全垫5.0%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "13.24元"
-    },
-    "隐形流通量评分": {
-     "score": 8,
-     "max": 40,
-     "factor": "14.35亿"
-    },
-    "业绩评分": {
-     "score": 35,
-     "max": 40,
-     "factor": "Q1增长85.11%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "2026-08"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=21.64"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交20.5亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 13.24,
-   "hidden_circulation": 14.35,
-   "total": 68,
-   "issue_amount": 20.5,
-   "safety_pct": 5.0,
-   "per_share_allotment": 4.0132
-  },
-  {
    "stock_code": "603061",
    "stock_name": "金海通",
    "bond_name": "金海通转债",
@@ -2072,6 +1982,96 @@
    "issue_amount": 6.6,
    "safety_pct": 4.1,
    "per_share_allotment": 1.4727
+  },
+  {
+   "stock_code": "605020",
+   "stock_name": "永和股份",
+   "bond_name": "永和股份转债",
+   "industry": "其他",
+   "total_scale": 20.5,
+   "per_share_amount": 13.24,
+   "progress": "交易所受理",
+   "progress_date": "2026-08-17",
+   "registration_date": "2026-08-17",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 31.72,
+   "cb_amount": 13.24,
+   "b_shares": 0.0,
+   "price": 30.3,
+   "change_pct": -0.33,
+   "pb": 2.56,
+   "ma20_price": 31.72,
+   "circ_mv": 14.35,
+   "circ_mv_score_factor": 14.35,
+   "pe": 21.64,
+   "turnover_rate": null,
+   "amount": 20.5,
+   "q1_growth": 85.11,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 200,
+   "per_hand_shares": 249.1798648780488,
+   "market": "沪",
+   "total_score": 65,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤27.27 | 卖出≥34.84 | 安全垫5.0%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "13.24元"
+    },
+    "隐形流通量评分": {
+     "score": 8,
+     "max": 40,
+     "factor": "14.35亿"
+    },
+    "业绩评分": {
+     "score": 35,
+     "max": 40,
+     "factor": "Q1增长85.11%"
+    },
+    "潜伏期扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "2026-08"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=21.64"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交20.5亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 13.24,
+   "hidden_circulation": 14.35,
+   "total": 65,
+   "issue_amount": 20.5,
+   "safety_pct": 5.0,
+   "per_share_allotment": 4.0132
   },
   {
    "stock_code": "603043",
