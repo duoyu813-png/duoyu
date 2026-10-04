@@ -182,7 +182,7 @@ def _page(now: str) -> str:
   <nav class="breadcrumb"><a href="index.html">首页</a></nav>
 
   <h1>穿透财报分析</h1>
-  <p class="sub">输入 A 股代码或名称 → 实时抓取东财 F10 三张报表 + 行情 → 按邹佩轩框架自动出报告</p>
+  <p class="sub">输入 A 股代码或名称 → 实时抓取东财 F10 三张报表 + 行情 → 按邹佩轩框架自动出报告（含投资/跟踪结论 · 一句话总结）</p>
 
   <div class="search">
     <div class="row">
@@ -201,7 +201,7 @@ def _page(now: str) -> str:
       <button class="bt-ghost" id="btCopy">复制 AI 提示词（交给 AI 深挖）</button>
       <button class="bt-ghost" id="btMd">复制报告文本</button>
     </div>
-    <p class="note">框架：「不给财报估值，给叙事估值」双引擎（叙事定位 A + 三表科目验证 B）+ 舞弊/调节交叉检验（C+D）。
+    <p class="note">框架：「不给财报估值，给叙事估值」双引擎（叙事定位 A + 三表科目验证 B）+ 舞弊/调节交叉检验（C+D）+ 投资/跟踪结论（一句话总结）。
     规则蒸馏自邹佩轩《穿透财报》《穿透估值》《穿透叙事》。仅供学习参考，不构成投资建议。</p>
   </div>
 

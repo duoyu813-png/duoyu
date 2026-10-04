@@ -544,6 +544,135 @@
     return '叙事已被证伪或财报不可信 → 远离';
   }
 
+  /* ---------- 模板化叙事段落：对齐《穿透财报》报告格式（估值矩阵 / 三预期差 / 一句话锁定叙事） ---------- */
+  function estEBITDA(L) {
+    // 毛估：营收 − 营业成本 − 销售/管理/研发费用 + 投资收益 + 其他收益 + 折旧摊销
+    return (L.revenue - L.cogs - L.sale_expense - L.manage_expense - L.rd_expense) + L.invest_income + L.other_income + L.cf_depr;
+  }
+
+  function valuationMatrix(A, L, quote) {
+    var ev = quote.mktcap + L.net_ibd - L.minority_equity;
+    var ebitda = estEBITDA(L);
+    var rows = [
+      ['PE(TTM)', qpe(A.pe),
+        '市场预期当前盈利水平能持续',
+        '强周期/重资产：利润高峰的 PE 是「骗人的低」'],
+      ['PE 静态', qpe(quote.pe_static),
+        '用去年年报 EPS 定价',
+        '同上，滞后一个报告周期'],
+      ['PB', qpe(quote.pb),
+        '净资产×稳态 ROE 决定合理 PB',
+        '轻资产/高营运资本行业净资产失真'],
+      ['EV/EBITDA（毛估）', (ev > 0 && ebitda > 0 ? f2(ev / ebitda) + '×' : '—'),
+        '行业倍数适配',
+        'EBITDA 若是周期高峰的 EBITDA，同样是「骗人的低」；新租赁准则下使用权资产折旧不能加回'],
+      ['前向 PE', '—（需一致预期，交 AI 深挖）',
+        '一致预期 EPS',
+        '一致预期一旦下修，估值快速回吐'],
+      ['DCF 反推（隐含 L）', A.Lstar ? '<b>' + f2(yi(A.Lstar)) + ' 亿/年</b>' : '—',
+        '稳态利润永久上抬',
+        '稳态假设一旦被证伪，PB 支撑立刻被抽掉']
+    ];
+    return tbl(['估值体系', '当前读数', '隐含假设', '失效条件'], rows.map(function (r) {
+      return [r[0], r[1], r[2], r[3]];
+    }));
+  }
+  function qpe(v) { return (v != null && isFinite(v) && v > 0) ? f2(v) + '×' : '—'; }
+
+  function expectationsGap(A, L, quote, hs, meanHist) {
+    var gaps = [];
+    // 增速预期差
+    if (L.np_yoy_calc != null) {
+      gaps.push('<li><b>增速预期差</b>：本期归母同比 ' + (L.np_yoy_calc >= 0 ? '+' : '') + pct(L.np_yoy_calc * 100) +
+        '、营收同比 ' + (L.rev_yoy_calc != null ? (L.rev_yoy_calc >= 0 ? '+' : '') + pct(L.rev_yoy_calc * 100) : '—') +
+        '——股价当前定价的是「这个增速能持续」，下一报告期若增速锐减，第一波下修就会来。</li>');
+    }
+    // 增速持续时间预期差
+    if (A.Lstar && meanHist != null && meanHist > 0) {
+      var k = A.Lstar / meanHist;
+      gaps.push('<li><b>增速持续时间预期差（最致命）</b>：隐含稳态利润 ' + f2(yi(A.Lstar)) +
+        ' 亿是历史年均 ' + f2(yi(meanHist)) + ' 亿的 <b>' + f2(k) + ' 倍</b>——市场赌高盈利「永久上台阶」。' +
+        (k > 2 ? '若市场开始相信高盈利只有 1~2 年（如景气回落），估值对应大幅压缩。' : '若市场进一步相信高盈利延续多年，估值还有上修空间。') + '</li>');
+    }
+    // 折现率预期差
+    if (A.rel != null && hs && hs.pe) {
+      gaps.push('<li><b>折现率预期差</b>：相对天花板（个股PE/沪深300PE）=' + f2(A.rel) +
+        '（沪深300 ' + f2(hs.pe) + '×）。该值显著偏高说明市场用低折现率+高叙事定价，一旦市场要求更高折现率（周期股定价回归），股价有回撤压力。</li>');
+    }
+    return '<h3 class="sub-h">三个预期差的手电筒（超额收益只来自预期差）</h3><ul class="open">' + gaps.join('') +
+      (gaps.length ? '' : '<li>数据不足，暂无法给出预期差量化。</li>') + '</ul>';
+  }
+
+  function oneLineNarrative(A, L, quote, meanHist) {
+    var base = '市场为 <b>' + esc(quote.name) + '</b> 付的钱，不是当期这份报表的钱，而是「稳态归母利润从当前年化 <b>' +
+      f2(yi(A.annNp)) + ' 亿</b> 永久性上抬到 <b>' + (A.Lstar ? f2(yi(A.Lstar)) + ' 亿' : '—') + '</b>' +
+      (A.m != null ? '（隐含天花板 m≈' + f2(A.m) + '×）' : '') + '」这个故事的钱。';
+    var fail = '「稳态利润中枢重新跌回历史均值（' + (meanHist != null ? f2(yi(meanHist)) + ' 亿' : '更低水平') + '）」——一旦市场开始相信这一点，高 PB 的估值支撑会被立刻抽掉。';
+    return '<p class="tip"><b>一句话锁定叙事</b>：' + base + ' 这个叙事只有一个失效条件：' + fail + '</p>';
+  }
+
+  /* ---------- 投资·跟踪结论（一句话总结） ---------- */
+  function conclusionHTML(ctx) {
+    var s = ctx.series, L = s[s.length - 1], q = ctx.quote, A = ctx.A;
+    var sc = ctx.score, gC = ctx.gC, gD = ctx.gD, flags = ctx.flags;
+    var v = verdict(sc.total, gC, gD);
+    var reds = flags.filter(function (x) { return x.level === 'red'; });
+    var yels = flags.filter(function (x) { return x.level === 'yellow'; });
+    var annuals = s.filter(function (x) { return x.type === '年报' && x.revenue > 0 && x.parent_np > 0; }).slice(-5);
+    var meanHist = null;
+    if (annuals.length) {
+      var sum = 0; annuals.forEach(function (x) { sum += x.parent_np; });
+      meanHist = sum / annuals.length;
+    }
+    var ratio = (A.Lstar && A.annNp > 0) ? A.Lstar / A.annNp : null;
+    var avoid = (gC === 'D' || gD === 'D');
+    var verdictTag = '<span class="tag ' + (avoid ? 't-red' : (sc.total >= 60 ? 't-ok' : 't-yel')) + '">' + v + '</span>';
+
+    var sentence = '';
+    if (avoid) {
+      sentence = '一句话总结：<b>' + esc(q.name) + '</b> 财报可信度亮红灯（舞弊 ' + GC[gC] + ' / 调节 ' + GC[gD] + '）。按纪律「D 级直接远离、不估值」——<b>宁可错过，不可买错</b>。';
+    } else {
+      var confirm = sc.total >= 80 ? '财报在高分兑现这个叙事' : (sc.total >= 60 ? '财报基本兑现了叙事、但存在瑕疵' : '财报与股价隐含叙事出现背离');
+      var risk = '';
+      if (ratio != null) {
+        risk = '当前隐含稳态利润 ' + f2(yi(A.Lstar)) + ' 亿，是年化利润的 <b>' + f2(ratio) + ' 倍</b>' +
+          (meanHist != null ? '、是历史均值 ' + f2(yi(meanHist)) + ' 亿的 ' + f2(A.Lstar / meanHist) + ' 倍' : '') +
+          '。它赌的是「利润中枢永久性上台阶」，一旦叙事证伪，估值弹性向下。';
+      }
+      var hold = sc.total >= 80 ? '<b>可跟踪</b>：叙事成立且被财报验证' : (sc.total >= 60 ? '<b>跟踪为主、仓位从轻</b>：叙事成立但有瑕疵，需盯开放项' : '<b>谨慎</b>：叙事与财报背离，等证伪信号或估值回到安全边际');
+      sentence = '一句话总结：市场为 <b>' + esc(q.name) + '</b> 付的钱，埋的是一个「稳态利润从 ' + f2(yi(A.annNp)) +
+        ' 亿走到 ' + (A.Lstar ? f2(yi(A.Lstar)) : '—') + ' 亿」的故事，' + risk + ' 这份财报' + confirm + '。操作上：' + hold + '。';
+    }
+
+    var html = '<p class="tip"><b>投资决策的分水岭</b>：先问自己相信「稳态利润永久上台阶」还是「这只是一次周期高峰」。前者对应' +
+      (A.Lstar && meanHist ? f2(yi(A.Lstar)) + ' 亿稳态中枢的价格' : '高估值') + '，后者对应回到历史均值 ' +
+      (meanHist != null ? f2(yi(meanHist)) + ' 亿' : '——') + ' 的价格。两者之间的价差，就是这只股票当前真正的风险和机会。</p>';
+
+    html += '<div class="total">' + sentence + '</div>';
+
+    html += '<h3 class="sub-h">结论依据</h3><ul class="open">' +
+      '<li>叙事匹配度总分 <b>' + sc.total + '</b> / 100（' + ['叙事清晰度', '财报兑现度', '财务可信度', '估值安全边际', '叙事可持续性'].map(function (n, i) {
+        return n + ' <b>' + Math.round(sc.parts[i]) + '</b>';
+      }).join(' · ') + '） → ' + verdictTag + '</li>' +
+      '<li>舞弊评级 ' + GC[gC] + '，调节评级 ' + GC[gD] + '（C/D 为 D 级则一票否决）</li>' +
+      '<li>CFO/归母 ' + f2(L.cfo_to_np) + '，收现比 ' + f2(L.sales_cash_ratio) +
+        (A.Lstar ? '，隐含稳态利润 L≈' + f2(yi(A.Lstar)) + ' 亿' : '') +
+        (meanHist ? '，历史年均归母 ' + f2(yi(meanHist)) + ' 亿' : '') + '</li>' +
+      (reds.length ? '<li>触发红旗 ' + reds.length + ' 条：' + reds.map(function (x) { return esc(x.title); }).join('；') + '</li>' : '') +
+      (yels.length ? '<li>触发关注 ' + yels.length + ' 条：' + yels.map(function (x) { return esc(x.title); }).join('；') + '</li>' : '') +
+      '</ul>';
+
+    html += '<h3 class="sub-h">跟踪信号（开放项看什么、什么情况下改变结论）</h3><ul class="open">' +
+      '<li>倒算存款利率（货币资金造假最硬证据）：取年报附注「利息收入」÷ 货币资金季度均值，长期 &lt;1% 为红旗。</li>' +
+      '<li>递延所得税二阶导：剔除税务加速折旧/未弥补亏损/未实现内部交易后，若加速扩大＝压利润（行业格局好），若冲回＝放利润（强弩之末）。</li>' +
+      '<li>折旧/减值政策：折旧年限或残值率若变更、或出现「单季一把减到底」，是合法调节利润的最重要手法，需还原真实盈利中枢。</li>' +
+      '<li>相对天花板（' + (A.peLabel || 'PE') + ' / 沪深300 PE）= ' + (A.rel ? f2(A.rel) : '—') + '，持续抬升＝叙事在上修，回落＝叙事在动摇。</li>' +
+      '<li>关联交易与审计意见：非标意见一票否决；关联交易占比 &gt;30% 或定价偏离公允 20% 以上需警惕。</li>' +
+      '</ul>';
+
+    return '<div class="card concl"><h2>投资·跟踪结论（一句话总结）</h2>' + html + '</div>';
+  }
+
   /* ---------- 渲染 ---------- */
   function tbl(head, rows) {
     var h = '<table><thead><tr>' + head.map(function (x) { return '<th>' + x + '</th>'; }).join('') + '</tr></thead><tbody>';
@@ -644,16 +773,30 @@
       '固定 r=10%、n=10 年由当前 PE 反查 m，再乘以当前利润。它衡量的是「市场把这个公司当成未来能长到多大的公司」，' +
       '<b>不是</b>三阶段 DCF 逐年折现算出的稳态利润（后者需要一致预期，本工具不取）。' +
       '相对天花板 = 个股PE / 沪深300 PE，用来剥离分母端（折现率）变化，剩下的才是分子端（叙事空间）的变动。</p>';
+
+    /* 模板 1.1 估值体系矩阵 */
+    h1 += '<h3 class="sub-h">1.1 当前估值体系（每一种都有失效条件）</h3>' + valuationMatrix(A, L, q);
+
+    /* 模板 1.3 历史归母利润对照 */
     var hist = s.filter(function (x) { return x.type === '年报' && x.parent_np != null; }).slice(-6);
     if (hist.length) {
-      h1 += '<h3 class="sub-h">历史归母利润对照（年报口径）</h3>' +
+      var yrHist = s.filter(function (x) { return x.type === '年报' && x.parent_np > 0; }).slice(-5);
+      var meanHist = null;
+      if (yrHist.length) { var sumH = 0; yrHist.forEach(function (x) { sumH += x.parent_np; }); meanHist = sumH / yrHist.length; }
+      h1 += '<h3 class="sub-h">1.2 历史归母利润对照 + 隐含 L 落位（年报口径）</h3>' +
         tbl(['报告期', '营收(亿)', '归母(亿)', '同比', 'ROE'], hist.map(function (x) {
           return [x.label, f2(yi(x.revenue)), f2(yi(x.parent_np)),
             { v: x.np_yoy_calc != null ? (x.np_yoy_calc >= 0 ? '+' : '') + pct(x.np_yoy_calc * 100) : (x.np_yoy ? pct(x.np_yoy) : '—'), cls: (x.np_yoy_calc != null ? (x.np_yoy_calc >= 0 ? 'up' : 'down') : '') },
             x.roe ? pct(x.roe) : '—'];
         }));
-      h1 += '<p class="tip">请把上面反推出的 L 放进这张表里看它落在历史什么位置——「隐含假设处在合理区间的相对位置，是比 PE/PB 历史分位数更有效的判断指标」。</p>';
+      h1 += '<p class="tip">把上面反推出的 L 放进这张表看它落在历史什么位置' +
+        (meanHist != null ? '：历史年均利润约 <b>' + f2(yi(meanHist)) + ' 亿</b>，隐含稳态 L 约为其 ' + (A.Lstar ? f2(A.Lstar / meanHist) + ' 倍' : '—') : '') +
+        '。「隐含假设处在合理区间的相对位置，是比 PE/PB 历史分位数更有效的判断指标」。</p>';
     }
+
+    /* 模板 1.4 三个预期差 + 1.5 一句话锁定叙事 */
+    h1 += expectationsGap(A, L, q, A.hs, meanHist);
+    h1 += oneLineNarrative(A, L, q, meanHist);
     html += sec('第 1 步 · 引擎 A：叙事定位（股价里埋的是什么故事）', h1);
 
     /* 第 2 步 */
@@ -742,6 +885,9 @@
       '</ul>';
     html += sec('第 5 步 · 叙事匹配度总结', h5);
 
+    /* 第 5.3 节 · 投资/跟踪结论（一句话总结）—— 模板必须项，永不缺省 */
+    html += conclusionHTML(ctx);
+
     return html;
   }
 
@@ -751,17 +897,35 @@
     var lines = [];
     lines.push('你是资深 A 股分析师。请严格按「邹佩轩穿透分析框架」为下面的公司写一份财报分析报告。');
     lines.push('');
-    lines.push('## 框架要求（必须逐条执行）');
-    lines.push('1. 世界观：不给财报估值，给叙事估值。利润表是意见，现金流量表是证词，资产负债表才是事实。');
-    lines.push('2. 第 0 步：基础事实卡（股本/市值/行业定位/当前行业景气/关键驱动）。');
-    lines.push('3. 第 1 步 引擎A：叙事定位。列估值体系矩阵（PE/PB/PS/EV-EBITDA/DCF）并给出各自失效条件；用 r=10%、n=10 年由 PE 反查隐含天花板 m，算出市场隐含稳态利润 L；把 L 放进历史归母序列里看它落在什么位置；指出三个预期差。');
-    lines.push('4. 第 2 步 引擎B：三表科目级验证。资产负债表按 9 项扫描（生产类资产/营运资本/货币资金/商誉无形/递延所得税/少数股东/有息负债/永续债/合同负债）；利润表拆季度；现金流做 CFO-净利、收现比、自由现金流。');
-    lines.push('5. 第 3 步 模块C：舞弊识别（合理怀疑+有罪推定），逐条给结论。');
-    lines.push('6. 第 4 步 模块D：合法调节识别，重点用递延所得税二阶导做万能探测器。');
-    lines.push('7. 第 5 步：叙事匹配度打分卡 + 开放项 + 一句话给老钱。');
-    lines.push('8. 纪律：业绩的增长弥补不了估值的下跌；ROE 不影响未来股价走势（分母是沉没成本）；公司压利润时行业格局往往较好，放利润时已是强弩之末。');
-    lines.push('9. 【必须单独成节】勾稽校验：先报告硬勾稽（会计恒等式）6 项的通过情况，不平就说"报表本身有错，以下分析仅供参考"；再解释软勾稽超容忍项，按行业口径（税率、结算模式、外币折算、合并范围）逐条说明是口径问题还是真疑点。');
-    lines.push('10. 每一项风险结论都必须能回到具体科目和具体数字，禁止无出处的推论。');
+    lines.push('## 输出格式（必须严格执行，格式对齐下面的模板范例）');
+    lines.push('请用 Markdown 输出，章节标题与顺序一字不差地照下面这套结构（这是《中远海能·穿透财报分析》的模板）：');
+    lines.push('');
+    lines.push('1. 第一行标题：# {公司名} · 穿透财报分析（{代码} · {最新报告期}窗口）');
+    lines.push('2. 三个引用块（> 开头）：报告口径 / 股价基点（现价、市值、PE_TTM、PB）/ 框架（不给财报估值，给叙事估值，双引擎 A+B + 舞弊/调节交叉检验 C+D）。');
+    lines.push('3. `## 一句话结论`：2-4 句浓缩「市场付的到底是什么钱 + 财报兑现了什么 + 真正的风险在哪」。');
+    lines.push('4. `## 第 0 步 · 基础事实卡`：股本与市值 / 行业定位 / 当前行业景气与运价类数字 / 关键驱动。');
+    lines.push('5. `## 第 1 步 · 引擎 A：叙事定位`：');
+    lines.push('   - 1.1 估值体系矩阵（PE/PE静态/PB/EV-EBITDA/DCF，每行含「当前读数 + 隐含假设 + 失效条件」）；');
+    lines.push('   - 1.2 DCF 反推（r=10%）市场隐含稳态利润 L，写清输入与倒算过程；');
+    lines.push('   - 1.3 把 L 放进历史归母序列看它落在什么位置（给历史年份表）；');
+    lines.push('   - 1.4 三个预期差的手电筒（增速 / 增速持续时间 / 折现率）；');
+    lines.push('   - 1.5 一句话锁定叙事（一句话 + 它的唯一失效条件）。');
+    lines.push('6. `## 第 2 步 · 引擎 B：三表科目级验证`：三表定位与主线勾稽 → 资产负债表按 9 项科目扫描（生产类资产/营运资本/货币资金/商誉无形/递延所得税/少数股东/有息负债/永续债/合同负债）→ 利润表季度拆分与增速真实性 → 现金流量表（CFO/净利、收现比、自由现金流、资本开支）。');
+    lines.push('7. `## 第 3 步 · 模块 C：舞弊识别`：合理怀疑 + 有罪推定，七类红旗逐条给结论（收入/存货/成本/货币资金/商誉/投资收益/关联交易/审计信号），并给综合评级 A/B/C/D。');
+    lines.push('8. `## 第 4 步 · 模块 D：合法调节识别`：递延所得税二阶导万能探测器 + 逐科目手法清单（收入/成本/折旧/费用/财务费用/政府补助/投资收益/减值），给综合评级 A/B/C/D。');
+    lines.push('9. `## 第 5 步 · 叙事匹配度总结`：');
+    lines.push('   - 5.1 打分卡（股价隐含叙事 vs 财报现实，逐项「兑现/证伪」+ 偏差含义）；');
+    lines.push('   - 5.2 需要继续跟踪的开放项（带具体触发阈值）；');
+    lines.push('   - 5.3 【必须写，不得省略】投资/跟踪结论 · 一句话总结：先给一句鲜明结论，再分「若你相信 X / 若你认为 Y」两种情景给出不同决策与区间，最后给出你自己的判断和跟踪触发条件。这是全报告最重要的段落，禁止用「仅供参考、注意风险」一类的废话搪塞。');
+    lines.push('10. 附录：数据源 / 关键公告 / 框架金句在本案例的映射。');
+    lines.push('');
+    lines.push('## 分析纪律（金句即规则）');
+    lines.push('- 世界观：不给财报估值，给叙事估值。利润表是意见，现金流量表是证词，资产负债表才是事实。');
+    lines.push('- 虚增利润归根结底都是虚增资产；利润表造假必然在资产端留下痕迹。');
+    lines.push('- 业绩的增长弥补不了估值的下跌；ROE 不影响未来股价走势（分母是沉没成本）。');
+    lines.push('- 公司压利润的时候，行业格局往往较好；放利润的时候已是强弩之末。');
+    lines.push('- 每一项风险结论都必须能回到具体科目和具体数字（证据闭环原则），禁止无出处的推论。');
+    lines.push('- 勾稽校验先行：先报告硬勾稽（会计恒等式 6 条）通过情况，不平就说「报表本身有错，以下分析仅供参考」；再解释软勾稽超容忍项的行业口径（税率/结算模式/外币折算/合并范围）。');
     lines.push('');
     lines.push('## 公司数据（东方财富 F10，报告期 ' + L.label + '）');
     lines.push('- ' + q.name + '（' + ctx.nc.code + '.' + ctx.nc.market + '）：股价 ' + f2(q.price) + ' 元，涨跌 ' + f2(q.chg) + '%');
@@ -795,7 +959,7 @@
     lines.push('## 最近报告期序列（营收/归母/CFO，单位亿元）');
     s.slice(-8).forEach(function (x) { lines.push('- ' + x.label + '：营收 ' + f2(yi(x.revenue)) + '，归母 ' + f2(yi(x.parent_np)) + '，CFO ' + f2(yi(x.cfo))); });
     lines.push('');
-    lines.push('请输出完整 Markdown 报告。对无法从数据判断的项目，明确写「数据不足，无法判断」，不要编造。');
+    lines.push('请输出完整 Markdown 报告，章节严格对齐上面 10 条模板结构。报告的「5.3 投资/跟踪结论 · 一句话总结」必须存在且有明确投资立场与触发条件。对无法从数据判断的项目，明确写「数据不足，无法判断」，不要编造。');
     return lines.join('\n');
   }
 
