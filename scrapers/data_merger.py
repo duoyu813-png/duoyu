@@ -169,11 +169,21 @@ def merge_cb_data(live_bonds: list[dict], fundamentals: list[dict],
             bond["stock_industry"] = ""
             bond["concept"] = ""
 
-        # 净资产（所有者权益合计）：由正股 F10 注入
-        if stock_financials:
-            bond["net_assets"] = stock_financials.get(bond.get("stock_code"))
-        else:
-            bond["net_assets"] = None
+            # 净资产（所有者权益合计）：由正股 F10 注入
+            if stock_financials:
+                bond["net_assets"] = stock_financials.get(bond.get("stock_code"))
+            else:
+                bond["net_assets"] = None
+
+            # 解析上市日期为 date 对象，供过滤使用
+            list_date_str = bond.get("list_date_str")
+            if list_date_str and list_date_str not in ("-", "None", ""):
+                try:
+                    bond["list_date"] = datetime.strptime(list_date_str[:10], "%Y-%m-%d").date()
+                except ValueError:
+                    bond["list_date"] = None
+            else:
+                bond["list_date"] = None
 
         # 强赎满足天数：免费源无此字段，待接入公告源
         bond["redemption_days"] = 0
