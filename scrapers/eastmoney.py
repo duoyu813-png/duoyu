@@ -654,7 +654,12 @@ class EastMoneyScraper:
         （如盛航转债：发行7.4亿、剩余仅4.54亿）。剩余规模需用此按日序列报告的 SYFE
         字段，取最新非空值，再 ÷1e8 得到「亿元」。
 
-        返回 {code: 剩余规模_亿元}；网络失败或该债无 SYFE 数据的 code 不出现在结果中。
+        兜底：东财 SYFE 对部分债（未转股/少转股/报告缺行）返回 null，此时改用逐债
+        push2 行情「总市值 f116 ÷ 转债现价」反推剩余面值（f116 为「剩余张数×现价」，
+        故剩余面值= f116×100/现价），既修复「发行=5亿→兜底成5亿被<5亿误杀」的边界问题，
+        也避免把发行规模当剩余规模。
+
+        返回 {code: 剩余规模_亿元}；全部渠道取不到的 code 不出现在结果中。
         """
         if not codes:
             return {}
@@ -678,6 +683,13 @@ class EastMoneyScraper:
                         return code, round(float(syfe) / 1e8, 4)
             except Exception:
                 pass
+            # SYFE 缺失：用 push2 行情总市值(f116) 反推剩余面值；失败再允许调用方退回发行规模
+            try:
+                remaining = cls._remaining_size_via_mktcap(code)
+                if remaining is not None:
+                    return code, remaining
+            except Exception:
+                pass
             return code, None
 
         out = {}
@@ -691,6 +703,49 @@ class EastMoneyScraper:
                 except Exception:
                     pass
         return out
+
+    @classmethod
+    def _remaining_size_via_mktcap(cls, cb_code: str) -> Optional[float]:
+        """用东财逐债行情总市值(f116) 反推剩余面值(亿元)。
+
+        f116(元) ≈ 剩余张数 × 转债现价(元/张)；每张面值100元，故：
+            剩余面值(元) = f116 × 100 / 现价；
+            剩余规模(亿) = f116 × 100 / 现价 / 1e8。
+        现价取 f43（转债为 现价×1000），或回退 f2/f44（现值比例）。
+        失败返回 None。
+        """
+        mk = "1." if str(cb_code).startswith("11") else "0."
+        try:
+            r = requests.get(
+                "https://push2delay.eastmoney.com/api/qt/stock/get",
+                params={"secid": mk + cb_code, "fields": "f43,f44,f116"},
+                headers=cls.HEADERS, timeout=8,
+            )
+            d = (r.json() or {}).get("data") or {}
+            f116 = d.get("f116")
+            if not f116:
+                return None
+            # 优先 f43(现价, ×1000)；异常时退回 f44
+            price = None
+            f43 = d.get("f43")
+            f44 = d.get("f44")
+            for raw in (f43, f44):
+                if raw not in (None, "-", "", 0, "0"):
+                    try:
+                        cand = float(raw) / 1000.0
+                        if 20 < cand < 1000:  # 转债价格合理区间，过滤缩放误判
+                            price = cand
+                            break
+                    except (TypeError, ValueError):
+                        continue
+            if not price:
+                return None
+            face = f116 * 100.0 / price  # 剩余面值(元)
+            if face <= 0:
+                return None
+            return round(face / 1e8, 4)
+        except Exception:
+            return None
 
     @classmethod
     def fetch_traded_funds(cls) -> list[dict]:

@@ -9,8 +9,8 @@ class FilterConfig:
     MIN_PRICE = 100.0            # 价格≥100 (部分策略)
     MAX_PRICE_130 = 130.0        # 130三低价格上限
     MAX_PRICE_150 = 150.0        # 150三低价格上限
-    MAX_REMAINING_SIZE = 5.0     # 剩余规模<5亿
-    MAX_REMAINING_SIZE_SMALL = 3.0  # 次新规模<3亿
+    MAX_REMAINING_SIZE = 5.0     # 剩余规模≤5亿（含 5 亿，避免发行恰为5亿的债被<5亿误杀）
+    MAX_REMAINING_SIZE_SMALL = 3.0  # 次新规模≤3亿
     MAX_REDEMPTION_DAYS = 8    # 强赎满足天数排除阈值
     MIN_REMAINING_YEARS = 1.0    # 剩余年限>=1年
     MIN_STOCK_PRICE = 2.0        # 正股最小股价
@@ -75,7 +75,7 @@ def _unified_score(b: dict) -> float:
 
 
 def strategy_130_sandi(bonds: list[dict]) -> list[dict]:
-    """130三低策略: 价格<130且≥100, 溢价率<60%, 剩余规模<5亿"""
+    """130三低策略: 价格<130且>=100, 溢价率<60%, 剩余规模≤5亿"""
     filtered = _apply_common_filters(bonds)
     candidates = []
     for b in filtered:
@@ -84,7 +84,7 @@ def strategy_130_sandi(bonds: list[dict]) -> list[dict]:
         size = b.get("remaining_size") or 999
         if FilterConfig.MIN_PRICE <= price < FilterConfig.MAX_PRICE_130 \
            and premium < FilterConfig.MAX_PREMIUM \
-           and size < FilterConfig.MAX_REMAINING_SIZE:
+           and size <= FilterConfig.MAX_REMAINING_SIZE:
             b["_score"] = _unified_score(b)
             candidates.append(b)
     candidates.sort(key=lambda x: x["_score"])
@@ -92,7 +92,7 @@ def strategy_130_sandi(bonds: list[dict]) -> list[dict]:
 
 
 def strategy_150_sandi(bonds: list[dict]) -> list[dict]:
-    """150三低策略: 价格<150且≥100, 溢价率<60%, 剩余规模<5亿"""
+    """150三低策略: 价格<150且>=100, 溢价率<60%, 剩余规模≤5亿"""
     filtered = _apply_common_filters(bonds)
     candidates = []
     for b in filtered:
@@ -101,7 +101,7 @@ def strategy_150_sandi(bonds: list[dict]) -> list[dict]:
         size = b.get("remaining_size") or 999
         if FilterConfig.MIN_PRICE <= price < FilterConfig.MAX_PRICE_150 \
            and premium < FilterConfig.MAX_PREMIUM \
-           and size < FilterConfig.MAX_REMAINING_SIZE:
+           and size <= FilterConfig.MAX_REMAINING_SIZE:
             b["_score"] = _unified_score(b)
             candidates.append(b)
     candidates.sort(key=lambda x: x["_score"])
@@ -109,7 +109,7 @@ def strategy_150_sandi(bonds: list[dict]) -> list[dict]:
 
 
 def strategy_double_low(bonds: list[dict]) -> list[dict]:
-    """双低策略: 价格≥100, 溢价率<60%, 剩余规模<5亿, 按 价格+溢价率(百分比) 排序（经典双低，不含规模项）
+    """双低策略: 价格≥100, 溢价率<60%, 剩余规模≤5亿, 按 价格+溢价率(百分比) 排序（经典双低，不含规模项）
 
     说明：数据库 premium_rate 已是百分比数值(如 58.9)，故「价格+溢价率*100」(溢价率取小数)
     实际落地为 price + premium_rate，即经典双低值，不含剩余规模项。
@@ -122,7 +122,7 @@ def strategy_double_low(bonds: list[dict]) -> list[dict]:
         size = b.get("remaining_size") or 999
         if price >= FilterConfig.MIN_PRICE \
            and premium < FilterConfig.MAX_PREMIUM \
-           and size < FilterConfig.MAX_REMAINING_SIZE:
+           and size <= FilterConfig.MAX_REMAINING_SIZE:
             b["_score"] = price + premium   # 经典双低值：价格 + 溢价率(百分比)，不含规模项
             candidates.append(b)
     candidates.sort(key=lambda x: x["_score"])
@@ -192,7 +192,7 @@ def strategy_high_ytm(bonds: list[dict]) -> list[dict]:
 
 
 def strategy_cixin_sandi(bonds: list[dict]) -> list[dict]:
-    """次新三低策略: 价格<150, 溢价率<60%, 流通规模<3亿, 未到转股期"""
+    """次新三低策略: 价格<150, 溢价率<60%, 流通规模≤3亿, 未到转股期"""
     filtered = _apply_common_filters(bonds)
     today = date.today()
     candidates = []
@@ -207,7 +207,7 @@ def strategy_cixin_sandi(bonds: list[dict]) -> list[dict]:
                 continue
         if price < FilterConfig.MAX_PRICE_150 \
            and premium < FilterConfig.MAX_PREMIUM \
-           and size < FilterConfig.MAX_REMAINING_SIZE_SMALL:
+           and size <= FilterConfig.MAX_REMAINING_SIZE_SMALL:
             b["_score"] = _unified_score(b)
             candidates.append(b)
     candidates.sort(key=lambda x: x["_score"])
