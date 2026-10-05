@@ -162,16 +162,26 @@ class EastMoneyScraper:
         for code in list(push2.keys()) + [c for c in sina if c not in push2]:
             q = push2.get(code) or sina.get(code)
             fund = universe.get(code) or {}
+            tp = q.get("transfer_price") or fund.get("transfer_price")
+            stock_price = q.get("stock_price")
+            # 若主行情缺失转股价，尝试用正股价+转股价补算转换价值/溢价率
+            conv_val = q.get("conversion_value")
+            prem = q.get("premium_rate")
+            price = q.get("price")
+            if conv_val is None and stock_price and tp and tp > 0:
+                conv_val = round(stock_price * 100.0 / tp, 2)
+            if prem is None and conv_val and conv_val > 0 and price:
+                prem = round((price / conv_val - 1) * 100, 2)
             live.append({
                 "code": code,
                 "name": q.get("name") or fund.get("name") or "",
-                "price": q.get("price"),
+                "price": price,
                 "change_pct": q.get("change_pct"),
-                "premium_rate": q.get("premium_rate"),
-                "conversion_value": q.get("conversion_value"),
+                "premium_rate": prem,
+                "conversion_value": conv_val,
                 "pure_bond_value": q.get("pure_bond_value"),
-                "transfer_price": q.get("transfer_price") or fund.get("transfer_price"),
-                "stock_price": q.get("stock_price"),
+                "transfer_price": tp,
+                "stock_price": stock_price,
                 "ytm_before_tax": q.get("ytm_before_tax"),
                 "remaining_years": None,  # 由 merge 依据到期日计算
                 "stock_code": q.get("stock_code") or fund.get("stock_code") or "",
@@ -223,7 +233,8 @@ class EastMoneyScraper:
                     "reportName": "RPT_BOND_CB_LIST",
                     "columns": ("SECURITY_CODE,SECURITY_NAME_ABBR,LISTING_DATE,DELIST_DATE,"
                                 "EXPIRE_DATE,RATING,ACTUAL_ISSUE_SCALE,CONVERT_STOCK_CODE,"
-                                "SECURITY_SHORT_NAME,TRANSFER_START_DATE,TRANSFER_PRICE"),
+                                "SECURITY_SHORT_NAME,TRANSFER_START_DATE,TRANSFER_PRICE,"
+                                "INITIAL_TRANSFER_PRICE"),
                     "pageSize": "500", "pageNumber": str(page),
                     "sortColumns": "BOND_START_DATE", "sortTypes": "-1",
                     "source": "WEB", "client": "WEB",
@@ -253,11 +264,16 @@ class EastMoneyScraper:
                 continue
             if expire and expire < today:
                 continue
+            # 转股价：东财近期 TRANSFER_PRICE 返回空，退回 INITIAL_TRANSFER_PRICE(初始转股价)，
+            # 避免新浪兜底路径因转股价缺失算不出转股溢价率/转换价值
+            tp = _sf(it.get("TRANSFER_PRICE"))
+            if tp is None:
+                tp = _sf(it.get("INITIAL_TRANSFER_PRICE"))
             fund_index[code] = {
                 "name": str(it.get("SECURITY_NAME_ABBR", "")),
                 "stock_code": str(it.get("CONVERT_STOCK_CODE", "")).strip(),
                 "stock_name": str(it.get("SECURITY_SHORT_NAME", "")),
-                "transfer_price": _sf(it.get("TRANSFER_PRICE")),
+                "transfer_price": tp,
                 "rating": str(it.get("RATING", "")).replace("sti", "").strip(),
             }
         return fund_index
