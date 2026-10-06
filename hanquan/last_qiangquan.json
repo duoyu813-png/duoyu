@@ -1,6 +1,6 @@
 {
  "total": 84,
- "generated_at": "2026-10-05 18:49:01",
+ "generated_at": "2026-10-06 00:38:24",
  "source": "live",
  "bonds": [
   {
@@ -2524,96 +2524,6 @@
    "per_share_allotment": 4.1382
   },
   {
-   "stock_code": "600368",
-   "stock_name": "五洲交通",
-   "bond_name": "五洲交通转债",
-   "industry": "交通运输",
-   "total_scale": 30.0,
-   "per_share_amount": 45.35,
-   "progress": "同意注册",
-   "progress_date": "2026-08-21",
-   "registration_date": "2026-05-23",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 4.26,
-   "cb_amount": 45.35,
-   "b_shares": 0.0,
-   "price": 4.11,
-   "change_pct": -0.24,
-   "pb": 0.91,
-   "ma20_price": 4.26,
-   "circ_mv": 21.0,
-   "circ_mv_score_factor": 21.0,
-   "pe": 8.39,
-   "turnover_rate": null,
-   "amount": 30.0,
-   "q1_growth": 0.68,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 300,
-   "per_hand_shares": 536.551286,
-   "market": "沪",
-   "total_score": 60,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤3.7 | 卖出≥4.73 | 安全垫24.3%",
-   "score_details": {
-    "含权量评分": {
-     "score": 30,
-     "max": 30,
-     "factor": "45.35元"
-    },
-    "隐形流通量评分": {
-     "score": 4,
-     "max": 40,
-     "factor": "21.00亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长0.68%"
-    },
-    "潜伏期扣分": {
-     "score": -9,
-     "max": 0,
-     "factor": "2026-05"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=8.39"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "交通运输"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交30.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "交通运输"
-    }
-   },
-   "weighted_amount": 45.35,
-   "hidden_circulation": 21.0,
-   "total": 60,
-   "issue_amount": 30.0,
-   "safety_pct": 24.3,
-   "per_share_allotment": 1.8638
-  },
-  {
    "stock_code": "688390",
    "stock_name": "固德威",
    "bond_name": "固德威转债",
@@ -3062,6 +2972,96 @@
    "issue_amount": 5.5,
    "safety_pct": 4.1,
    "per_share_allotment": 5.5
+  },
+  {
+   "stock_code": "600368",
+   "stock_name": "五洲交通",
+   "bond_name": "五洲交通转债",
+   "industry": "交通运输",
+   "total_scale": 30.0,
+   "per_share_amount": 45.35,
+   "progress": "同意注册",
+   "progress_date": "2026-08-21",
+   "registration_date": "2026-05-23",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 4.26,
+   "cb_amount": 45.35,
+   "b_shares": 0.0,
+   "price": 4.11,
+   "change_pct": -0.24,
+   "pb": 0.91,
+   "ma20_price": 4.26,
+   "circ_mv": 21.0,
+   "circ_mv_score_factor": 21.0,
+   "pe": 8.39,
+   "turnover_rate": null,
+   "amount": 30.0,
+   "q1_growth": 0.68,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 300,
+   "per_hand_shares": 536.551286,
+   "market": "沪",
+   "total_score": 57,
+   "rating": "B",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤3.78 | 卖出≥4.52 | 安全垫24.3%",
+   "score_details": {
+    "含权量评分": {
+     "score": 30,
+     "max": 30,
+     "factor": "45.35元"
+    },
+    "隐形流通量评分": {
+     "score": 4,
+     "max": 40,
+     "factor": "21.00亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长0.68%"
+    },
+    "潜伏期扣分": {
+     "score": -12,
+     "max": 0,
+     "factor": "2026-05"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=8.39"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "交通运输"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交30.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "交通运输"
+    }
+   },
+   "weighted_amount": 45.35,
+   "hidden_circulation": 21.0,
+   "total": 57,
+   "issue_amount": 30.0,
+   "safety_pct": 24.3,
+   "per_share_allotment": 1.8638
   },
   {
    "stock_code": "300909",
@@ -5494,96 +5494,6 @@
    "per_share_allotment": 5.1321
   },
   {
-   "stock_code": "601717",
-   "stock_name": "中创智领",
-   "bond_name": "中创智领转债",
-   "industry": "其他",
-   "total_scale": 40.52,
-   "per_share_amount": 17.0,
-   "progress": "交易所受理",
-   "progress_date": "2026-06-22",
-   "registration_date": "2026-06-22",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 13.94,
-   "cb_amount": 19.68,
-   "b_shares": 0.0,
-   "price": 13.35,
-   "change_pct": 2.77,
-   "pb": 1.01,
-   "ma20_price": 13.94,
-   "circ_mv": 28.36,
-   "circ_mv_score_factor": 28.36,
-   "pe": 6.53,
-   "turnover_rate": null,
-   "amount": 40.52,
-   "q1_growth": -18.06,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 300,
-   "per_hand_shares": 440.621897828233,
-   "market": "沪",
-   "total_score": 48,
-   "rating": "C",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤12.28 | 卖出≥14.69 | 安全垫7.5%",
-   "score_details": {
-    "含权量评分": {
-     "score": 20,
-     "max": 30,
-     "factor": "17.00元"
-    },
-    "隐形流通量评分": {
-     "score": 4,
-     "max": 40,
-     "factor": "28.36亿"
-    },
-    "业绩评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "Q1增长-18.06%"
-    },
-    "潜伏期扣分": {
-     "score": -6,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=6.53"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交40.5亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 17.0,
-   "hidden_circulation": 28.36,
-   "total": 48,
-   "issue_amount": 40.52,
-   "safety_pct": 7.5,
-   "per_share_allotment": 2.2695
-  },
-  {
    "stock_code": "688720",
    "stock_name": "艾森股份",
    "bond_name": "艾森股份转债",
@@ -5942,6 +5852,96 @@
    "issue_amount": 13.71,
    "safety_pct": 4.4,
    "per_share_allotment": 1.9547
+  },
+  {
+   "stock_code": "601717",
+   "stock_name": "中创智领",
+   "bond_name": "中创智领转债",
+   "industry": "其他",
+   "total_scale": 40.52,
+   "per_share_amount": 17.0,
+   "progress": "交易所受理",
+   "progress_date": "2026-06-22",
+   "registration_date": "2026-06-22",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 13.94,
+   "cb_amount": 19.68,
+   "b_shares": 0.0,
+   "price": 13.35,
+   "change_pct": 2.77,
+   "pb": 1.01,
+   "ma20_price": 13.94,
+   "circ_mv": 28.36,
+   "circ_mv_score_factor": 28.36,
+   "pe": 6.53,
+   "turnover_rate": null,
+   "amount": 40.52,
+   "q1_growth": -18.06,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 300,
+   "per_hand_shares": 440.621897828233,
+   "market": "沪",
+   "total_score": 45,
+   "rating": "C",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤12.28 | 卖出≥14.69 | 安全垫7.5%",
+   "score_details": {
+    "含权量评分": {
+     "score": 20,
+     "max": 30,
+     "factor": "17.00元"
+    },
+    "隐形流通量评分": {
+     "score": 4,
+     "max": 40,
+     "factor": "28.36亿"
+    },
+    "业绩评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "Q1增长-18.06%"
+    },
+    "潜伏期扣分": {
+     "score": -9,
+     "max": 0,
+     "factor": "2026-06"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=6.53"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交40.5亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 17.0,
+   "hidden_circulation": 28.36,
+   "total": 45,
+   "issue_amount": 40.52,
+   "safety_pct": 7.5,
+   "per_share_allotment": 2.2695
   },
   {
    "stock_code": "002941",
