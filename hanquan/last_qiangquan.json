@@ -1,6 +1,6 @@
 {
  "total": 84,
- "generated_at": "2026-10-06 23:19:36",
+ "generated_at": "2026-10-07 02:43:56",
  "source": "live",
  "bonds": [
   {
@@ -4954,96 +4954,6 @@
    "per_share_allotment": 3.0968
   },
   {
-   "stock_code": "688510",
-   "stock_name": "航亚科技",
-   "bond_name": "航亚科技转债",
-   "industry": "AI/科技",
-   "total_scale": 6.0,
-   "per_share_amount": 9.82,
-   "progress": "同意注册",
-   "progress_date": "2026-09-12",
-   "registration_date": "2026-06-23",
-   "approval_date": "",
-   "board": "科创板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 25.24,
-   "cb_amount": 9.82,
-   "b_shares": 0.0,
-   "price": 23.5,
-   "change_pct": 1.29,
-   "pb": 5.03,
-   "ma20_price": 25.24,
-   "circ_mv": 4.2,
-   "circ_mv_score_factor": 4.2,
-   "pe": 73.44,
-   "turnover_rate": null,
-   "amount": 6.0,
-   "q1_growth": -34.68,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 300,
-   "per_hand_shares": 433.2043466666667,
-   "market": "沪",
-   "total_score": 49,
-   "rating": "C",
-   "action": "小仓关注",
-   "action_reason": "低分但属AI板块，小仓参与",
-   "action_price": "买入≤21.62 | 卖出≥25.85 | 安全垫4.3%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "9.82元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.20亿"
-    },
-    "业绩评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "Q1增长-34.68%"
-    },
-    "潜伏期扣分": {
-     "score": -6,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "科创板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=73.44"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交6.0亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 9.82,
-   "hidden_circulation": 4.2,
-   "total": 49,
-   "issue_amount": 6.0,
-   "safety_pct": 4.3,
-   "per_share_allotment": 2.3084
-  },
-  {
    "stock_code": "601528",
    "stock_name": "瑞丰银行",
    "bond_name": "瑞丰银行转债",
@@ -5672,6 +5582,96 @@
    "issue_amount": 11.8,
    "safety_pct": 2.7,
    "per_share_allotment": 1.7212
+  },
+  {
+   "stock_code": "688510",
+   "stock_name": "航亚科技",
+   "bond_name": "航亚科技转债",
+   "industry": "AI/科技",
+   "total_scale": 6.0,
+   "per_share_amount": 9.82,
+   "progress": "同意注册",
+   "progress_date": "2026-09-12",
+   "registration_date": "2026-06-23",
+   "approval_date": "",
+   "board": "科创板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 25.24,
+   "cb_amount": 9.82,
+   "b_shares": 0.0,
+   "price": 23.5,
+   "change_pct": 1.29,
+   "pb": 5.03,
+   "ma20_price": 25.24,
+   "circ_mv": 4.2,
+   "circ_mv_score_factor": 4.2,
+   "pe": 73.44,
+   "turnover_rate": null,
+   "amount": 6.0,
+   "q1_growth": -34.68,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 300,
+   "per_hand_shares": 433.2043466666667,
+   "market": "沪",
+   "total_score": 46,
+   "rating": "C",
+   "action": "小仓关注",
+   "action_reason": "低分但属AI板块，小仓参与",
+   "action_price": "买入≤21.62 | 卖出≥25.85 | 安全垫4.3%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "9.82元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.20亿"
+    },
+    "业绩评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "Q1增长-34.68%"
+    },
+    "潜伏期扣分": {
+     "score": -9,
+     "max": 0,
+     "factor": "2026-06"
+    },
+    "300/688折扣": {
+     "score": -10,
+     "max": 0,
+     "factor": "科创板"
+    },
+    "PE扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "PE=73.44"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交6.0亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 9.82,
+   "hidden_circulation": 4.2,
+   "total": 46,
+   "issue_amount": 6.0,
+   "safety_pct": 4.3,
+   "per_share_allotment": 2.3084
   },
   {
    "stock_code": "300893",
