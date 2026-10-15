@@ -1,6 +1,6 @@
 {
- "total": 80,
- "generated_at": "2026-10-15 11:59:12",
+ "total": 79,
+ "generated_at": "2026-10-15 16:10:23",
  "source": "live",
  "bonds": [
   {
@@ -5404,96 +5404,6 @@
    "per_share_allotment": 1.7247
   },
   {
-   "stock_code": "301132",
-   "stock_name": "满坤科技",
-   "bond_name": "满坤转债",
-   "industry": "AI/科技",
-   "total_scale": 7.6,
-   "per_share_amount": 6.83,
-   "progress": "发行中",
-   "progress_date": "2026-09-28",
-   "registration_date": "2025-12-31",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "AA-",
-   "record_dt": "2026-09-24",
-   "convert_price": 66.97,
-   "cb_amount": 7.32,
-   "b_shares": 0.0,
-   "price": 75.18,
-   "change_pct": 0.24,
-   "pb": 6.18,
-   "ma20_price": 64.4,
-   "circ_mv": 4.86,
-   "circ_mv_score_factor": 4.86,
-   "pe": 156.63,
-   "turnover_rate": null,
-   "amount": 7.6,
-   "q1_growth": -35.71,
-   "major_shareholder_ratio": 0.3602,
-   "one_hand_shares": 195,
-   "per_hand_shares": 194.85032763157898,
-   "market": "深",
-   "total_score": 48,
-   "rating": "C",
-   "action": "小仓关注",
-   "action_reason": "低分但属AI板块，小仓参与",
-   "action_price": "买入≤69.17 | 卖出≥82.7 | 安全垫2.0%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "6.83元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.86亿"
-    },
-    "业绩评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "Q1增长-35.71%"
-    },
-    "潜伏期扣分": {
-     "score": -15,
-     "max": 0,
-     "factor": "2025-12"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": -5,
-     "max": 0,
-     "factor": "PE=156.63"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交7.6亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 6.83,
-   "hidden_circulation": 4.86,
-   "total": 48,
-   "issue_amount": 7.6,
-   "safety_pct": 2.0,
-   "per_share_allotment": 5.1321
-  },
-  {
    "stock_code": "688720",
    "stock_name": "艾森股份",
    "bond_name": "艾森股份转债",
@@ -7026,17 +6936,17 @@
   {
    "stock_code": "301018",
    "stock_name": "申菱环境",
-   "bond_name": "申菱环境转债",
+   "bond_name": "申菱转债",
    "industry": "环保",
    "total_scale": 10.0,
    "per_share_amount": 3.6,
-   "progress": "同意注册",
-   "progress_date": "2026-09-24",
+   "progress": "发行中",
+   "progress_date": "2026-10-20",
    "registration_date": "2026-04-10",
    "approval_date": "",
    "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
+   "rating_cd": "AA",
+   "record_dt": "2026-10-19",
    "convert_price": 95.49,
    "cb_amount": 3.6,
    "b_shares": 0.0,
