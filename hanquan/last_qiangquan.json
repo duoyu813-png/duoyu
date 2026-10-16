@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-10-15 22:58:13",
+ "generated_at": "2026-10-16 01:04:37",
  "source": "live",
  "bonds": [
   {
@@ -994,96 +994,6 @@
    "per_share_allotment": 4.5481
   },
   {
-   "stock_code": "301279",
-   "stock_name": "金道科技",
-   "bond_name": "金道科技转债",
-   "industry": "AI/科技",
-   "total_scale": 3.06,
-   "per_share_amount": 7.86,
-   "progress": "交易所受理",
-   "progress_date": "2026-06-02",
-   "registration_date": "2026-06-02",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 23.9,
-   "cb_amount": 7.86,
-   "b_shares": 0.0,
-   "price": 23.1,
-   "change_pct": -5.52,
-   "pb": 2.85,
-   "ma20_price": 23.9,
-   "circ_mv": 2.14,
-   "circ_mv_score_factor": 2.14,
-   "pe": 48.13,
-   "turnover_rate": null,
-   "amount": 3.06,
-   "q1_growth": 4.12,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 551,
-   "per_hand_shares": 550.7344379084967,
-   "market": "深",
-   "total_score": 74,
-   "rating": "A",
-   "action": "关注建仓",
-   "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤20.79 | 卖出≥26.57 | 安全垫2.4%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "7.86元"
-    },
-    "隐形流通量评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "2.14亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长4.12%"
-    },
-    "潜伏期扣分": {
-     "score": -9,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=48.13"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交3.1亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 7.86,
-   "hidden_circulation": 2.14,
-   "total": 74,
-   "issue_amount": 3.06,
-   "safety_pct": 2.4,
-   "per_share_allotment": 1.8158
-  },
-  {
    "stock_code": "301479",
    "stock_name": "弘景光电",
    "bond_name": "弘景光电转债",
@@ -1352,6 +1262,96 @@
    "issue_amount": 8.0,
    "safety_pct": 2.1,
    "per_share_allotment": 5.4737
+  },
+  {
+   "stock_code": "301279",
+   "stock_name": "金道科技",
+   "bond_name": "金道科技转债",
+   "industry": "AI/科技",
+   "total_scale": 3.06,
+   "per_share_amount": 7.86,
+   "progress": "上市委通过",
+   "progress_date": "2026-10-15",
+   "registration_date": "2026-06-02",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 23.9,
+   "cb_amount": 7.86,
+   "b_shares": 0.0,
+   "price": 23.1,
+   "change_pct": -5.52,
+   "pb": 2.85,
+   "ma20_price": 23.9,
+   "circ_mv": 2.14,
+   "circ_mv_score_factor": 2.14,
+   "pe": 48.13,
+   "turnover_rate": null,
+   "amount": 3.06,
+   "q1_growth": 4.12,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 551,
+   "per_hand_shares": 550.7344379084967,
+   "market": "深",
+   "total_score": 71,
+   "rating": "A",
+   "action": "关注建仓",
+   "action_reason": "高分+交易所通过，等待注册后加仓",
+   "action_price": "买入≤20.79 | 卖出≥26.57 | 安全垫2.4%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "7.86元"
+    },
+    "隐形流通量评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "2.14亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长4.12%"
+    },
+    "潜伏期扣分": {
+     "score": -12,
+     "max": 0,
+     "factor": "2026-06"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=48.13"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交3.1亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 7.86,
+   "hidden_circulation": 2.14,
+   "total": 71,
+   "issue_amount": 3.06,
+   "safety_pct": 2.4,
+   "per_share_allotment": 1.8158
   },
   {
    "stock_code": "603166",
@@ -1810,8 +1810,8 @@
    "industry": "AI/科技",
    "total_scale": 20.0,
    "per_share_amount": 14.62,
-   "progress": "交易所受理",
-   "progress_date": "2026-08-26",
+   "progress": "上市委通过",
+   "progress_date": "2026-10-16",
    "registration_date": "2026-08-26",
    "approval_date": "",
    "board": "科创板",
@@ -1982,96 +1982,6 @@
    "issue_amount": 6.6,
    "safety_pct": 4.5,
    "per_share_allotment": 1.4727
-  },
-  {
-   "stock_code": "603043",
-   "stock_name": "广州酒家",
-   "bond_name": "广州酒家转债",
-   "industry": "消费",
-   "total_scale": 7.74,
-   "per_share_amount": 10.17,
-   "progress": "上市委通过",
-   "progress_date": "2026-10-15",
-   "registration_date": "2026-08-01",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 13.29,
-   "cb_amount": 10.17,
-   "b_shares": 0.0,
-   "price": 13.46,
-   "change_pct": -1.32,
-   "pb": 2.03,
-   "ma20_price": 13.29,
-   "circ_mv": 5.42,
-   "circ_mv_score_factor": 5.42,
-   "pe": 36.26,
-   "turnover_rate": null,
-   "amount": 7.74,
-   "q1_growth": 3.42,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 400,
-   "per_hand_shares": 730.7989276485788,
-   "market": "沪",
-   "total_score": 65,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤12.11 | 卖出≥15.48 | 安全垫5.6%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "10.17元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "5.42亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长3.42%"
-    },
-    "潜伏期扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "2026-08"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=36.26"
-    },
-    "行业加减分": {
-     "score": 3,
-     "max": 10,
-     "factor": "消费"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交7.7亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "消费"
-    }
-   },
-   "weighted_amount": 10.17,
-   "hidden_circulation": 5.42,
-   "total": 65,
-   "issue_amount": 7.74,
-   "safety_pct": 5.6,
-   "per_share_allotment": 1.3684
   },
   {
    "stock_code": "603499",
@@ -2342,6 +2252,96 @@
    "issue_amount": 8.5,
    "safety_pct": 1.2,
    "per_share_allotment": 9.7701
+  },
+  {
+   "stock_code": "603043",
+   "stock_name": "广州酒家",
+   "bond_name": "广州酒家转债",
+   "industry": "消费",
+   "total_scale": 7.74,
+   "per_share_amount": 10.17,
+   "progress": "上市委通过",
+   "progress_date": "2026-10-15",
+   "registration_date": "2026-08-01",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 13.29,
+   "cb_amount": 10.17,
+   "b_shares": 0.0,
+   "price": 13.46,
+   "change_pct": -1.32,
+   "pb": 2.03,
+   "ma20_price": 13.29,
+   "circ_mv": 5.42,
+   "circ_mv_score_factor": 5.42,
+   "pe": 36.26,
+   "turnover_rate": null,
+   "amount": 7.74,
+   "q1_growth": 3.42,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 400,
+   "per_hand_shares": 730.7989276485788,
+   "market": "沪",
+   "total_score": 62,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤12.11 | 卖出≥15.48 | 安全垫5.6%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "10.17元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.42亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长3.42%"
+    },
+    "潜伏期扣分": {
+     "score": -6,
+     "max": 0,
+     "factor": "2026-08"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=36.26"
+    },
+    "行业加减分": {
+     "score": 3,
+     "max": 10,
+     "factor": "消费"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交7.7亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "消费"
+    }
+   },
+   "weighted_amount": 10.17,
+   "hidden_circulation": 5.42,
+   "total": 62,
+   "issue_amount": 7.74,
+   "safety_pct": 5.6,
+   "per_share_allotment": 1.3684
   },
   {
    "stock_code": "301092",
