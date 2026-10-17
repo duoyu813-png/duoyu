@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-10-16 21:59:12",
+ "generated_at": "2026-10-17 00:14:20",
  "source": "live",
  "bonds": [
   {
@@ -6064,7 +6064,7 @@
    "one_hand_shares": 400,
    "per_hand_shares": 769.253883882784,
    "market": "沪",
-   "total_score": 43,
+   "total_score": 40,
    "rating": "C",
    "action": "回避",
    "action_reason": "评分偏低，不建议参与",
@@ -6086,7 +6086,7 @@
      "factor": "Q1增长-3.63%"
     },
     "潜伏期扣分": {
-     "score": -6,
+     "score": -9,
      "max": 0,
      "factor": "2026-07"
     },
@@ -6118,7 +6118,7 @@
    },
    "weighted_amount": 10.69,
    "hidden_circulation": 19.11,
-   "total": 43,
+   "total": 40,
    "issue_amount": 27.3,
    "safety_pct": 6.2,
    "per_share_allotment": 1.3
