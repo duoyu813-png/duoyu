@@ -1,6 +1,6 @@
 {
  "total": 79,
- "generated_at": "2026-10-19 21:46:57",
+ "generated_at": "2026-10-20 00:58:39",
  "source": "live",
  "bonds": [
   {
@@ -2344,96 +2344,6 @@
    "per_share_allotment": 1.3684
   },
   {
-   "stock_code": "301092",
-   "stock_name": "争光股份",
-   "bond_name": "争光股份转债",
-   "industry": "其他",
-   "total_scale": 6.17,
-   "per_share_amount": 10.39,
-   "progress": "交易所受理",
-   "progress_date": "2026-09-04",
-   "registration_date": "2026-09-04",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 43.07,
-   "cb_amount": 10.39,
-   "b_shares": 0.0,
-   "price": 44.12,
-   "change_pct": 0.73,
-   "pb": 3.03,
-   "ma20_price": 43.07,
-   "circ_mv": 2.8,
-   "circ_mv_score_factor": 2.8,
-   "pe": 84.85,
-   "turnover_rate": null,
-   "amount": 6.17,
-   "q1_growth": -27.05,
-   "major_shareholder_ratio": 0.5467,
-   "one_hand_shares": 219,
-   "per_hand_shares": 218.04746191247978,
-   "market": "深",
-   "total_score": 62,
-   "rating": "B+",
-   "action": "关注",
-   "action_reason": "中高分+小流通盘，等待注册",
-   "action_price": "买入≤39.71 | 卖出≥50.74 | 安全垫3.1%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "10.39元"
-    },
-    "隐形流通量评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "2.80亿"
-    },
-    "业绩评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "Q1增长-27.05%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "2026-09"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=84.85"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交6.2亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 10.39,
-   "hidden_circulation": 2.8,
-   "total": 62,
-   "issue_amount": 6.17,
-   "safety_pct": 3.1,
-   "per_share_allotment": 4.5862
-  },
-  {
    "stock_code": "301522",
    "stock_name": "上大股份",
    "bond_name": "上大股份转债",
@@ -2972,6 +2882,96 @@
    "issue_amount": 8.1,
    "safety_pct": 5.1,
    "per_share_allotment": 2.1945
+  },
+  {
+   "stock_code": "301092",
+   "stock_name": "争光股份",
+   "bond_name": "争光股份转债",
+   "industry": "其他",
+   "total_scale": 6.17,
+   "per_share_amount": 10.39,
+   "progress": "交易所受理",
+   "progress_date": "2026-09-04",
+   "registration_date": "2026-09-04",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 43.07,
+   "cb_amount": 10.39,
+   "b_shares": 0.0,
+   "price": 44.12,
+   "change_pct": 0.73,
+   "pb": 3.03,
+   "ma20_price": 43.07,
+   "circ_mv": 2.8,
+   "circ_mv_score_factor": 2.8,
+   "pe": 84.85,
+   "turnover_rate": null,
+   "amount": 6.17,
+   "q1_growth": -27.05,
+   "major_shareholder_ratio": 0.5467,
+   "one_hand_shares": 219,
+   "per_hand_shares": 218.04746191247978,
+   "market": "深",
+   "total_score": 59,
+   "rating": "B",
+   "action": "关注",
+   "action_reason": "中高分+小流通盘，等待注册",
+   "action_price": "买入≤40.59 | 卖出≥48.53 | 安全垫3.1%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "10.39元"
+    },
+    "隐形流通量评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "2.80亿"
+    },
+    "业绩评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "Q1增长-27.05%"
+    },
+    "潜伏期扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "2026-09"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "PE=84.85"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交6.2亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 10.39,
+   "hidden_circulation": 2.8,
+   "total": 59,
+   "issue_amount": 6.17,
+   "safety_pct": 3.1,
+   "per_share_allotment": 4.5862
   },
   {
    "stock_code": "001380",
