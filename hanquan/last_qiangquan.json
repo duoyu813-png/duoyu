@@ -1,6 +1,6 @@
 {
- "total": 79,
- "generated_at": "2026-10-20 10:52:47",
+ "total": 78,
+ "generated_at": "2026-10-20 15:39:10",
  "source": "live",
  "bonds": [
   {
@@ -632,96 +632,6 @@
    "issue_amount": 11.8,
    "safety_pct": 5.3,
    "per_share_allotment": 9.2202
-  },
-  {
-   "stock_code": "603125",
-   "stock_name": "常青科技",
-   "bond_name": "常青转债",
-   "industry": "AI/科技",
-   "total_scale": 8.0,
-   "per_share_amount": 10.24,
-   "progress": "发行中",
-   "progress_date": "2026-09-28",
-   "registration_date": "2025-10-30",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "AA-",
-   "record_dt": "2026-09-24",
-   "convert_price": 24.01,
-   "cb_amount": 8.45,
-   "b_shares": 0.0,
-   "price": 19.29,
-   "change_pct": 2.61,
-   "pb": 3.04,
-   "ma20_price": 22.18,
-   "circ_mv": 5.6,
-   "circ_mv_score_factor": 5.6,
-   "pe": 24.11,
-   "turnover_rate": null,
-   "amount": 8.0,
-   "q1_growth": 129.78,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 300,
-   "per_hand_shares": 506.04546875,
-   "market": "沪",
-   "total_score": 78,
-   "rating": "A",
-   "action": "关注",
-   "action_reason": "高分标的，等待更明确信号",
-   "action_price": "买入≤17.36 | 卖出≥22.18 | 安全垫5.2%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "10.24元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "5.60亿"
-    },
-    "业绩评分": {
-     "score": 40,
-     "max": 40,
-     "factor": "Q1增长129.78%"
-    },
-    "潜伏期扣分": {
-     "score": -15,
-     "max": 0,
-     "factor": "2025-10"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=24.11"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交8.0亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 10.24,
-   "hidden_circulation": 5.6,
-   "total": 78,
-   "issue_amount": 8.0,
-   "safety_pct": 5.2,
-   "per_share_allotment": 1.9761
   },
   {
    "stock_code": "001389",
@@ -6232,7 +6142,7 @@
    "b_shares": 0.0,
    "price": 82.2,
    "change_pct": 0.39,
-   "pb": 17.15,
+   "pb": 15.85,
    "ma20_price": 102.1,
    "circ_mv": 18.2,
    "circ_mv_score_factor": 18.2,
