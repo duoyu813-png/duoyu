@@ -1,6 +1,6 @@
 {
- "total": 79,
- "generated_at": "2026-10-22 13:30:47",
+ "total": 78,
+ "generated_at": "2026-10-22 18:15:08",
  "source": "live",
  "bonds": [
   {
@@ -2542,7 +2542,7 @@
    "b_shares": 0.0,
    "price": 12.88,
    "change_pct": -3.16,
-   "pb": 2.66,
+   "pb": 2.51,
    "ma20_price": 13.22,
    "circ_mv": 5.67,
    "circ_mv_score_factor": 5.67,
@@ -6036,17 +6036,17 @@
   {
    "stock_code": "002550",
    "stock_name": "千红制药",
-   "bond_name": "千红制药转债",
+   "bond_name": "千红转债",
    "industry": "医药",
    "total_scale": 10.0,
    "per_share_amount": 12.64,
-   "progress": "同意注册",
-   "progress_date": "2026-07-16",
+   "progress": "发行中",
+   "progress_date": "2026-10-27",
    "registration_date": "2026-01-23",
    "approval_date": "",
    "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
+   "rating_cd": "AA",
+   "record_dt": "2026-10-26",
    "convert_price": 6.42,
    "cb_amount": 12.64,
    "b_shares": 0.0,
@@ -6392,96 +6392,6 @@
    "issue_amount": 25.0,
    "safety_pct": 2.7,
    "per_share_allotment": 1.6307
-  },
-  {
-   "stock_code": "688150",
-   "stock_name": "莱特光电",
-   "bond_name": "莱特转债",
-   "industry": "AI/科技",
-   "total_scale": 5.25,
-   "per_share_amount": 3.94,
-   "progress": "发行中",
-   "progress_date": "2026-09-29",
-   "registration_date": "2026-04-25",
-   "approval_date": "",
-   "board": "科创板",
-   "rating_cd": "AA",
-   "record_dt": "2026-09-28",
-   "convert_price": 44.82,
-   "cb_amount": 3.31,
-   "b_shares": 0.0,
-   "price": 33.12,
-   "change_pct": -6.41,
-   "pb": 6.16,
-   "ma20_price": 38.29,
-   "circ_mv": 3.67,
-   "circ_mv_score_factor": 3.67,
-   "pe": 75.27,
-   "turnover_rate": null,
-   "amount": 5.25,
-   "q1_growth": -24.47,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 400,
-   "per_hand_shares": 766.547780952381,
-   "market": "沪",
-   "total_score": 35,
-   "rating": "D",
-   "action": "小仓关注",
-   "action_reason": "低分但属AI板块，小仓参与",
-   "action_price": "买入≤30.47 | 卖出≥36.43 | 安全垫2.3%",
-   "score_details": {
-    "含权量评分": {
-     "score": 5,
-     "max": 30,
-     "factor": "3.94元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "3.67亿"
-    },
-    "业绩评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "Q1增长-24.47%"
-    },
-    "潜伏期扣分": {
-     "score": -15,
-     "max": 0,
-     "factor": "2026-04"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "科创板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=75.27"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交5.2亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 3.94,
-   "hidden_circulation": 3.67,
-   "total": 35,
-   "issue_amount": 5.25,
-   "safety_pct": 2.3,
-   "per_share_allotment": 1.3046
   },
   {
    "stock_code": "603219",
