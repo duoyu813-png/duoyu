@@ -4,9 +4,9 @@ on:
   push:
     branches: [main]
   schedule:
-    # 交易时段每 30 分钟刷新一次（UTC：中国 08:30-14:00 对应 00:30-06:00 UTC，加上 15:00-16:00 尾盘）
-    # 覆盖全天候 + 简化：每 30 分钟刷新（免费公共仓库 Actions 无限分钟）
-    - cron: '*/30 * * * *'
+    # 高频触发：每 15 分钟一次。真正是否执行由 sitegen.py 内的「交易日 + 交易时段」门禁判定
+    # （非交易日/非交易时间直接跳过，保留上一版页面）。手动触发可经 inputs.force=1 强制刷新。
+    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       force:
@@ -62,6 +62,7 @@ jobs:
         env:
           JISILU_COOKIE: ${{ secrets.JISILU_COOKIE }}
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          SITEGEN_FORCE: ${{ inputs.force }}
         run: python sitegen.py
 
       # 穿透财报分析页（自包含静态页，数据由浏览器端实时拉取）

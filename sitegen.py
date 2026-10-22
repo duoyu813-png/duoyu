@@ -484,6 +484,27 @@ def main() -> int:
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     report = {"generated_at": now, "sections": {}}
 
+    # ---------- 交易时段门禁：仅在「交易日 + 交易时间」真正刷新 ----------
+    # 定时任务（refresh.yml）按 15 分钟高频触发，这里用交易日历 + 北京时间交易时段判定：
+    # 非交易日（周末/节假日）或非交易时间（集合竞价 9:15 前、午休、收盘后）直接跳过，
+    # 保留上一版静态页面不变，避免夜间/周末/节假日空跑浪费 Actions。手动强制用 SITEGEN_FORCE=1。
+    if os.environ.get("SITEGEN_FORCE") != "1":
+        import trading_calendar
+        _bj = datetime.now(timezone(timedelta(hours=8)))
+        _mins = _bj.hour * 60 + _bj.minute
+        _in_trading_am = (9 * 60 + 15) <= _mins < (11 * 60 + 30)   # 09:15–11:30（含集合竞价）
+        _in_trading_pm = (13 * 60) <= _mins < (15 * 60)            # 13:00–15:00
+        _in_trading = _in_trading_am or _in_trading_pm
+        if not trading_calendar.is_trading_day(_bj.date()):
+            print(f"[sitegen] {_bj:%Y-%m-%d} 非交易日，跳过刷新")
+            return 0
+        if not _in_trading:
+            print(f"[sitegen] {_bj:%H:%M} 非交易时段（{_bj:%H:%M}），跳过刷新")
+            return 0
+        print(f"[sitegen] 交易日 {_bj:%Y-%m-%d} 交易时段 {_bj:%H:%M}，开始刷新")
+    else:
+        print("[sitegen] 手动强制刷新")
+
     # ---------- 1) 可转债 ----------
     live_data = EastMoneyScraper.fetch_cb_list()
     if live_data:
@@ -590,7 +611,9 @@ def main() -> int:
         )
         if bonds_list:
             _, tbl = _cb_table(key, bonds_list, limit=20)
-            card_inner = f"<h2>{name} <span class='badge'>{n}</span></h2>{_cb_desc_html(key)}{tbl}"
+            ytd_return = d.get("ytd_return", 0.0)
+            max_backtest = d.get("max_backtest", 0.0)
+            card_inner = f"<h2>{name} <span class='badge'>{n}</span></h2>{_cb_desc_html(key)}<p class='sub'>本年收益率：{ytd_return:.2f}% · 最大回撤：{max_backtest:.2f}%</p>{tbl}"
         else:
             card_inner = f"<h2>{name} <span class='badge'>0</span></h2>{_cb_desc_html(key)}<div class='empty'>暂无数据</div>"
         panels.append(

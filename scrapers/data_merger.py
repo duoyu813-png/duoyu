@@ -24,6 +24,24 @@ def safe_str(val, default=""):
     return str(val)
 
 
+def is_st_stock(name) -> bool:
+    """判断正股名称是否为 ST / *ST / **ST / S*ST 等风险警示股票。
+
+    去除首尾空白、英文字母统一大写后，若名称以 'ST' 开头，或中间紧邻出现
+    '*ST'（如 '**ST某某'、'S*ST某某'），一律视为 ST 风险股。
+    """
+    if not name:
+        return False
+    s = str(name).strip().upper()
+    return (
+        s.startswith("ST")
+        or s.startswith("*ST")
+        or s.startswith("**ST")
+        or "**ST" in s
+        or "S*ST" in s
+    )
+
+
 def _parse_date(val: Optional[str]) -> Optional[date]:
     """解析日期字符串 yyyyMMdd 或 yyyy-MM-dd"""
     if not val or val in ("-", "None", ""):
@@ -151,9 +169,12 @@ def merge_cb_data(live_bonds: list[dict], fundamentals: list[dict],
 
             if not bond.get("list_date_str") or bond["list_date_str"] in ("-", "None", ""):
                 bond["list_date_str"] = str(info.get("LISTING_DATE", ""))
-            # 正股ST：由正股名前缀判定（*ST / ST）
-            sname = str(info.get("SECURITY_SHORT_NAME", ""))
-            bond["stock_st"] = sname.startswith("*ST") or sname.startswith("ST")
+            # 正股ST：由正股名判定（*ST / ST / **ST / S*ST 等），剔除首尾空白、忽略大小写。
+            # 优先用数据中心正股名，缺失时退回实时行情里的 stock_name（push2 f234 / 新浪）。
+            bond["stock_st"] = bool(
+                is_st_stock(info.get("SECURITY_SHORT_NAME"))
+                or is_st_stock(bond.get("stock_name"))
+            )
         else:
             bond["credit_rating"] = ""
             bond["announced_redemption"] = False

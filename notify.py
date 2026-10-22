@@ -192,23 +192,23 @@ def fetch_strategies():
 def push_rotation(force: bool = False):
     """每周「最后一个交易日」轮动推送。
 
-    工作日定时任务每天都会运行（见 rotation.yml），此处仅在「今天是本周最后一个
-    交易日」时才真正推送，从而自动避开节假日：例如 9/25 周五是中秋休市，本周最后
-    交易日为 9/24 周四，则在周四推送。force=True（手动触发）时跳过日历判定。
+    定时任务每天（含周末）多次运行（见 rotation.yml），推送判定改为：
+      - 本周最后一个交易日还没到 → 跳过（正常，并非错误）
+      - 本周最后一个交易日已到（或错过）但本周尚未推送 → 推送，并记录标记
+      - 本周已推送过 → 跳过（防止重复刷屏）
+
+    这样即使某天 GitHub 定时器没触发、或触发严重延迟，后续任意一次运行都能
+    自动补推，不会漏掉一周。force=True（手动触发）时跳过日历与去重判定。
     """
     from datetime import date
     import trading_calendar
 
     today = (datetime.utcnow() + timedelta(hours=8)).date()
     ltd = trading_calendar.last_trading_day_of_week(today)
-    if not force and today != ltd:
-        print(f"[notify] 今天 {today} 不是本周最后一个交易日（本周最后交易日为 {ltd}），跳过轮动推送")
-        return False
+    if ltd is None:
+        print(f"[notify] 本周 {today} 无交易日，跳过轮动推送（整周休市）")
+        return True
 
-    results = fetch_strategies()
-    if not results:
-        print("[notify] 无策略数据，跳过轮动推送")
-        return False
     last = {}
     if os.path.exists(LAST_STRATEGIES):
         try:
@@ -217,8 +217,28 @@ def push_rotation(force: bool = False):
         except Exception:
             last = {}
 
+    pushed_ltd = (last.get("_meta") or {}).get("pushed_ltd")
+    already = pushed_ltd == ltd.isoformat()
+
+    if not force and today < ltd:
+        print(f"[notify] 本周最后一个交易日还没到（{ltd}），今天 {today} 跳过")
+        return True
+    if not force and already:
+        print(f"[notify] 本周 {ltd} 轮动已推送过，跳过去重")
+        return True
+
+    results = fetch_strategies()
+    if not results:
+        print("[notify] 无策略数据，跳过轮动推送")
+        return False
+
     lines, current = _build_rotation_message(results, last)
-    _save(LAST_STRATEGIES, current)
+    snapshot = dict(current)
+    snapshot["_meta"] = {
+        "pushed_ltd": ltd.isoformat(),
+        "pushed_at": (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S"),
+    }
+    _save(LAST_STRATEGIES, snapshot)
     return _send("每周可转债轮动", "\n".join(lines))
 
 

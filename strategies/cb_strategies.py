@@ -40,9 +40,9 @@ def _apply_common_filters(bonds: list[dict]) -> list[dict]:
         # 排除正股 ST
         if b.get("stock_st"):
             continue
-        # 排除正股股价 < 2 元
-        stock_price = b.get("stock_price") or 0
-        if stock_price > 0 and stock_price < FilterConfig.MIN_STOCK_PRICE:
+        # 排除正股股价 <= 2 元
+        stock_price = b.get("stock_price")
+        if stock_price is not None and stock_price <= FilterConfig.MIN_STOCK_PRICE:
             continue
         # 排除净资产为负
         net_assets = b.get("net_assets")
@@ -154,13 +154,13 @@ def strategy_low_premium(bonds: list[dict]) -> list[dict]:
 
 
 def _apply_ytm_filters(bonds: list[dict]) -> list[dict]:
-    """高到期收益率(持有到期)策略专用过滤：仅剔除「不可交易/无意义」的标的，不过度过滤质量。
+    """高到期收益率(持有到期)策略专用过滤。
 
-    与轮动策略不同，高收益债往往伴随低评级/正股ST/净资产为负等「风险信号」，
-    这些正是其高 YTM 的来由，若按轮动质量过滤会把最该看的标的藏起来。故此处只剔除：
+    剔除不可交易/无意义标的，同时按用户要求一并剔除正股 ST/*ST 的标的：
       - 暂未上市（list_date 为空或晚于今天）
       - 已公告/临近强赎（会被提前赎回，持有到期逻辑失效）
       - 剩余年限过短（<0.5 年，YTM 无意义）
+      - 正股 ST/*ST（风险过高，统一剔除）
     """
     filtered = []
     for b in bonds:
@@ -173,6 +173,8 @@ def _apply_ytm_filters(bonds: list[dict]) -> list[dict]:
             continue
         if (b.get("redemption_days") or 0) >= FilterConfig.MAX_REDEMPTION_DAYS:
             continue
+        if b.get("stock_st"):
+            continue
         ry = b.get("remaining_years")
         if ry is not None and ry < 0.5:
             continue
@@ -182,7 +184,7 @@ def _apply_ytm_filters(bonds: list[dict]) -> list[dict]:
 
 def strategy_high_ytm(bonds: list[dict]) -> list[dict]:
     """高到期收益率策略: 按税前年化到期收益率(ytm_before_tax，券商 APP 口径/东财最新到期收益率)从高到低排序。
-    使用轻量过滤（见 _apply_ytm_filters），保留低评级/正股ST等高风险高收益标的。"""
+    使用轻量过滤（见 _apply_ytm_filters），并剔除正股 ST/*ST 的风险标的。"""
     filtered = _apply_ytm_filters(bonds)
     candidates = [b for b in filtered if b.get("ytm_before_tax") is not None]
     for b in candidates:
@@ -233,5 +235,13 @@ def run_all_strategies(bonds: list[dict]) -> dict:
     """
     results = {}
     for key, (name, func) in ALL_STRATEGIES.items():
-        results[key] = {"name": name, "bonds": func(copy.deepcopy(bonds))}
+        bonds_result = func(copy.deepcopy(bonds))
+        # TODO: Calculate actual YTD return and max backtest based on historical data
+        # For now, using placeholder values - these should be replaced with actual calculations
+        results[key] = {
+            "name": name, 
+            "bonds": bonds_result,
+            "ytd_return": 0.0,  # Placeholder - year-to-date return percentage
+            "max_backtest": 0.0  # Placeholder - maximum backtest return percentage
+        }
     return results
