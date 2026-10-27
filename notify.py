@@ -248,8 +248,14 @@ _PROGRESS_TARGETS = ("上市委通过", "同意注册")
 def push_progress_change():
     """扫描集思录待发可转债进度：仅当某只转债「变化为 上市委通过 / 同意注册」时推送。
 
-    快照存于 last_issues.json；首次运行只建立基线不推送，避免把存量目标阶段债券
-    当作新变化重复打扰。
+    【兜底补推】快照存于 last_issues.json，每项维护 pushed_stage（该转债最近一次
+    成功推送过的目标阶段）：
+      - 首次升级时对存量目标阶段债券不狂推（把 pushed_stage 初始化为其当前 stage）；
+      - 处于目标阶段（无论新出现 / 刚变化）但 pushed_stage != 当前 stage 的债券
+        视为「待推送」；
+      - 只有推送成功才把 pushed_stage 更新为当前 stage；若本次抓不到数据 / 推送
+        失败 / Actions 该次中断，pushed_stage 保持不变，下次任意一次运行都会自动
+        补推，从而避免因 schedule 延迟或单次失败而漏掉进度变化。
     """
     import asyncio
     from hanquan.fetcher import fetch_pending_cbonds
@@ -270,32 +276,67 @@ def push_progress_change():
         except Exception:
             last = {}
 
+    # 快照是否建立过基线。缺失/为空/旧格式（无 _meta）都视为「首次」，
+    # 本次仅建立基线、不推送存量，避免首次升级或文件丢失时狂推一堆存量目标阶段转债。
+    has_baseline = bool((last or {}).get("_meta", {}).get("baseline")) if isinstance(last, dict) else False
+
     cur = {}
     for b in bonds:
         code = str(b.get("stock_code") or b.get("bond_name") or "").strip()
         stage = str(b.get("progress") or "").strip()
         if not code or not stage:
             continue
-        cur[code] = {"bond_name": str(b.get("bond_name") or b.get("stock_name") or code),
-                     "stage": stage}
-    _save(LAST_ISSUES, cur)
+        prev = (last or {}).get(code) or {}
+        # pushed_stage：该转债最近一次成功推送过的目标阶段。
+        if has_baseline:
+            # 已建立基线：快照里的旧转债沿用原标记，全新出现的转债视为「待推送」。
+            pushed_stage = prev.get("pushed_stage")
+            if pushed_stage is None:
+                pushed_stage = "" if code not in last else (stage if stage in _PROGRESS_TARGETS else "")
+        else:
+            # 首次/基线重建：一律不推存量（含此时已处于目标阶段的），只做基线。
+            pushed_stage = stage if stage in _PROGRESS_TARGETS else ""
+        cur[code] = {
+            "bond_name": str(b.get("bond_name") or b.get("stock_name") or code),
+            "stage": stage,
+            "pushed_stage": pushed_stage,
+        }
 
-    changes = []
+    # 待推送：处于目标阶段，且该阶段尚未成功推送过（刚变化 / 新出现 / 上次推送失败遗留）
+    pending = []
     for code, info in cur.items():
         stage = info.get("stage")
-        if stage not in _PROGRESS_TARGETS:
-            continue
-        old_stage = (last.get(code) or {}).get("stage") or ""
-        if old_stage and old_stage != stage:
-            changes.append((info.get("bond_name") or code, stage))
+        if stage in _PROGRESS_TARGETS and info.get("pushed_stage") != stage:
+            pending.append(code)
 
-    if not changes:
+    def _merge_snapshot(cur_snap):
+        # 与旧快照合并：保留上次仍处于目标阶段的记录，避免本次偶发缺失的转债
+        # 被误删、导致其去重状态丢失、下次再出现时被误判为「新出现」而重复推送。
+        merged = {k: v for k, v in (last or {}).items()
+                  if k != "_meta" and (v or {}).get("stage") in _PROGRESS_TARGETS}
+        merged.update(cur_snap)
+        merged["_meta"] = {"baseline": True}
+        return merged
+
+    # 无论是否推送，都先把最新进度落盘（并写入基线标记）；
+    # pushed_stage 仅在推送成功后更新（见下），失败则保留待推状态便于补推。
+    _save(LAST_ISSUES, _merge_snapshot(cur))
+
+    if not pending:
         print("[notify] 无「上市委通过/同意注册」进度变化")
         return False
+
     lines = ["## 可转债审核进度变化\n"]
-    for name, stage in changes:
-        lines.append(f"- {name}：{stage}")
-    return _send("进度变化", "\n".join(lines))
+    for code in pending:
+        lines.append(f"- {cur[code].get('bond_name') or code}：{cur[code].get('stage')}")
+    ok = _send("进度变化", "\n".join(lines))
+
+    if ok:
+        # 推送成功才精确回写各自 pushed_stage，下次不再重复推；失败则保留待推状态以便补推
+        for code in pending:
+            cur[code]["pushed_stage"] = cur[code].get("stage")
+        _save(LAST_ISSUES, _merge_snapshot(cur))
+    return ok
 
 
 def _is_trading_window():
