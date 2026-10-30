@@ -192,7 +192,7 @@ def _check_data_complete(merged: list[dict], mode: str) -> tuple[bool, str]:
     return ratio >= 0.85, f"关键字段完整率 {len(ok)}/{len(traded)} = {ratio:.1%}"
 
 
-def fetch_strategies(max_attempts: int = 3):
+def fetch_strategies(max_attempts: int = 6):
     """抓取并计算各策略候选；单源抓取偶发失败会造成字段缺失，
     这里做多轮重试+完整性校验，连续不合格则返回空（上层跳过本次推送，
     不更新快照，等待下一次定时触发自动补推）。"""
@@ -204,7 +204,7 @@ def fetch_strategies(max_attempts: int = 3):
         live = EastMoneyScraper.fetch_cb_list()
         if not live:
             print(f"[notify] 第 {attempt}/{max_attempts} 次：未取到转债列表")
-            time.sleep(10)
+            time.sleep(30)
             continue
         fundamentals = EastMoneyScraper.fetch_cb_fundamentals()
         codes = [b["stock_code"] for b in live if b.get("stock_code")]
@@ -215,7 +215,7 @@ def fetch_strategies(max_attempts: int = 3):
         good, info = _check_data_complete(merged, mode)
         if not good:
             print(f"[notify] 第 {attempt}/{max_attempts} 次：数据不完整（{info}），重新抓取")
-            time.sleep(10)
+            time.sleep(30)
             continue
         print(f"[notify] 数据校验通过（{info}）")
         return run_all_strategies(_build_bond_dicts(merged))
