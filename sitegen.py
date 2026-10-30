@@ -488,7 +488,7 @@ def main() -> int:
     # 定时任务（refresh.yml）按 15 分钟高频触发，这里用交易日历 + 北京时间交易时段判定：
     # 非交易日（周末/节假日）或非交易时间（集合竞价 9:15 前、午休、收盘后）直接跳过，
     # 保留上一版静态页面不变，避免夜间/周末/节假日空跑浪费 Actions。手动强制用 SITEGEN_FORCE=1。
-    if os.environ.get("SITEGEN_FORCE") != "1":
+    if os.environ.get("SITEGEN_FORCE", "").strip().lower() not in ("1", "true", "yes"):
         import trading_calendar
         _bj = datetime.now(timezone(timedelta(hours=8)))
         _mins = _bj.hour * 60 + _bj.minute

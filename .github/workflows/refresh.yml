@@ -97,11 +97,23 @@ jobs:
             git push
           fi
 
+      - name: Check generated site
+        id: sitecheck
+        run: |
+          if [ -f dist/index.html ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "sitegen 未生成 index.html（非交易时段跳过），本次不部署，保留上一版 Pages"
+          fi
+
       - name: Upload pages artifact
+        if: steps.sitecheck.outputs.exists == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
       - name: Deploy to GitHub Pages
+        if: steps.sitecheck.outputs.exists == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
