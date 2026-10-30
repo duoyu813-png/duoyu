@@ -1,1 +1,487 @@
-IiIiR2l0SHViIEFjdGlvbnMg5a6a5pe25o6o6YCB77yIUHVzaFBsdXMg5b6u5L+h77yMemgtQ07vvIkNCg0K55So5rOV77yaDQogIHB5dGhvbiBub3RpZnkucHkgLS10ZXN0ICAgICAgICAgICDmiYvliqjmtYvor5XmjqjpgIENCiAgcHl0aG9uIG5vdGlmeS5weSAtLXJvdGF0aW9uICAgICAgIOavj+WRqOacgOWQjuS4gOS4quS6pOaYk+aXpSAxNDowMCjljJfkuqwpIOWPr+i9rOWAuui9ruWKqOaOqOmAgQ0KICBweXRob24gbm90aWZ5LnB5IC0tcHJvZ3Jlc3MgICAgICAg5b6F5Y+R5Y+v6L2s5YC644CM6L+b5bqm5Y+Y5YyW44CN5o6o6YCBDQogIHB5dGhvbiBub3RpZnkucHkgLS1jYi1hbGVydCAgICAgICDkvY7ku7cv5L2O5rqi5Lu344CM5Y+Y5Yqo44CN5o6o6YCB77yI5b2T5aSp5paw6L+b5YWl5Lu35qC8PDExMCDmiJYg5rqi5Lu3PDEwJSDnmoTovazlgLrvvIkNCg0K6K+05piO77yaDQogIC0g6L2u5Yqo5o6o6YCB77ya5bel5L2c5pel5q+P5aSp5a6a5pe26Kem5Y+R77yM5LuF5b2T44CM5LuK5aSp5piv5pys5ZGo5pyA5ZCO5LiA5Liq5Lqk5piT5pel44CN5pe25o6o6YCB77yMDQogICAg6Ieq5Yqo6YG/5byA6IqC5YGH5pel77yI5aaC5ZGo5LqU6YCi5LyR5biC5YiZ5o+Q5YmN5Yiw5pys5ZGo5pyA5ZCO5byA5biC5pel77yJ44CC5omL5Yqo6Kem5Y+R5Y+v6K6+IFJPVEFUSU9OX0ZPUkNFPTEg5by65Yi25o6o6YCB44CCDQogIC0g6L+b5bqm5Y+Y5YyW5o6o6YCB77ya5omr5o+P6ZuG5oCd5b2V5b6F5Y+R5Y+v6L2s5YC677yM5LuF5b2T5p+Q5Y+q6L2s5YC644CM5Y+Y5YyW5Li6IOS4iuW4guWnlOmAmui/hyAvIOWQjOaEj+azqOWGjOOAjeaXtg0KICAgIOeri+WNs+aOqOmAge+8jOW/q+eFp+WtmOS6jiBsYXN0X2lzc3Vlcy5qc29u77yI6ZqP5LuT5bqT57u05oqk55So5LqO5YmN5ZCO5q+U5a+577yJ44CCDQogIC0g6L2u5Yqo5o6o6YCB55qEIGxhc3Rfc3RyYXRlZ2llcy5qc29uIOmaj+S7k+W6k+e7tOaKpO+8jOeUqOS6juiuoeeul+i9ruWFpS/ova7lh7rjgIINCiIiIg0KaW1wb3J0IGpzb24NCmltcG9ydCBvcw0KaW1wb3J0IHN5cw0KaW1wb3J0IHRpbWUNCmZyb20gZGF0ZXRpbWUgaW1wb3J0IGRhdGV0aW1lLCB0aW1lZGVsdGENCg0Kc3lzLnBhdGguaW5zZXJ0KDAsIG9zLnBhdGguZGlybmFtZShvcy5wYXRoLmFic3BhdGgoX19maWxlX18pKSkNCg0KaW1wb3J0IHJlcXVlc3RzDQpmcm9tIGNvbmZpZyBpbXBvcnQgQ29uZmlnDQoNCkFQSV9CQVNFID0gImh0dHA6Ly93d3cucHVzaHBsdXMucGx1cyINCkJBU0UgPSBvcy5wYXRoLmRpcm5hbWUob3MucGF0aC5hYnNwYXRoKF9fZmlsZV9fKSkNCkxBU1RfU1RSQVRFR0lFUyA9IG9zLnBhdGguam9pbihCQVNFLCAibGFzdF9zdHJhdGVnaWVzLmpzb24iKQ0KTEFTVF9JU1NVRVMgPSBvcy5wYXRoLmpvaW4oQkFTRSwgImxhc3RfaXNzdWVzLmpzb24iKQ0KTEFTVF9DQl9BTEVSVFMgPSBvcy5wYXRoLmpvaW4oQkFTRSwgImxhc3RfY2JfYWxlcnRzLmpzb24iKQ0KDQoNCmRlZiBfdG9fbnVtKHYpOg0KICAgIGlmIHYgaXMgTm9uZSBvciB2ID09ICItIiBvciB2ID09ICIiOg0KICAgICAgICByZXR1cm4gTm9uZQ0KICAgIHRyeToNCiAgICAgICAgcmV0dXJuIGZsb2F0KHYpDQogICAgZXhjZXB0IChUeXBlRXJyb3IsIFZhbHVlRXJyb3IpOg0KICAgICAgICByZXR1cm4gTm9uZQ0KDQoNCmRlZiBfZm10KHYsIG5kPTIpOg0KICAgIGlmIHYgaXMgTm9uZToNCiAgICAgICAgcmV0dXJuICItIg0KICAgIHRyeToNCiAgICAgICAgcmV0dXJuIGYie2Zsb2F0KHYpOi57bmR9Zn0iDQogICAgZXhjZXB0IChUeXBlRXJyb3IsIFZhbHVlRXJyb3IpOg0KICAgICAgICByZXR1cm4gc3RyKHYpDQoNCg0KX1JPVEFUSU9OX1RPUF9OID0gMjANCg0KDQpkZWYgX2JvbmRfbGluZShyKToNCiAgICAiIiLljZXlj6rlj6/ovazlgLrkuIDooYzvvJrlkI3np7DvvIjku6PnoIHvvInvvZznjrDku7cg772c5rqi5Lu3546HIiIiDQogICAgbmFtZSA9IHN0cihyLmdldCgibmFtZSIpIG9yICItIikNCiAgICBjb2RlID0gc3RyKHIuZ2V0KCJjb2RlIikgb3IgIi0iKQ0KICAgIHByaWNlID0gc3RyKHIuZ2V0KCJwcmljZSIpIG9yICItIikNCiAgICBwcmVtID0gc3RyKHIuZ2V0KCJwcmVtaXVtX3JhdGUiKSBvciAiLSIpDQogICAgcmV0dXJuIGYie25hbWV977yIe2NvZGV977yJ772c546w5Lu3IHtwcmljZX0g5YWD772c5rqi5Lu3546HIHtwcmVtfSUiDQoNCg0KZGVmIF9idWlsZF9yb3RhdGlvbl9tZXNzYWdlKHJlc3VsdHMsIGxhc3QpOg0KICAgICIiIuaMieavj+S4quetlueVpeWJjSBOKD0yMCwg5LiN6Laz5oyJ5a6e6ZmFKeWPquS9nOS4uui9ruWKqOaxoO+8jA0KICAgIOWvueavlOS4iuasoeW/q+eFp+eUn+aIkOa2iOaBr++8muavj+S4quetlueVpeWbuuWumuWxleekuuaxoOWGheWFqOmDqOWAuuWIuO+8iOW4puaOkuWQjeW6j+WPt++8jOmAkOihjO+8ie+8jA0KICAgIOW5tuWNleeLrOagh+WHuiDova7lhaUgLyDova7lh7og5Y+Y5Yqo44CC5peg5Y+Y5Yqo5pe25o+Q56S65LiA6KGM44CCDQogICAg6L+U5ZueIChtZXNzYWdlX2xpbmVzLCDmnIDmlrDlv6vnhacp44CCIiIiDQogICAgdG9wX24gPSBfUk9UQVRJT05fVE9QX04NCiAgICBsaW5lcyA9IFsiIyMg5pys5ZGo5Y+v6L2s5YC66L2u5YqoIiwNCiAgICAgICAgICAgICBmIui9ruWKqOaxoO+8muavj+S4quetlueVpeaOkuWQjeWJjSB7dG9wX259IOWPqu+8iOS4jei2s+aMieWunumZheWPquaVsO+8iVxuIl0NCiAgICBjdXJyZW50ID0ge30NCiAgICBmb3Iga2V5LCBkYXRhIGluIChyZXN1bHRzIG9yIHt9KS5pdGVtcygpOg0KICAgICAgICBuYW1lID0gZGF0YS5nZXQoIm5hbWUiKSBvciBrZXkNCiAgICAgICAgYm9uZHMgPSBkYXRhLmdldCgiYm9uZHMiKSBvciBbXQ0KICAgICAgICBpZiBub3QgYm9uZHM6DQogICAgICAgICAgICBjb250aW51ZQ0KICAgICAgICBiYXNlID0gYm9uZHNbOnRvcF9uXQ0KDQogICAgICAgIHByZXYgPSBsYXN0LmdldChrZXkpIG9yIFtdDQogICAgICAgIHByZXZfbWFwID0ge3N0cihiLmdldCgiY29kZSIpKTogYiBmb3IgYiBpbiBwcmV2IGlmIGIuZ2V0KCJjb2RlIil9DQoNCiAgICAgICAgY3VyX3Jvd3MgPSBbXQ0KICAgICAgICBmb3IgYiBpbiBiYXNlOg0KICAgICAgICAgICAgY3VyX3Jvd3MuYXBwZW5kKHsNCiAgICAgICAgICAgICAgICAiY29kZSI6IHN0cihiLmdldCgiY29kZSIpIG9yICIiKSwNCiAgICAgICAgICAgICAgICAibmFtZSI6IGIuZ2V0KCJuYW1lIiksDQogICAgICAgICAgICAgICAgInByaWNlIjogX2ZtdChiLmdldCgicHJpY2UiKSksDQogICAgICAgICAgICAgICAgInByZW1pdW1fcmF0ZSI6IF9mbXQoYi5nZXQoInByZW1pdW1fcmF0ZSIpKSwNCiAgICAgICAgICAgIH0pDQogICAgICAgIGN1cnJlbnRba2V5XSA9IGN1cl9yb3dzDQoNCiAgICAgICAgY3VyX2NvZGVzID0ge3JbImNvZGUiXSBmb3IgciBpbiBjdXJfcm93cyBpZiByWyJjb2RlIl19DQogICAgICAgIHByZXZfY29kZXMgPSBzZXQocHJldl9tYXAua2V5cygpKQ0KICAgICAgICBpbl9jb2RlcyA9IFtjIGZvciBjIGluIGN1cl9jb2RlcyBpZiBjIG5vdCBpbiBwcmV2X2NvZGVzXQ0KICAgICAgICBvdXRfY29kZXMgPSBbYyBmb3IgYyBpbiBwcmV2X2NvZGVzIGlmIGMgbm90IGluIGN1cl9jb2Rlc10NCg0KICAgICAgICAjIOWFqOmHj+e0ouW8le+8mui9ruWHuuWAuumAmuW4uOS7jeWtmOWcqO+8iOaOkuWQjei3jOWHuuWJjTIw77yJ77yM55So5YW25pyA5paw5Lu35qC85bGV56S6DQogICAgICAgIGFsbF9tYXAgPSB7fQ0KICAgICAgICBmb3IgYiBpbiBib25kczoNCiAgICAgICAgICAgIGNvZGUgPSBzdHIoYi5nZXQoImNvZGUiKSBvciAiIikNCiAgICAgICAgICAgIGlmIGNvZGU6DQogICAgICAgICAgICAgICAgYWxsX21hcFtjb2RlXSA9IHsibmFtZSI6IGIuZ2V0KCJuYW1lIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAicHJpY2UiOiBfZm10KGIuZ2V0KCJwcmljZSIpKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJwcmVtaXVtX3JhdGUiOiBfZm10KGIuZ2V0KCJwcmVtaXVtX3JhdGUiKSl9DQoNCiAgICAgICAgaW5fcm93cyA9IFtyIGZvciByIGluIGN1cl9yb3dzIGlmIHJbImNvZGUiXSBpbiBpbl9jb2Rlc10NCiAgICAgICAgb3V0X3Jvd3MgPSBbXQ0KICAgICAgICBmb3IgYyBpbiBvdXRfY29kZXM6DQogICAgICAgICAgICBzcmMgPSBhbGxfbWFwLmdldChjKSBvciBwcmV2X21hcC5nZXQoYykgb3Ige30NCiAgICAgICAgICAgIG91dF9yb3dzLmFwcGVuZCh7ImNvZGUiOiBjLCAibmFtZSI6IHNyYy5nZXQoIm5hbWUiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgInByaWNlIjogc3JjLmdldCgicHJpY2UiKSwgInByZW1pdW1fcmF0ZSI6IHNyYy5nZXQoInByZW1pdW1fcmF0ZSIpfSkNCg0KICAgICAgICByYW5rX29mID0ge3JbImNvZGUiXTogaSBmb3IgaSwgciBpbiBlbnVtZXJhdGUoY3VyX3Jvd3MsIDEpfQ0KICAgICAgICBsaW5lcy5hcHBlbmQoZiJcbiMjIyB7bmFtZX3vvIjmsaAge2xlbihiYXNlKX0g5Y+q77yJIikNCiAgICAgICAgZm9yIGksIHIgaW4gZW51bWVyYXRlKGN1cl9yb3dzLCAxKToNCiAgICAgICAgICAgIGxpbmVzLmFwcGVuZChmIntpfS4ge19ib25kX2xpbmUocil9IikNCg0KICAgICAgICBpZiBpbl9yb3dzOg0KICAgICAgICAgICAgbGluZXMuYXBwZW5kKCJcbvCfn6Ig6L2u5YWl77yI5LiK5ZGo5LiN5Zyo5rGg77yM5pys5ZGo5paw6L+b77yJIikNCiAgICAgICAgICAgIGZvciByIGluIGluX3Jvd3M6DQogICAgICAgICAgICAgICAgbGluZXMuYXBwZW5kKGYiICDmlrDov5vnrKx7cmFua19vZi5nZXQoclsnY29kZSddLCAnPycpfeWQje+8mntfYm9uZF9saW5lKHIpfSIpDQogICAgICAgIGlmIG91dF9yb3dzOg0KICAgICAgICAgICAgbGluZXMuYXBwZW5kKCJcbvCflLQg6L2u5Ye677yI5LiK5ZGo5Zyo5rGg77yM5pys5ZGo5o6J5Ye677yJIikNCiAgICAgICAgICAgIGZvciByIGluIG91dF9yb3dzOg0KICAgICAgICAgICAgICAgIGxpbmVzLmFwcGVuZChmIiAge19ib25kX2xpbmUocil9IikNCiAgICAgICAgaWYgbm90IGluX3Jvd3MgYW5kIG5vdCBvdXRfcm93czoNCiAgICAgICAgICAgIGxpbmVzLmFwcGVuZCgiXG7vvIjmnKzlkajml6Dova7liqjlj5jliqjvvIkiKQ0KDQogICAgcmV0dXJuIGxpbmVzLCBjdXJyZW50DQoNCg0KZGVmIF9zZW5kKHRpdGxlLCBjb250ZW50KToNCiAgICB0b2tlbiA9IENvbmZpZy5QVVNIUExVU19UT0tFTg0KICAgIGlmIG5vdCB0b2tlbjoNCiAgICAgICAgcHJpbnQoIltub3RpZnldIFBVU0hQTFVTX1RPS0VOIOacqumFjee9ru+8jOi3s+i/h+aOqOmAgSIpDQogICAgICAgIHJldHVybiBGYWxzZQ0KICAgIHBheWxvYWQgPSB7DQogICAgICAgICJ0b2tlbiI6IHRva2VuLA0KICAgICAgICAidGl0bGUiOiBmIuWkmumxvOaOqOmAgeKAlHt0aXRsZSBvciAn5raI5oGv5o+Q6YaSJ30iLA0KICAgICAgICAiY29udGVudCI6IGNvbnRlbnQsDQogICAgICAgICJ0ZW1wbGF0ZSI6ICJtYXJrZG93biIsDQogICAgICAgICJjaGFubmVsIjogIndlY2hhdCIsDQogICAgfQ0KICAgIHRyeToNCiAgICAgICAgciA9IHJlcXVlc3RzLnBvc3QoZiJ7QVBJX0JBU0V9L3NlbmQiLCBqc29uPXBheWxvYWQsIHRpbWVvdXQ9MTUpDQogICAgICAgIGRhdGEgPSByLmpzb24oKQ0KICAgICAgICBvayA9IGRhdGEuZ2V0KCJjb2RlIikgPT0gMjAwDQogICAgICAgIHByaW50KGYiW25vdGlmeV0g5o6o6YCBeyfmiJDlip8nIGlmIG9rIGVsc2UgJ+Wksei0pSd9OiB7ZGF0YX0iKQ0KICAgICAgICByZXR1cm4gb2sNCiAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6DQogICAgICAgIHByaW50KGYiW25vdGlmeV0g6K+35rGC5aSx6LSlOiB7ZX0iKQ0KICAgICAgICByZXR1cm4gRmFsc2UNCg0KDQpkZWYgX2xvYWQoZXhpc3RpbmcsIGZyZXNoLCBrZXkpOg0KICAgIGxhc3QgPSB7fQ0KICAgIGlmIG9zLnBhdGguZXhpc3RzKGV4aXN0aW5nKToNCiAgICAgICAgdHJ5Og0KICAgICAgICAgICAgd2l0aCBvcGVuKGV4aXN0aW5nLCAiciIsIGVuY29kaW5nPSJ1dGYtOCIpIGFzIGY6DQogICAgICAgICAgICAgICAgbGFzdCA9IGpzb24ubG9hZChmKQ0KICAgICAgICBleGNlcHQgRXhjZXB0aW9uOg0KICAgICAgICAgICAgcGFzcw0KICAgIF9zYXZlKGV4aXN0aW5nLCBmcmVzaCkNCiAgICByZXR1cm4gbGFzdA0KDQoNCmRlZiBfc2F2ZShwYXRoLCBkYXRhKToNCiAgICB0cnk6DQogICAgICAgIHdpdGggb3BlbihwYXRoLCAidyIsIGVuY29kaW5nPSJ1dGYtOCIpIGFzIGY6DQogICAgICAgICAgICBqc29uLmR1bXAoZGF0YSwgZiwgZW5zdXJlX2FzY2lpPUZhbHNlLCBpbmRlbnQ9MSwgZGVmYXVsdD1zdHIpDQogICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOg0KICAgICAgICBwcmludChmIltub3RpZnldIOS/neWtmCB7cGF0aH0g5aSx6LSlOiB7ZX0iKQ0KDQoNCmRlZiBfY2hlY2tfZGF0YV9jb21wbGV0ZShtZXJnZWQ6IGxpc3RbZGljdF0sIG1vZGU6IHN0cikgLT4gdHVwbGVbYm9vbCwgc3RyXToNCiAgICAiIiLmoKHpqozmipPlj5bmlbDmja7lrozmlbTmgKfvvJoNCiAgICAxKSDlv4XpobvotbDkuJzotKLlrp7ml7booYzmg4Xmnb/vvIhtb2RlPWZ1bGzvvInjgILpmY3nuqfot6/lvoTvvIhmYWxsYmFja++8ieeahOi9rOiCoeS7t+WkmuS4ug0KICAgICAgIOWIneWni+i9rOiCoeS7t++8jOato+iCoeS4i+S/ruWQjua6ouS7t+eOh+S4pemHjeWkseecn++8jOS8muaKiuetlueVpeWAmemAieivr+adgO+8iOa8j+aOqO+8ieOAgg0KICAgIDIpIOacieaIkOS6pOS7t+eahOi9rOWAuuS4re+8jOa6ouS7t+eOh+S4juWJqeS9meinhOaooeS4pOS4quWFs+mUruWtl+auteW/hemhu+WfuuacrOm9kOWFqA0KICAgICAgIO+8iOe8uuWkseS8muiiq+etlueVpeW9k+aIkCA5OTkg6K+v5p2A77yM5a+86Ie06L2u5YWl5YiX6KGo6aqk5YeP5ryP5o6o77yJ44CCDQogICAg6L+U5ZueICjmmK/lkKblkIjmoLwsIOivtOaYjinjgIIiIiINCiAgICBpZiBtb2RlICE9ICJmdWxsIjoNCiAgICAgICAgcmV0dXJuIEZhbHNlLCBmIuihjOaDheadv+mZjee6p+aooeW8j++8iG1vZGU9e21vZGV977yJ77yM6L2s6IKh5Lu3L+a6ouS7t+eOh+S4jeWPr+mdoCINCiAgICB0cmFkZWQgPSBbYiBmb3IgYiBpbiBtZXJnZWQgaWYgX3RvX251bShiLmdldCgicHJpY2UiKSkgaXMgbm90IE5vbmVdDQogICAgaWYgbGVuKHRyYWRlZCkgPCAyNTA6DQogICAgICAgIHJldHVybiBGYWxzZSwgZiLlnKjluILovazlgLrku4Uge2xlbih0cmFkZWQpfSDlj6rvvIg8MjUw77yJ77yM6KGM5oOF5p2/55aR5Ly85oqT5Y+W5aSx6LSlIg0KICAgIG9rID0gW2IgZm9yIGIgaW4gdHJhZGVkDQogICAgICAgICAgaWYgX3RvX251bShiLmdldCgicHJlbWl1bV9yYXRlIikpIGlzIG5vdCBOb25lDQogICAgICAgICAgYW5kIF90b19udW0oYi5nZXQoInJlbWFpbmluZ19zaXplIikpIGlzIG5vdCBOb25lXQ0KICAgIHJhdGlvID0gbGVuKG9rKSAvIGxlbih0cmFkZWQpDQogICAgcmV0dXJuIHJhdGlvID49IDAuODUsIGYi5YWz6ZSu5a2X5q615a6M5pW0546HIHtsZW4ob2spfS97bGVuKHRyYWRlZCl9ID0ge3JhdGlvOi4xJX0iDQoNCg0KZGVmIGZldGNoX3N0cmF0ZWdpZXMobWF4X2F0dGVtcHRzOiBpbnQgPSAzKToNCiAgICAiIiLmipPlj5blubborqHnrpflkITnrZbnlaXlgJnpgInvvJvljZXmupDmipPlj5blgbblj5HlpLHotKXkvJrpgKDmiJDlrZfmrrXnvLrlpLHvvIwNCiAgICDov5nph4zlgZrlpJrova7ph43or5Ur5a6M5pW05oCn5qCh6aqM77yM6L+e57ut5LiN5ZCI5qC85YiZ6L+U5Zue56m677yI5LiK5bGC6Lez6L+H5pys5qyh5o6o6YCB77yMDQogICAg5LiN5pu05paw5b+r54Wn77yM562J5b6F5LiL5LiA5qyh5a6a5pe26Kem5Y+R6Ieq5Yqo6KGl5o6o77yJ44CCIiIiDQogICAgZnJvbSBzY3JhcGVycy5lYXN0bW9uZXkgaW1wb3J0IEVhc3RNb25leVNjcmFwZXINCiAgICBmcm9tIHNjcmFwZXJzLmRhdGFfbWVyZ2VyIGltcG9ydCBtZXJnZV9jYl9kYXRhDQogICAgZnJvbSBzdHJhdGVnaWVzLmNiX3N0cmF0ZWdpZXMgaW1wb3J0IHJ1bl9hbGxfc3RyYXRlZ2llcw0KICAgIGZyb20gc2l0ZWdlbiBpbXBvcnQgX2J1aWxkX2JvbmRfZGljdHMNCiAgICBmb3IgYXR0ZW1wdCBpbiByYW5nZSgxLCBtYXhfYXR0ZW1wdHMgKyAxKToNCiAgICAgICAgbGl2ZSA9IEVhc3RNb25leVNjcmFwZXIuZmV0Y2hfY2JfbGlzdCgpDQogICAgICAgIGlmIG5vdCBsaXZlOg0KICAgICAgICAgICAgcHJpbnQoZiJbbm90aWZ5XSDnrKwge2F0dGVtcHR9L3ttYXhfYXR0ZW1wdHN9IOasoe+8muacquWPluWIsOi9rOWAuuWIl+ihqCIpDQogICAgICAgICAgICB0aW1lLnNsZWVwKDEwKQ0KICAgICAgICAgICAgY29udGludWUNCiAgICAgICAgZnVuZGFtZW50YWxzID0gRWFzdE1vbmV5U2NyYXBlci5mZXRjaF9jYl9mdW5kYW1lbnRhbHMoKQ0KICAgICAgICBjb2RlcyA9IFtiWyJzdG9ja19jb2RlIl0gZm9yIGIgaW4gbGl2ZSBpZiBiLmdldCgic3RvY2tfY29kZSIpXQ0KICAgICAgICBjb25jZXB0cyA9IEVhc3RNb25leVNjcmFwZXIuZmV0Y2hfc3RvY2tfY29uY2VwdHMoY29kZXMpDQogICAgICAgIGZpbiA9IEVhc3RNb25leVNjcmFwZXIuZmV0Y2hfc3RvY2tfZmluYW5jaWFscyhjb2RlcykNCiAgICAgICAgbWVyZ2VkID0gbWVyZ2VfY2JfZGF0YShsaXZlLCBmdW5kYW1lbnRhbHMsIGNvbmNlcHRzLCBmaW4pDQogICAgICAgIG1vZGUgPSBnZXRhdHRyKEVhc3RNb25leVNjcmFwZXIsICJfbGFzdF9jYl9tb2RlIiwgIj8iKQ0KICAgICAgICBnb29kLCBpbmZvID0gX2NoZWNrX2RhdGFfY29tcGxldGUobWVyZ2VkLCBtb2RlKQ0KICAgICAgICBpZiBub3QgZ29vZDoNCiAgICAgICAgICAgIHByaW50KGYiW25vdGlmeV0g56ysIHthdHRlbXB0fS97bWF4X2F0dGVtcHRzfSDmrKHvvJrmlbDmja7kuI3lrozmlbTvvIh7aW5mb33vvInvvIzph43mlrDmipPlj5YiKQ0KICAgICAgICAgICAgdGltZS5zbGVlcCgxMCkNCiAgICAgICAgICAgIGNvbnRpbnVlDQogICAgICAgIHByaW50KGYiW25vdGlmeV0g5pWw5o2u5qCh6aqM6YCa6L+H77yIe2luZm9977yJIikNCiAgICAgICAgcmV0dXJuIHJ1bl9hbGxfc3RyYXRlZ2llcyhfYnVpbGRfYm9uZF9kaWN0cyhtZXJnZWQpKQ0KICAgIHByaW50KCJbbm90aWZ5XSDov57nu63lpJrova7mipPlj5bmlbDmja7ku43kuI3lrozmlbTvvIzot7Pov4fmnKzmrKHmjqjpgIHvvIjlv6vnhafkuI3mm7TmlrDvvIznrYnlvoXkuIvmrKHop6blj5HooaXmjqjvvIkiKQ0KICAgIHJldHVybiB7fQ0KDQoNCmRlZiBwdXNoX3JvdGF0aW9uKGZvcmNlOiBib29sID0gRmFsc2UpOg0KICAgICIiIuavj+WRqOOAjOacgOWQjuS4gOS4quS6pOaYk+aXpeOAjei9ruWKqOaOqOmAgeOAgg0KDQogICAg5a6a5pe25Lu75Yqh5q+P5aSp77yI5ZCr5ZGo5pyr77yJ5aSa5qyh6L+Q6KGM77yI6KeBIHJvdGF0aW9uLnltbO+8ie+8jOaOqOmAgeWIpOWumuaUueS4uu+8mg0KICAgICAgLSDmnKzlkajmnIDlkI7kuIDkuKrkuqTmmJPml6Xov5jmsqHliLAg4oaSIOi3s+i/h++8iOato+W4uO+8jOW5tumdnumUmeivr++8iQ0KICAgICAgLSDmnKzlkajmnIDlkI7kuIDkuKrkuqTmmJPml6Xlt7LliLDvvIjmiJbplJnov4fvvInkvYbmnKzlkajlsJrmnKrmjqjpgIEg4oaSIOaOqOmAge+8jOW5tuiusOW9leagh+iusA0KICAgICAgLSDmnKzlkajlt7LmjqjpgIHov4cg4oaSIOi3s+i/h++8iOmYsuatoumHjeWkjeWIt+Wxj++8iQ0KDQogICAg6L+Z5qC35Y2z5L2/5p+Q5aSpIEdpdEh1YiDlrprml7blmajmsqHop6blj5HjgIHmiJbop6blj5HkuKXph43lu7bov5/vvIzlkI7nu63ku7vmhI/kuIDmrKHov5DooYzpg73og70NCiAgICDoh6rliqjooaXmjqjvvIzkuI3kvJrmvI/mjonkuIDlkajjgIJmb3JjZT1UcnVl77yI5omL5Yqo6Kem5Y+R77yJ5pe26Lez6L+H5pel5Y6G5LiO5Y676YeN5Yik5a6a44CCDQogICAgIiIiDQogICAgZnJvbSBkYXRldGltZSBpbXBvcnQgZGF0ZQ0KICAgIGltcG9ydCB0cmFkaW5nX2NhbGVuZGFyDQoNCiAgICB0b2RheSA9IChkYXRldGltZS51dGNub3coKSArIHRpbWVkZWx0YShob3Vycz04KSkuZGF0ZSgpDQogICAgbHRkID0gdHJhZGluZ19jYWxlbmRhci5sYXN0X3RyYWRpbmdfZGF5X29mX3dlZWsodG9kYXkpDQogICAgaWYgbHRkIGlzIE5vbmU6DQogICAgICAgIHByaW50KGYiW25vdGlmeV0g5pys5ZGoIHt0b2RheX0g5peg5Lqk5piT5pel77yM6Lez6L+H6L2u5Yqo5o6o6YCB77yI5pW05ZGo5LyR5biC77yJIikNCiAgICAgICAgcmV0dXJuIFRydWUNCg0KICAgIGxhc3QgPSB7fQ0KICAgIGlmIG9zLnBhdGguZXhpc3RzKExBU1RfU1RSQVRFR0lFUyk6DQogICAgICAgIHRyeToNCiAgICAgICAgICAgIHdpdGggb3BlbihMQVNUX1NUUkFURUdJRVMsICJyIiwgZW5jb2Rpbmc9InV0Zi04IikgYXMgZjoNCiAgICAgICAgICAgICAgICBsYXN0ID0ganNvbi5sb2FkKGYpDQogICAgICAgIGV4Y2VwdCBFeGNlcHRpb246DQogICAgICAgICAgICBsYXN0ID0ge30NCg0KICAgIHB1c2hlZF9sdGQgPSAobGFzdC5nZXQoIl9tZXRhIikgb3Ige30pLmdldCgicHVzaGVkX2x0ZCIpDQogICAgYWxyZWFkeSA9IHB1c2hlZF9sdGQgPT0gbHRkLmlzb2Zvcm1hdCgpDQoNCiAgICBpZiBub3QgZm9yY2UgYW5kIHRvZGF5IDwgbHRkOg0KICAgICAgICBwcmludChmIltub3RpZnldIOacrOWRqOacgOWQjuS4gOS4quS6pOaYk+aXpei/mOayoeWIsO+8iHtsdGR977yJ77yM5LuK5aSpIHt0b2RheX0g6Lez6L+HIikNCiAgICAgICAgcmV0dXJuIFRydWUNCiAgICBpZiBub3QgZm9yY2UgYW5kIGFscmVhZHk6DQogICAgICAgIHByaW50KGYiW25vdGlmeV0g5pys5ZGoIHtsdGR9IOi9ruWKqOW3suaOqOmAgei/h++8jOi3s+i/h+WOu+mHjSIpDQogICAgICAgIHJldHVybiBUcnVlDQoNCiAgICByZXN1bHRzID0gZmV0Y2hfc3RyYXRlZ2llcygpDQogICAgaWYgbm90IHJlc3VsdHM6DQogICAgICAgIHByaW50KCJbbm90aWZ5XSDml6DnrZbnlaXmlbDmja7vvIzot7Pov4fova7liqjmjqjpgIEiKQ0KICAgICAgICByZXR1cm4gRmFsc2UNCg0KICAgIGxpbmVzLCBjdXJyZW50ID0gX2J1aWxkX3JvdGF0aW9uX21lc3NhZ2UocmVzdWx0cywgbGFzdCkNCiAgICBzbmFwc2hvdCA9IGRpY3QoY3VycmVudCkNCiAgICBzbmFwc2hvdFsiX21ldGEiXSA9IHsNCiAgICAgICAgInB1c2hlZF9sdGQiOiBsdGQuaXNvZm9ybWF0KCksDQogICAgICAgICJwdXNoZWRfYXQiOiAoZGF0ZXRpbWUudXRjbm93KCkgKyB0aW1lZGVsdGEoaG91cnM9OCkpLnN0cmZ0aW1lKCIlWS0lbS0lZCAlSDolTTolUyIpLA0KICAgIH0NCiAgICBfc2F2ZShMQVNUX1NUUkFURUdJRVMsIHNuYXBzaG90KQ0KICAgIHJldHVybiBfc2VuZCgi5q+P5ZGo5Y+v6L2s5YC66L2u5YqoIiwgIlxuIi5qb2luKGxpbmVzKSkNCg0KDQpfUFJPR1JFU1NfVEFSR0VUUyA9ICgi5LiK5biC5aeU6YCa6L+HIiwgIuWQjOaEj+azqOWGjCIpDQoNCg0KZGVmIHB1c2hfcHJvZ3Jlc3NfY2hhbmdlKCk6DQogICAgIiIi5omr5o+P6ZuG5oCd5b2V5b6F5Y+R5Y+v6L2s5YC66L+b5bqm77ya5LuF5b2T5p+Q5Y+q6L2s5YC644CM5Y+Y5YyW5Li6IOS4iuW4guWnlOmAmui/hyAvIOWQjOaEj+azqOWGjOOAjeaXtuaOqOmAgeOAgg0KDQogICAg44CQ5YWc5bqV6KGl5o6o44CR5b+r54Wn5a2Y5LqOIGxhc3RfaXNzdWVzLmpzb27vvIzmr4/pobnnu7TmiqQgcHVzaGVkX3N0YWdl77yI6K+l6L2s5YC65pyA6L+R5LiA5qyhDQogICAg5oiQ5Yqf5o6o6YCB6L+H55qE55uu5qCH6Zi25q6177yJ77yaDQogICAgICAtIOmmluasoeWNh+e6p+aXtuWvueWtmOmHj+ebruagh+mYtuauteWAuuWIuOS4jeeLguaOqO+8iOaKiiBwdXNoZWRfc3RhZ2Ug5Yid5aeL5YyW5Li65YW25b2T5YmNIHN0YWdl77yJ77ybDQogICAgICAtIOWkhOS6juebruagh+mYtuaute+8iOaXoOiuuuaWsOWHuueOsCAvIOWImuWPmOWMlu+8ieS9hiBwdXNoZWRfc3RhZ2UgIT0g5b2T5YmNIHN0YWdlIOeahOWAuuWIuA0KICAgICAgICDop4bkuLrjgIzlvoXmjqjpgIHjgI3vvJsNCiAgICAgIC0g5Y+q5pyJ5o6o6YCB5oiQ5Yqf5omN5oqKIHB1c2hlZF9zdGFnZSDmm7TmlrDkuLrlvZPliY0gc3RhZ2XvvJvoi6XmnKzmrKHmipPkuI3liLDmlbDmja4gLyDmjqjpgIENCiAgICAgICAg5aSx6LSlIC8gQWN0aW9ucyDor6XmrKHkuK3mlq3vvIxwdXNoZWRfc3RhZ2Ug5L+d5oyB5LiN5Y+Y77yM5LiL5qyh5Lu75oSP5LiA5qyh6L+Q6KGM6YO95Lya6Ieq5YqoDQogICAgICAgIOihpeaOqO+8jOS7juiAjOmBv+WFjeWboCBzY2hlZHVsZSDlu7bov5/miJbljZXmrKHlpLHotKXogIzmvI/mjonov5vluqblj5jljJbjgIINCiAgICAiIiINCiAgICBpbXBvcnQgYXN5bmNpbw0KICAgIGZyb20gaGFucXVhbi5mZXRjaGVyIGltcG9ydCBmZXRjaF9wZW5kaW5nX2Nib25kcw0KICAgIHRyeToNCiAgICAgICAgYm9uZHMgPSBhc3luY2lvLnJ1bihmZXRjaF9wZW5kaW5nX2Nib25kcygpKQ0KICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZToNCiAgICAgICAgcHJpbnQoZiJbbm90aWZ5XSDlvoXlj5Hov5vluqbmipPlj5blpLHotKU6IHtlfSIpDQogICAgICAgIHJldHVybiBGYWxzZQ0KICAgIGlmIG5vdCBib25kczoNCiAgICAgICAgcHJpbnQoIltub3RpZnldIOaXoOW+heWPkeWPr+i9rOWAuuaVsOaNru+8jOi3s+i/h+i/m+W6puaOqOmAgSIpDQogICAgICAgIHJldHVybiBGYWxzZQ0KDQogICAgbGFzdCA9IHt9DQogICAgaWYgb3MucGF0aC5leGlzdHMoTEFTVF9JU1NVRVMpOg0KICAgICAgICB0cnk6DQogICAgICAgICAgICB3aXRoIG9wZW4oTEFTVF9JU1NVRVMsICJyIiwgZW5jb2Rpbmc9InV0Zi04IikgYXMgZjoNCiAgICAgICAgICAgICAgICBsYXN0ID0ganNvbi5sb2FkKGYpDQogICAgICAgIGV4Y2VwdCBFeGNlcHRpb246DQogICAgICAgICAgICBsYXN0ID0ge30NCg0KICAgICMg5b+r54Wn5piv5ZCm5bu656uL6L+H5Z+657q/44CC57y65aSxL+S4uuepui/ml6fmoLzlvI/vvIjml6AgX21ldGHvvInpg73op4bkuLrjgIzpppbmrKHjgI3vvIwNCiAgICAjIOacrOasoeS7heW7uueri+Wfuue6v+OAgeS4jeaOqOmAgeWtmOmHj++8jOmBv+WFjemmluasoeWNh+e6p+aIluaWh+S7tuS4ouWkseaXtueLguaOqOS4gOWghuWtmOmHj+ebruagh+mYtuautei9rOWAuuOAgg0KICAgIGhhc19iYXNlbGluZSA9IGJvb2woKGxhc3Qgb3Ige30pLmdldCgiX21ldGEiLCB7fSkuZ2V0KCJiYXNlbGluZSIpKSBpZiBpc2luc3RhbmNlKGxhc3QsIGRpY3QpIGVsc2UgRmFsc2UNCg0KICAgIGN1ciA9IHt9DQogICAgZm9yIGIgaW4gYm9uZHM6DQogICAgICAgIGNvZGUgPSBzdHIoYi5nZXQoInN0b2NrX2NvZGUiKSBvciBiLmdldCgiYm9uZF9uYW1lIikgb3IgIiIpLnN0cmlwKCkNCiAgICAgICAgc3RhZ2UgPSBzdHIoYi5nZXQoInByb2dyZXNzIikgb3IgIiIpLnN0cmlwKCkNCiAgICAgICAgaWYgbm90IGNvZGUgb3Igbm90IHN0YWdlOg0KICAgICAgICAgICAgY29udGludWUNCiAgICAgICAgcHJldiA9IChsYXN0IG9yIHt9KS5nZXQoY29kZSkgb3Ige30NCiAgICAgICAgIyBwdXNoZWRfc3RhZ2XvvJror6XovazlgLrmnIDov5HkuIDmrKHmiJDlip/mjqjpgIHov4fnmoTnm67moIfpmLbmrrXjgIINCiAgICAgICAgaWYgaGFzX2Jhc2VsaW5lOg0KICAgICAgICAgICAgIyDlt7Llu7rnq4vln7rnur/vvJrlv6vnhafph4znmoTml6fovazlgLrmsr/nlKjljp/moIforrDvvIzlhajmlrDlh7rnjrDnmoTovazlgLrop4bkuLrjgIzlvoXmjqjpgIHjgI3jgIINCiAgICAgICAgICAgIHB1c2hlZF9zdGFnZSA9IHByZXYuZ2V0KCJwdXNoZWRfc3RhZ2UiKQ0KICAgICAgICAgICAgaWYgcHVzaGVkX3N0YWdlIGlzIE5vbmU6DQogICAgICAgICAgICAgICAgcHVzaGVkX3N0YWdlID0gIiIgaWYgY29kZSBub3QgaW4gbGFzdCBlbHNlIChzdGFnZSBpZiBzdGFnZSBpbiBfUFJPR1JFU1NfVEFSR0VUUyBlbHNlICIiKQ0KICAgICAgICBlbHNlOg0KICAgICAgICAgICAgIyDpppbmrKEv5Z+657q/6YeN5bu677ya5LiA5b6L5LiN5o6o5a2Y6YeP77yI5ZCr5q2k5pe25bey5aSE5LqO55uu5qCH6Zi25q6155qE77yJ77yM5Y+q5YGa5Z+657q/44CCDQogICAgICAgICAgICBwdXNoZWRfc3RhZ2UgPSBzdGFnZSBpZiBzdGFnZSBpbiBfUFJPR1JFU1NfVEFSR0VUUyBlbHNlICIiDQogICAgICAgIGN1cltjb2RlXSA9IHsNCiAgICAgICAgICAgICJib25kX25hbWUiOiBzdHIoYi5nZXQoImJvbmRfbmFtZSIpIG9yIGIuZ2V0KCJzdG9ja19uYW1lIikgb3IgY29kZSksDQogICAgICAgICAgICAic3RhZ2UiOiBzdGFnZSwNCiAgICAgICAgICAgICJwdXNoZWRfc3RhZ2UiOiBwdXNoZWRfc3RhZ2UsDQogICAgICAgIH0NCg0KICAgICMg5b6F5o6o6YCB77ya5aSE5LqO55uu5qCH6Zi25q6177yM5LiU6K+l6Zi25q615bCa5pyq5oiQ5Yqf5o6o6YCB6L+H77yI5Yia5Y+Y5YyWIC8g5paw5Ye6546wIC8g5LiK5qyh5o6o6YCB5aSx6LSl6YGX55WZ77yJDQogICAgcGVuZGluZyA9IFtdDQogICAgZm9yIGNvZGUsIGluZm8gaW4gY3VyLml0ZW1zKCk6DQogICAgICAgIHN0YWdlID0gaW5mby5nZXQoInN0YWdlIikNCiAgICAgICAgaWYgc3RhZ2UgaW4gX1BST0dSRVNTX1RBUkdFVFMgYW5kIGluZm8uZ2V0KCJwdXNoZWRfc3RhZ2UiKSAhPSBzdGFnZToNCiAgICAgICAgICAgIHBlbmRpbmcuYXBwZW5kKGNvZGUpDQoNCiAgICBkZWYgX21lcmdlX3NuYXBzaG90KGN1cl9zbmFwKToNCiAgICAgICAgIyDkuI7ml6flv6vnhaflkIjlubbvvJrkv53nlZnkuIrmrKHku43lpITkuo7nm67moIfpmLbmrrXnmoTorrDlvZXvvIzpgb/lhY3mnKzmrKHlgbblj5HnvLrlpLHnmoTovazlgLoNCiAgICAgICAgIyDooqvor6/liKDjgIHlr7zoh7Tlhbbljrvph43nirbmgIHkuKLlpLHjgIHkuIvmrKHlho3lh7rnjrDml7booqvor6/liKTkuLrjgIzmlrDlh7rnjrDjgI3ogIzph43lpI3mjqjpgIHjgIINCiAgICAgICAgbWVyZ2VkID0ge2s6IHYgZm9yIGssIHYgaW4gKGxhc3Qgb3Ige30pLml0ZW1zKCkNCiAgICAgICAgICAgICAgICAgIGlmIGsgIT0gIl9tZXRhIiBhbmQgKHYgb3Ige30pLmdldCgic3RhZ2UiKSBpbiBfUFJPR1JFU1NfVEFSR0VUU30NCiAgICAgICAgbWVyZ2VkLnVwZGF0ZShjdXJfc25hcCkNCiAgICAgICAgbWVyZ2VkWyJfbWV0YSJdID0geyJiYXNlbGluZSI6IFRydWV9DQogICAgICAgIHJldHVybiBtZXJnZWQNCg0KICAgICMg5peg6K665piv5ZCm5o6o6YCB77yM6YO95YWI5oqK5pyA5paw6L+b5bqm6JC955uY77yI5bm25YaZ5YWl5Z+657q/5qCH6K6w77yJ77ybDQogICAgIyBwdXNoZWRfc3RhZ2Ug5LuF5Zyo5o6o6YCB5oiQ5Yqf5ZCO5pu05paw77yI6KeB5LiL77yJ77yM5aSx6LSl5YiZ5L+d55WZ5b6F5o6o54q25oCB5L6/5LqO6KGl5o6o44CCDQogICAgX3NhdmUoTEFTVF9JU1NVRVMsIF9tZXJnZV9zbmFwc2hvdChjdXIpKQ0KDQogICAgaWYgbm90IHBlbmRpbmc6DQogICAgICAgIHByaW50KCJbbm90aWZ5XSDml6DjgIzkuIrluILlp5TpgJrov4cv5ZCM5oSP5rOo5YaM44CN6L+b5bqm5Y+Y5YyWIikNCiAgICAgICAgcmV0dXJuIEZhbHNlDQoNCiAgICBsaW5lcyA9IFsiIyMg5Y+v6L2s5YC65a6h5qC46L+b5bqm5Y+Y5YyWXG4iXQ0KICAgIGZvciBjb2RlIGluIHBlbmRpbmc6DQogICAgICAgIGxpbmVzLmFwcGVuZChmIi0ge2N1cltjb2RlXS5nZXQoJ2JvbmRfbmFtZScpIG9yIGNvZGV977yae2N1cltjb2RlXS5nZXQoJ3N0YWdlJyl9IikNCiAgICBvayA9IF9zZW5kKCLov5vluqblj5jljJYiLCAiXG4iLmpvaW4obGluZXMpKQ0KDQogICAgaWYgb2s6DQogICAgICAgICMg5o6o6YCB5oiQ5Yqf5omN57K+56Gu5Zue5YaZ5ZCE6IeqIHB1c2hlZF9zdGFnZe+8jOS4i+asoeS4jeWGjemHjeWkjeaOqO+8m+Wksei0peWImeS/neeVmeW+heaOqOeKtuaAgeS7peS+v+ihpeaOqA0KICAgICAgICBmb3IgY29kZSBpbiBwZW5kaW5nOg0KICAgICAgICAgICAgY3VyW2NvZGVdWyJwdXNoZWRfc3RhZ2UiXSA9IGN1cltjb2RlXS5nZXQoInN0YWdlIikNCiAgICAgICAgX3NhdmUoTEFTVF9JU1NVRVMsIF9tZXJnZV9zbmFwc2hvdChjdXIpKQ0KICAgIHJldHVybiBvaw0KDQoNCmRlZiBfaXNfdHJhZGluZ193aW5kb3coKToNCiAgICAiIiJB6IKh5Lqk5piT5pe25q6177yI5YyX5Lqs5ZGo5LiAfuWRqOS6lCAwOTozMC0xNToxMO+8ie+8jOWPr+i9rOWAuuS9juS7ty/kvY7muqLku7fmjqjpgIHku4XlnKjmraTml7boioLmtYHop6blj5EiIiINCiAgICBub3cgPSBkYXRldGltZS51dGNub3coKSArIHRpbWVkZWx0YShob3Vycz04KSAgIyDljJfkuqzlopnpkp8NCiAgICBpZiBub3cud2Vla2RheSgpID49IDU6DQogICAgICAgIHJldHVybiBGYWxzZQ0KICAgIGhtID0gbm93LmhvdXIgKiAxMDAgKyBub3cubWludXRlDQogICAgcmV0dXJuIDkzMCA8PSBobSA8PSAxNTEwDQoNCg0KZGVmIHB1c2hfY2JfYWxlcnQoKToNCiAgICAiIiLmjqjpgIHjgIzlvZPlpKnmlrDov5vlhaXjgI3kvY7ku7cv5L2O5rqi5Lu35p2h5Lu255qE5Y+v6L2s5YC65Y+Y5Yqo5o+Q6YaS77yI5Lu35qC8PDExMCDmiJYg6L2s6IKh5rqi5Lu3546HPDEwJe+8ieOAgg0KDQogICAg5LiO5LiK5LiA5qyh5qOA5p+l55qE5ZG95Lit6ZuG5ZCI5q+U5a+577yM5LuF5o6o6YCB5pys5qyh44CM5paw5aKe5ZG95Lit44CN55qE6L2s5YC677ybDQogICAg5ZCM5LiA5Y+q5YC65b2T5aSp5Y+q5o+Q6YaS5LiA5qyh77yb5LiN5YaN5piv5a6M5pW054mI5YiX6KGo44CCDQogICAg54q25oCB5paH5Lu2IGxhc3RfY2JfYWxlcnRzLmpzb27vvJp7InNldCI6IFvlkb3kuK3ku6PnoIEuLi5dLCAicHVzaGVkIjoge2NvZGU6IOaXpeacn319DQogICAgIiIiDQogICAgZnJvbSBzY3JhcGVycy5lYXN0bW9uZXkgaW1wb3J0IEVhc3RNb25leVNjcmFwZXINCg0KICAgIGZvcmNlID0gb3MuZW52aXJvbi5nZXQoIkNCX0FMRVJUX0ZPUkNFIiwgIiIpLmxvd2VyKCkgaW4gKCIxIiwgInRydWUiLCAieWVzIiwgInkiLCAib24iKQ0KICAgIGlmIG5vdCBfaXNfdHJhZGluZ193aW5kb3coKSBhbmQgbm90IGZvcmNlOg0KICAgICAgICBwcmludCgiW25vdGlmeV0g6Z2e5Lqk5piT5pe25q6177yM6Lez6L+H5L2O5Lu3L+S9jua6ouS7t+aOqOmAge+8iOWmgumcgOaJi+WKqOa1i+ivleivt+iuvue9riBDQl9BTEVSVF9GT1JDRT0x77yJIikNCiAgICAgICAgcmV0dXJuIEZhbHNlDQoNCiAgICBsaXZlID0gRWFzdE1vbmV5U2NyYXBlci5mZXRjaF9jYl9saXN0KCkNCiAgICBpZiBub3QgbGl2ZToNCiAgICAgICAgcHJpbnQoIltub3RpZnldIOaXoOWPr+i9rOWAuuaVsOaNru+8jOi3s+i/h+S9juS7ty/kvY7muqLku7fmjqjpgIEiKQ0KICAgICAgICByZXR1cm4gRmFsc2UNCg0KICAgIHRvZGF5ID0gKGRhdGV0aW1lLnV0Y25vdygpICsgdGltZWRlbHRhKGhvdXJzPTgpKS5zdHJmdGltZSgiJVktJW0tJWQiKQ0KICAgICMg5b2T5YmN5ZG95Lit6ZuG5ZCI77yI6ZyA5pyJ55yf5a6e5oiQ5Lqk5Lu377yJDQogICAgY3VycmVudCA9IHt9DQogICAgZm9yIGIgaW4gbGl2ZToNCiAgICAgICAgcHJpY2UgPSBfdG9fbnVtKGIuZ2V0KCJwcmljZSIpKQ0KICAgICAgICBpZiBwcmljZSBpcyBOb25lOg0KICAgICAgICAgICAgIyDml6DmiJDkuqTku7fvvIjlvZPml6XlgZzniYwv5pyq5oiQ5LqkL+acquS4iuW4gu+8ie+8muS7t+agvOaYryAiLSLvvIzmuqLku7fkuLrmjqjnrpflgLzkuI3lj6/pnaDvvIzot7Pov4cNCiAgICAgICAgICAgIGNvbnRpbnVlDQogICAgICAgIHByZW0gPSBfdG9fbnVtKGIuZ2V0KCJwcmVtaXVtX3JhdGUiKSkNCiAgICAgICAgcmVhc29ucyA9IFtdDQogICAgICAgIGlmIHByaWNlIDwgMTEwOg0KICAgICAgICAgICAgcmVhc29ucy5hcHBlbmQoIuS7t+agvDwxMTAiKQ0KICAgICAgICBpZiBwcmVtIGlzIG5vdCBOb25lIGFuZCBwcmVtIDwgMTA6DQogICAgICAgICAgICByZWFzb25zLmFwcGVuZCgi5rqi5Lu3PDEwJSIpDQogICAgICAgIGlmIG5vdCByZWFzb25zOg0KICAgICAgICAgICAgY29udGludWUNCiAgICAgICAgY29kZSA9IGIuZ2V0KCJjb2RlIiwgIiIpDQogICAgICAgIGN1cnJlbnRbY29kZV0gPSB7DQogICAgICAgICAgICAiY29kZSI6IGNvZGUsICJuYW1lIjogYi5nZXQoIm5hbWUiLCAiIiksDQogICAgICAgICAgICAicHJpY2UiOiBwcmljZSwgInByZW1pdW1fcmF0ZSI6IHByZW0sICJyZWFzb25zIjogcmVhc29ucywNCiAgICAgICAgfQ0KDQogICAgc3RhdGUgPSB7InNldCI6IFtdLCAicHVzaGVkIjoge319DQogICAgaWYgb3MucGF0aC5leGlzdHMoTEFTVF9DQl9BTEVSVFMpOg0KICAgICAgICB0cnk6DQogICAgICAgICAgICB3aXRoIG9wZW4oTEFTVF9DQl9BTEVSVFMsICJyIiwgZW5jb2Rpbmc9InV0Zi04IikgYXMgZjoNCiAgICAgICAgICAgICAgICBzdGF0ZSA9IGpzb24ubG9hZChmKQ0KICAgICAgICBleGNlcHQgRXhjZXB0aW9uOg0KICAgICAgICAgICAgc3RhdGUgPSB7InNldCI6IFtdLCAicHVzaGVkIjoge319DQogICAgaWYgbm90IGlzaW5zdGFuY2Uoc3RhdGUsIGRpY3QpIG9yICJzZXQiIG5vdCBpbiBzdGF0ZToNCiAgICAgICAgIyDlhbzlrrnml6fmoLzlvI8ge2NvZGU6IGRhdGV977ya6KeG5Li64oCc5LiK5qyh5bey5ZG95Lit5LiU5b2T5pel5bey5o6o6YCB4oCdDQogICAgICAgIG9sZCA9IHN0YXRlIGlmIGlzaW5zdGFuY2Uoc3RhdGUsIGRpY3QpIGVsc2Uge30NCiAgICAgICAgc3RhdGUgPSB7InNldCI6IHNvcnRlZChzdHIoaykgZm9yIGsgaW4gb2xkLmtleXMoKSksDQogICAgICAgICAgICAgICAgICJwdXNoZWQiOiB7c3RyKGspOiBzdHIodikgZm9yIGssIHYgaW4gb2xkLml0ZW1zKCl9fQ0KICAgIHByZXZfc2V0ID0gc2V0KHN0YXRlLmdldCgic2V0Iikgb3IgW10pDQogICAgcHVzaGVkID0gc3RhdGUuZ2V0KCJwdXNoZWQiKSBvciB7fQ0KDQogICAgIyDku4XmjqjpgIHigJzmlrDlop7lkb3kuK0gKyDlvZPlpKnmnKrmjqjpgIHov4figJ0NCiAgICBuZXdfaGl0cyA9IFtdDQogICAgZm9yIGNvZGUsIGluZm8gaW4gY3VycmVudC5pdGVtcygpOg0KICAgICAgICBpZiBwdXNoZWQuZ2V0KGNvZGUpID09IHRvZGF5Og0KICAgICAgICAgICAgY29udGludWUNCiAgICAgICAgaWYgY29kZSBub3QgaW4gcHJldl9zZXQ6DQogICAgICAgICAgICBuZXdfaGl0cy5hcHBlbmQoaW5mbykNCg0KICAgIGlmIG5ld19oaXRzOg0KICAgICAgICBuZXdfaGl0cy5zb3J0KGtleT1sYW1iZGEgaDogKGhbInByZW1pdW1fcmF0ZSJdIGlzIE5vbmUsIGhbInByZW1pdW1fcmF0ZSJdIG9yIDApKQ0KICAgICAgICBsaW5lcyA9IFsiIyMg5Y+v6L2s5YC65L2O5Lu3L+S9jua6ouS7t+WPmOWKqFxuIiwNCiAgICAgICAgICAgICAgICAgZiLku4rml6XmlrDlop4ge2xlbihuZXdfaGl0cyl9IOWPqu+8iOS7t+agvDwxMTAg5oiWIOi9rOiCoea6ouS7t+eOhzwxMCXvvIlcbiJdDQogICAgICAgIGZvciBoIGluIG5ld19oaXRzWzoyNV06DQogICAgICAgICAgICBwYXJ0cyA9IFtmIioqe2hbJ25hbWUnXX0qKiAoe2hbJ2NvZGUnXX0pIl0NCiAgICAgICAgICAgIGlmIGhbInByaWNlIl0gaXMgbm90IE5vbmU6DQogICAgICAgICAgICAgICAgcGFydHMuYXBwZW5kKGYie19mbXQoaFsncHJpY2UnXSl95YWDIikNCiAgICAgICAgICAgIGlmIGhbInByZW1pdW1fcmF0ZSJdIGlzIG5vdCBOb25lOg0KICAgICAgICAgICAgICAgIHBhcnRzLmFwcGVuZChmIua6ouS7t3tfZm10KGhbJ3ByZW1pdW1fcmF0ZSddKX0lIikNCiAgICAgICAgICAgIHBhcnRzLmFwcGVuZCgiLyIuam9pbihoWyJyZWFzb25zIl0pKQ0KICAgICAgICAgICAgbGluZXMuYXBwZW5kKCItICIgKyAiIHwgIi5qb2luKHBhcnRzKSkNCiAgICAgICAgX3NlbmQoIuWPr+i9rOWAuuS9juS7ty/kvY7muqLku7flj5jliqjmj5DphpIiLCAiXG4iLmpvaW4obGluZXMpKQ0KDQogICAgIyDmm7TmlrDnirbmgIHvvJrlkb3kuK3pm4blkIggKyDlvZPml6XlpITnkIborrDlvZXvvIjlkIzkuIDlj6rlgLrlvZPlpKnkuI3lho3ph43lpI3mj5DphpLvvIkNCiAgICBmb3IgY29kZSBpbiBjdXJyZW50Og0KICAgICAgICBwdXNoZWRbY29kZV0gPSB0b2RheQ0KICAgIHN0YXRlWyJzZXQiXSA9IHNvcnRlZChjdXJyZW50LmtleXMoKSkNCiAgICBzdGF0ZVsicHVzaGVkIl0gPSBwdXNoZWQNCiAgICBfc2F2ZShMQVNUX0NCX0FMRVJUUywgc3RhdGUpDQoNCiAgICByZXR1cm4gYm9vbChuZXdfaGl0cykNCg0KDQppZiBfX25hbWVfXyA9PSAiX19tYWluX18iOg0KICAgIG1vZGUgPSBzeXMuYXJndlsxXSBpZiBsZW4oc3lzLmFyZ3YpID4gMSBlbHNlICItLXRlc3QiDQogICAgdDAgPSB0aW1lLnRpbWUoKQ0KICAgIG9rID0gRmFsc2UNCiAgICBpZiBtb2RlID09ICItLXJvdGF0aW9uIjoNCiAgICAgICAgX2ZvcmNlID0gb3MuZW52aXJvbi5nZXQoIlJPVEFUSU9OX0ZPUkNFIiwgIiIpLmxvd2VyKCkgaW4gKCIxIiwgInRydWUiLCAieWVzIiwgInkiLCAib24iKQ0KICAgICAgICBvayA9IHB1c2hfcm90YXRpb24oZm9yY2U9X2ZvcmNlKQ0KICAgIGVsaWYgbW9kZSA9PSAiLS1wcm9ncmVzcyI6DQogICAgICAgIG9rID0gcHVzaF9wcm9ncmVzc19jaGFuZ2UoKQ0KICAgIGVsaWYgbW9kZSA9PSAiLS1jYi1hbGVydCI6DQogICAgICAgIG9rID0gcHVzaF9jYl9hbGVydCgpDQogICAgZWxzZToNCiAgICAgICAgb2sgPSBfc2VuZCgi6YeR6J6N5o+Q6YaS5bel5YW35rWL6K+VIiwNCiAgICAgICAgICAgICAgICAgICBmIiMjIOa1i+ivlea2iOaBr1xuXG7lpoLmnpzmlLbliLDor7TmmI7mjqjpgIHmraPluLhcbuaXtumXtDoge2RhdGV0aW1lLm5vdygpLnN0cmZ0aW1lKCclWS0lbS0lZCAlSDolTTolUycpfSIpDQogICAgc3lzLmV4aXQoMCBpZiBvayBlbHNlIDEp
+"""GitHub Actions 定时推送（PushPlus 微信，zh-CN）
+
+用法：
+  python notify.py --test           手动测试推送
+  python notify.py --rotation       每周最后一个交易日 14:00(北京) 可转债轮动推送
+  python notify.py --progress       待发可转债「进度变化」推送
+  python notify.py --cb-alert       低价/低溢价「变动」推送（当天新进入价格<110 或 溢价<10% 的转债）
+
+说明：
+  - 轮动推送：工作日每天定时触发，仅当「今天是本周最后一个交易日」时推送，
+    自动避开节假日（如周五逢休市则提前到本周最后开市日）。手动触发可设 ROTATION_FORCE=1 强制推送。
+  - 进度变化推送：扫描集思录待发可转债，仅当某只转债「变化为 上市委通过 / 同意注册」时
+    立即推送，快照存于 last_issues.json（随仓库维护用于前后比对）。
+  - 轮动推送的 last_strategies.json 随仓库维护，用于计算轮入/轮出。
+"""
+import json
+import os
+import sys
+import time
+from datetime import datetime, timedelta
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import requests
+from config import Config
+
+API_BASE = "http://www.pushplus.plus"
+BASE = os.path.dirname(os.path.abspath(__file__))
+LAST_STRATEGIES = os.path.join(BASE, "last_strategies.json")
+LAST_ISSUES = os.path.join(BASE, "last_issues.json")
+LAST_CB_ALERTS = os.path.join(BASE, "last_cb_alerts.json")
+
+
+def _to_num(v):
+    if v is None or v == "-" or v == "":
+        return None
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def _fmt(v, nd=2):
+    if v is None:
+        return "-"
+    try:
+        return f"{float(v):.{nd}f}"
+    except (TypeError, ValueError):
+        return str(v)
+
+
+_ROTATION_TOP_N = 20
+
+
+def _bond_line(r):
+    """单只可转债一行：名称（代码）｜现价 ｜溢价率"""
+    name = str(r.get("name") or "-")
+    code = str(r.get("code") or "-")
+    price = str(r.get("price") or "-")
+    prem = str(r.get("premium_rate") or "-")
+    return f"{name}（{code}）｜现价 {price} 元｜溢价率 {prem}%"
+
+
+def _build_rotation_message(results, last):
+    """按每个策略前 N(=20, 不足按实际)只作为轮动池，
+    对比上次快照生成消息：每个策略固定展示池内全部债券（带排名序号，逐行），
+    并单独标出 轮入 / 轮出 变动。无变动时提示一行。
+    返回 (message_lines, 最新快照)。"""
+    top_n = _ROTATION_TOP_N
+    lines = ["## 本周可转债轮动",
+             f"轮动池：每个策略排名前 {top_n} 只（不足按实际只数）\n"]
+    current = {}
+    for key, data in (results or {}).items():
+        name = data.get("name") or key
+        bonds = data.get("bonds") or []
+        if not bonds:
+            continue
+        base = bonds[:top_n]
+
+        prev = last.get(key) or []
+        prev_map = {str(b.get("code")): b for b in prev if b.get("code")}
+
+        cur_rows = []
+        for b in base:
+            cur_rows.append({
+                "code": str(b.get("code") or ""),
+                "name": b.get("name"),
+                "price": _fmt(b.get("price")),
+                "premium_rate": _fmt(b.get("premium_rate")),
+            })
+        current[key] = cur_rows
+
+        cur_codes = {r["code"] for r in cur_rows if r["code"]}
+        prev_codes = set(prev_map.keys())
+        in_codes = [c for c in cur_codes if c not in prev_codes]
+        out_codes = [c for c in prev_codes if c not in cur_codes]
+
+        # 全量索引：轮出债通常仍存在（排名跌出前20），用其最新价格展示
+        all_map = {}
+        for b in bonds:
+            code = str(b.get("code") or "")
+            if code:
+                all_map[code] = {"name": b.get("name"),
+                                 "price": _fmt(b.get("price")),
+                                 "premium_rate": _fmt(b.get("premium_rate"))}
+
+        in_rows = [r for r in cur_rows if r["code"] in in_codes]
+        out_rows = []
+        for c in out_codes:
+            src = all_map.get(c) or prev_map.get(c) or {}
+            out_rows.append({"code": c, "name": src.get("name"),
+                             "price": src.get("price"), "premium_rate": src.get("premium_rate")})
+
+        rank_of = {r["code"]: i for i, r in enumerate(cur_rows, 1)}
+        lines.append(f"\n### {name}（池 {len(base)} 只）")
+        for i, r in enumerate(cur_rows, 1):
+            lines.append(f"{i}. {_bond_line(r)}")
+
+        if in_rows:
+            lines.append("\n🟢 轮入（上周不在池，本周新进）")
+            for r in in_rows:
+                lines.append(f"  新进第{rank_of.get(r['code'], '?')}名：{_bond_line(r)}")
+        if out_rows:
+            lines.append("\n🔴 轮出（上周在池，本周掉出）")
+            for r in out_rows:
+                lines.append(f"  {_bond_line(r)}")
+        if not in_rows and not out_rows:
+            lines.append("\n（本周无轮动变动）")
+
+    return lines, current
+
+
+def _send(title, content):
+    token = Config.PUSHPLUS_TOKEN
+    if not token:
+        print("[notify] PUSHPLUS_TOKEN 未配置，跳过推送")
+        return False
+    payload = {
+        "token": token,
+        "title": f"多鱼推送—{title or '消息提醒'}",
+        "content": content,
+        "template": "markdown",
+        "channel": "wechat",
+    }
+    try:
+        r = requests.post(f"{API_BASE}/send", json=payload, timeout=15)
+        data = r.json()
+        ok = data.get("code") == 200
+        print(f"[notify] 推送{'成功' if ok else '失败'}: {data}")
+        return ok
+    except Exception as e:
+        print(f"[notify] 请求失败: {e}")
+        return False
+
+
+def _load(existing, fresh, key):
+    last = {}
+    if os.path.exists(existing):
+        try:
+            with open(existing, "r", encoding="utf-8") as f:
+                last = json.load(f)
+        except Exception:
+            pass
+    _save(existing, fresh)
+    return last
+
+
+def _save(path, data):
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=1, default=str)
+    except Exception as e:
+        print(f"[notify] 保存 {path} 失败: {e}")
+
+
+def _check_data_complete(merged: list[dict], mode: str) -> tuple[bool, str]:
+    """校验抓取数据完整性：
+    1) 必须走东财实时行情板（mode=full）。降级路径（fallback）的转股价多为
+       初始转股价，正股下修后溢价率严重失真，会把策略候选误杀（漏推）。
+    2) 有成交价的转债中，溢价率与剩余规模两个关键字段必须基本齐全
+       （缺失会被策略当成 999 误杀，导致轮入列表骤减漏推）。
+    返回 (是否合格, 说明)。"""
+    if mode != "full":
+        return False, f"行情板降级模式（mode={mode}），转股价/溢价率不可靠"
+    traded = [b for b in merged if _to_num(b.get("price")) is not None]
+    if len(traded) < 250:
+        return False, f"在市转债仅 {len(traded)} 只（<250），行情板疑似抓取失败"
+    ok = [b for b in traded
+          if _to_num(b.get("premium_rate")) is not None
+          and _to_num(b.get("remaining_size")) is not None]
+    ratio = len(ok) / len(traded)
+    return ratio >= 0.85, f"关键字段完整率 {len(ok)}/{len(traded)} = {ratio:.1%}"
+
+
+def fetch_strategies(max_attempts: int = 3):
+    """抓取并计算各策略候选；单源抓取偶发失败会造成字段缺失，
+    这里做多轮重试+完整性校验，连续不合格则返回空（上层跳过本次推送，
+    不更新快照，等待下一次定时触发自动补推）。"""
+    from scrapers.eastmoney import EastMoneyScraper
+    from scrapers.data_merger import merge_cb_data
+    from strategies.cb_strategies import run_all_strategies
+    from sitegen import _build_bond_dicts
+    for attempt in range(1, max_attempts + 1):
+        live = EastMoneyScraper.fetch_cb_list()
+        if not live:
+            print(f"[notify] 第 {attempt}/{max_attempts} 次：未取到转债列表")
+            time.sleep(10)
+            continue
+        fundamentals = EastMoneyScraper.fetch_cb_fundamentals()
+        codes = [b["stock_code"] for b in live if b.get("stock_code")]
+        concepts = EastMoneyScraper.fetch_stock_concepts(codes)
+        fin = EastMoneyScraper.fetch_stock_financials(codes)
+        merged = merge_cb_data(live, fundamentals, concepts, fin)
+        mode = getattr(EastMoneyScraper, "_last_cb_mode", "?")
+        good, info = _check_data_complete(merged, mode)
+        if not good:
+            print(f"[notify] 第 {attempt}/{max_attempts} 次：数据不完整（{info}），重新抓取")
+            time.sleep(10)
+            continue
+        print(f"[notify] 数据校验通过（{info}）")
+        return run_all_strategies(_build_bond_dicts(merged))
+    print("[notify] 连续多轮抓取数据仍不完整，跳过本次推送（快照不更新，等待下次触发补推）")
+    return {}
+
+
+def push_rotation(force: bool = False):
+    """每周「最后一个交易日」轮动推送。
+
+    定时任务每天（含周末）多次运行（见 rotation.yml），推送判定改为：
+      - 本周最后一个交易日还没到 → 跳过（正常，并非错误）
+      - 本周最后一个交易日已到（或错过）但本周尚未推送 → 推送，并记录标记
+      - 本周已推送过 → 跳过（防止重复刷屏）
+
+    这样即使某天 GitHub 定时器没触发、或触发严重延迟，后续任意一次运行都能
+    自动补推，不会漏掉一周。force=True（手动触发）时跳过日历与去重判定。
+    """
+    from datetime import date
+    import trading_calendar
+
+    today = (datetime.utcnow() + timedelta(hours=8)).date()
+    ltd = trading_calendar.last_trading_day_of_week(today)
+    if ltd is None:
+        print(f"[notify] 本周 {today} 无交易日，跳过轮动推送（整周休市）")
+        return True
+
+    last = {}
+    if os.path.exists(LAST_STRATEGIES):
+        try:
+            with open(LAST_STRATEGIES, "r", encoding="utf-8") as f:
+                last = json.load(f)
+        except Exception:
+            last = {}
+
+    pushed_ltd = (last.get("_meta") or {}).get("pushed_ltd")
+    already = pushed_ltd == ltd.isoformat()
+
+    if not force and today < ltd:
+        print(f"[notify] 本周最后一个交易日还没到（{ltd}），今天 {today} 跳过")
+        return True
+    if not force and already:
+        print(f"[notify] 本周 {ltd} 轮动已推送过，跳过去重")
+        return True
+
+    results = fetch_strategies()
+    if not results:
+        print("[notify] 无策略数据，跳过轮动推送")
+        return False
+
+    lines, current = _build_rotation_message(results, last)
+    snapshot = dict(current)
+    snapshot["_meta"] = {
+        "pushed_ltd": ltd.isoformat(),
+        "pushed_at": (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S"),
+    }
+    _save(LAST_STRATEGIES, snapshot)
+    return _send("每周可转债轮动", "\n".join(lines))
+
+
+_PROGRESS_TARGETS = ("上市委通过", "同意注册")
+
+
+def push_progress_change():
+    """扫描集思录待发可转债进度：仅当某只转债「变化为 上市委通过 / 同意注册」时推送。
+
+    【兜底补推】快照存于 last_issues.json，每项维护 pushed_stage（该转债最近一次
+    成功推送过的目标阶段）：
+      - 首次升级时对存量目标阶段债券不狂推（把 pushed_stage 初始化为其当前 stage）；
+      - 处于目标阶段（无论新出现 / 刚变化）但 pushed_stage != 当前 stage 的债券
+        视为「待推送」；
+      - 只有推送成功才把 pushed_stage 更新为当前 stage；若本次抓不到数据 / 推送
+        失败 / Actions 该次中断，pushed_stage 保持不变，下次任意一次运行都会自动
+        补推，从而避免因 schedule 延迟或单次失败而漏掉进度变化。
+    """
+    import asyncio
+    from hanquan.fetcher import fetch_pending_cbonds
+    try:
+        bonds = asyncio.run(fetch_pending_cbonds())
+    except Exception as e:
+        print(f"[notify] 待发进度抓取失败: {e}")
+        return False
+    if not bonds:
+        print("[notify] 无待发可转债数据，跳过进度推送")
+        return False
+
+    last = {}
+    if os.path.exists(LAST_ISSUES):
+        try:
+            with open(LAST_ISSUES, "r", encoding="utf-8") as f:
+                last = json.load(f)
+        except Exception:
+            last = {}
+
+    # 快照是否建立过基线。缺失/为空/旧格式（无 _meta）都视为「首次」，
+    # 本次仅建立基线、不推送存量，避免首次升级或文件丢失时狂推一堆存量目标阶段转债。
+    has_baseline = bool((last or {}).get("_meta", {}).get("baseline")) if isinstance(last, dict) else False
+
+    cur = {}
+    for b in bonds:
+        code = str(b.get("stock_code") or b.get("bond_name") or "").strip()
+        stage = str(b.get("progress") or "").strip()
+        if not code or not stage:
+            continue
+        prev = (last or {}).get(code) or {}
+        # pushed_stage：该转债最近一次成功推送过的目标阶段。
+        if has_baseline:
+            # 已建立基线：快照里的旧转债沿用原标记，全新出现的转债视为「待推送」。
+            pushed_stage = prev.get("pushed_stage")
+            if pushed_stage is None:
+                pushed_stage = "" if code not in last else (stage if stage in _PROGRESS_TARGETS else "")
+        else:
+            # 首次/基线重建：一律不推存量（含此时已处于目标阶段的），只做基线。
+            pushed_stage = stage if stage in _PROGRESS_TARGETS else ""
+        cur[code] = {
+            "bond_name": str(b.get("bond_name") or b.get("stock_name") or code),
+            "stage": stage,
+            "pushed_stage": pushed_stage,
+        }
+
+    # 待推送：处于目标阶段，且该阶段尚未成功推送过（刚变化 / 新出现 / 上次推送失败遗留）
+    pending = []
+    for code, info in cur.items():
+        stage = info.get("stage")
+        if stage in _PROGRESS_TARGETS and info.get("pushed_stage") != stage:
+            pending.append(code)
+
+    def _merge_snapshot(cur_snap):
+        # 与旧快照合并：保留上次仍处于目标阶段的记录，避免本次偶发缺失的转债
+        # 被误删、导致其去重状态丢失、下次再出现时被误判为「新出现」而重复推送。
+        merged = {k: v for k, v in (last or {}).items()
+                  if k != "_meta" and (v or {}).get("stage") in _PROGRESS_TARGETS}
+        merged.update(cur_snap)
+        merged["_meta"] = {"baseline": True}
+        return merged
+
+    # 无论是否推送，都先把最新进度落盘（并写入基线标记）；
+    # pushed_stage 仅在推送成功后更新（见下），失败则保留待推状态便于补推。
+    _save(LAST_ISSUES, _merge_snapshot(cur))
+
+    if not pending:
+        print("[notify] 无「上市委通过/同意注册」进度变化")
+        return False
+
+    lines = ["## 可转债审核进度变化\n"]
+    for code in pending:
+        lines.append(f"- {cur[code].get('bond_name') or code}：{cur[code].get('stage')}")
+    ok = _send("进度变化", "\n".join(lines))
+
+    if ok:
+        # 推送成功才精确回写各自 pushed_stage，下次不再重复推；失败则保留待推状态以便补推
+        for code in pending:
+            cur[code]["pushed_stage"] = cur[code].get("stage")
+        _save(LAST_ISSUES, _merge_snapshot(cur))
+    return ok
+
+
+def _is_trading_window():
+    """A股交易时段（北京周一~周五 09:30-15:10），可转债低价/低溢价推送仅在此时节流触发"""
+    now = datetime.utcnow() + timedelta(hours=8)  # 北京墙钟
+    if now.weekday() >= 5:
+        return False
+    hm = now.hour * 100 + now.minute
+    return 930 <= hm <= 1510
+
+
+def push_cb_alert():
+    """推送「当天新进入」低价/低溢价条件的可转债变动提醒（价格<110 或 转股溢价率<10%）。
+
+    与上一次检查的命中集合比对，仅推送本次「新增命中」的转债；
+    同一只债当天只提醒一次；不再是完整版列表。
+    状态文件 last_cb_alerts.json：{"set": [命中代码...], "pushed": {code: 日期}}
+    """
+    from scrapers.eastmoney import EastMoneyScraper
+
+    force = os.environ.get("CB_ALERT_FORCE", "").lower() in ("1", "true", "yes", "y", "on")
+    if not _is_trading_window() and not force:
+        print("[notify] 非交易时段，跳过低价/低溢价推送（如需手动测试请设置 CB_ALERT_FORCE=1）")
+        return False
+
+    live = EastMoneyScraper.fetch_cb_list()
+    if not live:
+        print("[notify] 无可转债数据，跳过低价/低溢价推送")
+        return False
+
+    today = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d")
+    # 当前命中集合（需有真实成交价）
+    current = {}
+    for b in live:
+        price = _to_num(b.get("price"))
+        if price is None:
+            # 无成交价（当日停牌/未成交/未上市）：价格是 "-"，溢价为推算值不可靠，跳过
+            continue
+        prem = _to_num(b.get("premium_rate"))
+        reasons = []
+        if price < 110:
+            reasons.append("价格<110")
+        if prem is not None and prem < 10:
+            reasons.append("溢价<10%")
+        if not reasons:
+            continue
+        code = b.get("code", "")
+        current[code] = {
+            "code": code, "name": b.get("name", ""),
+            "price": price, "premium_rate": prem, "reasons": reasons,
+        }
+
+    state = {"set": [], "pushed": {}}
+    if os.path.exists(LAST_CB_ALERTS):
+        try:
+            with open(LAST_CB_ALERTS, "r", encoding="utf-8") as f:
+                state = json.load(f)
+        except Exception:
+            state = {"set": [], "pushed": {}}
+    if not isinstance(state, dict) or "set" not in state:
+        # 兼容旧格式 {code: date}：视为“上次已命中且当日已推送”
+        old = state if isinstance(state, dict) else {}
+        state = {"set": sorted(str(k) for k in old.keys()),
+                 "pushed": {str(k): str(v) for k, v in old.items()}}
+    prev_set = set(state.get("set") or [])
+    pushed = state.get("pushed") or {}
+
+    # 仅推送“新增命中 + 当天未推送过”
+    new_hits = []
+    for code, info in current.items():
+        if pushed.get(code) == today:
+            continue
+        if code not in prev_set:
+            new_hits.append(info)
+
+    if new_hits:
+        new_hits.sort(key=lambda h: (h["premium_rate"] is None, h["premium_rate"] or 0))
+        lines = ["## 可转债低价/低溢价变动\n",
+                 f"今日新增 {len(new_hits)} 只（价格<110 或 转股溢价率<10%）\n"]
+        for h in new_hits[:25]:
+            parts = [f"**{h['name']}** ({h['code']})"]
+            if h["price"] is not None:
+                parts.append(f"{_fmt(h['price'])}元")
+            if h["premium_rate"] is not None:
+                parts.append(f"溢价{_fmt(h['premium_rate'])}%")
+            parts.append("/".join(h["reasons"]))
+            lines.append("- " + " | ".join(parts))
+        _send("可转债低价/低溢价变动提醒", "\n".join(lines))
+
+    # 更新状态：命中集合 + 当日处理记录（同一只债当天不再重复提醒）
+    for code in current:
+        pushed[code] = today
+    state["set"] = sorted(current.keys())
+    state["pushed"] = pushed
+    _save(LAST_CB_ALERTS, state)
+
+    return bool(new_hits)
+
+
+if __name__ == "__main__":
+    mode = sys.argv[1] if len(sys.argv) > 1 else "--test"
+    t0 = time.time()
+    ok = False
+    if mode == "--rotation":
+        _force = os.environ.get("ROTATION_FORCE", "").lower() in ("1", "true", "yes", "y", "on")
+        ok = push_rotation(force=_force)
+    elif mode == "--progress":
+        ok = push_progress_change()
+    elif mode == "--cb-alert":
+        ok = push_cb_alert()
+    else:
+        ok = _send("金融提醒工具测试",
+                   f"## 测试消息\n\n如果收到说明推送正常\n时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    sys.exit(0 if ok else 1)
