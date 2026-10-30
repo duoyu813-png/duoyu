@@ -124,6 +124,41 @@ class EastMoneyScraper:
             universe = cls._fetch_cb_universe()
             if not universe:
                 return []
+            # 优先尝试集思录 webapi（自带真实现价+转股溢价率，不依赖转股价，
+            # 而新浪兜底路径的转股价多为初始转股价，下修后溢价率严重失真）
+            jsl = cls._fetch_jisilu_quotes()
+            # 游客集思录仅返回约30条（无 cookie）；数量不足则继续走新浪兜底
+            if len(jsl) >= 250:
+                cls._last_cb_mode = "jisilu"
+                live = []
+                for code, q in jsl.items():
+                    if q.get("price") is None:
+                        continue
+                    fund = universe.get(code) or {}
+                    live.append({
+                        "code": code,
+                        "name": q.get("name") or fund.get("name") or "",
+                        "price": q.get("price"),
+                        "change_pct": q.get("change_pct"),
+                        "premium_rate": q.get("premium_rate"),
+                        "conversion_value": q.get("conversion_value"),
+                        "pure_bond_value": None,
+                        "transfer_price": fund.get("transfer_price"),
+                        "stock_price": q.get("stock_price"),
+                        "ytm_before_tax": None,
+                        "remaining_years": None,
+                        "stock_code": fund.get("stock_code") or "",
+                        "stock_name": fund.get("stock_name") or "",
+                        "redeem_trig_price": None,
+                        "redeem_price": None,
+                        "maturity_date_str": "",
+                        "list_date_str": "",
+                        "conversion_period_start_str": "",
+                        "volume": q.get("volume"),
+                        "turnover_rate": q.get("turnover_rate"),
+                    })
+                print(f"[EastMoney] push2 不可用，已切换集思录数据源（{len(live)} 只）")
+                return live
             sina = cls._fetch_sina_quotes(list(universe.keys()), universe)
             live = []
             for code, fund in universe.items():
@@ -339,6 +374,58 @@ class EastMoneyScraper:
     def _fetch_push2_quotes_list(cls) -> list:
         """降级：仅东财板块，返回 live_bonds 列表（旧行为）。"""
         return [dict(v, code=k) for k, v in cls._fetch_push2_quotes().items()]
+
+    @classmethod
+    def _fetch_jisilu_quotes(cls) -> dict:
+        """集思录 webapi 转债列表（现价/转股溢价率为真实值，不依赖转股价），
+        作为 push2 行情板不可用时的备用实时源。游客仅返回约30条，
+        配置 JISILU_COOKIE 后返回全量 ~300+ 条。返回 {code: quote_dict}。"""
+        try:
+            from config import Config
+            cookie = getattr(Config, "JISILU_COOKIE", "") or ""
+        except Exception:
+            cookie = ""
+        headers = {
+            "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                           "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"),
+            "Referer": "https://www.jisilu.cn/data/cbnew/",
+            "Accept": "application/json",
+        }
+        if cookie:
+            headers["Cookie"] = cookie
+        out: dict[str, dict] = {}
+        rows = None
+        for method in ("get", "post"):
+            try:
+                r = getattr(requests, method)(
+                    "https://www.jisilu.cn/webapi/cb/list/", headers=headers,
+                    timeout=20, data={"___jb": ""} if method == "post" else None)
+                r.raise_for_status()
+                d = r.json()
+                rows = d.get("data") if isinstance(d, dict) else d
+                if rows:
+                    break
+            except Exception as e:
+                print(f"[EastMoney] 集思录备用源({method})失败: {e}")
+                time.sleep(2)
+        if not isinstance(rows, list):
+            return out
+        for x in rows:
+            code = str(x.get("bond_id") or "")
+            if not code:
+                continue
+            out[code] = {
+                "name": str(x.get("bond_nm") or ""),
+                "price": safe_float(x.get("price")),
+                "change_pct": safe_float(x.get("increase_rt")),
+                "premium_rate": safe_float(x.get("premium_rt")),
+                "conversion_value": safe_float(x.get("convert_value")),
+                "stock_price": safe_float(x.get("sprice")),
+                "stock_code": str(x.get("stock_id") or ""),
+                "volume": safe_float(x.get("volume")),
+                "turnover_rate": safe_float(x.get("turnover_rt")),
+            }
+        return out
 
     @classmethod
     def _sina_symbol(cls, code: str) -> str:

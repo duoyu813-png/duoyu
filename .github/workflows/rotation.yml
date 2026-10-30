@@ -36,6 +36,7 @@ jobs:
       - name: Run weekly rotation push
         env:
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          JISILU_COOKIE: ${{ secrets.JISILU_COOKIE }}
           ROTATION_FORCE: ${{ inputs.force }}
         run: python notify.py --rotation
 

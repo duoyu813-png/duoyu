@@ -180,7 +180,7 @@ def _check_data_complete(merged: list[dict], mode: str) -> tuple[bool, str]:
     2) 有成交价的转债中，溢价率与剩余规模两个关键字段必须基本齐全
        （缺失会被策略当成 999 误杀，导致轮入列表骤减漏推）。
     返回 (是否合格, 说明)。"""
-    if mode != "full":
+    if mode not in ("full", "jisilu"):
         return False, f"行情板降级模式（mode={mode}），转股价/溢价率不可靠"
     traded = [b for b in merged if _to_num(b.get("price")) is not None]
     if len(traded) < 250:
