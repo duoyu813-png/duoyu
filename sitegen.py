@@ -507,6 +507,7 @@ def main() -> int:
 
     # ---------- 1) 可转债 ----------
     live_data = EastMoneyScraper.fetch_cb_list()
+    print(f"[sitegen] 可转债行情源模式: {getattr(EastMoneyScraper, '_last_cb_mode', '?')}")
     if live_data:
         fundamentals = EastMoneyScraper.fetch_cb_fundamentals()
         stock_codes = [b["stock_code"] for b in live_data if b.get("stock_code")]

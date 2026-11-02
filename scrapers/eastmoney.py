@@ -738,20 +738,21 @@ class EastMoneyScraper:
     # ==================== 封闭基金 ====================
 
     @classmethod
-    def fetch_cb_remaining_sizes(cls, codes: list[str], workers: int = 8) -> dict:
-        """逐债查询东财 RPTA_WEB_KZZ_LS 取最新「剩余份额」(SYFE, 单位元)，折算为剩余规模(亿元)。
+    def fetch_cb_daily_metrics(cls, codes: list[str], workers: int = 8) -> dict:
+        """逐债查询东财 RPTA_WEB_KZZ_LS，一次请求同时取「剩余份额(SYFE)」与「当日转股价值/溢价率(SWAPVALUE/SWAPOR)」。
 
-        背景：RPT_BOND_CB_LIST 仅有发行规模(ACTUAL_ISSUE_SCALE)，没有「剩余规模(余额)」。
-        若直接用发行规模当剩余规模，会把已大量转股、余额<5亿的债误判为>5亿而剔除
-        （如盛航转债：发行7.4亿、剩余仅4.54亿）。剩余规模需用此按日序列报告的 SYFE
-        字段，取最新非空值，再 ÷1e8 得到「亿元」。
+        - SYFE(单位元)：最新「剩余份额」，÷1e8 得剩余规模(亿元)。
+        - SWAPVALUE/SWAPOR：东财当日(含转股价下修后)转股价值与转股溢价率(%)，即券商/集思录
+          榜单口径。用于校正新浪兜底路径的失真溢价率——兜底路径转股价取 INITIAL_TRANSFER_PRICE
+          (初始转股价)，正股一旦下修，转股价值被低估、溢价率虚高(如华辰转债真实 29%被算成 86%)，
+          会把双低等策略候选误杀。
 
-        兜底：东财 SYFE 对部分债（未转股/少转股/报告缺行）返回 null，此时改用逐债
-        push2 行情「总市值 f116 ÷ 转债现价」反推剩余面值（f116 为「剩余张数×现价」，
-        故剩余面值= f116×100/现价），既修复「发行=5亿→兜底成5亿被<5亿误杀」的边界问题，
-        也避免把发行规模当剩余规模。
+        背景：RPT_BOND_CB_LIST 仅有发行规模，无「剩余规模」；若用发行规模顶替，会把
+        「发行>5亿但剩余<5亿」的债误剔除（如盛航转债：发行7.4亿、剩余仅4.54亿）。
 
-        返回 {code: 剩余规模_亿元}；全部渠道取不到的 code 不出现在结果中。
+        返回 {code: {"size": 剩余规模_亿元|None,
+                     "swap_value": 当日转股价值|None,
+                     "swap_or": 当日转股溢价率%|None}}。
         """
         if not codes:
             return {}
@@ -760,38 +761,41 @@ class EastMoneyScraper:
         def _one(code):
             params = {
                 "reportName": "RPTA_WEB_KZZ_LS",
-                "columns": "DATE,SYFE,ZCODE",
+                "columns": "DATE,SYFE,SWAPVALUE,SWAPOR,ZCODE",
                 "source": "WEB", "client": "WEB",
                 "filter": f'(zcode="{code}")',
                 "pageNumber": "1", "pageSize": "5",
                 "sortColumns": "DATE", "sortTypes": "-1",
             }
+            size = swap_value = swap_or = None
+            rows = []
             try:
                 d = cls._get_json(cls.DC_URL, params)
                 rows = (d or {}).get("result") and d["result"].get("data") or []
                 for r in rows:
-                    syfe = r.get("SYFE")
-                    if syfe not in (None, "", "-"):
-                        return code, round(float(syfe) / 1e8, 4)
+                    if size is None and r.get("SYFE") not in (None, "", "-"):
+                        size = round(float(r["SYFE"]) / 1e8, 4)
+                    if swap_value is None:
+                        swap_value = _sf(r.get("SWAPVALUE"))
+                    if swap_or is None:
+                        swap_or = _sf(r.get("SWAPOR"))
             except Exception:
                 pass
             # SYFE 缺失：用 push2 行情总市值(f116) 反推剩余面值；失败再允许调用方退回发行规模
-            try:
-                remaining = cls._remaining_size_via_mktcap(code)
-                if remaining is not None:
-                    return code, remaining
-            except Exception:
-                pass
-            return code, None
+            if size is None:
+                try:
+                    size = cls._remaining_size_via_mktcap(code)
+                except Exception:
+                    size = None
+            return code, size, swap_value, swap_or
 
         out = {}
         with ThreadPoolExecutor(max_workers=workers) as ex:
             futs = {ex.submit(_one, c): c for c in codes}
             for f in as_completed(futs):
                 try:
-                    code, val = f.result()
-                    if val is not None:
-                        out[code] = val
+                    code, size, swap_value, swap_or = f.result()
+                    out[code] = {"size": size, "swap_value": swap_value, "swap_or": swap_or}
                 except Exception:
                     pass
         return out

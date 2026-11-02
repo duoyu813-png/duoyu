@@ -71,20 +71,24 @@ def merge_cb_data(live_bonds: list[dict], fundamentals: list[dict],
         if code:
             fund_index[code] = item
 
-    # 剩余规模(余额)数据源：东财 RPTA_WEB_KZZ_LS 的 SYFE 字段（逐债按日剩余份额）。
-    # 注意：该字段只对「已发生转股」的债有值；未/少转股的债 SYFE 为 None，
+    # 剩余规模(余额)+当日转股价值数据源：东财 RPTA_WEB_KZZ_LS 逐债按日序列
+    # （SYFE=剩余份额, SWAPVALUE=含转股价下修的当日转股价值, SWAPOR=当日转股溢价率）。
+    # 注意：SYFE 只对「已发生转股」的债有值；未/少转股的债 SYFE 为 None，
     # 此时退回发行规模(ACTUAL_ISSUE_SCALE)——对少转股债 剩余≈发行，等价正确。
     # 严禁直接用发行规模顶替剩余规模，否则会把「发行>5亿但剩余<5亿」的债误剔除
     # （如盛航转债：发行7.4亿、剩余仅4.54亿）。
+    cb_metrics = {}
     if remaining_sizes is None:
         try:
-            remaining_sizes = EastMoneyScraper.fetch_cb_remaining_sizes(
+            cb_metrics = EastMoneyScraper.fetch_cb_daily_metrics(
                 [b["code"] for b in live_bonds if b.get("code")], workers=8
             )
         except Exception:
-            remaining_sizes = {}
+            cb_metrics = {}
+        remaining_sizes = {c: m["size"] for c, m in cb_metrics.items() if m.get("size") is not None}
     if remaining_sizes is None:
         remaining_sizes = {}
+    cb_mode = getattr(EastMoneyScraper, "_last_cb_mode", "fallback")
 
     # 票面利率（阶梯）：优先用东财 RPT_BOND_CB_LIST 的 INTEREST_RATE_EXPLAIN（全市场可达，
     # 无需 cookie）；集思录 cb_list_new 作备用（游客态仅前30只，配 JISILU_COOKIE 解锁全部）。
@@ -103,6 +107,24 @@ def merge_cb_data(live_bonds: list[dict], fundamentals: list[dict],
     today = date.today()
     for bond in live_bonds:
         code = bond["code"]
+        # 溢价率校正（fallback 新浪兜底路径专属）：
+        # 新浪路径的转股价取东财 TRANSFER_PRICE，而该字段现全市场返回 null，
+        # 代码退回 INITIAL_TRANSFER_PRICE(初始转股价)；正股一旦下修转股价，
+        # 转股价值被低估、溢价率虚高（如华辰转债真实 29% 被算成 86%），
+        # 导致双低等策略把候选误杀。改用 RPTA_WEB_KZZ_LS 当日 SWAPVALUE
+        # （东财按最新转股价计算的转股价值，与券商/集思录口径一致）重算，
+        # 并用 正股价×100/SWAPVALUE 反推出下修后的当前转股价。
+        if cb_mode == "fallback":
+            m = cb_metrics.get(code) or {}
+            swap_value = m.get("swap_value")
+            price = bond.get("price")
+            if swap_value and swap_value > 0 and price and 0 < price < 10000:
+                corrected_prem = round((price / swap_value - 1) * 100, 2)
+                bond["conversion_value"] = round(swap_value, 2)
+                bond["premium_rate"] = corrected_prem
+                sp = bond.get("stock_price")
+                if sp and sp > 0:
+                    bond["transfer_price"] = round(sp * 100.0 / swap_value, 2)
         info = fund_index.get(code, {})
         if info:
             bond["credit_rating"] = str(info.get("RATING", "")).replace("sti", "").strip()
