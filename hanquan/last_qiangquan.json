@@ -1,6 +1,6 @@
 {
  "total": 76,
- "generated_at": "2026-11-04 17:56:41",
+ "generated_at": "2026-11-04 23:21:51",
  "source": "live",
  "bonds": [
   {
@@ -1084,6 +1084,96 @@
    "per_share_allotment": 5.0582
   },
   {
+   "stock_code": "688360",
+   "stock_name": "德马科技",
+   "bond_name": "德马科技转债",
+   "industry": "AI/科技",
+   "total_scale": 7.02,
+   "per_share_amount": 12.9,
+   "progress": "股东大会通过",
+   "progress_date": "2026-11-05",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "科创板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 19.65,
+   "cb_amount": 12.9,
+   "b_shares": 0.0,
+   "price": 20.64,
+   "change_pct": 4.08,
+   "pb": 3.65,
+   "ma20_price": 19.65,
+   "circ_mv": 4.91,
+   "circ_mv_score_factor": 4.91,
+   "pe": 36.86,
+   "turnover_rate": null,
+   "amount": 7.02,
+   "q1_growth": 17.14,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 200,
+   "per_hand_shares": 375.7060783475784,
+   "market": "沪",
+   "total_score": 73,
+   "rating": "A",
+   "action": "关注建仓",
+   "action_reason": "高分+交易所通过，等待注册后加仓",
+   "action_price": "买入≤18.58 | 卖出≥23.74 | 安全垫7.3%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "12.90元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.91亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长17.14%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": -10,
+     "max": 0,
+     "factor": "科创板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=36.86"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交7.0亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 12.9,
+   "hidden_circulation": 4.91,
+   "total": 73,
+   "issue_amount": 7.02,
+   "safety_pct": 7.3,
+   "per_share_allotment": 2.6617
+  },
+  {
    "stock_code": "301376",
    "stock_name": "致欧科技",
    "bond_name": "致欧科技转债",
@@ -1172,96 +1262,6 @@
    "issue_amount": 5.14,
    "safety_pct": 1.8,
    "per_share_allotment": 1.2771
-  },
-  {
-   "stock_code": "688360",
-   "stock_name": "德马科技",
-   "bond_name": "德马科技转债",
-   "industry": "AI/科技",
-   "total_scale": 7.02,
-   "per_share_amount": 12.9,
-   "progress": "董事会预案",
-   "progress_date": "2026-10-20",
-   "registration_date": "",
-   "approval_date": "",
-   "board": "科创板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 19.65,
-   "cb_amount": 12.9,
-   "b_shares": 0.0,
-   "price": 20.64,
-   "change_pct": 4.08,
-   "pb": 3.65,
-   "ma20_price": 19.65,
-   "circ_mv": 4.91,
-   "circ_mv_score_factor": 4.91,
-   "pe": 36.86,
-   "turnover_rate": null,
-   "amount": 7.02,
-   "q1_growth": 17.14,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 200,
-   "per_hand_shares": 375.7060783475784,
-   "market": "沪",
-   "total_score": 73,
-   "rating": "A",
-   "action": "关注",
-   "action_reason": "高分标的，等待更明确信号",
-   "action_price": "买入≤18.58 | 卖出≥23.74 | 安全垫7.3%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "12.90元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.91亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长17.14%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "未知"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "科创板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=36.86"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交7.0亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 12.9,
-   "hidden_circulation": 4.91,
-   "total": 73,
-   "issue_amount": 7.02,
-   "safety_pct": 7.3,
-   "per_share_allotment": 2.6617
   },
   {
    "stock_code": "300932",
