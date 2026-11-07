@@ -1,6 +1,6 @@
 {
  "total": 76,
- "generated_at": "2026-11-07 00:29:25",
+ "generated_at": "2026-11-07 06:31:40",
  "source": "live",
  "bonds": [
   {
@@ -4864,96 +4864,6 @@
    "per_share_allotment": 1.7247
   },
   {
-   "stock_code": "300432",
-   "stock_name": "富临精工",
-   "bond_name": "富临精工转债",
-   "industry": "化工/材料",
-   "total_scale": 12.52,
-   "per_share_amount": 4.88,
-   "progress": "股东大会通过",
-   "progress_date": "2024-12-06",
-   "registration_date": "",
-   "approval_date": "",
-   "board": "创业板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 13.92,
-   "cb_amount": 4.88,
-   "b_shares": 0.0,
-   "price": 15.0,
-   "change_pct": -0.66,
-   "pb": 4.95,
-   "ma20_price": 13.92,
-   "circ_mv": 8.76,
-   "circ_mv_score_factor": 8.76,
-   "pe": 31.62,
-   "turnover_rate": null,
-   "amount": 12.52,
-   "q1_growth": 63.87,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 1366,
-   "per_hand_shares": 1365.623196485623,
-   "market": "深",
-   "total_score": 49,
-   "rating": "C",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤13.8 | 卖出≥16.5 | 安全垫1.5%",
-   "score_details": {
-    "含权量评分": {
-     "score": 5,
-     "max": 30,
-     "factor": "4.88元"
-    },
-    "隐形流通量评分": {
-     "score": 12,
-     "max": 40,
-     "factor": "8.76亿"
-    },
-    "业绩评分": {
-     "score": 35,
-     "max": 40,
-     "factor": "Q1增长63.87%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "未知"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "创业板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=31.62"
-    },
-    "行业加减分": {
-     "score": -3,
-     "max": 10,
-     "factor": "化工/材料"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交12.5亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "化工/材料"
-    }
-   },
-   "weighted_amount": 4.88,
-   "hidden_circulation": 8.76,
-   "total": 49,
-   "issue_amount": 12.52,
-   "safety_pct": 1.5,
-   "per_share_allotment": 0.7323
-  },
-  {
    "stock_code": "688510",
    "stock_name": "航亚科技",
    "bond_name": "航亚转债",
@@ -6572,6 +6482,96 @@
    "issue_amount": 80.0,
    "safety_pct": 4.0,
    "per_share_allotment": 1.5935
+  },
+  {
+   "stock_code": "300432",
+   "stock_name": "富临精工",
+   "bond_name": "富临精工转债",
+   "industry": "化工/材料",
+   "total_scale": 12.52,
+   "per_share_amount": 4.88,
+   "progress": "股东大会通过",
+   "progress_date": "2024-12-06",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "创业板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 13.92,
+   "cb_amount": 4.88,
+   "b_shares": 0.0,
+   "price": 15.0,
+   "change_pct": -0.66,
+   "pb": 4.95,
+   "ma20_price": 13.92,
+   "circ_mv": 8.76,
+   "circ_mv_score_factor": 8.76,
+   "pe": null,
+   "turnover_rate": null,
+   "amount": 12.52,
+   "q1_growth": null,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 1366,
+   "per_hand_shares": 1365.623196485623,
+   "market": "深",
+   "total_score": 29,
+   "rating": "D",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤13.8 | 卖出≥16.5 | 安全垫1.5%",
+   "score_details": {
+    "含权量评分": {
+     "score": 5,
+     "max": 30,
+     "factor": "4.88元"
+    },
+    "隐形流通量评分": {
+     "score": 12,
+     "max": 40,
+     "factor": "8.76亿"
+    },
+    "业绩评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "暂无数据"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": -10,
+     "max": 0,
+     "factor": "创业板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "无"
+    },
+    "行业加减分": {
+     "score": -3,
+     "max": 10,
+     "factor": "化工/材料"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交12.5亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "化工/材料"
+    }
+   },
+   "weighted_amount": 4.88,
+   "hidden_circulation": 8.76,
+   "total": 29,
+   "issue_amount": 12.52,
+   "safety_pct": 1.5,
+   "per_share_allotment": 0.7323
   },
   {
    "stock_code": "000887",
