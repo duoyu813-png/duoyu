@@ -223,21 +223,28 @@ def fetch_strategies(max_attempts: int = 6):
     return {}
 
 
+def _now_bj() -> datetime:
+    """当前北京时间（Actions runner 为 UTC，统一 +8 后使用）"""
+    return datetime.utcnow() + timedelta(hours=8)
+
+
 def push_rotation(force: bool = False):
     """每周「最后一个交易日」轮动推送。
 
-    定时任务每天（含周末）多次运行（见 rotation.yml），推送判定改为：
+    定时任务每天（含周末）多次运行（见 rotation.yml），推送判定：
       - 本周最后一个交易日还没到 → 跳过（正常，并非错误）
       - 本周最后一个交易日已到（或错过）但本周尚未推送 → 推送，并记录标记
       - 本周已推送过 → 跳过（防止重复刷屏）
-
-    这样即使某天 GitHub 定时器没触发、或触发严重延迟，后续任意一次运行都能
-    自动补推，不会漏掉一周。force=True（手动触发）时跳过日历与去重判定。
+      - 时间守卫：最后交易日「当天」需北京时间 ≥14:00 才推送。GitHub 定时器
+        偶发严重延迟（如北京周四 17:00 的触发行被排队到凌晨 1:20 才执行），
+        此时日期已跨入最后交易日但尚未收盘，若照推会用上一交易日数据抢跑，
+        且去重标记导致当天收盘后的正常推送被跳过。周末补推（today>ltd）不受
+        此守卫限制，保持漏推兜底能力。force=True（手动触发）跳过全部判定。
     """
-    from datetime import date
     import trading_calendar
 
-    today = (datetime.utcnow() + timedelta(hours=8)).date()
+    now_bj = _now_bj()
+    today = now_bj.date()
     ltd = trading_calendar.last_trading_day_of_week(today)
     if ltd is None:
         print(f"[notify] 本周 {today} 无交易日，跳过轮动推送（整周休市）")
@@ -257,6 +264,11 @@ def push_rotation(force: bool = False):
     if not force and today < ltd:
         print(f"[notify] 本周最后一个交易日还没到（{ltd}），今天 {today} 跳过")
         return True
+    if not force and today == ltd and now_bj.hour < 14:
+        # 定时器延迟触发跨零点守卫：最后交易日当天、但未过 14:00（收盘确认窗口），
+        # 此刻行情仍是上一交易日数据，不推，等下一次 ≥14:00 的触发。
+        print(f"[notify] {today} 为本周期最后交易日，但北京时间 {now_bj:%H:%M} 未到 14:00，跳过")
+        return True
     if not force and already:
         print(f"[notify] 本周 {ltd} 轮动已推送过，跳过去重")
         return True
@@ -270,7 +282,7 @@ def push_rotation(force: bool = False):
     snapshot = dict(current)
     snapshot["_meta"] = {
         "pushed_ltd": ltd.isoformat(),
-        "pushed_at": (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S"),
+        "pushed_at": _now_bj().strftime("%Y-%m-%d %H:%M:%S"),
     }
     _save(LAST_STRATEGIES, snapshot)
     return _send("每周可转债轮动", "\n".join(lines))
