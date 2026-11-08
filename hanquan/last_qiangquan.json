@@ -1,6 +1,6 @@
 {
  "total": 76,
- "generated_at": "2026-11-08 14:36:51",
+ "generated_at": "2026-11-08 19:06:17",
  "source": "live",
  "bonds": [
   {
@@ -6236,10 +6236,10 @@
    "ma20_price": 18.94,
    "circ_mv": 17.36,
    "circ_mv_score_factor": 17.36,
-   "pe": null,
+   "pe": 46.55,
    "turnover_rate": null,
    "amount": 24.8,
-   "q1_growth": null,
+   "q1_growth": -29.89,
    "major_shareholder_ratio": 0.3,
    "one_hand_shares": 619,
    "per_hand_shares": 618.1775947580645,
@@ -6263,7 +6263,7 @@
     "业绩评分": {
      "score": 15,
      "max": 40,
-     "factor": "暂无数据"
+     "factor": "Q1增长-29.89%"
     },
     "潜伏期扣分": {
      "score": 0,
@@ -6278,7 +6278,7 @@
     "PE扣分": {
      "score": 0,
      "max": 0,
-     "factor": "无"
+     "factor": "PE=46.55"
     },
     "行业加减分": {
      "score": -3,
