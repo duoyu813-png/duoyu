@@ -1,6 +1,6 @@
 {
- "total": 71,
- "generated_at": "2026-11-11 11:04:15",
+ "total": 70,
+ "generated_at": "2026-11-11 18:33:44",
  "source": "live",
  "bonds": [
   {
@@ -3966,18 +3966,18 @@
   {
    "stock_code": "605016",
    "stock_name": "百龙创园",
-   "bond_name": "百龙创园转债",
+   "bond_name": "百龙转债",
    "industry": "其他",
    "total_scale": 7.48,
    "per_share_amount": 9.06,
-   "progress": "同意注册",
-   "progress_date": "2026-10-13",
+   "progress": "发行中",
+   "progress_date": "2026-11-16",
    "registration_date": "2026-05-06",
    "approval_date": "",
    "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 18.69,
+   "rating_cd": "AA",
+   "record_dt": "2026-11-13",
+   "convert_price": 19.42,
    "cb_amount": 9.06,
    "b_shares": 0.0,
    "price": 19.66,
@@ -4862,96 +4862,6 @@
    "issue_amount": 12.52,
    "safety_pct": 1.4,
    "per_share_allotment": 0.7323
-  },
-  {
-   "stock_code": "688510",
-   "stock_name": "航亚科技",
-   "bond_name": "航亚转债",
-   "industry": "AI/科技",
-   "total_scale": 6.0,
-   "per_share_amount": 11.75,
-   "progress": "发行中",
-   "progress_date": "2026-10-21",
-   "registration_date": "2026-06-23",
-   "approval_date": "",
-   "board": "科创板",
-   "rating_cd": "AA",
-   "record_dt": "2026-10-20",
-   "convert_price": 23.93,
-   "cb_amount": 10.42,
-   "b_shares": 0.0,
-   "price": 19.65,
-   "change_pct": -0.91,
-   "pb": 4.13,
-   "ma20_price": 20.37,
-   "circ_mv": 4.2,
-   "circ_mv_score_factor": 4.2,
-   "pe": 61.41,
-   "turnover_rate": null,
-   "amount": 6.0,
-   "q1_growth": -34.68,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 300,
-   "per_hand_shares": 433.2043466666667,
-   "market": "沪",
-   "total_score": 48,
-   "rating": "C",
-   "action": "小仓关注",
-   "action_reason": "低分但属AI板块，小仓参与",
-   "action_price": "买入≤18.08 | 卖出≥21.61 | 安全垫5.1%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "11.75元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.20亿"
-    },
-    "业绩评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "Q1增长-34.68%"
-    },
-    "潜伏期扣分": {
-     "score": -12,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "科创板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=61.41"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交6.0亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 11.75,
-   "hidden_circulation": 4.2,
-   "total": 48,
-   "issue_amount": 6.0,
-   "safety_pct": 5.1,
-   "per_share_allotment": 2.3084
   },
   {
    "stock_code": "300304",
