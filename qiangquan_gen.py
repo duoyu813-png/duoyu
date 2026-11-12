@@ -16,6 +16,7 @@ import os
 import shutil
 import sys
 import time
+from datetime import datetime, timedelta, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,6 +28,11 @@ FALLBACK = os.path.join(BASE, "hanquan", "last_qiangquan.json")
 TEMPLATE = os.path.join(BASE, "hanquan", "board_template.html")
 ISSUES_TEMPLATE = os.path.join(BASE, "hanquan", "issues_template.html")
 VUE_LIB = os.path.join(BASE, "hanquan", "vue.global.prod.js")
+
+
+def _now_bj() -> str:
+    """当前北京时间字符串（Actions runner 为 UTC，统一 +8）。"""
+    return datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
 
 CDN_BLOCK = """<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 <script>
@@ -304,7 +310,7 @@ render();
             .replace("__ALLCHIP__", all_chip)
             .replace("__PROGCHIPS__", "".join(prog_chips))
             .replace("__TOTAL__", str(len(bonds)))
-            .replace("__TIME__", time.strftime("%Y-%m-%d %H:%M:%S"))
+            .replace("__TIME__", _now_bj())
             .replace("__DATA__", data_json))
 
 
@@ -344,7 +350,7 @@ def main() -> int:
 
     payload = {
         "total": len(bonds),
-        "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "generated_at": _now_bj(),
         "source": source,
         "bonds": [_normalize(b) for b in bonds],
     }

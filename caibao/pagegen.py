@@ -7,7 +7,7 @@
 规则引擎 caibao/engine.js 内联进页面。
 """
 import os
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(BASE, "dist")
@@ -216,7 +216,7 @@ def _page(now: str) -> str:
 
 
 def render(now: str = "") -> None:
-    now = now or datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    now = now or datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
     os.makedirs(DIST, exist_ok=True)
     path = os.path.join(DIST, "caibao.html")
     with open(path, "w", encoding="utf-8") as f:

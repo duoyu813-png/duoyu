@@ -481,45 +481,32 @@ STRATEGY_SWITCH_JS = """<script>
 def main() -> int:
     t0 = time.time()
     print("[sitegen] 开始生成静态看板（多页面）")
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    now = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
     report = {"generated_at": now, "sections": {}}
 
-    # ---------- 交易时段门禁：仅在「交易日 + 交易时间」真正刷新 ----------
-    # 定时任务（refresh.yml）按 15 分钟高频触发，这里用交易日历 + 北京时间交易时段判定：
-    # 非交易日（周末/节假日）或非交易时间（集合竞价 9:15 前、午休、收盘后）直接跳过，
-    # 保留上一版静态页面不变，避免夜间/周末/节假日空跑浪费 Actions。手动强制用 SITEGEN_FORCE=1。
-    if os.environ.get("SITEGEN_FORCE", "").strip().lower() not in ("1", "true", "yes"):
-        import trading_calendar
-        _bj = datetime.now(timezone(timedelta(hours=8)))
-        _mins = _bj.hour * 60 + _bj.minute
-        _in_trading_am = (9 * 60 + 15) <= _mins < (11 * 60 + 30)   # 09:15–11:30（含集合竞价）
-        _in_trading_pm = (13 * 60) <= _mins < (15 * 60)            # 13:00–15:00
-        _in_trading = _in_trading_am or _in_trading_pm
-        if not trading_calendar.is_trading_day(_bj.date()):
-            print(f"[sitegen] {_bj:%Y-%m-%d} 非交易日，跳过刷新")
-            return 0
-        if not _in_trading:
-            print(f"[sitegen] {_bj:%H:%M} 非交易时段（{_bj:%H:%M}），跳过刷新")
-            return 0
-        print(f"[sitegen] 交易日 {_bj:%Y-%m-%d} 交易时段 {_bj:%H:%M}，开始刷新")
-    else:
-        print("[sitegen] 手动强制刷新")
+    # ---------- 说明：不再按交易时段跳过生成 ----------
+    # GitHub 定时任务会被大幅降频（*/15 实际每天只触发几次且时间随机），若仍按交易时段
+    # 门禁跳过，极易整天都落在窗口外，导致 dist 不生成 → 部署步骤被跳过 → 整站连同
+    # 「待发可转债进度」一起滞后数天。改为每次运行都生成：交易时段用实时行情，非交易
+    # 时段用东财最近收盘价，页面顶部「数据时间」标注真实（北京时间）生成时刻即可。
+    _bj = datetime.now(timezone(timedelta(hours=8)))
+    print(f"[sitegen] 开始生成（北京时间 {_bj:%Y-%m-%d %H:%M}）")
 
     # ---------- 1) 可转债 ----------
     live_data = EastMoneyScraper.fetch_cb_list()
     print(f"[sitegen] 可转债行情源模式: {getattr(EastMoneyScraper, '_last_cb_mode', '?')}")
-    if live_data:
-        fundamentals = EastMoneyScraper.fetch_cb_fundamentals()
-        stock_codes = [b["stock_code"] for b in live_data if b.get("stock_code")]
-        concepts = EastMoneyScraper.fetch_stock_concepts(stock_codes)
-        financials = EastMoneyScraper.fetch_stock_financials(stock_codes)
-        merged = merge_cb_data(live_data, fundamentals, concepts, financials)
-        bonds = _build_bond_dicts(merged)
-        strategies = run_all_strategies(bonds)
-        cb_count = len(merged)
-    else:
-        strategies = {}
-        cb_count = 0
+    if not live_data:
+        # 行情抓取失败：不写入任何页面，保留上一版 Pages，避免部署出空站点
+        print("[sitegen] 未取到转债行情，保留上一版站点，本次不生成")
+        return 0
+    fundamentals = EastMoneyScraper.fetch_cb_fundamentals()
+    stock_codes = [b["stock_code"] for b in live_data if b.get("stock_code")]
+    concepts = EastMoneyScraper.fetch_stock_concepts(stock_codes)
+    financials = EastMoneyScraper.fetch_stock_financials(stock_codes)
+    merged = merge_cb_data(live_data, fundamentals, concepts, financials)
+    bonds = _build_bond_dicts(merged)
+    strategies = run_all_strategies(bonds)
+    cb_count = len(merged)
 
     # ---------- 2) 待发可转债（抢权）计数：优先取抢权数据，兜底用东财 ----------
     issue_count = 0

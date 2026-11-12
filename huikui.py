@@ -265,8 +265,8 @@ def cmd_test(art_code: str, code: str = "", title: str = "") -> int:
 
 
 def _now() -> str:
-    import time
-    return time.strftime("%Y-%m-%d %H:%M:%S")
+    from datetime import datetime, timedelta, timezone
+    return datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
 
 
 def main() -> int:

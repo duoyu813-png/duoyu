@@ -7,6 +7,7 @@
 import json
 import os
 import time
+from datetime import datetime, timedelta, timezone
 
 from .scanner import MIN_NOTICE_DATE
 
@@ -259,7 +260,7 @@ def render(events_all: list[dict], now: str = "") -> None:
     兼容：入参每条可含 source 字段（eastmoney/cninfo/wechat/seed），不传亦可。
     去重：先按 id 去重，再按「公司 + 年份」去重（同一公司每年只展示一条）。
     """
-    now = now or time.strftime("%Y-%m-%d %H:%M:%S")
+    now = now or datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
     this_year = now[:4]
     rows = []
     seen = set()
