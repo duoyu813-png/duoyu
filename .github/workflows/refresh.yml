@@ -104,18 +104,6 @@ jobs:
           ROTATION_FORCE: ${{ inputs.rotation_force }}
         run: python notify.py --rotation || echo "rotation skipped (not last trading day / before 14:00 / already pushed)"
 
-      - name: Commit fallback cache
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f hanquan/last_qiangquan.json last_cb_alerts.json last_issues.json huikui/last_events.json last_strategies.json
-          if git diff --cached --quiet; then
-            echo "无变更"
-          else
-            git commit -m "chore: update fallback cache [skip ci]"
-            git push
-          fi
-
       - name: Check generated site
         id: sitecheck
         run: |
@@ -123,7 +111,7 @@ jobs:
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
-            echo "sitegen 未生成 index.html（非交易时段跳过），本次不部署，保留上一版 Pages"
+            echo "sitegen 未生成 index.html（行情抓取失败），本次不部署，保留上一版 Pages"
           fi
 
       - name: Upload pages artifact
@@ -136,3 +124,18 @@ jobs:
         if: steps.sitecheck.outputs.exists == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # 缓存提交放最后、且失败不致命：避免与外部/并发提交撞车（非快进被拒）时误判整次
+      # 运行失败，从而连累前面的部署。这些 state 文件仅用于去重/兜底，晚提交不影响已部署页面。
+      - name: Commit fallback cache
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f hanquan/last_qiangquan.json last_cb_alerts.json last_issues.json huikui/last_events.json last_strategies.json
+          if git diff --cached --quiet; then
+            echo "无变更"
+            exit 0
+          fi
+          git commit -m "chore: update fallback cache [skip ci]"
+          git pull --rebase origin main || echo "rebase skipped"
+          git push || echo "cache push failed (non-fatal)"
