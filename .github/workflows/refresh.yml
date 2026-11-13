@@ -34,8 +34,11 @@ permissions:
   id-token: write
 
 concurrency:
+  # 外部定时器每 15 分钟触发一次，单次运行约 12–19 分钟；若 cancel-in-progress=true，
+  # 新触发会把尚未完成的运行取消，导致部署/推送未完成就被杀。改为排队（false）：
+  # 同一时刻只跑一个，后到的等待，保证每次都能跑完（GitHub 只保留最新一个待跑）。
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
