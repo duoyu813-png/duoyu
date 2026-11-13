@@ -22,6 +22,10 @@ on:
         description: '股东回馈活动：是否补扫历史公告(加大页数), 填 true'
         required: false
         default: 'false'
+      rotation_force:
+        description: '强制推送每周轮动(跳过交易日判定), 填 true'
+        required: false
+        default: 'false'
 
 # 公共仓库 Pages 部署权限
 permissions:
@@ -86,11 +90,22 @@ jobs:
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
         run: python notify.py --progress || echo "progress skipped (no change / no data)"
 
+      # 每周轮动并进本工作流：借助每次刷新运行顺带判定，避免独立 rotation.yml 的
+      # 稀疏 schedule 在「最后交易日 14:00 后」恰好被漏触发而整周不推。
+      # push_rotation 自带三重守卫（非最后交易日 / 未过 14:00 / 本周已推 均跳过），
+      # 大多数运行几乎零开销，只有真正该推的那次才会抓取行情。
+      - name: Weekly rotation push (last trading day only)
+        env:
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          JISILU_COOKIE: ${{ secrets.JISILU_COOKIE }}
+          ROTATION_FORCE: ${{ inputs.rotation_force }}
+        run: python notify.py --rotation || echo "rotation skipped (not last trading day / before 14:00 / already pushed)"
+
       - name: Commit fallback cache
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f hanquan/last_qiangquan.json last_cb_alerts.json last_issues.json huikui/last_events.json
+          git add -f hanquan/last_qiangquan.json last_cb_alerts.json last_issues.json huikui/last_events.json last_strategies.json
           if git diff --cached --quiet; then
             echo "无变更"
           else
