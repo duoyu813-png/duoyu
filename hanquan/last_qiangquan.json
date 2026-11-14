@@ -1,6 +1,6 @@
 {
  "total": 73,
- "generated_at": "2026-11-14 07:42:47",
+ "generated_at": "2026-11-14 08:04:39",
  "source": "live",
  "bonds": [
   {
@@ -2434,96 +2434,6 @@
    "per_share_allotment": 5.7338
   },
   {
-   "stock_code": "603061",
-   "stock_name": "金海通",
-   "bond_name": "金海通转债",
-   "industry": "交通运输",
-   "total_scale": 8.5,
-   "per_share_amount": 4.13,
-   "progress": "同意注册",
-   "progress_date": "2026-11-06",
-   "registration_date": "2026-07-31",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 246.09,
-   "cb_amount": 4.13,
-   "b_shares": 0.0,
-   "price": 236.39,
-   "change_pct": -5.11,
-   "pb": 10.49,
-   "ma20_price": 246.09,
-   "circ_mv": 5.95,
-   "circ_mv_score_factor": 5.95,
-   "pe": 41.62,
-   "turnover_rate": null,
-   "amount": 8.5,
-   "q1_growth": 221.54,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 100,
-   "per_hand_shares": 102.3529411764706,
-   "market": "沪",
-   "total_score": 64,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤212.75 | 卖出≥271.85 | 安全垫1.3%",
-   "score_details": {
-    "含权量评分": {
-     "score": 5,
-     "max": 30,
-     "factor": "4.13元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "5.95亿"
-    },
-    "业绩评分": {
-     "score": 40,
-     "max": 40,
-     "factor": "Q1增长221.54%"
-    },
-    "潜伏期扣分": {
-     "score": -6,
-     "max": 0,
-     "factor": "2026-07"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=41.62"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "交通运输"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交8.5亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "交通运输"
-    }
-   },
-   "weighted_amount": 4.13,
-   "hidden_circulation": 5.95,
-   "total": 64,
-   "issue_amount": 8.5,
-   "safety_pct": 1.3,
-   "per_share_allotment": 9.7701
-  },
-  {
    "stock_code": "605020",
    "stock_name": "永和股份",
    "bond_name": "永和股份转债",
@@ -2792,6 +2702,96 @@
    "issue_amount": 11.76,
    "safety_pct": 1.6,
    "per_share_allotment": 1.6687
+  },
+  {
+   "stock_code": "603061",
+   "stock_name": "金海通",
+   "bond_name": "金海通转债",
+   "industry": "交通运输",
+   "total_scale": 8.5,
+   "per_share_amount": 4.13,
+   "progress": "同意注册",
+   "progress_date": "2026-11-06",
+   "registration_date": "2026-07-31",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 246.09,
+   "cb_amount": 4.13,
+   "b_shares": 0.0,
+   "price": 236.39,
+   "change_pct": -5.11,
+   "pb": 10.49,
+   "ma20_price": 246.09,
+   "circ_mv": 5.95,
+   "circ_mv_score_factor": 5.95,
+   "pe": 41.62,
+   "turnover_rate": null,
+   "amount": 8.5,
+   "q1_growth": 221.54,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 100,
+   "per_hand_shares": 102.3529411764706,
+   "market": "沪",
+   "total_score": 61,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤212.75 | 卖出≥271.85 | 安全垫1.3%",
+   "score_details": {
+    "含权量评分": {
+     "score": 5,
+     "max": 30,
+     "factor": "4.13元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.95亿"
+    },
+    "业绩评分": {
+     "score": 40,
+     "max": 40,
+     "factor": "Q1增长221.54%"
+    },
+    "潜伏期扣分": {
+     "score": -9,
+     "max": 0,
+     "factor": "2026-07"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=41.62"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "交通运输"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交8.5亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "交通运输"
+    }
+   },
+   "weighted_amount": 4.13,
+   "hidden_circulation": 5.95,
+   "total": 61,
+   "issue_amount": 8.5,
+   "safety_pct": 1.3,
+   "per_share_allotment": 9.7701
   },
   {
    "stock_code": "300389",
