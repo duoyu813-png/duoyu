@@ -1,6 +1,6 @@
 {
  "total": 73,
- "generated_at": "2026-11-17 08:25:32",
+ "generated_at": "2026-11-17 08:42:12",
  "source": "live",
  "bonds": [
   {
@@ -5674,6 +5674,96 @@
    "per_share_allotment": 4.1912
   },
   {
+   "stock_code": "300952",
+   "stock_name": "恒辉安防",
+   "bond_name": "恒辉安防转债",
+   "industry": "其他",
+   "total_scale": 8.0,
+   "per_share_amount": 17.97,
+   "progress": "股东大会通过",
+   "progress_date": "2026-11-14",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "创业板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 18.69,
+   "cb_amount": 17.97,
+   "b_shares": 0.0,
+   "price": 18.45,
+   "change_pct": -4.16,
+   "pb": 2.52,
+   "ma20_price": 18.69,
+   "circ_mv": 4.93,
+   "circ_mv_score_factor": 4.93,
+   "pe": 121.38,
+   "turnover_rate": null,
+   "amount": 8.0,
+   "q1_growth": -75.87,
+   "major_shareholder_ratio": 0.3843,
+   "one_hand_shares": 302,
+   "per_hand_shares": 301.63621875,
+   "market": "深",
+   "total_score": 42,
+   "rating": "C",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤16.97 | 卖出≥20.3 | 安全垫5.4%",
+   "score_details": {
+    "含权量评分": {
+     "score": 20,
+     "max": 30,
+     "factor": "17.97元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.93亿"
+    },
+    "业绩评分": {
+     "score": 5,
+     "max": 40,
+     "factor": "Q1增长-75.87%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": -8,
+     "max": 0,
+     "factor": "创业板"
+    },
+    "PE扣分": {
+     "score": -5,
+     "max": 0,
+     "factor": "PE=121.38"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交8.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 17.97,
+   "hidden_circulation": 4.93,
+   "total": 42,
+   "issue_amount": 8.0,
+   "safety_pct": 5.4,
+   "per_share_allotment": 3.3153
+  },
+  {
    "stock_code": "300695",
    "stock_name": "兆丰股份",
    "bond_name": "兆丰股份转债",
@@ -5762,96 +5852,6 @@
    "issue_amount": 14.0,
    "safety_pct": 6.6,
    "per_share_allotment": 13.691
-  },
-  {
-   "stock_code": "300952",
-   "stock_name": "恒辉安防",
-   "bond_name": "恒辉安防转债",
-   "industry": "其他",
-   "total_scale": 8.0,
-   "per_share_amount": 17.97,
-   "progress": "董事会预案",
-   "progress_date": "2026-10-28",
-   "registration_date": "",
-   "approval_date": "",
-   "board": "创业板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 18.69,
-   "cb_amount": 17.97,
-   "b_shares": 0.0,
-   "price": 18.45,
-   "change_pct": -4.16,
-   "pb": 2.52,
-   "ma20_price": 18.69,
-   "circ_mv": 4.93,
-   "circ_mv_score_factor": 4.93,
-   "pe": 121.38,
-   "turnover_rate": null,
-   "amount": 8.0,
-   "q1_growth": -75.87,
-   "major_shareholder_ratio": 0.3843,
-   "one_hand_shares": 302,
-   "per_hand_shares": 301.63621875,
-   "market": "深",
-   "total_score": 42,
-   "rating": "C",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤16.97 | 卖出≥20.3 | 安全垫5.4%",
-   "score_details": {
-    "含权量评分": {
-     "score": 20,
-     "max": 30,
-     "factor": "17.97元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.93亿"
-    },
-    "业绩评分": {
-     "score": 5,
-     "max": 40,
-     "factor": "Q1增长-75.87%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "未知"
-    },
-    "300/688折扣": {
-     "score": -8,
-     "max": 0,
-     "factor": "创业板"
-    },
-    "PE扣分": {
-     "score": -5,
-     "max": 0,
-     "factor": "PE=121.38"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交8.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 17.97,
-   "hidden_circulation": 4.93,
-   "total": 42,
-   "issue_amount": 8.0,
-   "safety_pct": 5.4,
-   "per_share_allotment": 3.3153
   },
   {
    "stock_code": "301165",
