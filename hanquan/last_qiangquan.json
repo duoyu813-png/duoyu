@@ -1,6 +1,6 @@
 {
  "total": 73,
- "generated_at": "2026-11-18 07:55:23",
+ "generated_at": "2026-11-18 08:11:45",
  "source": "live",
  "bonds": [
   {
@@ -484,7 +484,7 @@
    "one_hand_shares": 300,
    "per_hand_shares": 424.9479179810725,
    "market": "沪",
-   "total_score": 83,
+   "total_score": 80,
    "rating": "A+",
    "action": "关注建仓",
    "action_reason": "高分+交易所通过，等待注册后加仓",
@@ -506,7 +506,7 @@
      "factor": "Q1增长324.98%"
     },
     "潜伏期扣分": {
-     "score": -12,
+     "score": -15,
      "max": 0,
      "factor": "2026-06"
     },
@@ -538,7 +538,7 @@
    },
    "weighted_amount": 10.12,
    "hidden_circulation": 2.22,
-   "total": 83,
+   "total": 80,
    "issue_amount": 3.17,
    "safety_pct": 4.3,
    "per_share_allotment": 2.3532
