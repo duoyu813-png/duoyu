@@ -1,6 +1,6 @@
 {
  "total": 73,
- "generated_at": "2026-11-19 08:16:04",
+ "generated_at": "2026-11-19 08:41:24",
  "source": "live",
  "bonds": [
   {
@@ -2344,6 +2344,96 @@
    "per_share_allotment": 11.8288
   },
   {
+   "stock_code": "301310",
+   "stock_name": "鑫宏业",
+   "bond_name": "鑫宏业转债",
+   "industry": "其他",
+   "total_scale": 11.0,
+   "per_share_amount": 14.5,
+   "progress": "股东大会通过",
+   "progress_date": "2026-11-18",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 48.53,
+   "cb_amount": 14.5,
+   "b_shares": 0.0,
+   "price": 39.53,
+   "change_pct": -0.35,
+   "pb": 3.2,
+   "ma20_price": 48.53,
+   "circ_mv": 5.64,
+   "circ_mv_score_factor": 5.64,
+   "pe": 36.52,
+   "turnover_rate": null,
+   "amount": 11.0,
+   "q1_growth": 7.33,
+   "major_shareholder_ratio": 0.4869,
+   "one_hand_shares": 175,
+   "per_hand_shares": 174.40557818181819,
+   "market": "深",
+   "total_score": 65,
+   "rating": "B+",
+   "action": "观望",
+   "action_reason": "中分，等待回调再入",
+   "action_price": "买入≤35.58 | 卖出≥45.46 | 安全垫4.3%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "14.50元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.64亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长7.33%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=36.52"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交11.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 14.5,
+   "hidden_circulation": 5.64,
+   "total": 65,
+   "issue_amount": 11.0,
+   "safety_pct": 4.3,
+   "per_share_allotment": 5.7338
+  },
+  {
    "stock_code": "688390",
    "stock_name": "固德威",
    "bond_name": "固德威转债",
@@ -2432,96 +2522,6 @@
    "issue_amount": 15.5,
    "safety_pct": 7.1,
    "per_share_allotment": 6.3754
-  },
-  {
-   "stock_code": "301310",
-   "stock_name": "鑫宏业",
-   "bond_name": "鑫宏业转债",
-   "industry": "其他",
-   "total_scale": 11.0,
-   "per_share_amount": 14.5,
-   "progress": "董事会预案",
-   "progress_date": "2026-09-03",
-   "registration_date": "",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 48.53,
-   "cb_amount": 14.5,
-   "b_shares": 0.0,
-   "price": 39.53,
-   "change_pct": -0.35,
-   "pb": 3.2,
-   "ma20_price": 48.53,
-   "circ_mv": 5.64,
-   "circ_mv_score_factor": 5.64,
-   "pe": 36.52,
-   "turnover_rate": null,
-   "amount": 11.0,
-   "q1_growth": 7.33,
-   "major_shareholder_ratio": 0.4869,
-   "one_hand_shares": 175,
-   "per_hand_shares": 174.40557818181819,
-   "market": "深",
-   "total_score": 65,
-   "rating": "B+",
-   "action": "观望",
-   "action_reason": "中分，等待回调再入",
-   "action_price": "买入≤35.58 | 卖出≥45.46 | 安全垫4.3%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "14.50元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "5.64亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长7.33%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "未知"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=36.52"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交11.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 14.5,
-   "hidden_circulation": 5.64,
-   "total": 65,
-   "issue_amount": 11.0,
-   "safety_pct": 4.3,
-   "per_share_allotment": 5.7338
   },
   {
    "stock_code": "605020",
