@@ -1,6 +1,6 @@
 {
  "total": 73,
- "generated_at": "2026-11-19 07:53:14",
+ "generated_at": "2026-11-19 08:16:04",
  "source": "live",
  "bonds": [
   {
@@ -3064,96 +3064,6 @@
    "per_share_allotment": 1.5688
   },
   {
-   "stock_code": "301092",
-   "stock_name": "争光股份",
-   "bond_name": "争光股份转债",
-   "industry": "其他",
-   "total_scale": 6.17,
-   "per_share_amount": 11.92,
-   "progress": "交易所受理",
-   "progress_date": "2026-09-04",
-   "registration_date": "2026-09-04",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 41.57,
-   "cb_amount": 11.92,
-   "b_shares": 0.0,
-   "price": 38.49,
-   "change_pct": 0.29,
-   "pb": 2.62,
-   "ma20_price": 41.57,
-   "circ_mv": 2.8,
-   "circ_mv_score_factor": 2.8,
-   "pe": 74.02,
-   "turnover_rate": null,
-   "amount": 6.17,
-   "q1_growth": -27.05,
-   "major_shareholder_ratio": 0.5467,
-   "one_hand_shares": 219,
-   "per_hand_shares": 218.04746191247978,
-   "market": "深",
-   "total_score": 59,
-   "rating": "B",
-   "action": "关注",
-   "action_reason": "中高分+小流通盘，等待注册",
-   "action_price": "买入≤35.41 | 卖出≥42.34 | 安全垫3.6%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "11.92元"
-    },
-    "隐形流通量评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "2.80亿"
-    },
-    "业绩评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "Q1增长-27.05%"
-    },
-    "潜伏期扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "2026-09"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": -3,
-     "max": 0,
-     "factor": "PE=74.02"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交6.2亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 11.92,
-   "hidden_circulation": 2.8,
-   "total": 59,
-   "issue_amount": 6.17,
-   "safety_pct": 3.6,
-   "per_share_allotment": 4.5862
-  },
-  {
    "stock_code": "301379",
    "stock_name": "天山电子",
    "bond_name": "天山电子转债",
@@ -3422,6 +3332,96 @@
    "issue_amount": 12.0,
    "safety_pct": 4.9,
    "per_share_allotment": 1.1559
+  },
+  {
+   "stock_code": "301092",
+   "stock_name": "争光股份",
+   "bond_name": "争光股份转债",
+   "industry": "其他",
+   "total_scale": 6.17,
+   "per_share_amount": 11.92,
+   "progress": "交易所受理",
+   "progress_date": "2026-09-04",
+   "registration_date": "2026-09-04",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 41.57,
+   "cb_amount": 11.92,
+   "b_shares": 0.0,
+   "price": 38.49,
+   "change_pct": 0.29,
+   "pb": 2.62,
+   "ma20_price": 41.57,
+   "circ_mv": 2.8,
+   "circ_mv_score_factor": 2.8,
+   "pe": 74.02,
+   "turnover_rate": null,
+   "amount": 6.17,
+   "q1_growth": -27.05,
+   "major_shareholder_ratio": 0.5467,
+   "one_hand_shares": 219,
+   "per_hand_shares": 218.04746191247978,
+   "market": "深",
+   "total_score": 56,
+   "rating": "B",
+   "action": "关注",
+   "action_reason": "中高分+小流通盘，等待注册",
+   "action_price": "买入≤35.41 | 卖出≥42.34 | 安全垫3.6%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "11.92元"
+    },
+    "隐形流通量评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "2.80亿"
+    },
+    "业绩评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "Q1增长-27.05%"
+    },
+    "潜伏期扣分": {
+     "score": -6,
+     "max": 0,
+     "factor": "2026-09"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "PE=74.02"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交6.2亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 11.92,
+   "hidden_circulation": 2.8,
+   "total": 56,
+   "issue_amount": 6.17,
+   "safety_pct": 3.6,
+   "per_share_allotment": 4.5862
   },
   {
    "stock_code": "603163",
@@ -3695,8 +3695,8 @@
   },
   {
    "stock_code": "603043",
-   "stock_name": "广州酒家",
-   "bond_name": "广州酒家转债",
+   "stock_name": "XD广州酒",
+   "bond_name": "XD广州酒转债",
    "industry": "消费",
    "total_scale": 7.74,
    "per_share_amount": 9.1,
