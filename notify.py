@@ -4,7 +4,7 @@
   python notify.py --test           手动测试推送
   python notify.py --rotation       每周最后一个交易日 14:00(北京) 可转债轮动推送
   python notify.py --progress       待发可转债「进度变化」推送
-  python notify.py --cb-alert       低价/低溢价「变动」推送（当天新进入价格<110 或 溢价<10% 的转债）
+  python notify.py --cb-alert       低价/低溢价推送（每个交易日 14:30 后仅推送一次：价格<110 或 溢价<10% 的转债清单）
 
 说明：
   - 轮动推送：工作日每天定时触发，仅当「今天是本周最后一个交易日」时推送，
@@ -52,17 +52,22 @@ def _fmt(v, nd=2):
 _ROTATION_TOP_N = 20
 
 
-def _bond_line(r):
-    """单只可转债一行：名称（代码）｜现价 ｜溢价率"""
+def _bond_line(r, is_high_ytm=False):
+    """单只可转债一行：名称（代码）｜现价 | 溢价率/到期收益率
+    is_high_ytm=True 时显示到期收益率，否则显示溢价率"""
     name = str(r.get("name") or "-")
     code = str(r.get("code") or "-")
     price = str(r.get("price") or "-")
-    prem = str(r.get("premium_rate") or "-")
-    return f"{name}（{code}）｜现价 {price} 元｜溢价率 {prem}%"
+    if is_high_ytm:
+        ytm = str(r.get("ytm_before_tax") or "-")
+        return f"{name}（{code}）｜现价 {price} 元｜到期收益率 {ytm}%"
+    else:
+        prem = str(r.get("premium_rate") or "-")
+        return f"{name}（{code}）｜现价 {price} 元｜溢价率 {prem}%"
 
 
 def _build_rotation_message(results, last):
-    """按每个策略前 N(=20, 不足按实际)只作为轮动池，
+    """按每个策略前 N(=20, 不足按实际) 只作为轮动池，
     对比上次快照生成消息：每个策略固定展示池内全部债券（带排名序号，逐行），
     并单独标出 轮入 / 轮出 变动。无变动时提示一行。
     返回 (message_lines, 最新快照)。"""
@@ -76,18 +81,23 @@ def _build_rotation_message(results, last):
         if not bonds:
             continue
         base = bonds[:top_n]
+        is_high_ytm = (key == "high_ytm")
 
         prev = last.get(key) or []
         prev_map = {str(b.get("code")): b for b in prev if b.get("code")}
 
         cur_rows = []
         for b in base:
-            cur_rows.append({
+            row = {
                 "code": str(b.get("code") or ""),
                 "name": b.get("name"),
                 "price": _fmt(b.get("price")),
-                "premium_rate": _fmt(b.get("premium_rate")),
-            })
+            }
+            if is_high_ytm:
+                row["ytm_before_tax"] = _fmt(b.get("ytm_before_tax"))
+            else:
+                row["premium_rate"] = _fmt(b.get("premium_rate"))
+            cur_rows.append(row)
         current[key] = cur_rows
 
         cur_codes = {r["code"] for r in cur_rows if r["code"]}
@@ -95,35 +105,40 @@ def _build_rotation_message(results, last):
         in_codes = [c for c in cur_codes if c not in prev_codes]
         out_codes = [c for c in prev_codes if c not in cur_codes]
 
-        # 全量索引：轮出债通常仍存在（排名跌出前20），用其最新价格展示
+        # 全量索引：轮出债通常仍存在（排名跌出前 20），用其最新价格展示
         all_map = {}
         for b in bonds:
             code = str(b.get("code") or "")
             if code:
-                all_map[code] = {"name": b.get("name"),
-                                 "price": _fmt(b.get("price")),
-                                 "premium_rate": _fmt(b.get("premium_rate"))}
+                item = {"name": b.get("name"), "price": _fmt(b.get("price"))}
+                if is_high_ytm:
+                    item["ytm_before_tax"] = _fmt(b.get("ytm_before_tax"))
+                else:
+                    item["premium_rate"] = _fmt(b.get("premium_rate"))
+                all_map[code] = item
 
         in_rows = [r for r in cur_rows if r["code"] in in_codes]
         out_rows = []
         for c in out_codes:
             src = all_map.get(c) or prev_map.get(c) or {}
             out_rows.append({"code": c, "name": src.get("name"),
-                             "price": src.get("price"), "premium_rate": src.get("premium_rate")})
+                            "price": src.get("price"),
+                            "ytm_before_tax": src.get("ytm_before_tax") if is_high_ytm else None,
+                            "premium_rate": src.get("premium_rate") if not is_high_ytm else None})
 
         rank_of = {r["code"]: i for i, r in enumerate(cur_rows, 1)}
         lines.append(f"\n### {name}（池 {len(base)} 只）")
         for i, r in enumerate(cur_rows, 1):
-            lines.append(f"{i}. {_bond_line(r)}")
+            lines.append(f"{i}. {_bond_line(r, is_high_ytm=is_high_ytm)}")
 
         if in_rows:
             lines.append("\n🟢 轮入（上周不在池，本周新进）")
             for r in in_rows:
-                lines.append(f"  新进第{rank_of.get(r['code'], '?')}名：{_bond_line(r)}")
+                lines.append(f"  新进第{rank_of.get(r['code'], '?')}名：{_bond_line(r, is_high_ytm=is_high_ytm)}")
         if out_rows:
             lines.append("\n🔴 轮出（上周在池，本周掉出）")
             for r in out_rows:
-                lines.append(f"  {_bond_line(r)}")
+                lines.append(f"  {_bond_line(r, is_high_ytm=is_high_ytm)}")
         if not in_rows and not out_rows:
             lines.append("\n（本周无轮动变动）")
 
@@ -385,28 +400,48 @@ def push_progress_change():
     return ok
 
 
-def _is_trading_window():
-    """A股交易时段（北京周一~周五 09:30-15:10），可转债低价/低溢价推送仅在此时节流触发"""
+def _cb_alert_due(state: dict) -> tuple[bool, str]:
+    """低价/低溢价推送的时间守卫：仅交易日、北京时间 ≥14:30 且当天未推送过。
+
+    返回 (是否该推, 跳过说明)。"""
+    import trading_calendar
+
     now = datetime.utcnow() + timedelta(hours=8)  # 北京墙钟
-    if now.weekday() >= 5:
-        return False
-    hm = now.hour * 100 + now.minute
-    return 930 <= hm <= 1510
+    if not trading_calendar.is_trading_day(now.date()):
+        return False, f"{now.date()} 非交易日"
+    if now.hour * 100 + now.minute < 1430:
+        return False, f"北京时间 {now:%H:%M} 未到 14:30"
+    if (state or {}).get("last_push_date") == now.strftime("%Y-%m-%d"):
+        return False, f"{now.date()} 已完成当日 14:30 推送"
+    return True, ""
 
 
 def push_cb_alert():
-    """推送「当天新进入」低价/低溢价条件的可转债变动提醒（价格<110 或 转股溢价率<10%）。
+    """每个交易日 14:30 后推送一次低价/低溢价可转债清单（价格<110 或 转股溢价率<10%）。
 
-    与上一次检查的命中集合比对，仅推送本次「新增命中」的转债；
-    同一只债当天只提醒一次；不再是完整版列表。
-    状态文件 last_cb_alerts.json：{"set": [命中代码...], "pushed": {code: 日期}}
+    定时任务每 15 分钟触发一次，这里用 last_cb_alerts.json 的 last_push_date 去重，
+    保证当天只推一次；非交易日/未到 14:30/当天已推均跳过。推送成功才落盘标记，
+    失败则留待下一次触发补推。手动测试可设 CB_ALERT_FORCE=1 跳过全部判定。
     """
     from scrapers.eastmoney import EastMoneyScraper
 
     force = os.environ.get("CB_ALERT_FORCE", "").lower() in ("1", "true", "yes", "y", "on")
-    if not _is_trading_window() and not force:
-        print("[notify] 非交易时段，跳过低价/低溢价推送（如需手动测试请设置 CB_ALERT_FORCE=1）")
-        return False
+
+    state = {"set": [], "last_push_date": ""}
+    if os.path.exists(LAST_CB_ALERTS):
+        try:
+            with open(LAST_CB_ALERTS, "r", encoding="utf-8") as f:
+                state = json.load(f)
+        except Exception:
+            state = {"set": [], "last_push_date": ""}
+    if not isinstance(state, dict):
+        state = {"set": [], "last_push_date": ""}
+
+    if not force:
+        due, reason = _cb_alert_due(state)
+        if not due:
+            print(f"[notify] 跳过低价/低溢价推送：{reason}")
+            return True
 
     live = EastMoneyScraper.fetch_cb_list()
     if not live:
@@ -435,34 +470,13 @@ def push_cb_alert():
             "price": price, "premium_rate": prem, "reasons": reasons,
         }
 
-    state = {"set": [], "pushed": {}}
-    if os.path.exists(LAST_CB_ALERTS):
-        try:
-            with open(LAST_CB_ALERTS, "r", encoding="utf-8") as f:
-                state = json.load(f)
-        except Exception:
-            state = {"set": [], "pushed": {}}
-    if not isinstance(state, dict) or "set" not in state:
-        # 兼容旧格式 {code: date}：视为“上次已命中且当日已推送”
-        old = state if isinstance(state, dict) else {}
-        state = {"set": sorted(str(k) for k in old.keys()),
-                 "pushed": {str(k): str(v) for k, v in old.items()}}
-    prev_set = set(state.get("set") or [])
-    pushed = state.get("pushed") or {}
+    hits = sorted(current.values(),
+                  key=lambda h: (h["premium_rate"] is None, h["premium_rate"] or 0))
 
-    # 仅推送“新增命中 + 当天未推送过”
-    new_hits = []
-    for code, info in current.items():
-        if pushed.get(code) == today:
-            continue
-        if code not in prev_set:
-            new_hits.append(info)
-
-    if new_hits:
-        new_hits.sort(key=lambda h: (h["premium_rate"] is None, h["premium_rate"] or 0))
-        lines = ["## 可转债低价/低溢价变动\n",
-                 f"今日新增 {len(new_hits)} 只（价格<110 或 转股溢价率<10%）\n"]
-        for h in new_hits[:25]:
+    if hits:
+        lines = ["## 可转债低价/低溢价清单\n",
+                 f"共 {len(hits)} 只（价格<110 或 转股溢价率<10%）\n"]
+        for h in hits[:50]:
             parts = [f"**{h['name']}** ({h['code']})"]
             if h["price"] is not None:
                 parts.append(f"{_fmt(h['price'])}元")
@@ -470,16 +484,20 @@ def push_cb_alert():
                 parts.append(f"溢价{_fmt(h['premium_rate'])}%")
             parts.append("/".join(h["reasons"]))
             lines.append("- " + " | ".join(parts))
-        _send("可转债低价/低溢价变动提醒", "\n".join(lines))
+        if len(hits) > 50:
+            lines.append(f"\n（另有 {len(hits) - 50} 只未展示，详见网站）")
+        ok = _send("可转债低价/低溢价提醒", "\n".join(lines))
+    else:
+        print("[notify] 当前无符合条件的转债，跳过推送")
+        ok = True
 
-    # 更新状态：命中集合 + 当日处理记录（同一只债当天不再重复提醒）
-    for code in current:
-        pushed[code] = today
+    # 推送成功才记录当天已推，失败留待下次触发补推；手动测试不占用当天的定时推送
+    if ok and not force:
+        state["last_push_date"] = today
     state["set"] = sorted(current.keys())
-    state["pushed"] = pushed
     _save(LAST_CB_ALERTS, state)
 
-    return bool(new_hits)
+    return ok
 
 
 if __name__ == "__main__":

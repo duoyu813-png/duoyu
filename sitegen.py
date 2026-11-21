@@ -406,7 +406,7 @@ def _cb_cols(key: str):
     if key == "high_ytm":
         cols = [
             ("代码", True), ("名称", True), ("价格", True),
-            ("溢价%", True), ("税前YTM%", True), ("剩余年限", True),
+            ("税前YTM%", True), ("剩余年限", True),
             ("剩余规模(亿)", False), ("概念", False),
         ]
     else:
@@ -424,7 +424,6 @@ def _cb_row(b, rank, key: str):
         return [
             _code_with_rank(b.get("code", ""), rank), b.get("name", ""),
             _fmt(b.get("price")),
-            _fmt(b.get("premium_rate")) if b.get("premium_rate") is not None else "-",
             _fmt(b.get("ytm_before_tax")) if b.get("ytm_before_tax") is not None else "-",
             _fmt(b.get("remaining_years")) if b.get("remaining_years") is not None else "-",
             _fmt(b.get("remaining_size")) if b.get("remaining_size") is not None else "-",
