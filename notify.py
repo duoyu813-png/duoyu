@@ -50,6 +50,8 @@ def _fmt(v, nd=2):
 
 
 _ROTATION_TOP_N = 20
+_CB_ALERT_LIMIT = 50
+_CB_ALERT_PER_GROUP = _CB_ALERT_LIMIT // 2
 
 
 def _bond_line(r, is_high_ytm=False):
@@ -64,6 +66,17 @@ def _bond_line(r, is_high_ytm=False):
     else:
         prem = str(r.get("premium_rate") or "-")
         return f"{name}（{code}）｜现价 {price} 元｜溢价率 {prem}%"
+
+
+def _cb_alert_line(h):
+    """低价/低溢价清单单行：名称（代码）｜价格 | 溢价率 | 命中原因"""
+    parts = [f"**{h['name']}** ({h['code']})"]
+    if h["price"] is not None:
+        parts.append(f"{_fmt(h['price'])}元")
+    if h["premium_rate"] is not None:
+        parts.append(f"溢价{_fmt(h['premium_rate'])}%")
+    parts.append("/".join(h["reasons"]))
+    return "- " + " | ".join(parts)
 
 
 def _build_rotation_message(results, last):
@@ -422,6 +435,8 @@ def push_cb_alert():
     定时任务每 15 分钟触发一次，这里用 last_cb_alerts.json 的 last_push_date 去重，
     保证当天只推一次；非交易日/未到 14:30/当天已推均跳过。推送成功才落盘标记，
     失败则留待下一次触发补推。手动测试可设 CB_ALERT_FORCE=1 跳过全部判定。
+
+    最多展示 50 只；超过上限时，低价与低溢价各取 25 只（均按从低到高排序）。
     """
     from scrapers.eastmoney import EastMoneyScraper
 
@@ -470,20 +485,39 @@ def push_cb_alert():
             "price": price, "premium_rate": prem, "reasons": reasons,
         }
 
-    hits = sorted(current.values(),
-                  key=lambda h: (h["premium_rate"] is None, h["premium_rate"] or 0))
+    price_hits = sorted(
+        (h for h in current.values() if h["price"] is not None and h["price"] < 110),
+        key=lambda h: h["price"],
+    )
+    premium_hits = sorted(
+        (h for h in current.values()
+         if h["premium_rate"] is not None and h["premium_rate"] < 10),
+        key=lambda h: h["premium_rate"],
+    )
 
-    if hits:
+    total = len(current)
+    if total > _CB_ALERT_LIMIT:
+        price_show = price_hits[:_CB_ALERT_PER_GROUP]
+        price_codes = {h["code"] for h in price_show}
+        premium_show = [h for h in premium_hits
+                        if h["code"] not in price_codes][:_CB_ALERT_PER_GROUP]
+    else:
+        price_show = price_hits
+        price_codes = {h["code"] for h in price_show}
+        premium_show = [h for h in premium_hits if h["code"] not in price_codes]
+
+    if total:
         lines = ["## 可转债低价/低溢价清单\n",
-                 f"共 {len(hits)} 只（价格<110 或 转股溢价率<10%）\n"]
-        for h in hits:
-            parts = [f"**{h['name']}** ({h['code']})"]
-            if h["price"] is not None:
-                parts.append(f"{_fmt(h['price'])}元")
-            if h["premium_rate"] is not None:
-                parts.append(f"溢价{_fmt(h['premium_rate'])}%")
-            parts.append("/".join(h["reasons"]))
-            lines.append("- " + " | ".join(parts))
+                 f"共 {total} 只（价格<110 或 转股溢价率<10%）\n"]
+        if price_show:
+            lines.append("\n### 低价（价格<110，从低到高）")
+            lines.extend(_cb_alert_line(h) for h in price_show)
+        if premium_show:
+            lines.append("\n### 低溢价（溢价率<10%，从低到高）")
+            lines.extend(_cb_alert_line(h) for h in premium_show)
+        shown = len(price_show) + len(premium_show)
+        if total > shown:
+            lines.append(f"\n（另有 {total - shown} 只未展示）")
         ok = _send("可转债低价/低溢价提醒", "\n".join(lines))
     else:
         print("[notify] 当前无符合条件的转债，跳过推送")
