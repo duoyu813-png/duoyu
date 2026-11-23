@@ -1,6 +1,6 @@
 {
  "total": 73,
- "generated_at": "2026-11-23 07:58:20",
+ "generated_at": "2026-11-23 08:10:05",
  "source": "live",
  "bonds": [
   {
@@ -724,96 +724,6 @@
    "per_share_allotment": 2.3532
   },
   {
-   "stock_code": "001389",
-   "stock_name": "广合科技",
-   "bond_name": "广合科技转债",
-   "industry": "AI/科技",
-   "total_scale": 36.0,
-   "per_share_amount": 9.86,
-   "progress": "交易所受理",
-   "progress_date": "2026-10-08",
-   "registration_date": "2026-10-08",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 91.27,
-   "cb_amount": 10.92,
-   "b_shares": 0.0,
-   "price": 77.26,
-   "change_pct": -5.75,
-   "pb": 4.5,
-   "ma20_price": 91.27,
-   "circ_mv": 11.6,
-   "circ_mv_score_factor": 11.6,
-   "pe": 20.77,
-   "turnover_rate": null,
-   "amount": 36.0,
-   "q1_growth": 63.31,
-   "major_shareholder_ratio": 0.6777,
-   "one_hand_shares": 132,
-   "per_hand_shares": 131.31496222222222,
-   "market": "深",
-   "total_score": 78,
-   "rating": "A",
-   "action": "关注建仓",
-   "action_reason": "高分+交易所通过，等待注册后加仓",
-   "action_price": "买入≤69.53 | 卖出≥88.85 | 安全垫2.9%",
-   "score_details": {
-    "含权量评分": {
-     "score": 10,
-     "max": 30,
-     "factor": "9.86元"
-    },
-    "隐形流通量评分": {
-     "score": 10,
-     "max": 40,
-     "factor": "11.60亿"
-    },
-    "业绩评分": {
-     "score": 35,
-     "max": 40,
-     "factor": "Q1增长63.31%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "2026-10"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=20.77"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交36.0亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 9.86,
-   "hidden_circulation": 11.6,
-   "total": 78,
-   "issue_amount": 36.0,
-   "safety_pct": 2.9,
-   "per_share_allotment": 7.6153
-  },
-  {
    "stock_code": "688360",
    "stock_name": "德马科技",
    "bond_name": "德马科技转债",
@@ -1172,6 +1082,96 @@
    "issue_amount": 4.73,
    "safety_pct": 6.0,
    "per_share_allotment": 4.5481
+  },
+  {
+   "stock_code": "001389",
+   "stock_name": "广合科技",
+   "bond_name": "广合科技转债",
+   "industry": "AI/科技",
+   "total_scale": 36.0,
+   "per_share_amount": 9.86,
+   "progress": "交易所受理",
+   "progress_date": "2026-10-08",
+   "registration_date": "2026-10-08",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 91.27,
+   "cb_amount": 10.92,
+   "b_shares": 0.0,
+   "price": 77.26,
+   "change_pct": -5.75,
+   "pb": 4.5,
+   "ma20_price": 91.27,
+   "circ_mv": 11.6,
+   "circ_mv_score_factor": 11.6,
+   "pe": 20.77,
+   "turnover_rate": null,
+   "amount": 36.0,
+   "q1_growth": 63.31,
+   "major_shareholder_ratio": 0.6777,
+   "one_hand_shares": 132,
+   "per_hand_shares": 131.31496222222222,
+   "market": "深",
+   "total_score": 75,
+   "rating": "A",
+   "action": "关注建仓",
+   "action_reason": "高分+交易所通过，等待注册后加仓",
+   "action_price": "买入≤69.53 | 卖出≥88.85 | 安全垫2.9%",
+   "score_details": {
+    "含权量评分": {
+     "score": 10,
+     "max": 30,
+     "factor": "9.86元"
+    },
+    "隐形流通量评分": {
+     "score": 10,
+     "max": 40,
+     "factor": "11.60亿"
+    },
+    "业绩评分": {
+     "score": 35,
+     "max": 40,
+     "factor": "Q1增长63.31%"
+    },
+    "潜伏期扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "2026-10"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=20.77"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交36.0亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 9.86,
+   "hidden_circulation": 11.6,
+   "total": 75,
+   "issue_amount": 36.0,
+   "safety_pct": 2.9,
+   "per_share_allotment": 7.6153
   },
   {
    "stock_code": "300680",
@@ -3874,96 +3874,6 @@
    "per_share_allotment": 1.8638
   },
   {
-   "stock_code": "002978",
-   "stock_name": "安宁股份",
-   "bond_name": "安宁股份转债",
-   "industry": "其他",
-   "total_scale": 25.0,
-   "per_share_amount": 24.62,
-   "progress": "交易所受理",
-   "progress_date": "2026-10-08",
-   "registration_date": "2026-10-08",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 24.12,
-   "cb_amount": 24.62,
-   "b_shares": 0.0,
-   "price": 21.51,
-   "change_pct": -3.54,
-   "pb": 1.13,
-   "ma20_price": 24.12,
-   "circ_mv": 17.5,
-   "circ_mv_score_factor": 17.5,
-   "pe": 16.56,
-   "turnover_rate": null,
-   "amount": 25.0,
-   "q1_growth": -33.59,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 189,
-   "per_hand_shares": 188.7959832,
-   "market": "深",
-   "total_score": 54,
-   "rating": "B",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤19.79 | 卖出≥23.66 | 安全垫7.4%",
-   "score_details": {
-    "含权量评分": {
-     "score": 25,
-     "max": 30,
-     "factor": "24.62元"
-    },
-    "隐形流通量评分": {
-     "score": 4,
-     "max": 40,
-     "factor": "17.50亿"
-    },
-    "业绩评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "Q1增长-33.59%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "2026-10"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=16.56"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交25.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 24.62,
-   "hidden_circulation": 17.5,
-   "total": 54,
-   "issue_amount": 25.0,
-   "safety_pct": 7.4,
-   "per_share_allotment": 5.2967
-  },
-  {
    "stock_code": "300432",
    "stock_name": "富临精工",
    "bond_name": "富临精工转债",
@@ -4412,6 +4322,96 @@
    "issue_amount": 12.4,
    "safety_pct": 7.3,
    "per_share_allotment": 1.391
+  },
+  {
+   "stock_code": "002978",
+   "stock_name": "安宁股份",
+   "bond_name": "安宁股份转债",
+   "industry": "其他",
+   "total_scale": 25.0,
+   "per_share_amount": 24.62,
+   "progress": "交易所受理",
+   "progress_date": "2026-10-08",
+   "registration_date": "2026-10-08",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 24.12,
+   "cb_amount": 24.62,
+   "b_shares": 0.0,
+   "price": 21.51,
+   "change_pct": -3.54,
+   "pb": 1.13,
+   "ma20_price": 24.12,
+   "circ_mv": 17.5,
+   "circ_mv_score_factor": 17.5,
+   "pe": 16.56,
+   "turnover_rate": null,
+   "amount": 25.0,
+   "q1_growth": -33.59,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 189,
+   "per_hand_shares": 188.7959832,
+   "market": "深",
+   "total_score": 51,
+   "rating": "B",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤19.79 | 卖出≥23.66 | 安全垫7.4%",
+   "score_details": {
+    "含权量评分": {
+     "score": 25,
+     "max": 30,
+     "factor": "24.62元"
+    },
+    "隐形流通量评分": {
+     "score": 4,
+     "max": 40,
+     "factor": "17.50亿"
+    },
+    "业绩评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "Q1增长-33.59%"
+    },
+    "潜伏期扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "2026-10"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=16.56"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交25.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 24.62,
+   "hidden_circulation": 17.5,
+   "total": 51,
+   "issue_amount": 25.0,
+   "safety_pct": 7.4,
+   "per_share_allotment": 5.2967
   },
   {
    "stock_code": "605016",
