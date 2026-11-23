@@ -1,6 +1,6 @@
 {
  "total": 74,
- "generated_at": "2026-11-23 21:41:27",
+ "generated_at": "2026-11-23 22:04:27",
  "source": "live",
  "bonds": [
   {
@@ -5764,96 +5764,6 @@
    "per_share_allotment": 4.1912
   },
   {
-   "stock_code": "300893",
-   "stock_name": "松原安全",
-   "bond_name": "松原安全转债",
-   "industry": "其他",
-   "total_scale": 10.55,
-   "per_share_amount": 13.2,
-   "progress": "交易所受理",
-   "progress_date": "2026-06-12",
-   "registration_date": "2026-06-12",
-   "approval_date": "",
-   "board": "创业板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 15.42,
-   "cb_amount": 13.2,
-   "b_shares": 0.0,
-   "price": 16.85,
-   "change_pct": 6.58,
-   "pb": 3.6,
-   "ma20_price": 15.42,
-   "circ_mv": 5.6,
-   "circ_mv_score_factor": 5.6,
-   "pe": 26.49,
-   "turnover_rate": null,
-   "amount": 10.55,
-   "q1_growth": 2.32,
-   "major_shareholder_ratio": 0.4687,
-   "one_hand_shares": 450,
-   "per_hand_shares": 449.5362293838862,
-   "market": "深",
-   "total_score": 43,
-   "rating": "C",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤15.5 | 卖出≥18.54 | 安全垫4.0%",
-   "score_details": {
-    "含权量评分": {
-     "score": 15,
-     "max": 30,
-     "factor": "13.20元"
-    },
-    "隐形流通量评分": {
-     "score": 15,
-     "max": 40,
-     "factor": "5.60亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长2.32%"
-    },
-    "潜伏期扣分": {
-     "score": -12,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "创业板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=26.49"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交10.6亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 13.2,
-   "hidden_circulation": 5.6,
-   "total": 43,
-   "issue_amount": 10.55,
-   "safety_pct": 4.0,
-   "per_share_allotment": 2.2245
-  },
-  {
    "stock_code": "300695",
    "stock_name": "兆丰股份",
    "bond_name": "兆丰股份转债",
@@ -6572,6 +6482,96 @@
    "issue_amount": 4.6,
    "safety_pct": 3.9,
    "per_share_allotment": 0.8194
+  },
+  {
+   "stock_code": "300893",
+   "stock_name": "松原安全",
+   "bond_name": "松原安全转债",
+   "industry": "其他",
+   "total_scale": 10.55,
+   "per_share_amount": 13.2,
+   "progress": "交易所受理",
+   "progress_date": "2026-06-12",
+   "registration_date": "2026-06-12",
+   "approval_date": "",
+   "board": "创业板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 15.42,
+   "cb_amount": 13.2,
+   "b_shares": 0.0,
+   "price": 16.85,
+   "change_pct": 6.58,
+   "pb": 3.6,
+   "ma20_price": 15.42,
+   "circ_mv": 5.6,
+   "circ_mv_score_factor": 5.6,
+   "pe": null,
+   "turnover_rate": null,
+   "amount": 10.55,
+   "q1_growth": null,
+   "major_shareholder_ratio": 0.4687,
+   "one_hand_shares": 450,
+   "per_hand_shares": 449.5362293838862,
+   "market": "深",
+   "total_score": 33,
+   "rating": "D",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤15.5 | 卖出≥18.54 | 安全垫4.0%",
+   "score_details": {
+    "含权量评分": {
+     "score": 15,
+     "max": 30,
+     "factor": "13.20元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "5.60亿"
+    },
+    "业绩评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "暂无数据"
+    },
+    "潜伏期扣分": {
+     "score": -12,
+     "max": 0,
+     "factor": "2026-06"
+    },
+    "300/688折扣": {
+     "score": -10,
+     "max": 0,
+     "factor": "创业板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "无"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交10.6亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 13.2,
+   "hidden_circulation": 5.6,
+   "total": 33,
+   "issue_amount": 10.55,
+   "safety_pct": 4.0,
+   "per_share_allotment": 2.2245
   },
   {
    "stock_code": "600089",
