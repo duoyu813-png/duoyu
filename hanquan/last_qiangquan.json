@@ -1,6 +1,6 @@
 {
- "total": 74,
- "generated_at": "2026-11-24 07:55:27",
+ "total": 75,
+ "generated_at": "2026-11-24 08:40:29",
  "source": "live",
  "bonds": [
   {
@@ -544,96 +544,6 @@
    "per_share_allotment": 8.8008
   },
   {
-   "stock_code": "301631",
-   "stock_name": "壹连科技",
-   "bond_name": "壹连科技转债",
-   "industry": "AI/科技",
-   "total_scale": 11.8,
-   "per_share_amount": 20.69,
-   "progress": "同意注册",
-   "progress_date": "2026-10-26",
-   "registration_date": "2026-06-11",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 49.3,
-   "cb_amount": 20.69,
-   "b_shares": 0.0,
-   "price": 44.44,
-   "change_pct": 4.91,
-   "pb": 2.13,
-   "ma20_price": 49.3,
-   "circ_mv": 4.04,
-   "circ_mv_score_factor": 4.04,
-   "pe": 14.43,
-   "turnover_rate": null,
-   "amount": 11.8,
-   "q1_growth": 17.45,
-   "major_shareholder_ratio": 0.6575,
-   "one_hand_shares": 109,
-   "per_hand_shares": 108.76692796610168,
-   "market": "深",
-   "total_score": 81,
-   "rating": "A+",
-   "action": "积极配债",
-   "action_reason": "高分+注册生效，可建仓潜伏",
-   "action_price": "买入≤40.0 | 卖出≥51.11 | 安全垫6.2%",
-   "score_details": {
-    "含权量评分": {
-     "score": 25,
-     "max": 30,
-     "factor": "20.69元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "4.04亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长17.45%"
-    },
-    "潜伏期扣分": {
-     "score": -12,
-     "max": 0,
-     "factor": "2026-06"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=14.43"
-    },
-    "行业加减分": {
-     "score": 8,
-     "max": 10,
-     "factor": "AI/科技"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交11.8亿"
-    },
-    "行业热度": {
-     "score": 5,
-     "max": 5,
-     "factor": "AI/科技"
-    }
-   },
-   "weighted_amount": 20.69,
-   "hidden_circulation": 4.04,
-   "total": 81,
-   "issue_amount": 11.8,
-   "safety_pct": 6.2,
-   "per_share_allotment": 9.194
-  },
-  {
    "stock_code": "688600",
    "stock_name": "皖仪科技",
    "bond_name": "皖仪科技转债",
@@ -722,6 +632,96 @@
    "issue_amount": 3.17,
    "safety_pct": 4.5,
    "per_share_allotment": 2.3532
+  },
+  {
+   "stock_code": "301631",
+   "stock_name": "壹连科技",
+   "bond_name": "壹连科技转债",
+   "industry": "AI/科技",
+   "total_scale": 11.8,
+   "per_share_amount": 20.69,
+   "progress": "同意注册",
+   "progress_date": "2026-10-26",
+   "registration_date": "2026-06-11",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 49.3,
+   "cb_amount": 20.69,
+   "b_shares": 0.0,
+   "price": 44.44,
+   "change_pct": 4.91,
+   "pb": 2.13,
+   "ma20_price": 49.3,
+   "circ_mv": 4.04,
+   "circ_mv_score_factor": 4.04,
+   "pe": 14.43,
+   "turnover_rate": null,
+   "amount": 11.8,
+   "q1_growth": 17.45,
+   "major_shareholder_ratio": 0.6575,
+   "one_hand_shares": 109,
+   "per_hand_shares": 108.76692796610168,
+   "market": "深",
+   "total_score": 78,
+   "rating": "A",
+   "action": "积极配债",
+   "action_reason": "高分+注册生效，可建仓潜伏",
+   "action_price": "买入≤40.0 | 卖出≥51.11 | 安全垫6.2%",
+   "score_details": {
+    "含权量评分": {
+     "score": 25,
+     "max": 30,
+     "factor": "20.69元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "4.04亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长17.45%"
+    },
+    "潜伏期扣分": {
+     "score": -15,
+     "max": 0,
+     "factor": "2026-06"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=14.43"
+    },
+    "行业加减分": {
+     "score": 8,
+     "max": 10,
+     "factor": "AI/科技"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交11.8亿"
+    },
+    "行业热度": {
+     "score": 5,
+     "max": 5,
+     "factor": "AI/科技"
+    }
+   },
+   "weighted_amount": 20.69,
+   "hidden_circulation": 4.04,
+   "total": 78,
+   "issue_amount": 11.8,
+   "safety_pct": 6.2,
+   "per_share_allotment": 9.194
   },
   {
    "stock_code": "688360",
@@ -1174,6 +1174,96 @@
    "per_share_allotment": 7.6153
   },
   {
+   "stock_code": "001319",
+   "stock_name": "铭科精技",
+   "bond_name": "铭科精技转债",
+   "industry": "其他",
+   "total_scale": 5.8,
+   "per_share_amount": 23.51,
+   "progress": "股东大会通过",
+   "progress_date": "2026-11-24",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "主板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 19.39,
+   "cb_amount": 23.51,
+   "b_shares": 0.0,
+   "price": 17.45,
+   "change_pct": 5.63,
+   "pb": 1.76,
+   "ma20_price": 19.39,
+   "circ_mv": 3.36,
+   "circ_mv_score_factor": 3.36,
+   "pe": 26.6,
+   "turnover_rate": null,
+   "amount": 5.8,
+   "q1_growth": -5.91,
+   "major_shareholder_ratio": 0.4201,
+   "one_hand_shares": 244,
+   "per_hand_shares": 243.79310344827587,
+   "market": "深",
+   "total_score": 75,
+   "rating": "A",
+   "action": "关注建仓",
+   "action_reason": "高分+交易所通过，等待注册后加仓",
+   "action_price": "买入≤15.71 | 卖出≥20.07 | 安全垫7.0%",
+   "score_details": {
+    "含权量评分": {
+     "score": 25,
+     "max": 30,
+     "factor": "23.51元"
+    },
+    "隐形流通量评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "3.36亿"
+    },
+    "业绩评分": {
+     "score": 20,
+     "max": 40,
+     "factor": "Q1增长-5.91%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": 0,
+     "max": 0,
+     "factor": "主板"
+    },
+    "PE扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "PE=26.6"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交5.8亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 23.51,
+   "hidden_circulation": 3.36,
+   "total": 75,
+   "issue_amount": 5.8,
+   "safety_pct": 7.0,
+   "per_share_allotment": 4.1018
+  },
+  {
    "stock_code": "301446",
    "stock_name": "福事特",
    "bond_name": "福事特转债",
@@ -1262,96 +1352,6 @@
    "issue_amount": 4.46,
    "safety_pct": 3.3,
    "per_share_allotment": 4.2885
-  },
-  {
-   "stock_code": "001319",
-   "stock_name": "铭科精技",
-   "bond_name": "铭科精技转债",
-   "industry": "其他",
-   "total_scale": 5.8,
-   "per_share_amount": 23.51,
-   "progress": "董事会预案",
-   "progress_date": "2026-11-07",
-   "registration_date": "",
-   "approval_date": "",
-   "board": "主板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 19.39,
-   "cb_amount": 23.51,
-   "b_shares": 0.0,
-   "price": 17.45,
-   "change_pct": 5.63,
-   "pb": 1.76,
-   "ma20_price": 19.39,
-   "circ_mv": 3.36,
-   "circ_mv_score_factor": 3.36,
-   "pe": 26.6,
-   "turnover_rate": null,
-   "amount": 5.8,
-   "q1_growth": -5.91,
-   "major_shareholder_ratio": 0.4201,
-   "one_hand_shares": 244,
-   "per_hand_shares": 243.79310344827587,
-   "market": "深",
-   "total_score": 75,
-   "rating": "A",
-   "action": "关注",
-   "action_reason": "高分标的，等待更明确信号",
-   "action_price": "买入≤15.71 | 卖出≥20.07 | 安全垫7.0%",
-   "score_details": {
-    "含权量评分": {
-     "score": 25,
-     "max": 30,
-     "factor": "23.51元"
-    },
-    "隐形流通量评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "3.36亿"
-    },
-    "业绩评分": {
-     "score": 20,
-     "max": 40,
-     "factor": "Q1增长-5.91%"
-    },
-    "潜伏期扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "未知"
-    },
-    "300/688折扣": {
-     "score": 0,
-     "max": 0,
-     "factor": "主板"
-    },
-    "PE扣分": {
-     "score": 0,
-     "max": 0,
-     "factor": "PE=26.6"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交5.8亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 23.51,
-   "hidden_circulation": 3.36,
-   "total": 75,
-   "issue_amount": 5.8,
-   "safety_pct": 7.0,
-   "per_share_allotment": 4.1018
   },
   {
    "stock_code": "301479",
@@ -6032,6 +6032,96 @@
    "issue_amount": 24.8,
    "safety_pct": 3.2,
    "per_share_allotment": 1.6177
+  },
+  {
+   "stock_code": "300285",
+   "stock_name": "国瓷材料",
+   "bond_name": "国瓷材料转债",
+   "industry": "化工/材料",
+   "total_scale": 10.0,
+   "per_share_amount": 2.88,
+   "progress": "董事会预案",
+   "progress_date": "2026-11-24",
+   "registration_date": "",
+   "approval_date": "",
+   "board": "创业板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 38.73,
+   "cb_amount": 2.88,
+   "b_shares": 0.0,
+   "price": 34.83,
+   "change_pct": 5.07,
+   "pb": 4.64,
+   "ma20_price": 38.73,
+   "circ_mv": 7.0,
+   "circ_mv_score_factor": 7.0,
+   "pe": 62.2,
+   "turnover_rate": null,
+   "amount": 10.0,
+   "q1_growth": 4.79,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 998,
+   "per_hand_shares": 997.0482989999999,
+   "market": "深",
+   "total_score": 39,
+   "rating": "D",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤32.04 | 卖出≥38.31 | 安全垫0.9%",
+   "score_details": {
+    "含权量评分": {
+     "score": 5,
+     "max": 30,
+     "factor": "2.88元"
+    },
+    "隐形流通量评分": {
+     "score": 15,
+     "max": 40,
+     "factor": "7.00亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长4.79%"
+    },
+    "潜伏期扣分": {
+     "score": 0,
+     "max": 0,
+     "factor": "未知"
+    },
+    "300/688折扣": {
+     "score": -10,
+     "max": 0,
+     "factor": "创业板"
+    },
+    "PE扣分": {
+     "score": -3,
+     "max": 0,
+     "factor": "PE=62.2"
+    },
+    "行业加减分": {
+     "score": -3,
+     "max": 10,
+     "factor": "化工/材料"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交10.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "化工/材料"
+    }
+   },
+   "weighted_amount": 2.88,
+   "hidden_circulation": 7.0,
+   "total": 39,
+   "issue_amount": 10.0,
+   "safety_pct": 0.9,
+   "per_share_allotment": 1.003
   },
   {
    "stock_code": "301165",
