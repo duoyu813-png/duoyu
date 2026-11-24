@@ -120,9 +120,41 @@ jobs:
         with:
           path: dist
 
-      - name: Deploy to GitHub Pages
+      # GitHub 已知缺陷（actions/deploy-pages#451）：upload-pages-artifact 刚上传完成后，
+      # deploy-pages 的 listArtifacts 偶尔仍读到 0 个产物而失败。产物其实存在，稍后即可查到。
+      # 这里对部署步骤做退避重试，避免偶发失败触发告警邮件、以及本次跳过部署。
+      - name: Deploy to GitHub Pages (attempt 1)
         if: steps.sitecheck.outputs.exists == 'true'
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Wait before deploy retry 1
+        if: steps.sitecheck.outputs.exists == 'true' && steps.deployment.outcome == 'failure'
+        run: sleep 10
+
+      - name: Deploy to GitHub Pages (attempt 2)
+        if: steps.sitecheck.outputs.exists == 'true' && steps.deployment.outcome == 'failure'
+        id: deployment_retry1
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Wait before deploy retry 2
+        if: steps.sitecheck.outputs.exists == 'true' && steps.deployment.outcome == 'failure' && steps.deployment_retry1.outcome == 'failure'
+        run: sleep 20
+
+      - name: Deploy to GitHub Pages (attempt 3)
+        if: steps.sitecheck.outputs.exists == 'true' && steps.deployment.outcome == 'failure' && steps.deployment_retry1.outcome == 'failure'
+        id: deployment_retry2
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Wait before deploy retry 3
+        if: steps.sitecheck.outputs.exists == 'true' && steps.deployment.outcome == 'failure' && steps.deployment_retry1.outcome == 'failure' && steps.deployment_retry2.outcome == 'failure'
+        run: sleep 30
+
+      - name: Deploy to GitHub Pages (attempt 4)
+        if: steps.sitecheck.outputs.exists == 'true' && steps.deployment.outcome == 'failure' && steps.deployment_retry1.outcome == 'failure' && steps.deployment_retry2.outcome == 'failure'
         uses: actions/deploy-pages@v4
 
       # 缓存提交放最后、且失败不致命：避免与外部/并发提交撞车（非快进被拒）时误判整次
