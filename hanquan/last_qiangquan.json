@@ -1,6 +1,6 @@
 {
  "total": 75,
- "generated_at": "2026-11-26 07:54:29",
+ "generated_at": "2026-11-26 08:10:37",
  "source": "live",
  "bonds": [
   {
@@ -5584,96 +5584,6 @@
    "per_share_allotment": 1.7212
   },
   {
-   "stock_code": "300739",
-   "stock_name": "明阳电路",
-   "bond_name": "明阳电路转债",
-   "industry": "其他",
-   "total_scale": 12.0,
-   "per_share_amount": 17.21,
-   "progress": "交易所受理",
-   "progress_date": "2026-08-12",
-   "registration_date": "2026-08-12",
-   "approval_date": "",
-   "board": "创业板",
-   "rating_cd": "",
-   "record_dt": "",
-   "convert_price": 22.68,
-   "cb_amount": 17.21,
-   "b_shares": 0.0,
-   "price": 18.67,
-   "change_pct": -6.65,
-   "pb": 2.45,
-   "ma20_price": 22.68,
-   "circ_mv": 8.4,
-   "circ_mv_score_factor": 8.4,
-   "pe": 116.69,
-   "turnover_rate": null,
-   "amount": 12.0,
-   "q1_growth": 21.73,
-   "major_shareholder_ratio": 0.3,
-   "one_hand_shares": 312,
-   "per_hand_shares": 311.1417975,
-   "market": "深",
-   "total_score": 46,
-   "rating": "C",
-   "action": "回避",
-   "action_reason": "评分偏低，不建议参与",
-   "action_price": "买入≤17.18 | 卖出≥20.54 | 安全垫5.2%",
-   "score_details": {
-    "含权量评分": {
-     "score": 20,
-     "max": 30,
-     "factor": "17.21元"
-    },
-    "隐形流通量评分": {
-     "score": 12,
-     "max": 40,
-     "factor": "8.40亿"
-    },
-    "业绩评分": {
-     "score": 25,
-     "max": 40,
-     "factor": "Q1增长21.73%"
-    },
-    "潜伏期扣分": {
-     "score": -6,
-     "max": 0,
-     "factor": "2026-08"
-    },
-    "300/688折扣": {
-     "score": -10,
-     "max": 0,
-     "factor": "创业板"
-    },
-    "PE扣分": {
-     "score": -5,
-     "max": 0,
-     "factor": "PE=116.69"
-    },
-    "行业加减分": {
-     "score": 0,
-     "max": 10,
-     "factor": "其他"
-    },
-    "市场热度": {
-     "score": 10,
-     "max": 10,
-     "factor": "成交12.0亿"
-    },
-    "行业热度": {
-     "score": 0,
-     "max": 5,
-     "factor": "其他"
-    }
-   },
-   "weighted_amount": 17.21,
-   "hidden_circulation": 8.4,
-   "total": 46,
-   "issue_amount": 12.0,
-   "safety_pct": 5.2,
-   "per_share_allotment": 3.214
-  },
-  {
    "stock_code": "600577",
    "stock_name": "精达股份",
    "bond_name": "精达股份转债",
@@ -5762,6 +5672,96 @@
    "issue_amount": 8.96,
    "safety_pct": 3.8,
    "per_share_allotment": 0.4015
+  },
+  {
+   "stock_code": "300739",
+   "stock_name": "明阳电路",
+   "bond_name": "明阳电路转债",
+   "industry": "其他",
+   "total_scale": 12.0,
+   "per_share_amount": 17.21,
+   "progress": "交易所受理",
+   "progress_date": "2026-08-12",
+   "registration_date": "2026-08-12",
+   "approval_date": "",
+   "board": "创业板",
+   "rating_cd": "",
+   "record_dt": "",
+   "convert_price": 22.68,
+   "cb_amount": 17.21,
+   "b_shares": 0.0,
+   "price": 18.67,
+   "change_pct": -6.65,
+   "pb": 2.45,
+   "ma20_price": 22.68,
+   "circ_mv": 8.4,
+   "circ_mv_score_factor": 8.4,
+   "pe": 116.69,
+   "turnover_rate": null,
+   "amount": 12.0,
+   "q1_growth": 21.73,
+   "major_shareholder_ratio": 0.3,
+   "one_hand_shares": 312,
+   "per_hand_shares": 311.1417975,
+   "market": "深",
+   "total_score": 43,
+   "rating": "C",
+   "action": "回避",
+   "action_reason": "评分偏低，不建议参与",
+   "action_price": "买入≤17.18 | 卖出≥20.54 | 安全垫5.2%",
+   "score_details": {
+    "含权量评分": {
+     "score": 20,
+     "max": 30,
+     "factor": "17.21元"
+    },
+    "隐形流通量评分": {
+     "score": 12,
+     "max": 40,
+     "factor": "8.40亿"
+    },
+    "业绩评分": {
+     "score": 25,
+     "max": 40,
+     "factor": "Q1增长21.73%"
+    },
+    "潜伏期扣分": {
+     "score": -9,
+     "max": 0,
+     "factor": "2026-08"
+    },
+    "300/688折扣": {
+     "score": -10,
+     "max": 0,
+     "factor": "创业板"
+    },
+    "PE扣分": {
+     "score": -5,
+     "max": 0,
+     "factor": "PE=116.69"
+    },
+    "行业加减分": {
+     "score": 0,
+     "max": 10,
+     "factor": "其他"
+    },
+    "市场热度": {
+     "score": 10,
+     "max": 10,
+     "factor": "成交12.0亿"
+    },
+    "行业热度": {
+     "score": 0,
+     "max": 5,
+     "factor": "其他"
+    }
+   },
+   "weighted_amount": 17.21,
+   "hidden_circulation": 8.4,
+   "total": 43,
+   "issue_amount": 12.0,
+   "safety_pct": 5.2,
+   "per_share_allotment": 3.214
   },
   {
    "stock_code": "300695",
